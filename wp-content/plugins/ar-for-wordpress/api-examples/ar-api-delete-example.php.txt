@@ -1,0 +1,34 @@
+<?php
+/**
+ * AR Display
+ * https://augmentedrealityplugins.com
+ * API Endpoint JSON Data Post AR Models to WordPress - Example Script
+**/
+
+//AR Display Licence Key
+$key = '';
+
+//URL of your WordPress site
+$wp_url = 'https://yoursite.com';
+
+//key = id, title, usdz_file, or glb_file
+
+//Template Json data
+$json_data = '[{"key":"id","value":"123"}]';
+//$json_data = '[{"key":"title","value":"Post Title"}]';
+//$json_data = '[{"key":"glb_file","value":"https:\/\/yoursite.com\/wp-content\/uploads\/your_file.glb"}]';
+//$json_data = '[{"key":"usdz_file","value":"https:\/\/yoursite.com\/wp-content\/uploads\/your_file.usdz"}]';
+
+//*************************
+$post = ['key' => $key,'json'=> $json_data];
+$ar_api_url = $wp_url.'/wp-json/ar-display/delete/';
+$agent = "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1)";
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, $ar_api_url);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_USERAGENT, $agent);
+curl_setopt($ch, CURLOPT_REFERER, 'https://dev.augmentedrealityplugins.com/');
+curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($post));
+$response = curl_exec($ch);
+echo $response;
+?>

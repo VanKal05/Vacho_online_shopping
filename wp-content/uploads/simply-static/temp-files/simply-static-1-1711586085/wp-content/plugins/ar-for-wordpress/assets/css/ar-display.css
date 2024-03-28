@@ -1,0 +1,921 @@
+/**
+ * AR Display
+ * https://augmentedrealityplugins.com
+**/
+
+.ar-button{
+    border: none; 
+    position: absolute; 
+    top: 6px; 
+    right: 6px; 
+  transform: scale(1);
+  animation: pulse 2s infinite;
+  background: none !important;
+}
+
+.ar-button:focus,
+.ar-button:active{
+    border: none; 
+    position: absolute; 
+    top: 6px; 
+    right: 6px; 
+}
+
+.ar-button-animation{
+    border: none !important; 
+    position: absolute; 
+    top: 26px; 
+    left: 6px; 
+    background: none;
+}
+.ar-button-default{
+    background-color: #ffffff !important; 
+    border-radius: 4px; 
+    padding: 4px;
+}
+.ar-button_standalone{
+    border: none !important; 
+  transform: scale(1);
+  animation: pulse 2s infinite;
+  background: none !important;
+}
+.ar_not_supported{
+    font-weight:bold;
+}
+.ar_admin_button{
+    background: #f37a23 !important;
+    border-color: #f37a23 !important;
+    color: #fff !important;
+}
+.column-Shortcode{
+    width:140px;
+}
+.column-thumbs{
+    width:20px;
+}
+@keyframes pulse {
+  0% {
+    transform: scale(0.95);
+  }
+
+  70% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(0.95);
+  }
+}
+.ar-button-img{
+    height:50px;
+}
+.ar-button-animation{
+    height:25px;
+    width:25px;
+}
+/*.ar-display-model-viewer{
+    min-height:400px;
+}*/
+.ardisplay_viewer{
+    min-height:400px;
+    height:400px;
+}
+.ardisplay_viewerpop{
+    height:100vh;
+    z-index: 1000000; /* Sit on top */
+}
+.ar_site_logo{
+text-align: center !important;
+}
+.ar-qrcode {
+    position: absolute;
+    bottom: 6px;
+    right: 6px;
+    width: 40px;
+    height: 40px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #fff !important;
+    /*margin-right: 4px;*/
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+}
+.ar-qrcode_standalone {
+    width: 40px;
+    height: 40px;
+    background-size: contain !important;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #fff;
+    /*margin-right: 4px;*/
+    border-radius: 4px;
+    border: none;
+    background: none;
+}
+.ar-qrcode-large {
+    width:250px !important;
+    height:250px !important;
+}
+.ar_controls{
+    position: absolute;
+    bottom: 6px;
+    left: 6px;
+    font-size: 12px;
+    font-weight: bold;
+}
+  
+#variant{
+    font-size: 12px;
+    border: none;
+    line-height: 12px;
+}
+ 
+
+model-viewer {
+  width: 100%;
+  height: 100%;
+}
+#key{ 
+    padding: 30px;
+    background-color: #fff;
+    margin-top: 24px;
+    margin-right: 15px; 
+    min-width: 520px;
+    width: 40%;
+}
+
+
+/* The Popup */
+.ar-fullscreen_btn-img{
+    width:25px;
+    height:25px !important;
+}
+html body .ar_popup{
+    overflow: hidden !important;
+    z-index: 100999999999990000;
+}
+.ar_popup {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1000000; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100% !important; /* Full width */
+  max-width: 100% !important; /* Full width */
+  height: 100% !important; /* Full height */
+  max-height: 100% !important; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  margin-top: 0px !important;
+}
+.ar_popup-btn {
+  position:absolute;
+  background: none !important;
+  border:none !important;
+  color: white;
+  font-weight:bold;
+  top: 6px;
+  right: 6px;
+  cursor: pointer;
+}
+.ar_popup-header a{
+    color: white;
+    text-decoration: none;
+}
+
+/* Popup Content */
+.ar_popup-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 0;
+  border: 1px solid #888;
+  width: 100%;
+  height: 100%;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+  -webkit-animation-name: animatetop;
+  -webkit-animation-duration: 0.4s;
+  animation-name: animatetop;
+  animation-duration: 0.4s
+}
+
+/*Popup for qr code*/
+
+.arqr_popup-content{
+    display: flex;
+    gap: 100px;
+    padding: 25px;
+    box-sizing: border-box;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 100vh;
+    --progress-bar-color: transparent;
+}
+
+.arqr_popup-container{
+    width: 100%;
+    max-width: 360px;
+    height: 470px;
+    border: 2px solid rgba(215, 219, 224, 0.48);
+    box-sizing: border-box;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.arqr_popup-container p {
+    color: #0f3362;
+    width: 100%;
+    max-width: 295px;
+    font-size: 18px;
+    text-align: center;
+    padding: 35px 15px 5px;
+    letter-spacing: 0.0015em;
+    line-height: 28px;
+}
+
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+  from {top:-300px; opacity:0} 
+  to {top:0; opacity:1}
+}
+
+@keyframes animatetop {
+  from {top:-300px; opacity:0}
+  to {top:0; opacity:1}
+}
+
+/* The Close Button */
+.ar_close {
+  color: white;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  padding: 10px;
+}
+
+.ar_close:hover,
+.ar_close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+@media screen and (max-width: 1025px) {
+    .hide_on_devices {display: none !important;}
+}
+
+.scale_input{
+    width:140px;
+    float: left;
+}
+.nodisplay{
+display:none !important;
+}
+
+.ar_admin_viewer{
+    float:left;
+    width:49%;
+    min-height:400px;
+}
+@media screen and (max-width: 1025px) {
+    .ar_admin_viewer{
+        padding-top:10px;
+        width:100%;
+    }
+}
+.ar_input_field{
+    width:300px !important;
+}
+/** Asset Builder **/
+
+.asset_btn {
+  background-color:#13383e;
+  border-radius:6px;
+  border:1px solid #e1e1e1;
+  display:inline-block;
+  cursor:pointer;
+  color:#ffffff;
+  font-family:Arial;
+  font-size:16px;
+  padding:6px 10px;
+  text-decoration:none;
+  text-shadow:0px 1px 0px #2f6627;
+}
+.asset_btn:hover {
+  background-color:#49848f;
+}
+.asset_btn:active {
+  position:relative;
+  top:1px;
+}
+.ar_label_tip{
+    font-style:italic;
+    font-size:.8em;
+}
+
+#asset_builder img.ar_file_icons{
+  height: 100px;
+  max-height: 200px;
+}
+
+/*Dimensions*/
+#controls, .dimension {
+    position: absolute;
+    top: 10px;
+    left: 6px;
+    max-width: unset;
+    transform: unset;
+  }
+
+  .dot{
+    display: block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+    background: #fff;
+    --min-hotspot-opacity: 0;
+  }
+
+  .dimension{
+    background: #fff;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+    color: rgba(0, 0, 0, 0.8);
+    display: block;
+    font-family: Futura, Helvetica Neue, sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    max-width: 128px;
+    overflow-wrap: break-word;
+    padding: 0.25em 0.5em;
+    position: absolute;
+    width: max-content;
+    height: max-content;
+    transform: translate3d(-50%, -50%, 0);
+    --min-hotspot-opacity: 0;
+  }
+
+  .show{
+    --min-hotspot-opacity: 1;
+  }
+
+.hotspot_annotation{
+    width:140px;
+}
+
+/************ Product Listing page (ToolTips) *************/
+
+
+.ar_tooltip img:hover{
+cursor:help;
+}
+
+.ar_tooltip::after {
+    font-family: Dashicons;
+    speak: none;
+    font-weight: 400;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    margin: 0;
+    text-indent: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    cursor: help;
+}
+
+.ar_tooltip {
+    position: relative;
+    bottom:0px;
+    color: #666;
+    font-size: 1.2em;
+    top:2px;
+}
+
+.ar_tooltip .ar_tooltip_text {
+    visibility: hidden;
+    width: 5em;
+    color: #fff;
+    position: absolute;
+    z-index: 1;
+    bottom: -4.8em;
+    margin-left: -4.2em;
+    opacity: 0;
+    transition: opacity 0s;
+    font-size: 10px !important;
+    background: #333;
+    text-align: center;
+    border-radius: 3px;
+    padding: .618em 1em;
+    box-shadow: 0 1px 3px rgba(0,0,0,.2);
+}
+
+
+.ar_tooltip .ar_tooltip_text::after {
+    content: "";
+    position: absolute;
+    top: -1em;
+    left: 48%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent #333; 
+}
+
+.ar_tooltip:hover .ar_tooltip_text {
+    visibility: visible;
+    opacity: 1;
+}
+
+
+
+
+
+/****** Thumbnail Slider ******/
+
+
+
+.ar_slider {
+    width: 80%;
+    text-align: center;
+    overflow: hidden;
+    position: absolute;
+    bottom: 6px;
+    left: 6px;
+}
+
+.ar_slides {
+display: flex;
+overflow-x: auto;
+scroll-snap-type: x mandatory;
+scroll-behavior: smooth;
+-webkit-overflow-scrolling: touch;
+}
+
+.ar_slide {
+scroll-snap-align: start;
+flex-shrink: 0;
+width: 50px;
+height: 50px;
+background-size: contain;
+background-repeat: no-repeat;
+background-position: center;
+background-color: #fff;
+margin-right: 6px;
+border-radius: 10px;
+border: none;
+display: flex;
+cursor: pointer;
+}
+
+.ar_slide.selected {
+border: 2px solid #4285f4;
+}
+
+.ar_slide:focus {
+outline: none;
+}
+
+.ar_slide:focus-visible {
+outline: 1px solid #4285f4;
+}
+
+.ar_admin_label{
+    width:200px;
+    float:left;
+    padding-bottom:10px;
+}
+.ar_admin_field{
+    float:left;
+    padding-bottom:10px;
+}
+
+/*.ar-cta-button-container{
+    position: absolute;
+    background: none !important;
+    bottom: 0px;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    width:250px;
+    cursor: pointer;
+}*/
+.ar_cta_button{
+    position: absolute;
+    bottom: 0px;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    width:250px;
+    cursor: pointer;
+}
+
+.ar_view_text_link{
+    border: none;
+    background: none;   
+}
+.ar_cursor_pointer{
+    cursor:pointer;
+}
+/**
+ * Checkbox Toggle UI
+ */
+input[type="checkbox"].ar-ui-toggle {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+    -webkit-tap-highlight-color: transparent;
+
+    width: auto;
+    height: auto;
+    vertical-align: middle;
+    position: relative;
+    border: 0;
+    outline: 0;
+    cursor: pointer;
+    margin: 0 4px;
+    background: none;
+    box-shadow: none;
+}
+input[type="checkbox"].ar-ui-toggle:focus {
+    box-shadow: none;
+}
+input[type="checkbox"].ar-ui-toggle:after {
+    content: '';
+    font-size: 8px;
+    font-weight: 400;
+    line-height: 18px;
+    text-indent: -14px;
+    color: #ffffff;
+    width: 36px;
+    height: 18px;
+    display: inline-block;
+    background-color: #a7aaad80;
+    border-radius: 72px;
+    box-shadow: 0 0 12px rgb(0 0 0 / 15%) inset;
+}
+input[type="checkbox"].ar-ui-toggle:before {
+    content: '';
+    width: 14px;
+    height: 14px;
+    display: block;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    margin: 0;
+    border-radius: 50%;
+    background-color: #ffffff;
+}
+input[type="checkbox"].ar-ui-toggle:checked:before {
+    left: 20px;
+    margin: 0;
+    background-color: #ffffff;
+}
+input[type="checkbox"].ar-ui-toggle,
+input[type="checkbox"].ar-ui-toggle:before,
+input[type="checkbox"].ar-ui-toggle:after,
+input[type="checkbox"].ar-ui-toggle:checked:before,
+input[type="checkbox"].ar-ui-toggle:checked:after {
+    transition: ease .15s;
+    vertical-align:middle;
+}
+input[type="checkbox"].ar-ui-toggle:checked:after {
+    /*content: 'ON';*/
+    background-color: #49848f;
+}
+
+/**** Range Slider *****/
+.ar-slider {
+  -webkit-appearance: none;
+  width: 150px;
+  height: 10px;
+  border-radius: 5px;  
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+.ar-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%; 
+  background: #49848f;
+  cursor: pointer;
+}
+
+.ar-slider::-moz-range-thumb {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: #49848f;
+  cursor: pointer;
+}
+/**** Select Dropdown *****/
+.ar-input {
+    height: 35px;
+    border: 2px solid #d3d3d3 !important;
+    max-width: 95% !important;
+}
+.ar-input-wide{
+    min-width: 250px;
+}
+.ar_admin_view_title{
+    float:left;
+    min-width: 340px; 
+    width: 25%;
+}
+.ar_admin_view_post{
+    float:left;
+    min-width:100px;
+    width:32%;
+    text-align: center;
+    padding-top: 25px;
+}
+.ar_admin_view_shortcode{
+    float:left;
+    min-width:160px;
+    width:32%;
+    padding-top: 10px;
+    color:#fff !important;
+}
+.ar_admin_view_post{
+    float:right;
+    min-width:100px;
+    width: 25%;
+    text-align: right;
+    padding: 25px 10px;
+}
+@media screen and (max-width: 1025px) {
+    .ar_admin_view_shortcode {
+    float: left;
+    clear: both;
+    text-align: left;
+    color: #000;
+}
+}
+
+/*Model Fields toggle switchs*/
+._ar_rotate_field, ._ar_prompt_field, ._ar_variants_field, ._ar_environment_image_field, ._ar_resizing_field, ._ar_view_hide_field, ._ar_qr_hide_field, ._ar_hide_dimensions_field, ._ar_hide_reset_field, ._ar_animation_field, ._ar_autoplay_field{
+    float:left;
+    min-width: 0px;
+}
+
+/*Rotation Limits */
+.ar_rotation_limits_containter{
+    padding:0 20px 20px 20px;
+    border: 1px solid #f2f2f2;
+    margin:10px;
+    background-color: rgba(0,0,0,0.02);
+}
+/* Compass container */
+.ar-compass-container {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    transform-origin: center center;
+}
+
+/* Image in the middle */
+.ar-compass-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    width:100px;
+    max-width: 100%;
+    max-height: 100%;
+    transition: transform 0.3s ease;
+    
+}
+
+/* Compass buttons */
+.ar-compass-button {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background-color: #e2e2e2;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.ar-compass-top {
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.ar-compass-bottom {
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.ar-compass-left {
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+}
+
+.ar-compass-right {
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+}
+
+/*ar variation form*/
+.wc-metaboxes-wrapper .wc-metabox h3 select.ar-input{
+    max-width: 60% !important;
+}
+
+/* Style the tab */
+.ar_tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f6f7f7;
+}
+
+/* Style the buttons that are used to open the tab content */
+.ar_tab button {
+  background-color: inherit;
+  font-weight: bold;
+  float: left !important;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+}
+
+/* Change background color of buttons on hover */
+.ar_tab button:hover {
+  background-color: #d3d3d3;
+}
+
+/* Create an active/current tablink class */
+.ar_tab button.active {
+  background-color: #ccc;
+}
+
+/* Style the tab content */
+.ar_tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+  min-height: 235px;
+}
+
+#toggle-model-fields{
+  position: absolute;
+  right: -20px;
+  top: 80px;
+}
+
+.wctoggle-model-fields{
+  position: absolute;
+  right: -10px;
+  top: 80px;
+}
+
+.wctoggle-model-fields{
+  position: absolute;
+  right: -40px;
+  top: 80px;
+}
+
+.glb-file-container input.regular-text,
+.usdz-file-container input.regular-text{
+  width: 80% !important;
+  margin-left: 10%;
+}
+
+
+ /* Style the buttons that are used to open and close the accordion panel */
+.ar_accordian {
+  background-color: #f6f7f7;
+  font-weight: bold;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  text-align: left;
+  border: 1px solid #ccc;
+  border-width: 0px 1px;
+  outline: none;
+  transition: 0.4s;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+/*.ar_active, */.ar_accordian:hover {
+  background-color: #d3d3d3;
+}
+
+/* Style the accordion panel. Note: hidden by default */
+.ar_accordian_panel {
+  padding: 0 18px;
+  background-color: white;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+  border: 1px solid #ccc;
+}
+.ar_accordian:after {
+  content: '\02795'; /* Unicode character for "plus" sign (+) */
+  font-size: 13px;
+  color: #777;
+  float: right;
+  margin-left: 5px;
+}
+.ar_accordian{
+    margin-right:0px !important;
+}
+
+.ar_active:after {
+  content: "\2796"; /* Unicode character for "minus" sign (-) */
+}
+
+.ar_copy_button{
+    position: relative;
+  padding: 5px 10px; /* Adjust padding as needed */
+  border: 1px solid #ccc; /* Example border styling */
+}
+
+.ar_copy_button::after {
+  content: "\f105"; /* Unicode for dashicons-admin-page */
+  font-family: 'dashicons';
+  margin-left: 10px; /* Adjust the spacing between button text and icon as needed */
+  font-size: 20px; /* Adjust the icon size as needed */
+}
+
+.ar_model_files_fields{
+    float:left;
+    width:48%
+}
+.ar_model_files_advert{
+    float:right;
+    padding:0px 20px;
+    width:48%;
+}
+/*@media screen and (max-width: 1200px) {
+  .ar_model_files_advert{
+    width:200px !important;
+}  
+}*/
+
+.ar_filenames{
+  text-decoration: italics;
+  font-size: 10px;
+}
+
+.ar_file_icons{
+    height:100px; 
+    padding:10px 0px 0px 10px;
+    vertical-align: top;
+    cursor: pointer;
+    transition: opacity 0.3s ease; /* Add a smooth transition effect */
+}
+
+.ar_file_icons:hover {
+    opacity: 0.5; /* Set opacity to 50% on hover */
+}
+
+.ar-reset-btn-container{
+  display: inline-block;
+}
+
+.postbox, .postbox-header {
+    position: unset !important;
+}
+
+
+.ar_alternative_model_container{
+  height: 0;
+  overflow: hidden;
+}
+/*********** End ***************/

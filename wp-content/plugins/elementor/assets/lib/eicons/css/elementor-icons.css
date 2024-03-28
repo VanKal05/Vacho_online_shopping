@@ -1,7 +1,7 @@
 @font-face {
   font-family: "eicons";
-  src: url("../fonts/eicons.eot?5.27.0");
-  src: url("../fonts/eicons.eot?5.27.0#iefix") format("embedded-opentype"), url("../fonts/eicons.woff2?5.27.0") format("woff2"), url("../fonts/eicons.woff?5.27.0") format("woff"), url("../fonts/eicons.ttf?5.27.0") format("truetype"), url("../fonts/eicons.svg?5.27.0#eicon") format("svg");
+  src: url("https://vankal05.github.io/Vacho_online_shopping/wp-content/plugins/elementor/assets/lib/eicons/fonts/eicons.eot?5_27_0");
+  src: url("https://vankal05.github.io/Vacho_online_shopping/wp-content/plugins/elementor/assets/lib/eicons/fonts/eicons.eot?5_27_0#iefix") format("embedded-opentype"), url("https://vankal05.github.io/Vacho_online_shopping/wp-content/plugins/elementor/assets/lib/eicons/fonts/eicons.woff2?5_27_0") format("woff2"), url("https://vankal05.github.io/Vacho_online_shopping/wp-content/plugins/elementor/assets/lib/eicons/fonts/eicons.woff?5_27_0") format("woff"), url("https://vankal05.github.io/Vacho_online_shopping/wp-content/plugins/elementor/assets/lib/eicons/fonts/eicons.ttf?5_27_0") format("truetype"), url("https://vankal05.github.io/Vacho_online_shopping/wp-content/plugins/elementor/assets/lib/eicons/fonts/eicons.svg?5_27_0#eicon") format("svg");
   font-weight: normal;
   font-style: normal;
 }

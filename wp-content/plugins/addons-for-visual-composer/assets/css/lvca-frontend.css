@@ -442,7 +442,7 @@
 
 /* Sleek Carousel Styles */
 .slick-loading .slick-list {
-  background: #fff url("./ajax-loader.gif") center center no-repeat; }
+  background: #fff url("https://vankal05.github.io/Vacho_online_shopping/wp-content/plugins/addons-for-visual-composer/assets/css/ajax-loader.gif") center center no-repeat; }
 
 @media only screen and (max-width: 1024px) {
   .slick-slider {

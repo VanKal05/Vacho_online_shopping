@@ -3,8 +3,8 @@ Contributors: webandprint
 Donate link: https://webandprint.design
 Tags: Augmented Reality, AR, 3D, Model Viewer, 3D Model, 3D Model Viewer, 3D Model Display
 Requires at least: 4.6
-Tested up to: 6.4.2
-Stable tag: 5.7
+Tested up to: 6.5.4
+Stable tag: 6.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -129,6 +129,29 @@ If you don’t have 3D models there are a number of solutions available to you, 
 13. 3d Gallery Builder
 
 == Changelog ==
+
+=6.2=
+* List of Models on Settings page when Limit Exceeded with links to edit or delete
+* PHP 8.1 compatibility update
+
+=6.1=
+* QR Code fix issue where it appears as white box
+
+=6.0=
+* Emissive Lighting Option
+* Light Color Option with ColorPicker
+* Settings Page option to Hide Posts which sets the default Visibility of new model posts to Private - AR for WordPress
+* Further QR Code API improvements
+
+=5.91=
+* Bug and styling fixes
+
+=5.9=
+* QR Code and performance issue bug fixes
+
+=5.8=
+* QR Code image improvements
+* Add New Model Page display improvements
 
 =5.7=
 * Fixed incompatibility issues with QR code generation if imagick not enabled

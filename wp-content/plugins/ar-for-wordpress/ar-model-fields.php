@@ -9,6 +9,12 @@ if (!defined('ABSPATH'))
 
 add_action('admin_enqueue_scripts', 'ar_advance_register_script');
 
+/*function ar_enqueue_scripts() {
+    wp_enqueue_script('ar-for-wordpress', plugin_dir_url(__FILE__) . 'assets/js/ar-color-picker.js', array('jquery', 'spectrum-color-picker'), '1.0', true);
+    wp_enqueue_script('ar-for-wordpress', 'https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.0/spectrum.min.js', array('jquery', 'light-color'), '1.0', true);
+}*/
+
+//add_action('wp_enqueue_scripts', 'ar_enqueue_scripts');
 if (!function_exists('ar_wp_advance_update_edit_form')){
     add_action('post_edit_form_tag', 'ar_wp_advance_update_edit_form');
     function ar_wp_advance_update_edit_form() {
@@ -135,7 +141,9 @@ if (!function_exists('ar_wp_model_fields')){
                   <a href="https://augmentedrealityplugins.com/support/" target="_blank"><button class="ar_tablinks" id="support_tab" type="button"> <?php _e( 'Support', 'ar-for-wordpress' );?><span style=" vertical-align: super;font-size: smaller;">&#8599;</span></button></a>
                 </div>
                 
-                <div id="model_files_content" class="ar_tabcontent"><br>
+                <div id="model_files_content" class="ar_tabcontent">
+                <a href="#" id="toggle-model-fields" data-status='hidden'>Show Model Fields</a>
+                <br><br>
                 	<div class="ar_model_files_advert hide_on_devices">
                 	    <center>
                 	        <img src="<?php echo esc_url( plugins_url( "assets/images/ar_asset_ad_icon.jpg", __FILE__ ) ); ?>" style="height:60px">
@@ -162,8 +170,9 @@ if (!function_exists('ar_wp_model_fields')){
                         $usdz_filename = '';
                     }
                     ?>
+                    
                     <div style="width:48%; float:left;padding-right:10px; position:relative;">
-                        <a href="#" id="toggle-model-fields" data-status='hidden'>Show Model Field</a>
+                        
                         <center>
                         <strong><?php _e( 'GLTF/GLB 3D Model', 'ar-for-wordpress' );?></strong> <br><br>
                         <img src="<?=$glb_upload_image;?>" id="glb_thumb_img" class="ar_file_icons" onclick="document.getElementById('upload_glb_button').click();document.getElementById('glb_thumb_img').src = '<?php echo esc_url( plugins_url( "assets/images/ar_model_icon_tick.jpg", __FILE__ ) ); ?>';">
@@ -173,7 +182,7 @@ if (!function_exists('ar_wp_model_fields')){
 
                         <br clear="all"><br><span id="glb_filename" class="ar_filenames"><?=$glb_filename;?></span>
                         <div align="center">                            
-                            <input type="hidden" pattern="https?://.+" title="<?php _e('Secure URLs only','ar-for-wordpress'); ?> https://" placeholder="https://" name="_glb_file" id="_glb_file" class="regular-text" value="<?php echo get_post_meta( $model_array['id'], '_glb_file', true );?>"> 
+                            <input type="hidden" pattern="https?://.+" title="<?php _e('Secure URLs only','ar-for-wordpress'); ?> https://" placeholder="https://" name="_glb_file" id="_glb_file" class="regular-text ar_input_field" value="<?php echo get_post_meta( $model_array['id'], '_glb_file', true );?>"> 
                             <input id="upload_glb_button" class="button nodisplay upload_glb_button" type="button" value="<?php _e( 'Upload', 'ar-for-wordpress' );?>" />
                         </div>
                         <input type="hidden" id="uploader_modelid" value="">
@@ -186,11 +195,12 @@ if (!function_exists('ar_wp_model_fields')){
                         <a href="#" onclick="document.getElementById('_usdz_file').value = '';document.getElementById('usdz_filename').innerHTML = '';document.getElementById('usdz_thumb_img').src = '<?php echo esc_url( plugins_url( "assets/images/ar_model_icon.jpg", __FILE__ ) ); ?>';"><img src="<?=esc_url( plugins_url( "assets/images/delete.png", __FILE__ ) );?>" style="width: 15px;vertical-align: middle;"></a>
                         <br clear="all"><br><span id="usdz_filename" class="ar_filenames"><?=$usdz_filename;?></span>
                         <div align="center">                            
-                            <input type="hidden" pattern="https?://.+" title="<?php _e('Secure URLs only','ar-for-wordpress'); ?> https://" placeholder="https://" name="_usdz_file" id="_usdz_file" class="regular-text" value="<?php echo get_post_meta( $model_array['id'], '_usdz_file', true );?>"> 
+                            <input type="hidden" pattern="https?://.+" title="<?php _e('Secure URLs only','ar-for-wordpress'); ?> https://" placeholder="https://" name="_usdz_file" id="_usdz_file" class="regular-text ar_input_field" value="<?php echo get_post_meta( $model_array['id'], '_usdz_file', true );?>"> 
                             <input id="upload_usdz_button" class="button upload_usdz_button nodisplay" type="button" value="<?php _e( 'Upload', 'ar-for-wordpress' );?>" />
                         </div>
                         </center>
                     </div>
+                    
                     <div style="clear:both"></div><?php 
                     if($plan_check!='Premium') { 
                 		    $premium_only = '<b> - '.__('Premium Plans Only', 'ar-for-wordpress').'</b>'; 
@@ -404,22 +414,30 @@ if (!function_exists('ar_wp_model_fields')){
                         </select></span>
                         <div style="clear:both"></div>
                         <br>
+                        <?php $ar_light_color = get_post_meta( $model_array['id'], '_ar_light_color', true );?>
+                        <div class="ar_admin_label"><label for="_ar_light_color"><?php _e( 'Light Color', 'ar-for-wordpress' );?></label></div>
+                    	<div class="ar_admin_field"><input id="_ar_light_color" name="_ar_light_color" type="text" value="<?php echo $ar_light_color; ?>" <?php echo $disabled;?>></div>
+                        <div style="clear:both"></div>
+                        
+                        <br>
                         <?php 
+                        
                         //Checkbox Field Array
                         $hide_rotate_limit = '';
-                        $field_array = array('_ar_animation' => 'Animation - Play/Pause button', '_ar_autoplay' => 'Animation - Auto Play', '_ar_environment_image' => 'Legacy lighting','_ar_variants' => 'Model includes variants', '_ar_rotate_limit' => 'Set Limits');
+                        $field_array = array('_ar_animation' => 'Animation - Play/Pause button', '_ar_autoplay' => 'Animation - Auto Play', '_ar_environment_image' => 'Legacy lighting', '_ar_emissive' => 'Emissive lighting', '_ar_variants' => 'Model includes variants', '_ar_rotate_limit' => 'Set Limits');
                         foreach ($field_array as $field => $title){
                         if ($field=='_ar_rotate_limit'){
                                 if (get_post_meta( $model_array['id'], $field, true )=='1'){
                                     $hide_rotate_limit = 'border-color:#49848f';
                                 }
                                 ?>
-                    	<div style="clear:both"></div>
-                    </div> <!-- end of Accordian Panel -->
-                    <button class="ar_accordian" id="ar_rotation_acc" type="button"><?php _e('Rotation Limits', 'ar-for-wordpress' ); echo $premium_only;?></button>
-                    <div id="ar_rotation_panel" class="ar_accordian_panel"><br>
+                            	<div style="clear:both"></div>
+                            </div> <!-- end of Accordian Panel -->
+                            <button class="ar_accordian" id="ar_rotation_acc" type="button"><?php _e('Rotation Limits', 'ar-for-wordpress' ); echo $premium_only;?></button>
+                            <div id="ar_rotation_panel" class="ar_accordian_panel"><br>
                             <?php
                             }
+                            
                             ?>
                         
                             <div style="float:left">
@@ -530,7 +548,7 @@ if (!function_exists('ar_wp_model_fields')){
                             </div>
                             
                             <div style="clear:both"></div>
-                        	<div class="ar_admin_label"><label for="_ar_qr_image"><?php _e( 'Custom QR Code Image', 'ar-for-wordpress' ); echo "<br>"; _e('<span class="ar_label_tip">(JPG or PNG)</span>', 'ar-for-wordpress' );?></label></div>
+                        	<div class="ar_admin_label" style="width:100%"><label for="_ar_qr_image"><?php _e( 'Custom QR Code Image', 'ar-for-wordpress' ); echo "<br><span class=\"ar_label_tip\">"; _e('JPG file 250 x 250px', 'ar-for-wordpress');?> - <?php _e('Requires Imagick PHP Extension', 'ar-for-wordpress');?></span></label></div>
                             <div class="ar_admin_field"><input type="url" pattern="https?://.+" title="<?php _e('Secure URLs only','ar-for-wordpress'); ?> https://" placeholder="https://" name="_ar_qr_image" id="_ar_qr_image" class="regular-text" value="<?php echo get_post_meta( $model_array['id'], '_ar_qr_image', true );?>" <?php echo $disabled;?>> <input id="upload_qr_image_button" class="upload_qr_image_button button" type="button" value="<?php _e( 'Upload', 'ar-for-wordpress' );?>" <?php echo $disabled;?>/> <a href="#" onclick="document.getElementById('_ar_qr_image').value = ''"><img src="<?=esc_url( plugins_url( "assets/images/delete.png", __FILE__ ) );?>" style="width: 15px;vertical-align: middle;"></a></div>
                         	
                             <div style="clear:both"></div>
@@ -970,6 +988,16 @@ if (!function_exists('ar_wp_model_fields')){
                 var element = document.getElementById("model_<?php echo $model_array['id']; ?>");
                 element.setAttribute("environment-image", jQuery(this).val());
             });
+            jQuery(document).on('change','#_ar_emissive', function(e) {
+               var element = document.getElementById("model_<?php echo $model_array['id']; ?>");
+                var value = this.value;
+                
+                if (value === 'False') {
+                    element.removeAttribute("emissive");
+                } else {
+                    element.setAttribute("emissive", "True");
+                }
+            });
             
                 document.getElementById('_ar_placement').addEventListener('change', function() {
                     var element = document.getElementById("model_<?php echo $model_array['id']; ?>");
@@ -1015,6 +1043,16 @@ if (!function_exists('ar_wp_model_fields')){
                     element.setAttribute("environment-image", '');
                 }
             });
+            document.getElementById('_ar_emissive').addEventListener('change', function() {
+                var element = document.getElementById("model_<?php echo $model_array['id']; ?>");
+                var isChecked = document.getElementById("_ar_emissive").checked;
+            
+                if (isChecked) {
+                    element.setAttribute("emissive", "True");
+                } else {
+                    element.removeAttribute("emissive");
+                }
+            });
             document.getElementById('_ar_exposure').addEventListener('change', function() {
                 var element = document.getElementById("model_<?php echo $model_array['id']; ?>");
                 element.setAttribute("exposure", this.value);
@@ -1026,6 +1064,10 @@ if (!function_exists('ar_wp_model_fields')){
             document.getElementById('_ar_shadow_softness').addEventListener('change', function() {
                 var element = document.getElementById("model_<?php echo $model_array['id']; ?>");
                 element.setAttribute("shadow-softness", this.value);
+            });
+            document.getElementById('_ar_light_color').addEventListener('change', function() {
+                var element = document.getElementById("model_<?php echo $model_array['id']; ?>");
+                element.setAttribute("light-color", this.value);
             });
     
             modelViewer.addEventListener('camera-change', () => {
@@ -1257,8 +1299,17 @@ if (!function_exists('ar_wp_model_fields')){
                 $('#ar_asset_builder_submit_container').css('display', 'block');
             }
         }
+        
+        
     }
-    
+    // Light Color - initialize the WordPress color picker
+    $('#_ar_light_color').wpColorPicker({
+        palettes: ['#ff0000', '#00ff00', '#0000ff', '#ffffff', '#000000', '#cccccc'],
+        change: function(event, ui) {
+            // Handle color change event (optional)
+            console.log('Selected color:', ui.color.toString());
+        }
+    });
     function ar_update_size_fn(){ 
         var ratio = $('#ar_asset_ratio').val();
         if (ratio === '1') {

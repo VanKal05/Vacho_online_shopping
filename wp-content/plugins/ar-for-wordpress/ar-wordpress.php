@@ -3,7 +3,7 @@
  * Plugin Name: AR for WordPress
  * Plugin URI: https://augmentedrealityplugins.com
  * Description: AR for WordPress Augmented Reality plugin.
- * Version: 5.7
+ * Version: 6.2
  * Author: Web and Print Design	
  * Author URI: https://webandprint.design
  * License:  GPL2

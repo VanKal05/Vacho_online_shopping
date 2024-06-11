@@ -65,6 +65,8 @@ if (!function_exists('ar_register_settings')){
         register_setting( 'ar_display_options_group', 'ar_dimensions_inches' );
         add_option( 'ar_hide_dimensions', '');
         register_setting( 'ar_display_options_group', 'ar_hide_dimensions' );
+        add_option( 'ar_no_posts', '');
+        register_setting( 'ar_display_options_group', 'ar_no_posts' );
         add_option( 'ar_wl_file', '');
         register_setting( 'ar_display_options_group', 'ar_wl_file' );
         add_option( 'ar_view_file', '');
@@ -99,6 +101,10 @@ if (!function_exists('ar_register_settings')){
         register_setting( 'ar_display_options_group', 'ar_animation_selection' );
         add_option( 'ar_autoplay', '');
         register_setting( 'ar_display_options_group', 'ar_autoplay' );
+        add_option( 'ar_emissive', '');
+        register_setting( 'ar_display_options_group', 'ar_emissive' );
+        add_option( 'ar_light_color', '');
+        register_setting( 'ar_display_options_group', 'ar_light_color' );
         add_option( 'ar_disable_zoom', '');
         register_setting( 'ar_display_options_group', 'ar_disable_zoom' );
          add_option( 'ar_rotate_limit', '');
@@ -241,6 +247,84 @@ if (!function_exists('ar_licence_check')){
 
 
 
+
+
+
+/********** list of 'armodels' posts **************/
+if (!function_exists('display_armodels_posts')){
+
+    // Function to display the list of published 'armodels' posts and WooCommerce products with _ar_display meta key
+    function display_armodels_posts() {
+        global $ar_plugin_id, $ar_wc_active, $ar_wp_active;
+        
+        if ($ar_wp_active==true){
+            // Query to get published posts of type 'armodels', sorted by ID ascending
+            $args_armodels = array(
+                'post_type'   => 'armodels',
+                'post_status' => 'publish',
+                'posts_per_page' => -1,
+                'orderby' => 'ID',
+                'order' => 'ASC',
+            );
+            $query_armodels = new WP_Query($args_armodels);
+        }
+        if ($ar_wc_active==true){
+            // Query to get WooCommerce products with meta key _ar_display
+            $args_products = array(
+                'post_type'   => 'product',
+                'post_status' => 'publish',
+                'posts_per_page' => -1,
+                'orderby' => 'ID',
+                'order' => 'ASC',
+                'meta_query' => array(
+                    array(
+                        'key'     => '_ar_display',
+                        'compare' => 'EXISTS',
+                    ),
+                ),
+            );
+            $query_products = new WP_Query($args_products);
+        }
+        // Display the list of posts and products
+        echo '<ul>';
+        if ($ar_wp_active==true){
+            // Display 'armodels' posts
+            if ($query_armodels->have_posts()) {
+                while ($query_armodels->have_posts()) {
+                    $query_armodels->the_post();
+                    $post_id = get_the_ID();
+                    $post_title = get_the_title();
+        
+                    // Display post ID and title with a delete link
+                    echo '<li><b>Model:</b> <a href="post.php?post=' . $post_id . '&action=edit">' . $post_id . ' - ' . $post_title . '</a> <a href="' . esc_url(add_query_arg('delete_post_id', $post_id)) . '" onclick="return confirm(\'Are you sure you want to delete this AR Model?\');"><img src="'.esc_url( plugins_url( "assets/images/delete.png", __FILE__ ) ).'" style="width: 15px;vertical-align: middle;cursor:pointer"></a></li>';
+                }
+            }
+        }
+        if ($ar_wc_active==true){
+            // Display WooCommerce products
+            if ($query_products->have_posts()) {
+                while ($query_products->have_posts()) {
+                    $query_products->the_post();
+                    $post_id = get_the_ID();
+                    $post_title = get_the_title();
+        
+                    // Display product ID and title with a delete link
+                    echo '<li><b>Product:</b> <a href="post.php?post=' . $post_id . '&action=edit">' . $post_id . ' - ' . $post_title . '</a> <a href="' . esc_url(add_query_arg('delete_post_id', $post_id)) . '" onclick="return confirm(\'Are you sure you want to delete AR Model from this Product?\');"><img src="'.esc_url( plugins_url( "assets/images/delete.png", __FILE__ ) ).'" style="width: 15px;vertical-align: middle;cursor:pointer"></a></li>';
+                }
+            }
+        }
+        echo '</ul>';
+    
+        // Restore original Post Data
+        wp_reset_postdata();
+    }
+}
+
+
+
+
+
+
 /*********** Display the AR Model Viewer ***********/
 if (!function_exists('ar_display_model_viewer')){
     function ar_display_model_viewer($model_array, $atts_id=''){
@@ -352,6 +436,12 @@ if (!function_exists('ar_display_model_viewer')){
             if ($model_array['ar_environment_image']!=''){
                 $model_array['ar_environment_image'] = 'environment-image="legacy"';                
             }
+            if ($model_array['ar_emissive']!=''){
+                $model_array['ar_emissive'] = ' emissive ';                
+            }
+            if ($model_array['ar_light_color']!=''){
+                $model_array['ar_light_color'] = 'light-color="'.$model_array['ar_light_color'].'"';               
+            }
             
             //If on the admin page
             global $pagenow;
@@ -413,7 +503,9 @@ if (!function_exists('ar_display_model_viewer')){
                 '. $model_array['ar_exposure'].'
                 '. $model_array['ar_shadow_intensity'].'
                 '. $model_array['ar_shadow_softness'].'
-                '. $model_array['ar_environment_image'].'
+                '. $model_array['ar_environment_image'].' 
+                '. $model_array['ar_emissive'].' 
+                '. $model_array['ar_light_color'].' 
                 poster="'.esc_url( get_the_post_thumbnail_url($model_array['model_id']) ).'"
                 alt="AR Display 3D model" 
                 class="ar-display-model-viewer" 
@@ -478,8 +570,10 @@ if (!function_exists('ar_display_model_viewer')){
                 //Hotspots
                 if ($model_array['ar_hotspots']!=''){
                     foreach ($model_array['ar_hotspots']['annotation'] as $k => $v){
-                        if ($model_array['ar_hotspots']['link'][$k] !=''){
-                            $v = '<a href="'.$model_array['ar_hotspots']['link'][$k].'" target="_blank">'.$v.'</a>';
+                        if(isset($model_array['ar_hotspots']['link'])){
+                            if ($model_array['ar_hotspots']['link'][$k] !=''){
+                                $v = '<a href="'.$model_array['ar_hotspots']['link'][$k].'" target="_blank">'.$v.'</a>';
+                            }
                         }
                         $output.='<button slot="hotspot-'.($k-1).'" class="hotspot" id="hotspot-'.$k.'" data-position="'.$model_array['ar_hotspots']['data-position'][$k].'" data-normal="'.$model_array['ar_hotspots']['data-normal'][$k].'"><div class="annotation">'.$v.'</div></button>';
                     }
@@ -1026,12 +1120,15 @@ if (!function_exists('ar_display_shortcode')){
             if ($model_array['ar_hide_dimensions']==''){
                 $model_array['ar_hide_dimensions']=get_option('ar_hide_dimensions');
             }
+            $model_array['ar_dimensions_inches']=get_option('ar_dimensions_inches');
             $model_array['ar_hide_arview']=get_option('ar_hide_arview');
             $model_array['ar_exposure']=get_post_meta($atts['id'], '_ar_exposure'.$suffix, true );
             $model_array['ar_shadow_intensity']=get_post_meta($atts['id'], '_ar_shadow_intensity'.$suffix, true );
             $model_array['ar_shadow_softness']=get_post_meta($atts['id'], '_ar_shadow_softness'.$suffix, true );
             $model_array['ar_camera_orbit']=get_post_meta($atts['id'], '_ar_camera_orbit'.$suffix, true );
             $model_array['ar_environment_image']=get_post_meta($atts['id'], '_ar_environment_image'.$suffix, true );
+            $model_array['ar_emissive']=get_post_meta($atts['id'], '_ar_emissive'.$suffix, true );
+            $model_array['ar_light_color']=get_post_meta($atts['id'], '_ar_light_color'.$suffix, true );
             $model_array['ar_hotspots']=get_post_meta($atts['id'], '_ar_hotspots'.$suffix, true );
             if (isset($atts['hide_qr'])){
                 $model_array['ar_hide_qrcode']=1;
@@ -1394,7 +1491,14 @@ if (!function_exists('ar_qrcode_shortcode')){
                     $ar_qr_url = get_site_url().'?ar-view='.$atts['id'];
                 }
             }
-            $ar_attid = isset($atts['cat']) ? $atts['cat'] : $atts['id'];
+
+             $ar_attid = 0;
+            if (isset($atts['cat'])){
+                $ar_attid = $atts['cat'];
+            }elseif (isset($atts['id'])){
+                $ar_attid = $atts['id'];
+            }
+
             $ar_qr_image_data = base64_encode(ar_qr_code($qr_logo_image,$ar_attid,$ar_qr_url));
             $ar_qr_large ='';
             if (isset($atts['ar_qr_large'])){
@@ -1982,7 +2086,7 @@ if (!function_exists('ar_remove_asset')){
 /********** Settings Page **********/
 if (!function_exists('ar_subscription_setting')){
     function ar_subscription_setting() {
-        global $wpdb, $ar_version, $ar_plugin_id, $ar_rate_this_plugin, $shortcode_examples, $woocommerce_featured_image, $ar_whitelabel, $ar_css_styles, $ar_css_names;
+        global $wpdb, $ar_version, $ar_plugin_id, $ar_wc_active, $ar_wp_active, $ar_rate_this_plugin, $shortcode_examples, $woocommerce_featured_image, $ar_whitelabel, $ar_css_styles, $ar_css_names;
         $ar_licence_key = get_option('ar_licence_key');
         if ($_POST){
             //Save Settings
@@ -1990,10 +2094,29 @@ if (!function_exists('ar_subscription_setting')){
                 update_option( 'ar_licence_renewal', '');
                 $ar_licence_key = $_POST['ar_licence_key'];
             }
-            $settings_fields=array('ar_licence_key','ar_wl_file', 'ar_view_file', 'ar_qr_file', 'ar_qr_destination','ar_view_in_ar','ar_view_in_3d', 'ar_dimensions_units', 'ar_fullscreen_file', 'ar_play_file', 'ar_pause_file', 'ar_dimensions_inches', 'ar_hide_dimensions', 'ar_hide_arview', 'ar_hide_qrcode', 'ar_hide_reset', 'ar_hide_fullscreen','ar_scene_viewer','ar_css','ar_css_positions', 'ar_open_tabs_remember');
+            $settings_fields=array('ar_licence_key','ar_wl_file', 'ar_view_file', 'ar_qr_file', 'ar_qr_destination','ar_view_in_ar','ar_view_in_3d', 'ar_dimensions_units', 'ar_fullscreen_file', 'ar_play_file', 'ar_pause_file', 'ar_dimensions_inches', 'ar_hide_dimensions','ar_no_posts', 'ar_hide_arview', 'ar_hide_qrcode', 'ar_hide_reset', 'ar_hide_fullscreen','ar_scene_viewer','ar_css','ar_css_positions', 'ar_open_tabs_remember');
             foreach ($settings_fields as $k => $v){
                 if (!isset($_POST[$v])){$_POST[$v]='';}
                 update_option( $v, $_POST[$v]);
+            }
+        }
+        //Delete Post
+        if (isset($_GET['delete_post_id'])) {
+            $post_id = intval($_GET['delete_post_id']);
+            $post_type = get_post_type($post_id);
+    
+            if (current_user_can('delete_post', $post_id)) {
+                if ($post_type === 'product') {
+                    // Delete the _ar_display meta key from the product
+                    delete_post_meta($post_id, '_ar_display');
+                    echo '<div class="updated"><p>AR Model deleted from product successfully.</p></div>';
+                } else {
+                    // Delete the post
+                    wp_delete_post($post_id, true);
+                    echo '<div class="updated"><p>AR Model deleted successfully.</p></div>';
+                }
+            } else {
+                echo '<div class="error"><p>You do not have permission to delete this post/product.</p></div>';
             }
         }
     
@@ -2123,6 +2246,11 @@ if (!function_exists('ar_subscription_setting')){
                     </div>
                 <?php if ($alert!=''){
                     echo '<br clear="all"><br><div id="upgrade_ribbon" class="notice notice-error is-dismissible"><p>'.$alert. '</p></div>';
+                    if ($disabled!=''){
+                        if ($ar_licence_key==''){
+                              echo display_armodels_posts();
+                        }
+                      }
                 }?>
                 <?php
                 if($plan_check!='Premium') { 
@@ -2183,12 +2311,12 @@ if (!function_exists('ar_subscription_setting')){
                 <br  clear="all">
                 <br>
                 <div>
-                      <div style="width:160px;float:left;"><strong>
+                      <div style="float:left;"><strong>
                           <?php
                             _e('Custom QR Logo', $ar_plugin_id );
                             $qr_logo_file_txt = __('QR Logo File', $ar_plugin_id);
                             
-                            ?></strong><br><?php _e('(JPG file 250 px x 250px)', 'ar-for-wordpress');?></div>
+                            ?></strong><br><?php _e('JPG file 250 x 250px', $ar_plugin_id);?> - <?php _e('Requires Imagick PHP Extension', $ar_plugin_id);?></div>
                       <div style="float:left;"><input type="text" name="ar_qr_file" id="ar_qr_file" class="regular-text" value="<?php echo get_option('ar_qr_file'); ?>" <?= $disabled;?>> <input id="ar_qr_file_button" class="button" type="button" value="<?php echo $qr_logo_file_txt;?>" <?= $disabled;?>/> <img src="<?=esc_url( plugins_url( "assets/images/delete.png", __FILE__ ) );?>" style="width: 15px;vertical-align: middle;cursor:pointer" onclick="document.getElementById('ar_qr_file').value = ''"></div>
                 </div>
                 <br  clear="all">
@@ -2196,6 +2324,9 @@ if (!function_exists('ar_subscription_setting')){
                 <?php
                 //Global Checkbox Fields 
                 $field_array = array('ar_hide_dimensions' => 'Hide Dimensions', 'ar_hide_arview' => 'Hide AR View', 'ar_hide_qrcode' => 'Hide QR Code', 'ar_hide_reset' => 'Hide Reset', 'ar_hide_fullscreen' => 'Disable Fullscreen', 'ar_scene_viewer' => 'Android - Prioritise Scene Viewer over WebXR', 'ar_open_tabs_remember' =>'Disable Remembering Open Tabs');
+                if ($ar_plugin_id!='ar-for-woocommerce'){
+                    $field_array['ar_no_posts'] = 'Hide Posts';
+                }
                 $count = 0;
                 foreach ($field_array as $field => $title){
                     $count++;
@@ -2339,28 +2470,7 @@ if (!function_exists('ar_subscription_setting')){
                     <div style="float:left;"><textarea id="ar_css" name="ar_css" style="width: 450px; height: 200px;" <?= $disabled;?>><?php echo $ar_css; ?></textarea></div>
                 </div>
                 <br  clear="all"><br>
-                <?php 
-                //Copy the Woocommerce Featured Product Template to Theme
-                if ($ar_plugin_id=='ar-for-woocommerce'){ ?>
-                    <h3><?php _e('Set the WooCommerce Featured Product Image to AR Model',$ar_plugin_id);?></h3>
-                    <?php _e('Copy the woocommerce single product template found in the AR for Woocommerce plugin "templates" folder to your theme.',$ar_plugin_id);?></p>
-                    <button id="copy-file-btn" type="button"><?php _e('Copy File',$ar_plugin_id);?></button>
-                    <script>
-                        jQuery(document).ready(function($) {
-                          $('#copy-file-btn').click(function() {
-                            var btn = $(this);
-                            btn.text('<?php _e('Copying...',$ar_plugin_id);?>');
-                            var data = {
-                              action: 'ar_copy_file_action',
-                            };
-                            $.post(ajaxurl, data, function(response) {
-                            btn.text(response);
-                            });
-                          });
-                        });
-                    </script>
-                <?php } ?>
-                <br  clear="all">
+                
                 <?php 
                 if ($ar_plugin_id=='ar-for-wordpress'){
                     submit_button();
@@ -2375,21 +2485,68 @@ if (!function_exists('ar_subscription_setting')){
             }
         }
         
+        
+                //Copy the Woocommerce Featured Product Template to Theme
+                //if ($ar_plugin_id=='ar-for-woocommerce'){ 
+                if ($ar_wc_active==true){    
+                    ?>
+                        <h3><?php _e('Set the WooCommerce Featured Product Image to AR Model',$ar_plugin_id);?></h3>
+                        <?php _e('Copy the woocommerce single product template found in the AR for Woocommerce plugin "templates" folder to your theme.',$ar_plugin_id);?></p>
+                    <?php 
+                    $template_file = get_stylesheet_directory() . '/woocommerce/single-product/product-image.php';
+                    // Check if the file exists
+                    if (!file_exists($template_file) OR (isset($_POST['delete_template_file']))) {
+                    ?>
+                        <button id="copy-file-btn" type="button" class="button" style="float:left;margin-right:20px"><?php _e('Copy File',$ar_plugin_id);?></button>
+                        <script>
+                            jQuery(document).ready(function($) {
+                              $('#copy-file-btn').click(function() {
+                                var btn = $(this);
+                                btn.text('<?php _e('Copying...',$ar_plugin_id);?>');
+                                var data = {
+                                  action: 'ar_copy_file_action',
+                                };
+                                $.post(ajaxurl, data, function(response) {
+                                btn.text(response);
+                                });
+                              });
+                            });
+                        </script>
+                        
+                    <?php 
+                    if (isset($_POST['delete_template_file'])){
+                            check_and_delete_woocommerce_template();
+                        }
+                    }else{
+                        
+                            check_and_delete_woocommerce_template();
+                        
+                    }
+                    ?>
+                    <br  clear="all"><br  clear="all">
+                <hr>
+                <br  clear="all">
+                <?php
+                } ?>
+                
+        <?php 
+        
         echo $ar_rate_this_plugin;
         //Changelog latest 3 updates
         $limit=3;
-        echo '<h3>'.__('What\'s New', $ar_plugin_id ).'</h3>';
+        echo '<br><br><hr><h3>'.__('What\'s New', $ar_plugin_id ).'</h3>';
         echo ar_changelog_retrieve($limit);
         
+        echo '<br><br><hr><h3>Shortcodes</h3>';
         echo $shortcode_examples;
-        ?>
+        /*?>
         <h3><?php
         _e('Dimensions', $ar_plugin_id );
         ?></h3> 
         
         <p><?php 
         _e('The dimensions show the X, Y, Z, (width, height, depth) directly from the 3D model file. You can turn this off site wide and/or on a per model basis.', $ar_plugin_id );
-        
+        */
         ?></p>
         <?php if ($ar_whitelabel!=true){ ?>
             <hr>
@@ -2485,6 +2642,33 @@ if (!function_exists('ar_copy_file')){
       wp_die();
     }
 }
+//********* Delete Woocommerce Template File ********//
+if (!function_exists('check_and_delete_woocommerce_template')){
+    function check_and_delete_woocommerce_template() {
+        global $ar_plugin_id, $_POST;
+        // Get the path to the template file
+        $template_file = get_stylesheet_directory() . '/woocommerce/single-product/product-image.php';
+        $ar_delete_template_css ="display:block";
+        // If the file exists, display a button to delete the file
+        if (isset($_POST['delete_template_file'])) {
+            
+            // If the delete button was clicked, delete the file
+            if (unlink($template_file)) {
+                echo '<div class="notice notice-success"><p>File deleted successfully.</p></div>';
+                $ar_delete_template_css ="display:none";
+            } else {
+                echo '<div class="notice notice-error"><p>Failed to delete the file.</p></div>';
+            }
+        }
+        echo '<div id="ar_delete_template" style="'.$ar_delete_template_css.'">';
+        // Display the delete button
+        echo '<form method="post">';
+        echo '<input type="hidden" name="delete_template_file" value="1">';
+        echo '<button type="submit" class="button button-danger" onclick="return confirm(\''.__('Are you sure you want to delete the woocommerce single product template file from your theme?', $ar_plugin_id ).'\');">Delete File</button>';
+        echo '</form>';
+        echo '</div>';
+    }
+}
 
 /*** QR Code + Logo Generator */
 if (!function_exists('ar_qr_code')){
@@ -2494,59 +2678,72 @@ if (!function_exists('ar_qr_code')){
             $size = isset($size) ? $size : '250x250';
             $logo = isset($logo) ? $logo : FALSE;
             
-            //wp_die($data);
+            
             if(IMGCK_ENABLED){
-
+                //wp_die('here');
                 $options = new LogoOptions;
 
                 $options->version          = QRCode::VERSION_AUTO;
                 $options->eccLevel         = QRCode::ECC_H;
                 $options->imageBase64      = false;
-                $options->logoSpaceWidth   = 13;
-                $options->logoSpaceHeight  = 13;
+                $options->logoSpaceWidth   = 10;
+                $options->logoSpaceHeight  = 10;
                 $options->scale            = 5;
                 $options->imageTransparent = false;
 
                 if($logo !== FALSE){
                     $logo_data = ar_curl($logo);
-                    $logo_str = imagecreatefromstring($logo_data);
-
+                    $logo_str = @imagecreatefromstring($logo_data);
+                    //die(gettype($logo_str));
+                    
                 //header('Content-type: image/png');
 
                     $qrOutputInterface = new QRImageWithLogo($options, (new QRCode($options))->getMatrix($data));
 
                 // dump the output, with an additional logo
                     $QR = $qrOutputInterface->dump(null, $logo_str);
-
+                    //var_dump($logo_str);
+                    //wp_die($QR);
                     if(strstr($QR, 'Error:')){
-                        $QR = ar_google_qr_code($logo, $data);
+                        $QR = ar_qr_code_api($logo, $data);
                     }
 
                     return $QR;
 
                 }
 
-
+                
             } else {
+                //wp_die('there');
                 //use google api to generate qr
-                return ar_google_qr_code($logo,$data);
+                return ar_qr_code_api($logo,$data);
             }            
             
         }
     }
 }
 
-if (!function_exists('ar_google_qr_code')){
-    function ar_google_qr_code($logo, $data){
+if (!function_exists('ar_qr_code_api')){
+    function ar_qr_code_api($logo, $data){
         $data = $data ? $data : 'https://augmentedrealityplugins.com';
         $size = isset($size) ? $size : '250x250';
         $logo = isset($logo) ? $logo : FALSE;
 
         if (function_exists('imagecreatefrompng')) {
             // GD library is enabled
-            $QR = imagecreatefrompng('https://chart.googleapis.com/chart?cht=qr&chld=H|1&chs='.$size.'&chl='.urlencode($data));
+            //google qr 'https://chart.googleapis.com/chart?cht=qr&chld=H|1&chs='.$size.'&chl='.urlencode($data)
+            
+            
+            $logo_url = urlencode($logo);
+            $qr_source_url = 'https://quickchart.io/qr?text='.urlencode($data);
+            $qr_source_url .= '&centerImageUrl='.$logo_url;
+            $qr_source_url .= '&centerImageSizeRatio=0.35';
+            //wp_die($qr_source_url);
+            $QR = @imagecreatefrompng($qr_source_url);
+            //var_dump($QR);
+            //wp_die($QR);
         
-            if($logo !== FALSE){
+            /*if($logo !== FALSE && $QR){
                 $logo_data = ar_curl($logo);
                 $logo = imagecreatefromstring($logo_data);
                 if ($logo !== false) {
@@ -2562,7 +2759,7 @@ if (!function_exists('ar_google_qr_code')){
                     $logo_qr_height = intval($logo_height/$scale);
                     imagecopyresampled($QR, $logo, intval($QR_width/3), intval($QR_height/3), 0, 0, $logo_qr_width, $logo_qr_height, $logo_width, $logo_height);
                 }
-            }
+            }*/
 
             if($QR){                   
                 ob_start();
@@ -2906,6 +3103,8 @@ if (!function_exists('ar_alternative_model')){
         $model_array['ar_shadow_softness']=get_post_meta($atts['id'], '_ar_shadow_softness'.$suffix, true );
         $model_array['ar_camera_orbit']=get_post_meta($atts['id'], '_ar_camera_orbit'.$suffix, true );
         $model_array['ar_environment_image']=get_post_meta($atts['id'], '_ar_environment_image'.$suffix, true );
+        $model_array['ar_emissive']=get_post_meta($atts['id'], '_ar_emissive'.$suffix, true );
+        $model_array['ar_light_color']=get_post_meta($atts['id'], '_ar_light_color'.$suffix, true );
         $model_array['ar_rotate_limit'] = get_post_meta($atts['id'], '_ar_rotate_limit'.$suffix, true );
         $model_array['ar_compass_top_value'] = get_post_meta($atts['id'], '_ar_compass_top_value'.$suffix, true );
         $model_array['ar_compass_bottom_value'] = get_post_meta($atts['id'], '_ar_compass_bottom_value'.$suffix, true );
@@ -3015,7 +3214,12 @@ if (!function_exists('ar_alternative_model')){
         if ($model_array['ar_environment_image']!=''){
             $model_array['ar_environment_image'] = 'environment-image="legacy"';                
         }
-
+        if ($model_array['ar_emissive']!=''){
+            $model_array['ar_emissive'] = ' emissive ';                
+        }
+        if ($model_array['ar_light_color']!=''){
+            $model_array['ar_light_color'] = 'light-color="'.$model_array['ar_light_color'].'"';               
+        }
         $output.='<div class="ar_alternative_model_container">';
         $output.='<model-viewer id="model_'.$model_array['model_id'].'" '.$show_ar;   
         $output .= '
@@ -3030,7 +3234,9 @@ if (!function_exists('ar_alternative_model')){
         '. $model_array['ar_exposure'].'
         '. $model_array['ar_shadow_intensity'].'
         '. $model_array['ar_shadow_softness'].'
-        '. $model_array['ar_environment_image'].'
+        '. $model_array['ar_environment_image'].' 
+        '. $model_array['ar_emissive'].'  
+        '. $model_array['ar_light_color'].'  
         poster="'.esc_url( get_the_post_thumbnail_url($model_array['model_id']) ).'"
         alt="AR Display 3D model" 
         class="ar-display-model-viewer" 
@@ -3059,6 +3265,22 @@ if (!function_exists('ar_alternative_model')){
         }
         //wp_die($output);
         return $output;
+    }
+}
+
+if (get_option('ar_no_posts')){
+ // Set the default visibility of new models to be private
+    if (!function_exists('set_default_visibility_armodels')){
+        add_filter('default_content', 'set_default_visibility_armodels', 10, 2);
+
+        function set_default_visibility_armodels($content, $post) {
+            // Check if the post type is 'armodels'
+            if ($post->post_type === 'armodels') {
+                // Set the default post status to 'private'
+                $post->post_status = 'private';
+            }
+            return $content;
+        }
     }
 }
 

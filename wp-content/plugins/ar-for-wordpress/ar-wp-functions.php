@@ -142,8 +142,8 @@ if (!function_exists('save_ar_wp_option_fields')){
         }
 
         update_option( 'ar_open_tabs', $_POST['ar_open_tabs']);
-        $field_array=array('_skybox_file','_ar_environment','_ar_qr_image','_ar_qr_destination','_ar_qr_destination_mv','_ar_variants','_ar_rotate','_ar_prompt','_ar_x','_ar_y','_ar_z','_ar_field_of_view','_ar_zoom_out','_ar_zoom_in','_ar_exposure','_ar_camera_orbit','_ar_environment_image','_ar_shadow_intensity','_ar_shadow_softness','_ar_resizing','_ar_view_hide','_ar_qr_hide','_ar_hide_dimensions','_ar_hide_reset','_ar_animation','_ar_autoplay','_ar_animation_selection','_ar_disable_zoom','_ar_rotate_limit','_ar_compass_top_value','_ar_compass_bottom_value','_ar_compass_left_value','_ar_compass_right_value','_ar_hotspots','_ar_cta','_ar_cta_url','_ar_css_override','_ar_css_positions','_ar_css','_ar_mobile_id','_ar_alternative_id');
-        
+        $field_array=array('_skybox_file','_ar_environment','_ar_qr_image','_ar_qr_destination','_ar_qr_destination_mv','_ar_variants','_ar_rotate','_ar_prompt','_ar_x','_ar_y','_ar_z','_ar_field_of_view','_ar_zoom_out','_ar_zoom_in','_ar_exposure','_ar_camera_orbit','_ar_environment_image','_ar_shadow_intensity','_ar_shadow_softness','_ar_resizing','_ar_view_hide','_ar_qr_hide','_ar_hide_dimensions','_ar_hide_reset','_ar_animation','_ar_autoplay','_ar_animation_selection','_ar_emissive','_ar_light_color','_ar_disable_zoom','_ar_rotate_limit','_ar_compass_top_value','_ar_compass_bottom_value','_ar_compass_left_value','_ar_compass_right_value','_ar_hotspots','_ar_cta','_ar_cta_url','_ar_css_override','_ar_css_positions','_ar_css','_ar_mobile_id','_ar_alternative_id');
+
         foreach ($field_array as $k => $v){
             if ( isset( $_POST[$v] ) ) {
                 update_post_meta( $post_id, $v, $_POST[$v] );

@@ -1,0 +1,36 @@
+2024-06-10T12:47:39+00:00 CRITICAL Uncaught TypeError: array_search(): Argument #2 ($haystack) must be of type array, null given in C:\xampp\htdocs\wordpress\wp-content\plugins\ar-for-wordpress\ar-updates.php:15
+Stack trace:
+#0 C:\xampp\htdocs\wordpress\wp-content\plugins\ar-for-wordpress\ar-updates.php(15): array_search('ar-for-wordpres...', NULL)
+#1 C:\xampp\htdocs\wordpress\wp-includes\class-wp-hook.php(324): ar_updates_exclude(Array, 'http://api.word...')
+#2 C:\xampp\htdocs\wordpress\wp-includes\plugin.php(205): WP_Hook->apply_filters(Array, Array)
+#3 C:\xampp\htdocs\wordpress\wp-includes\class-wp-http.php(233): apply_filters('http_request_ar...', Array, 'http://api.word...')
+#4 C:\xampp\htdocs\wordpress\wp-includes\class-wp-http.php(619): WP_Http->request('http://api.word...', Array)
+#5 C:\xampp\htdocs\wordpress\wp-includes\http.php(186): WP_Http->post('http://api.word...', Array)
+#6 C:\xampp\htdocs\wordpress\wp-includes\update.php(451): wp_remote_post('http://api.word...', Array)
+#7 C:\xampp\htdocs\wordpress\wp-includes\class-wp-hook.php(324): wp_update_plugins()
+#8 C:\xampp\htdocs\wordpress\wp-includes\class-wp-hook.php(348): WP_Hook->apply_filters('', Array)
+#9 C:\xampp\htdocs\wordpress\wp-includes\plugin.php(565): WP_Hook->do_action(Array)
+#10 C:\xampp\htdocs\wordpress\wp-cron.php(191): do_action_ref_array('wp_update_plugi...', Array)
+#11 {main}
+  thrown in C:\xampp\htdocs\wordpress\wp-content\plugins\ar-for-wordpress\ar-updates.php on line 15
+
+2024-06-10T12:48:24+00:00 CRITICAL Uncaught Error: Cannot use object of type WP_Error as array in C:\xampp\htdocs\wordpress\wp-content\plugins\ar-for-wordpress\ar-updates.php:48
+Stack trace:
+#0 C:\xampp\htdocs\wordpress\wp-includes\class-wp-hook.php(324): ar_check_update()
+#1 C:\xampp\htdocs\wordpress\wp-includes\class-wp-hook.php(348): WP_Hook->apply_filters('', Array)
+#2 C:\xampp\htdocs\wordpress\wp-includes\plugin.php(565): WP_Hook->do_action(Array)
+#3 C:\xampp\htdocs\wordpress\wp-cron.php(191): do_action_ref_array('ar_check_event', Array)
+#4 {main}
+  thrown in C:\xampp\htdocs\wordpress\wp-content\plugins\ar-for-wordpress\ar-updates.php on line 48
+
+2024-06-10T12:49:25+00:00 CRITICAL Uncaught Error: Cannot use object of type WP_Error as array in C:\xampp\htdocs\wordpress\wp-content\plugins\ar-for-wordpress\ar-updates.php:48
+Stack trace:
+#0 C:\xampp\htdocs\wordpress\wp-includes\class-wp-hook.php(324): ar_check_update()
+#1 C:\xampp\htdocs\wordpress\wp-includes\class-wp-hook.php(348): WP_Hook->apply_filters('', Array)
+#2 C:\xampp\htdocs\wordpress\wp-includes\plugin.php(565): WP_Hook->do_action(Array)
+#3 C:\xampp\htdocs\wordpress\wp-cron.php(191): do_action_ref_array('ar_check_event', Array)
+#4 {main}
+  thrown in C:\xampp\htdocs\wordpress\wp-content\plugins\ar-for-wordpress\ar-updates.php on line 48
+
+2024-06-10T13:08:09+00:00 CRITICAL Maximum execution time of 120 seconds exceeded in C:\xampp\htdocs\wordpress\wp-content\plugins\astra-sites\inc\lib\gutenberg-templates\inc\api\api-init.php on line 18
+

@@ -42,7 +42,8 @@ const SiteColorsControls = () => {
 				? LIGHT_PALETTES
 				: DARK_PALETTES;
 
-		const customColors = templateResponse[ 'astra-custom-palettes' ] || [];
+		const customColors =
+			templateResponse?.[ 'astra-custom-palettes' ] || [];
 		if ( customColors.length && customColors.length % 2 === 0 ) {
 			let colors = customColors;
 

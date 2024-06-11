@@ -5,6 +5,7 @@ import { prependHTTPS } from '../../utils/prepend-https';
 import { stripSlashes } from '../../utils/strip-slashes';
 import { addTrailingSlash } from '../../utils/add-trailing-slash';
 import SiteSkeleton from './site-skeleton';
+import { classNames } from '../../steps/onboarding-ai/helpers';
 
 const SitePreview = () => {
 	const [ { templateResponse, siteLogo } ] = useStateValue();
@@ -38,18 +39,38 @@ const SitePreview = () => {
 		setLoading( false );
 	};
 
+	const renderBrowserFrame = () => (
+		<div
+			className={ classNames(
+				'flex items-center justify-start py-3 px-4 bg-browser-bar shadow-sm rounded-t-lg mx-auto h-[44px] z-[1] relative',
+				'w-full mx-0'
+			) }
+		>
+			<div className="flex gap-2 py-[3px] w-20">
+				<div className="w-[14px] h-[14px] border border-solid border-border-primary rounded-full" />
+				<div className="w-[14px] h-[14px] border border-solid border-border-primary rounded-full" />
+				<div className="w-[14px] h-[14px] border border-solid border-border-primary rounded-full" />
+			</div>
+		</div>
+	);
+
 	return (
 		<>
 			{ loading ? <SiteSkeleton /> : null }
 			{ previewUrl !== '' && (
-				<iframe
-					id="astra-starter-templates-preview"
-					title="Website Preview"
-					height="100%"
-					width="100%"
-					src={ previewUrl }
-					onLoad={ handleIframeLoading }
-				/>
+				<div className="w-full h-full p-8">
+					<div className="h-full relative overflow-hidden shadow-template-preview w-full mx-0">
+						{ renderBrowserFrame() }
+						<iframe
+							id="astra-starter-templates-preview"
+							title="Website Preview"
+							height="100%"
+							width="100%"
+							src={ previewUrl }
+							onLoad={ handleIframeLoading }
+						/>
+					</div>
+				</div>
 			) }
 		</>
 	);

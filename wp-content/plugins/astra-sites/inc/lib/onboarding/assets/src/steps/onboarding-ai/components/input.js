@@ -47,15 +47,11 @@ const Input = (
 				</label>
 			) }
 			<div className="flex relative items-center">
-				{ prefixIcon && (
-					<div className={ `mr-3 h-${ height } flex items-center` }>
-						{ prefixIcon }
-					</div>
-				) }
+				{ prefixIcon && prefixIcon }
 				<div
 					className={ classNames(
 						enableAutoGrow
-							? 'relative overflow-hidden flex items-center'
+							? 'relative overflow-hidden flex justify-start items-center'
 							: 'w-full'
 					) }
 				>
@@ -81,7 +77,7 @@ const Input = (
 						name={ name }
 						disabled={ disabled }
 						className={ classNames(
-							'w-full px-[1rem] placeholder:text-secondary-text rounded-md outline-none text-[0.9rem]',
+							'w-full px-[1rem] placeholder:text-secondary-text rounded-md outline-none text-[0.9rem] placeholder:!text-base',
 							`h-${ height }`,
 							label ? 'mt-2' : '',
 							noBorder
@@ -109,16 +105,12 @@ const Input = (
 						{ ...registerValidations }
 					/>
 					{ enableAutoGrow && (
-						<span className="invisible inline whitespace-pre text-[0.9rem] px-4">
+						<span className="invisible inline whitespace-pre text-[0.9rem]">
 							{ props.value || props.placeholder }
 						</span>
 					) }
 				</div>
-				{ suffixIcon && (
-					<div className="absolute right-4 flex items-center">
-						{ suffixIcon }
-					</div>
-				) }
+				{ suffixIcon && suffixIcon }
 			</div>
 			{ error && (
 				<div className="mt-1 text-sm text-alert-error ">

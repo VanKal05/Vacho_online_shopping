@@ -4,6 +4,7 @@ import { Menu, Transition } from '@headlessui/react';
 import { CheckIcon } from '@heroicons/react/24/solid';
 import usePopper from '../hooks/use-popper';
 import '../../../variables.scss';
+import { sprintf, __ } from '@wordpress/i18n';
 
 const TemplateInfo = ( { template, position } ) => {
 	const [ triggerPopper, container ] = usePopper( {
@@ -13,8 +14,8 @@ const TemplateInfo = ( { template, position } ) => {
 	} );
 
 	return (
-		<div className="absolute bottom-0  w-full h-14 flex items-center justify-between bg-white px-5 shadow-template-info">
-			<div className="zw-base-semibold text-app-heading capitalize">
+		<div className="absolute bottom-0  w-full h-14 flex items-center justify-between bg-white px-5 shadow-template-info border-t border-b-0 border-x-0 border-solid border-border-tertiary">
+			<div className="zw-base-semibold text-app-heading capitalize select-none">
 				{ /* { template?.name || template?.domain?.split( '.' )?.[ 0 ] } */ }
 				{ position ? `Option ${ position }` : '' }
 			</div>
@@ -49,7 +50,12 @@ const TemplateInfo = ( { template, position } ) => {
 									>
 										{ template?.pages?.length ? (
 											<div>
-												<div>Pages included:</div>
+												<div>
+													{ __(
+														'Pages included:',
+														'astra-sites'
+													) }
+												</div>
 												<div className="flex flex-col gap-1 mt-1.5 font-normal">
 													{ template.pages.map(
 														( page ) => (
@@ -72,33 +78,14 @@ const TemplateInfo = ( { template, position } ) => {
 											</div>
 										) : (
 											<div>
-												Page count:{ ' ' }
-												{ template.pagesCount }
-											</div>
-										) }
-
-										{ !! template?.plugins?.length && (
-											<div className="mt-4">
-												<div>Plugins included:</div>
-												<div className="flex flex-col gap-1 mt-1.5 font-normal">
-													{ template.plugins.map(
-														( plugin ) => (
-															<div
-																key={
-																	plugin.title
-																}
-																className="flex items-center gap-2"
-															>
-																<CheckIcon className="w-3 h-3 text-app-inactive-icon" />
-																<div className="text-sm">
-																	{
-																		plugin.title
-																	}
-																</div>
-															</div>
-														)
-													) }
-												</div>
+												{ sprintf(
+													/* translators: %s: Page count */
+													__(
+														'Page count: %s',
+														'astra-sites'
+													),
+													template.pagesCount
+												) }
 											</div>
 										) }
 									</div>

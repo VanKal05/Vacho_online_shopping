@@ -3,6 +3,12 @@
 // File generated from our OpenAPI spec
 namespace WPForms\Vendor\Stripe\Service;
 
+/**
+ * @phpstan-import-type RequestOptionsArray from \Stripe\Util\RequestOptions
+ */
+/**
+ * @psalm-import-type RequestOptionsArray from \Stripe\Util\RequestOptions
+ */
 class AccountService extends \WPForms\Vendor\Stripe\Service\AbstractService
 {
     /**
@@ -10,7 +16,7 @@ class AccountService extends \WPForms\Vendor\Stripe\Service\AbstractService
      * href="/docs/connect">Connect</a>. If you’re not a platform, the list is empty.
      *
      * @param null|array $params
-     * @param null|array|\Stripe\Util\RequestOptions $opts
+     * @param null|RequestOptionsArray|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
      *
@@ -27,7 +33,7 @@ class AccountService extends \WPForms\Vendor\Stripe\Service\AbstractService
      *
      * @param string $parentId
      * @param null|array $params
-     * @param null|array|\Stripe\Util\RequestOptions $opts
+     * @param null|RequestOptionsArray|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
      *
@@ -42,7 +48,7 @@ class AccountService extends \WPForms\Vendor\Stripe\Service\AbstractService
      *
      * @param string $parentId
      * @param null|array $params
-     * @param null|array|\Stripe\Util\RequestOptions $opts
+     * @param null|RequestOptionsArray|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
      *
@@ -59,7 +65,7 @@ class AccountService extends \WPForms\Vendor\Stripe\Service\AbstractService
      *
      * @param string $parentId
      * @param null|array $params
-     * @param null|array|\Stripe\Util\RequestOptions $opts
+     * @param null|RequestOptionsArray|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
      *
@@ -82,7 +88,7 @@ class AccountService extends \WPForms\Vendor\Stripe\Service\AbstractService
      * account.
      *
      * @param null|array $params
-     * @param null|array|\Stripe\Util\RequestOptions $opts
+     * @param null|RequestOptionsArray|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
      *
@@ -97,7 +103,7 @@ class AccountService extends \WPForms\Vendor\Stripe\Service\AbstractService
      *
      * @param string $parentId
      * @param null|array $params
-     * @param null|array|\Stripe\Util\RequestOptions $opts
+     * @param null|RequestOptionsArray|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
      *
@@ -117,7 +123,7 @@ class AccountService extends \WPForms\Vendor\Stripe\Service\AbstractService
      *
      * @param string $parentId
      * @param null|array $params
-     * @param null|array|\Stripe\Util\RequestOptions $opts
+     * @param null|RequestOptionsArray|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
      *
@@ -132,7 +138,7 @@ class AccountService extends \WPForms\Vendor\Stripe\Service\AbstractService
      *
      * @param string $parentId
      * @param null|array $params
-     * @param null|array|\Stripe\Util\RequestOptions $opts
+     * @param null|RequestOptionsArray|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
      *
@@ -156,7 +162,7 @@ class AccountService extends \WPForms\Vendor\Stripe\Service\AbstractService
      *
      * @param string $id
      * @param null|array $params
-     * @param null|array|\Stripe\Util\RequestOptions $opts
+     * @param null|RequestOptionsArray|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
      *
@@ -172,7 +178,7 @@ class AccountService extends \WPForms\Vendor\Stripe\Service\AbstractService
      * @param string $parentId
      * @param string $id
      * @param null|array $params
-     * @param null|array|\Stripe\Util\RequestOptions $opts
+     * @param null|RequestOptionsArray|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
      *
@@ -192,7 +198,7 @@ class AccountService extends \WPForms\Vendor\Stripe\Service\AbstractService
      * @param string $parentId
      * @param string $id
      * @param null|array $params
-     * @param null|array|\Stripe\Util\RequestOptions $opts
+     * @param null|RequestOptionsArray|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
      *
@@ -210,7 +216,7 @@ class AccountService extends \WPForms\Vendor\Stripe\Service\AbstractService
      *
      * @param string $id
      * @param null|array $params
-     * @param null|array|\Stripe\Util\RequestOptions $opts
+     * @param null|RequestOptionsArray|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
      *
@@ -226,7 +232,7 @@ class AccountService extends \WPForms\Vendor\Stripe\Service\AbstractService
      * @param string $parentId
      * @param string $id
      * @param null|array $params
-     * @param null|array|\Stripe\Util\RequestOptions $opts
+     * @param null|RequestOptionsArray|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
      *
@@ -242,7 +248,7 @@ class AccountService extends \WPForms\Vendor\Stripe\Service\AbstractService
      * @param string $parentId
      * @param string $id
      * @param null|array $params
-     * @param null|array|\Stripe\Util\RequestOptions $opts
+     * @param null|RequestOptionsArray|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
      *
@@ -258,7 +264,7 @@ class AccountService extends \WPForms\Vendor\Stripe\Service\AbstractService
      * @param string $parentId
      * @param string $id
      * @param null|array $params
-     * @param null|array|\Stripe\Util\RequestOptions $opts
+     * @param null|RequestOptionsArray|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
      *
@@ -275,9 +281,9 @@ class AccountService extends \WPForms\Vendor\Stripe\Service\AbstractService
      * For Custom accounts, you can update any information on the account. For other
      * accounts, you can update all information until that account has started to go
      * through Connect Onboarding. Once you create an <a
-     * href="/docs/api/account_links">Account Link</a> for a Standard or Express
-     * account, some parameters can no longer be changed. These are marked as
-     * <strong>Custom Only</strong> or <strong>Custom and Express</strong> below.
+     * href="/docs/api/account_links">Account Link</a> or <a
+     * href="/docs/api/account_sessions">Account Session</a>, some properties can only
+     * be changed or updated for Custom accounts.
      *
      * To update your own account, use the <a
      * href="https://dashboard.stripe.com/settings/account">Dashboard</a>. Refer to our
@@ -286,7 +292,7 @@ class AccountService extends \WPForms\Vendor\Stripe\Service\AbstractService
      *
      * @param string $id
      * @param null|array $params
-     * @param null|array|\Stripe\Util\RequestOptions $opts
+     * @param null|RequestOptionsArray|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
      *
@@ -303,7 +309,7 @@ class AccountService extends \WPForms\Vendor\Stripe\Service\AbstractService
      * @param string $parentId
      * @param string $id
      * @param null|array $params
-     * @param null|array|\Stripe\Util\RequestOptions $opts
+     * @param null|RequestOptionsArray|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
      *
@@ -325,7 +331,7 @@ class AccountService extends \WPForms\Vendor\Stripe\Service\AbstractService
      * @param string $parentId
      * @param string $id
      * @param null|array $params
-     * @param null|array|\Stripe\Util\RequestOptions $opts
+     * @param null|RequestOptionsArray|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
      *
@@ -341,7 +347,7 @@ class AccountService extends \WPForms\Vendor\Stripe\Service\AbstractService
      * @param string $parentId
      * @param string $id
      * @param null|array $params
-     * @param null|array|\Stripe\Util\RequestOptions $opts
+     * @param null|RequestOptionsArray|\Stripe\Util\RequestOptions $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
      *

@@ -103,6 +103,7 @@ class WPForms_Builder {
 
 			add_action( 'admin_init', [ self::$instance, 'init' ], 10 );
 			add_action( 'admin_init', [ self::$instance, 'deregister_common_wp_admin_styles' ], PHP_INT_MAX );
+			add_action( 'load-wpforms_page_wpforms-builder', [ self::$instance, 'process_actions' ] );
 		}
 
 		return self::$instance;
@@ -244,6 +245,112 @@ class WPForms_Builder {
 	}
 
 	/**
+	 * Process form actions.
+	 *
+	 * @since 1.8.8
+	 */
+	public function process_actions() {
+
+		$form_id = isset( $_GET['form_id'] ) ? (int) $_GET['form_id'] : 0;
+		$action  = isset( $_REQUEST['action'] ) ? sanitize_key( $_REQUEST['action'] ) : false;
+		$nonce   = isset( $_GET['_wpnonce'] ) ? sanitize_key( $_GET['_wpnonce'] ) : false;
+
+		if ( ! $this->is_allowed_action( $form_id, $action ) ) {
+			return;
+		}
+
+		if ( ! wp_verify_nonce( $nonce, 'wpforms_' . $action . '_form_nonce' ) ) {
+			return;
+		}
+
+		$this->process_action( $form_id, $action );
+	}
+
+	/**
+	 * Check whether the form action is valid and allowed.
+	 *
+	 * @since 1.8.8
+	 *
+	 * @param int    $form_id Form ID.
+	 * @param string $action  Action name.
+	 *
+	 * @return bool
+	 */
+	private function is_allowed_action( int $form_id, string $action ): bool {
+
+		if ( empty( $form_id ) || empty( $action ) ) {
+			return false;
+		}
+
+		return in_array( $action, [ 'save_as_template', 'template_to_form', 'duplicate' ], true );
+	}
+
+	/**
+	 * Process a single form action.
+	 *
+	 * The action can be triggered via URL:
+	 *   wp_nonce_url(
+	 *       add_query_arg( [ 'action' => '<action>, 'form_id' => $form_id ] ),
+	 *      'wpforms_save_as_template_form_nonce'
+	 *   );
+	 *
+	 * @since 1.8.8
+	 *
+	 * @param int    $form_id Form ID.
+	 * @param string $action  Action name.
+	 */
+	private function process_action( int $form_id, string $action ) {
+
+		$form_handler = wpforms()->get( 'form' );
+
+		$id = false;
+
+		if ( $action === 'save_as_template' ) {
+			$id = $form_handler->convert( $form_id, 'template' );
+		}
+
+		if ( $action === 'template_to_form' ) {
+			$id = $form_handler->convert( $form_id, 'form' );
+		}
+
+		if ( $action === 'duplicate' ) {
+			$ids = $form_handler->duplicate( $form_id );
+			$id  = ! empty( $ids ) ? current( $ids ) : false;
+		}
+
+		// Reload the form builder with the target object.
+		if ( ! empty( $id ) ) {
+			wp_safe_redirect( $this->get_edit_url( $id, $this->view ) );
+			exit;
+		}
+	}
+
+	/**
+	 * Get the form edit URL.
+	 *
+	 * @since 1.8.8
+	 *
+	 * @param string|int $form_id Form ID.
+	 * @param string     $view    View name.
+	 *
+	 * @return string
+	 */
+	private function get_edit_url( $form_id, string $view = '' ): string {
+
+		if ( empty( $view ) || ! in_array( $view, $this->panels, true ) ) {
+			$view = 'fields';
+		}
+
+		return add_query_arg(
+			[
+				'view'    => $view,
+				'form_id' => $form_id,
+			],
+			admin_url( 'admin.php?page=wpforms-builder' )
+		);
+	}
+
+	/**
 	 * Define TinyMCE buttons to use with our fancy editor instances.
 	 *
 	 * @since 1.0.3
@@ -371,18 +478,19 @@ class WPForms_Builder {
 			'4.2.6'
 		);
 
+		// jQuery.Confirm Reloaded.
 		wp_enqueue_style(
 			'jquery-confirm',
 			WPFORMS_PLUGIN_URL . 'assets/lib/jquery.confirm/jquery-confirm.min.css',
 			null,
-			'3.3.4'
+			'1.0.0'
 		);
 
 		wp_enqueue_style(
 			'minicolors',
 			WPFORMS_PLUGIN_URL . 'assets/lib/jquery.minicolors/jquery.minicolors.min.css',
 			null,
-			'2.2.6'
+			'2.3.6'
 		);
 
 		// Remove TinyMCE editor styles from third-party themes and plugins.
@@ -403,11 +511,12 @@ class WPForms_Builder {
 			'4.2.6'
 		);
 
+		// jQuery.Confirm Reloaded.
 		wp_enqueue_script(
 			'jquery-confirm',
 			WPFORMS_PLUGIN_URL . 'assets/lib/jquery.confirm/jquery-confirm.min.js',
 			[ 'jquery' ],
-			'3.3.4'
+			'1.0.0'
 		);
 
 		wp_enqueue_script(
@@ -421,7 +530,7 @@ class WPForms_Builder {
 			'minicolors',
 			WPFORMS_PLUGIN_URL . 'assets/lib/jquery.minicolors/jquery.minicolors.min.js',
 			[ 'jquery' ],
-			'2.2.6'
+			'2.3.6'
 		);
 
 		wp_enqueue_script(
@@ -449,7 +558,7 @@ class WPForms_Builder {
 			'dom-purify',
 			WPFORMS_PLUGIN_URL . 'assets/lib/purify.min.js',
 			[],
-			'3.0.6'
+			'3.0.9'
 		);
 
 		if ( wp_is_mobile() ) {
@@ -458,14 +567,14 @@ class WPForms_Builder {
 
 		wp_enqueue_script(
 			'wpforms-utils',
-			WPFORMS_PLUGIN_URL . "assets/js/admin-utils{$min}.js",
+			WPFORMS_PLUGIN_URL . "assets/js/admin/share/admin-utils{$min}.js",
 			[ 'jquery', 'dom-purify' ],
 			WPFORMS_VERSION
 		);
 
 		wp_enqueue_script(
 			'wpforms-generic-utils',
-			WPFORMS_PLUGIN_URL . "assets/js/utils{$min}.js",
+			WPFORMS_PLUGIN_URL . "assets/js/share/utils{$min}.js",
 			[ 'jquery' ],
 			WPFORMS_VERSION
 		);
@@ -479,7 +588,7 @@ class WPForms_Builder {
 
 		wp_enqueue_script(
 			'wpforms-admin-builder-dropdown-list',
-			WPFORMS_PLUGIN_URL . "assets/js/components/admin/builder/dropdown-list{$min}.js",
+			WPFORMS_PLUGIN_URL . "assets/js/admin/builder/dropdown-list{$min}.js",
 			[ 'jquery' ],
 			WPFORMS_VERSION,
 			true
@@ -487,7 +596,7 @@ class WPForms_Builder {
 
 		wp_enqueue_script(
 			'wpforms-builder',
-			WPFORMS_PLUGIN_URL . "assets/js/admin-builder{$min}.js",
+			WPFORMS_PLUGIN_URL . "assets/js/admin/builder/admin-builder{$min}.js",
 			[
 				'wpforms-utils',
 				'wpforms-admin-builder-templates',
@@ -503,7 +612,7 @@ class WPForms_Builder {
 
 		wp_enqueue_script(
 			'wpforms-admin-builder-templates',
-			WPFORMS_PLUGIN_URL . "assets/js/components/admin/builder/templates{$min}.js",
+			WPFORMS_PLUGIN_URL . "assets/js/admin/builder/templates{$min}.js",
 			[ 'wp-util' ],
 			WPFORMS_VERSION,
 			true
@@ -635,7 +744,7 @@ class WPForms_Builder {
 			'template_select'                         => esc_html__( 'Use Template', 'wpforms-lite' ),
 			'template_selected_badge'                 => Helpers::get_badge( esc_html__( 'Selected', 'wpforms-lite' ), 'sm', 'corner', 'steel', 'rounded-bl' ),
 			'template_confirm'                        => esc_html__( 'Changing templates on an existing form will DELETE existing form fields. Are you sure you want apply the new template?', 'wpforms-lite' ),
-			'use_simple_contact_form'                 => esc_html__( 'Use Simple Contact Form Template', 'wpforms-lite' ),
+			'use_default_template'                    => esc_html__( 'Use Default Template', 'wpforms-lite' ),
 			'embed'                                   => esc_html__( 'Embed', 'wpforms-lite' ),
 			'exit'                                    => esc_html__( 'Exit', 'wpforms-lite' ),
 			'exit_url'                                => wpforms_current_user_can( 'view_forms' ) ? admin_url( 'admin.php?page=wpforms-overview' ) : admin_url(),
@@ -683,7 +792,7 @@ class WPForms_Builder {
 			'upload_image_extensions_error'           => esc_html__( 'You tried uploading a file type that is not allowed. Please try again.', 'wpforms-lite' ),
 			'provider_add_new_acc_btn'                => esc_html__( 'Add', 'wpforms-lite' ),
 			'pro'                                     => wpforms()->is_pro(),
-			'is_gutenberg'                            => version_compare( get_bloginfo( 'version' ), '5.0', '>=' ) && ! is_plugin_active( 'classic-editor/classic-editor.php' ),
+			'is_gutenberg'                            => ! is_plugin_active( 'classic-editor/classic-editor.php' ),
 			'cl_fields_supported'                     => wpforms_get_conditional_logic_form_fields_supported(),
 			'redirect_url_field_error'                => esc_html__( 'You should enter a valid absolute address to the Confirmation Redirect URL field.', 'wpforms-lite' ),
 			'add_custom_value_label'                  => esc_html__( 'Add Custom Value', 'wpforms-lite' ),
@@ -694,7 +803,7 @@ class WPForms_Builder {
 			'error_save_form'                         => esc_html__( 'Something went wrong while saving the form. Please reload the page and try again.', 'wpforms-lite' ),
 			'error_contact_support'                   => esc_html__( 'Please contact the plugin support team if this behavior persists.', 'wpforms-lite' ),
 			'ms_win_css_url'                          => WPFORMS_PLUGIN_URL . 'assets/css/builder/builder-ms-win.css',
-			'error_select_template'                   => esc_html__( 'Please close the form builder and try again. If the error persists, contact our support team.', 'wpforms-lite' ),
+			'error_select_template'                   => esc_html__( 'Something went wrong while applying the form template. Please try again. If the error persists, contact our support team.', 'wpforms-lite' ),
 			'error_load_templates'                    => esc_html__( 'Couldn\'t load the Setup panel.', 'wpforms-lite' ),
 			'blank_form'                              => esc_html__( 'Blank Form', 'wpforms-lite' ),
 			'something_went_wrong'                    => esc_html__( 'Something went wrong', 'wpforms-lite' ),
@@ -985,10 +1094,19 @@ class WPForms_Builder {
 
 						<?php if ( $this->form ) : ?>
 
-							<?php esc_html_e( 'Now editing', 'wpforms-lite' ); ?>
+							<span class="wpforms-center-form-name-prefix">
+								<?php esc_html_e( 'Now editing', 'wpforms-lite' ); ?>
+							</span>
+
 							<span class="wpforms-center-form-name wpforms-form-name">
 								<?php echo esc_html( isset( $this->form_data['settings']['form_title'] ) ? $this->form_data['settings']['form_title'] : $this->form->post_title ); ?>
 							</span>
+
+							<?php if ( $this->form->post_type === 'wpforms-template' ) : ?>
+								<span class="wpforms-center-form-template-badge">
+									<?php echo esc_html__( 'Template', 'wpforms-lite' ); ?>
+								</span>
+							<?php endif; ?>
 
 						<?php endif; ?>
 
@@ -999,10 +1117,20 @@ class WPForms_Builder {
 						<button id="wpforms-help"
 							class="wpforms-btn wpforms-btn-toolbar wpforms-btn-light-grey"
 							title="<?php esc_attr_e( 'Help Ctrl+H', 'wpforms-lite' ); ?>">
-								<i class="fa fa-question-circle-o"></i><span><?php esc_html_e( 'Help', 'wpforms-lite' ); ?></span>
+								<i class="fa fa-question-circle-o"></i>
+								<span<?php echo $this->form ? ' class="screen-reader-text"' : ''; ?>>
+									<?php esc_html_e( 'Help', 'wpforms-lite' ); ?>
+								</span>
 						</button>
 
 						<?php if ( $this->form ) : ?>
+							<div id="wpforms-context-menu-container"
+								class="wpforms-btn wpforms-btn-toolbar wpforms-btn-light-grey">
+								<svg width="16" height="16" fill="currentColor">
+									<path d="M2 4a2 2 0 0 0 2-2 2 2 0 0 0-2-2 2 2 0 0 0-2 2c0 1.1.9 2 2 2Zm6 12a2 2 0 0 0 2-2 2 2 0 0 0-2-2 2 2 0 0 0-2 2c0 1.1.9 2 2 2Zm-6 0a2 2 0 0 0 2-2 2 2 0 0 0-2-2 2 2 0 0 0-2 2c0 1.1.9 2 2 2Zm0-6a2 2 0 0 0 2-2 2 2 0 0 0-2-2 2 2 0 0 0-2 2c0 1.1.9 2 2 2Zm6 0a2 2 0 0 0 2-2 2 2 0 0 0-2-2 2 2 0 0 0-2 2c0 1.1.9 2 2 2Zm4-8c0 1.1.9 2 2 2a2 2 0 0 0 2-2 2 2 0 0 0-2-2 2 2 0 0 0-2 2ZM8 4a2 2 0 0 0 2-2 2 2 0 0 0-2-2 2 2 0 0 0-2 2c0 1.1.9 2 2 2Zm6 6a2 2 0 0 0 2-2 2 2 0 0 0-2-2 2 2 0 0 0-2 2c0 1.1.9 2 2 2Zm0 6a2 2 0 0 0 2-2 2 2 0 0 0-2-2 2 2 0 0 0-2 2c0 1.1.9 2 2 2Z"/>
+								</svg>
+								<?php echo wpforms_render( 'builder/context-menu', $this->get_context_menu_args(), true ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+							</div>
 
 							<?php if ( ! $revision ) : ?>
 								<a href="<?php echo esc_url( $preview_url ); ?>"
@@ -1016,11 +1144,19 @@ class WPForms_Builder {
 							<?php endif; ?>
 
 							<?php if ( $can_embed && ! $revision ) : ?>
-								<button id="wpforms-embed"
-									class="wpforms-btn wpforms-btn-toolbar wpforms-btn-light-grey"
-									title="<?php esc_attr_e( 'Embed Form Ctrl+B', 'wpforms-lite' ); ?>">
+								<?php if ( $this->form->post_type === 'wpforms-template' ) : ?>
+									<button id="wpforms-embed"
+											class="wpforms-btn wpforms-btn-toolbar wpforms-btn-light-grey wpforms-btn-light-grey-disabled"
+											title="<?php esc_attr_e( 'You cannot embed a form template', 'wpforms-lite' ); ?>">
 										<i class="fa fa-code"></i><span class="text"><?php esc_html_e( 'Embed', 'wpforms-lite' ); ?></span>
-								</button>
+									</button>
+								<?php else : ?>
+									<button id="wpforms-embed"
+											class="wpforms-btn wpforms-btn-toolbar wpforms-btn-light-grey"
+											title="<?php esc_attr_e( 'Embed Form Ctrl+B', 'wpforms-lite' ); ?>">
+										<i class="fa fa-code"></i><span class="text"><?php esc_html_e( 'Embed', 'wpforms-lite' ); ?></span>
+									</button>
+								<?php endif; ?>
 							<?php endif; ?>
 
 							<button id="wpforms-save"
@@ -1143,6 +1279,50 @@ class WPForms_Builder {
 		$strings['currency_symbol_pos'] = isset( $currencies[ $currency ]['symbol_pos'] ) ? sanitize_text_field( $currencies[ $currency ]['symbol_pos'] ) : 'left';
 
 		return $strings;
+	}
+
+	/**
+	 * Get context menu arguments, depending on the Lite/Pro version and form or form template type.
+	 *
+	 * @since 1.8.8
+	 *
+	 * @return array
+	 */
+	private function get_context_menu_args(): array {
+
+		$args = [
+			'form_id'          => $this->form->ID,
+			'is_form_template' => $this->form->post_type === 'wpforms-template',
+			'has_payments'     => wpforms()->get( 'payment' )->get_by( 'form_id', $this->form->ID ) !== null,
+			'show_whats_new'   => wpforms()->get( 'splash_screen' )->is_available_for_display(),
+		];
+
+		if ( wpforms()->is_pro() ) {
+			$args['has_entries']   = wpforms()->get( 'entry' )->get_entries( [ 'form_id' => $this->form->ID ], true ) > 0;
+			$args['can_duplicate'] = $this->can_duplicate();
+		}
+
+		return $args;
+	}
+
+	/**
+	 * Check if the current user is allowed to duplicate the form.
+	 *
+	 * @since 1.8.8
+	 *
+	 * @return bool
+	 */
+	private function can_duplicate(): bool {
+
+		if ( ! wpforms_current_user_can( 'create_forms' ) ) {
+			return false;
+		}
+
+		if ( ! wpforms_current_user_can( 'view_form_single', $this->form->ID ) ) {
+			return false;
+		}
+
+		return true;
 	}
 }
 

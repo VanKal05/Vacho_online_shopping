@@ -6,6 +6,8 @@
  * @since 3.0.22
  */
 
+use STImporter\Importer\Helpers\ST_Image_Importer;
+
 /**
  * Astra_Sites_Batch_Processing_Customizer
  *
@@ -69,7 +71,7 @@ class Astra_Sites_Batch_Processing_Customizer {
 			$options,
 			function ( &$value ) {
 				if ( ! is_array( $value ) && astra_sites_is_valid_image( $value ) ) {
-					$downloaded_image = Astra_Sites_Image_Importer::get_instance()->import(
+					$downloaded_image = ST_Image_Importer::get_instance()->import(
 						array(
 							'url' => $value,
 							'id'  => 0,

@@ -15,11 +15,6 @@ import LoadingSpinner from '../../../components/loading-spinner';
 import { STORE_KEY } from '../../../store';
 import { removeLocalStorageItem } from '../../../helpers';
 import { initialState } from '../../../store/reducer';
-// import Button from '../../components/button/button';
-// import { useStateValue } from '../../store/store';
-// import './style.scss';
-// import PreviousStepLink from '../../components/util/previous-step-link/index';
-// import ICONS from '../../../icons';
 
 const List = ( { className, options, onSelect, selected, type } ) => {
 	const handleKeyPress = ( e, id ) => {
@@ -74,6 +69,7 @@ const List = ( { className, options, onSelect, selected, type } ) => {
 								onSelect( event, id );
 							} }
 							tabIndex="0"
+							role="presentation"
 							onKeyDown={ ( event ) => {
 								handleKeyPress( event, id );
 							} }
@@ -213,28 +209,6 @@ const FontSelector = ( { options, onSelect, selected } ) => {
 
 	const nextStep = () => {
 		customizeWebsite();
-		// if ( ! importError ) {
-		// 	premiumTemplate = 'free' !== templateResponse[ 'astra-site-type' ];
-		// 	if ( premiumTemplate && ! licenseStatus ) {
-		// 		if ( astraSitesVars.isPro ) {
-		// 			dispatch( {
-		// 				type: 'set',
-		// 				validateLicenseStatus: true,
-		// 				currentCustomizeIndex: currentCustomizeIndex + 1,
-		// 			} );
-		// 		} else {
-		// 			dispatch( {
-		// 				type: 'set',
-		// 				currentCustomizeIndex: currentCustomizeIndex + 1,
-		// 			} );
-		// 		}
-		// 	} else {
-		// 		dispatch( {
-		// 			type: 'set',
-		// 			currentIndex: currentIndex + 1,
-		// 		} );
-		// 	}
-		// }
 	};
 
 	const lastStep = () => {

@@ -817,23 +817,24 @@ class CartController {
 
 		$packages = $cart->get_shipping_packages();
 
-		// Add extra package data to array.
-		if ( count( $packages ) ) {
-			$packages = array_map(
-				function( $key, $package, $index ) {
-					$package['package_id']   = isset( $package['package_id'] ) ? $package['package_id'] : $key;
-					$package['package_name'] = isset( $package['package_name'] ) ? $package['package_name'] : $this->get_package_name( $package, $index );
-					return $package;
-				},
-				array_keys( $packages ),
-				$packages,
-				range( 1, count( $packages ) )
-			);
+		// Return early if invalid object supplied by the filter or no packages.
+		if ( ! is_array( $packages ) || empty( $packages ) ) {
+			return [];
 		}
 
-		$packages = $calculate_rates ? wc()->shipping()->calculate_shipping( $packages ) : $packages;
+		// Add extra package data to array.
+		$packages = array_map(
+			function( $key, $package, $index ) {
+				$package['package_id']   = isset( $package['package_id'] ) ? $package['package_id'] : $key;
+				$package['package_name'] = isset( $package['package_name'] ) ? $package['package_name'] : $this->get_package_name( $package, $index );
+				return $package;
+			},
+			array_keys( $packages ),
+			$packages,
+			range( 1, count( $packages ) )
+		);
 
-		return $packages;
+		return $calculate_rates ? wc()->shipping()->calculate_shipping( $packages ) : $packages;
 	}
 
 	/**
@@ -877,6 +878,9 @@ class CartController {
 	 * @param string     $rate_id ID of the rate being chosen.
 	 */
 	public function select_shipping_rate( $package_id, $rate_id ) {
+		if ( ! is_string( $rate_id ) ) {
+			return;
+		}
 		$cart                        = $this->get_cart_instance();
 		$session_data                = wc()->session->get( 'chosen_shipping_methods' ) ? wc()->session->get( 'chosen_shipping_methods' ) : [];
 		$session_data[ $package_id ] = $rate_id;
@@ -924,11 +928,15 @@ class CartController {
 			);
 		}
 
-		if ( ! $coupon->is_valid() ) {
+		$discounts = new \WC_Discounts( $this->get_cart_instance() );
+		$valid     = $discounts->is_coupon_valid( $coupon );
+
+		if ( is_wp_error( $valid ) ) {
 			throw new RouteException(
 				'woocommerce_rest_cart_coupon_error',
-				wp_strip_all_tags( $coupon->get_error_message() ),
-				400
+				esc_html( wp_strip_all_tags( $valid->get_error_message() ) ),
+				400,
+				$valid->get_error_data() // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
 			);
 		}
 
@@ -1009,9 +1017,9 @@ class CartController {
 	/**
 	 * Validates an existing cart coupon and returns any errors.
 	 *
-	 * @throws RouteException Exception if invalid data is detected.
-	 *
 	 * @param \WC_Coupon $coupon Coupon object applied to the cart.
+	 *
+	 * @throws RouteException Exception if invalid data is detected.
 	 */
 	protected function validate_cart_coupon( \WC_Coupon $coupon ) {
 		if ( ! $coupon->is_valid() ) {

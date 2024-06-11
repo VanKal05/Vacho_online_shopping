@@ -51,15 +51,15 @@ const List = ( { className, options, onSelect, selected, type } ) => {
 						key={ id }
 					>
 						<li
-							className={ `
-						ist-font
-						${ id === selected ? 'active' : '' }
-						` }
+							className={ `ist-font ${
+								id === selected ? 'active' : ''
+							}` }
 							key={ id }
 							onClick={ ( event ) => {
 								onSelect( event, id );
 							} }
 							tabIndex="0"
+							role="presentation"
 							onKeyDown={ ( event ) => {
 								handleKeyPress( event, id );
 							} }

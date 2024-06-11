@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { classNames } from '../helpers';
 
 const { useState, useEffect, useRef } = wp.element;
@@ -70,4 +71,4 @@ const Masonry = ( {
 	);
 };
 
-export default Masonry;
+export default memo( Masonry );

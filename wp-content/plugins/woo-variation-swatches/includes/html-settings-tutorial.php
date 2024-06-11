@@ -1,5 +1,5 @@
 <?php
-defined( 'ABSPATH' ) or die( 'Keep Quit' );
+defined( 'ABSPATH' ) || die( 'Keep Quit' );
 ?>
 
 <h2>
@@ -11,7 +11,7 @@ defined( 'ABSPATH' ) or die( 'Keep Quit' );
 	<ul>
 		<li>
 			<div class="tutorial-image-wrapper">
-				<img alt="" src="<?php echo woo_variation_swatches()->org_assets_url( '/tutorial-1.png' ) ?>"></div>
+				<img alt="" src="<?php echo esc_url( woo_variation_swatches()->org_assets_url( '/tutorial-1.png' ) ); ?>" /></div>
 			<div class="tutorial-description-wrapper">
 				<h3>Color Swatches For Attribute Variation</h3>
 				<div class="tutorial-contents">
@@ -23,7 +23,6 @@ defined( 'ABSPATH' ) or die( 'Keep Quit' );
 				</div>
 			</div>
 		</li>
-
 
 		<li>
 			<div class="tutorial-description-wrapper">
@@ -37,12 +36,13 @@ defined( 'ABSPATH' ) or die( 'Keep Quit' );
 				</div>
 			</div>
 			<div class="tutorial-image-wrapper">
-				<img alt="" src="<?php echo woo_variation_swatches()->org_assets_url( '/tutorial-2.png' ) ?>"></div>
+				<img alt="" src="<?php echo esc_url( woo_variation_swatches()->org_assets_url( '/tutorial-2.png' ) ); ?>" /></div>
 		</li>
 
 		<li>
 			<div class="tutorial-image-wrapper">
-				<img alt="" src="<?php echo woo_variation_swatches()->org_assets_url( '/tutorial-3.png' ) ?>"></div>
+				<img alt="" src="<?php echo esc_url( woo_variation_swatches()->org_assets_url( '/tutorial-3.png' ) ); ?>" />
+			</div>
 			<div class="tutorial-description-wrapper">
 				<h3>Auto Convert All Variation Dropdown Into Button Swatches By Default</h3>
 				<div class="tutorial-contents">
@@ -50,7 +50,6 @@ defined( 'ABSPATH' ) or die( 'Keep Quit' );
 				</div>
 				<div class="tutorial-buttons">
 					<a href="https://demo.getwooplugins.com/woocommerce-variation-swatches/product-details/enable-auto-image-and-size-swatches" target="_blank" class="button button-live-demo">Live Video Preview</a>
-
 				</div>
 			</div>
 		</li>
@@ -66,13 +65,13 @@ defined( 'ABSPATH' ) or die( 'Keep Quit' );
 				</div>
 			</div>
 			<div class="tutorial-image-wrapper">
-				<img alt="" src="<?php echo woo_variation_swatches()->org_assets_url( '/tutorial-4.png' ) ?>"></div>
+				<img alt="" src="<?php echo esc_url( woo_variation_swatches()->org_assets_url( '/tutorial-4.png' ) ); ?>" />
+			</div>
 		</li>
-
 
 		<li>
 			<div class="tutorial-image-wrapper">
-				<img alt="" src="<?php echo woo_variation_swatches()->org_assets_url( '/tutorial-5.png' ) ?>"></div>
+				<img alt="" src="<?php echo esc_url( woo_variation_swatches()->org_assets_url( '/tutorial-5.png' ) ); ?>" /></div>
 			<div class="tutorial-description-wrapper">
 				<h3>Text Tooltip</h3>
 				<div class="tutorial-contents">
@@ -83,7 +82,6 @@ defined( 'ABSPATH' ) or die( 'Keep Quit' );
 					<a href="https://getwooplugins.com/documentation/woocommerce-variation-swatches/#enable-disable-swatch-tooltip" target="_blank" class="button button-docs">Documentation</a>
 				</div>
 			</div>
-
 		</li>
 
 		<li>
@@ -99,14 +97,16 @@ defined( 'ABSPATH' ) or die( 'Keep Quit' );
 				</div>
 			</div>
 			<div class="tutorial-image-wrapper">
-				<img alt="" src="<?php echo woo_variation_swatches()->org_assets_url( '/tutorial-6.png' ) ?>"></div>
+				<img alt="" src="<?php echo esc_url( woo_variation_swatches()->org_assets_url( '/tutorial-6.png' ) ); ?>" />
+			</div>
 		</li>
+
 		<li>
 			<div class="tutorial-image-wrapper">
-				<?php if ( ! woo_variation_swatches()->is_pro() ): ?>
-					<div class="ribbon"><span><?php esc_html_e( 'PRO', 'woo-variation-swatches' ) ?></span></div>
+				<?php if ( ! woo_variation_swatches()->is_pro() ) : ?>
+					<div class="ribbon"><span><?php esc_html_e( 'PRO', 'woo-variation-swatches' ); ?></span></div>
 				<?php endif; ?>
-				<img alt="" src="<?php echo woo_variation_swatches()->org_assets_url( '/tutorial-14.gif' ) ?>">
+				<img alt="" src="<?php echo esc_url(woo_variation_swatches()->org_assets_url( '/tutorial-14.gif' )); ?>" />
 			</div>
 			<div class="tutorial-description-wrapper">
 				<h3>Auto Convert All Dropdowns Into Image Swatches If Variation Has Featured Image. (Most Popular & Time Saving Feature)</h3>
@@ -118,12 +118,11 @@ defined( 'ABSPATH' ) or die( 'Keep Quit' );
 				<div class="tutorial-buttons">
 					<a href="https://demo.getwooplugins.com/woocommerce-variation-swatches/product-details/enable-auto-image-and-size-swatches/" target="_blank" class="button button-live-demo">Live Video Preview</a>
 					<a href="https://getwooplugins.com/documentation/woocommerce-variation-swatches/#enable-auto-image-swatches-without-any-configuration" target="_blank" class="button button-docs">Documentation</a>
-					<?php if ( ! woo_variation_swatches()->is_pro() ): ?>
-						<a href="<?php echo woo_variation_swatches()->get_backend()->get_pro_link() ?>" target="_blank" class="button button-pro">Upgrade to pro</a>
+					<?php if ( ! woo_variation_swatches()->is_pro() ) : ?>
+						<a href="<?php echo esc_url( woo_variation_swatches()->get_backend()->get_pro_link()); ?>" target="_blank" class="button button-pro">Upgrade to pro</a>
 					<?php endif; ?>
 				</div>
 			</div>
-
 		</li>
 
 		<li>
@@ -135,25 +134,29 @@ defined( 'ABSPATH' ) or die( 'Keep Quit' );
 				<div class="tutorial-buttons">
 					<a href="https://demo.getwooplugins.com/woocommerce-variation-swatches/product-details/radio-variation-swatches" target="_blank" class="button button-live-demo">Live Video Preview</a>
 					<a href="https://getwooplugins.com/documentation/woocommerce-variation-swatches/#how-to-enable-radio-swatches-premium" target="_blank" class="button button-docs">Documentation</a>
-					<?php if ( ! woo_variation_swatches()->is_pro() ): ?>
-						<a href="<?php echo woo_variation_swatches()->get_backend()->get_pro_link() ?>" target="_blank" class="button button-pro">Upgrade to pro</a>
+					<?php if ( ! woo_variation_swatches()->is_pro() ) : ?>
+						<a href="<?php echo esc_url( woo_variation_swatches()->get_backend()->get_pro_link()); ?>" target="_blank" class="button button-pro">Upgrade to pro</a>
 					<?php endif; ?>
 				</div>
 			</div>
 			<div class="tutorial-image-wrapper">
-				<?php if ( ! woo_variation_swatches()->is_pro() ): ?>
-					<div class="ribbon"><span><?php esc_html_e( 'PRO', 'woo-variation-swatches' ) ?></span></div>
+				<?php if ( ! woo_variation_swatches()->is_pro() ) : ?>
+					<div class="ribbon">
+						<span><?php esc_html_e( 'PRO', 'woo-variation-swatches' ); ?></span>
+					</div>
 				<?php endif; ?>
-				<img alt="" src="<?php echo woo_variation_swatches()->org_assets_url( '/tutorial-7.jpg' ) ?>">
+				<img alt="" src="<?php echo esc_url(woo_variation_swatches()->org_assets_url( '/tutorial-7.jpg' )); ?>" />
 			</div>
 		</li>
 
 		<li>
 			<div class="tutorial-image-wrapper">
-				<?php if ( ! woo_variation_swatches()->is_pro() ): ?>
-					<div class="ribbon"><span><?php esc_html_e( 'PRO', 'woo-variation-swatches' ) ?></span></div>
+				<?php if ( ! woo_variation_swatches()->is_pro() ) : ?>
+					<div class="ribbon">
+						<span><?php esc_html_e( 'PRO', 'woo-variation-swatches' ); ?></span>
+					</div>
 				<?php endif; ?>
-				<img alt="" src="<?php echo woo_variation_swatches()->org_assets_url( '/tutorial-13.jpg' ) ?>">
+				<img alt="" src="<?php echo esc_url( woo_variation_swatches()->org_assets_url( '/tutorial-13.jpg' )); ?>" />
 			</div>
 			<div class="tutorial-description-wrapper">
 				<h3>Enable Dual Color Variation Swatches</h3>
@@ -163,8 +166,8 @@ defined( 'ABSPATH' ) or die( 'Keep Quit' );
 				<div class="tutorial-buttons">
 					<a href="https://demo.getwooplugins.com/woocommerce-variation-swatches/product-details/dual-color-swatches" target="_blank" class="button button-live-demo">Live Video Preview</a>
 					<a href="https://getwooplugins.com/documentation/woocommerce-variation-swatches/#dual-color-swatches" target="_blank" class="button button-docs">Documentation</a>
-					<?php if ( ! woo_variation_swatches()->is_pro() ): ?>
-						<a href="<?php echo woo_variation_swatches()->get_backend()->get_pro_link() ?>" target="_blank" class="button button-pro">Upgrade to pro</a>
+					<?php if ( ! woo_variation_swatches()->is_pro() ) : ?>
+						<a href="<?php echo esc_url(woo_variation_swatches()->get_backend()->get_pro_link()); ?>" target="_blank" class="button button-pro">Upgrade to pro</a>
 					<?php endif; ?>
 				</div>
 			</div>
@@ -181,25 +184,29 @@ defined( 'ABSPATH' ) or die( 'Keep Quit' );
 				<div class="tutorial-buttons">
 					<a href="https://demo.getwooplugins.com/woocommerce-variation-swatches/product-details/change-product-variation-gallery-like-amazon-and-aliexpress/" target="_blank" class="button button-live-demo">Live Video Preview</a>
 					<a href="https://getwooplugins.com/documentation/woocommerce-variation-swatches/#how-to-change-variation-image-gallery-selecting-single-attribute-like-amazon-and-aliexpress" target="_blank" class="button button-docs">Documentation</a>
-					<?php if ( ! woo_variation_swatches()->is_pro() ): ?>
-						<a href="<?php echo woo_variation_swatches()->get_backend()->get_pro_link() ?>" target="_blank" class="button button-pro">Upgrade to pro</a>
+					<?php if ( ! woo_variation_swatches()->is_pro() ) : ?>
+						<a href="<?php echo esc_url( woo_variation_swatches()->get_backend()->get_pro_link()); ?>" target="_blank" class="button button-pro">Upgrade to pro</a>
 					<?php endif; ?>
 				</div>
 			</div>
 			<div class="tutorial-image-wrapper">
-				<?php if ( ! woo_variation_swatches()->is_pro() ): ?>
-					<div class="ribbon"><span><?php esc_html_e( 'PRO', 'woo-variation-swatches' ) ?></span></div>
+				<?php if ( ! woo_variation_swatches()->is_pro() ) : ?>
+					<div class="ribbon">
+						<span><?php esc_html_e( 'PRO', 'woo-variation-swatches' ); ?></span>
+					</div>
 				<?php endif; ?>
-				<img alt="" src="<?php echo woo_variation_swatches()->org_assets_url( '/tutorial-15.gif' ) ?>">
+				<img alt="" src="<?php echo esc_url( woo_variation_swatches()->org_assets_url( '/tutorial-15.gif' )); ?>" />
 			</div>
 		</li>
 
 		<li>
 			<div class="tutorial-image-wrapper">
-				<?php if ( ! woo_variation_swatches()->is_pro() ): ?>
-					<div class="ribbon"><span><?php esc_html_e( 'PRO', 'woo-variation-swatches' ) ?></span></div>
+				<?php if ( ! woo_variation_swatches()->is_pro() ) : ?>
+					<div class="ribbon">
+						<span><?php esc_html_e( 'PRO', 'woo-variation-swatches' ); ?></span>
+					</div>
 				<?php endif; ?>
-				<img alt="" src="<?php echo woo_variation_swatches()->org_assets_url( '/tutorial-16.jpg' ) ?>">
+				<img alt="" src="<?php echo esc_url( woo_variation_swatches()->org_assets_url( '/tutorial-16.jpg' )); ?>" />
 			</div>
 			<div class="tutorial-description-wrapper">
 				<h3>Individual Product Based Swatches Customization</h3>
@@ -209,12 +216,11 @@ defined( 'ABSPATH' ) or die( 'Keep Quit' );
 				<div class="tutorial-buttons">
 					<a href="https://demo.getwooplugins.com/woocommerce-variation-swatches/product-details/show-all-variation-type-in-the-same-variation/" target="_blank" class="button button-live-demo">Live Video Preview</a>
 					<a href="https://getwooplugins.com/documentation/woocommerce-variation-swatches/#product-basis-swatches-customization-premium" target="_blank" class="button button-docs">Documentation</a>
-					<?php if ( ! woo_variation_swatches()->is_pro() ): ?>
-						<a href="<?php echo woo_variation_swatches()->get_backend()->get_pro_link() ?>" target="_blank" class="button button-pro">Upgrade to pro</a>
+					<?php if ( ! woo_variation_swatches()->is_pro() ) : ?>
+						<a href="<?php echo esc_url( woo_variation_swatches()->get_backend()->get_pro_link() ); ?>" target="_blank" class="button button-pro">Upgrade to pro</a>
 					<?php endif; ?>
 				</div>
 			</div>
-
 		</li>
 
 		<li>
@@ -227,25 +233,29 @@ defined( 'ABSPATH' ) or die( 'Keep Quit' );
 				<div class="tutorial-buttons">
 					<a href="https://demo.getwooplugins.com/woocommerce-variation-swatches/product-details/image-tooltip/" target="_blank" class="button button-live-demo">Live Video Preview</a>
 					<a href="https://getwooplugins.com/documentation/woocommerce-variation-swatches/#how-to-enable-image-tooltip" target="_blank" class="button button-docs">Documentation</a>
-					<?php if ( ! woo_variation_swatches()->is_pro() ): ?>
-						<a href="<?php echo woo_variation_swatches()->get_backend()->get_pro_link() ?>" target="_blank" class="button button-pro">Upgrade to pro</a>
+					<?php if ( ! woo_variation_swatches()->is_pro() ) : ?>
+						<a href="<?php echo esc_url(woo_variation_swatches()->get_backend()->get_pro_link()); ?>" target="_blank" class="button button-pro">Upgrade to pro</a>
 					<?php endif; ?>
 				</div>
 			</div>
 			<div class="tutorial-image-wrapper">
-				<?php if ( ! woo_variation_swatches()->is_pro() ): ?>
-					<div class="ribbon"><span><?php esc_html_e( 'PRO', 'woo-variation-swatches' ) ?></span></div>
+				<?php if ( ! woo_variation_swatches()->is_pro() ) : ?>
+					<div class="ribbon">
+						<span><?php esc_html_e( 'PRO', 'woo-variation-swatches' ); ?></span>
+					</div>
 				<?php endif; ?>
-				<img alt="" src="<?php echo woo_variation_swatches()->org_assets_url( '/tutorial-17.jpg' ) ?>">
+				<img alt="" src="<?php echo esc_url( woo_variation_swatches()->org_assets_url( '/tutorial-17.jpg' )); ?>" />
 			</div>
 		</li>
 
 		<li>
 			<div class="tutorial-image-wrapper">
-				<?php if ( ! woo_variation_swatches()->is_pro() ): ?>
-					<div class="ribbon"><span><?php esc_html_e( 'PRO', 'woo-variation-swatches' ) ?></span></div>
+				<?php if ( ! woo_variation_swatches()->is_pro() ) : ?>
+					<div class="ribbon">
+						<span><?php esc_html_e( 'PRO', 'woo-variation-swatches' ); ?></span>
+					</div>
 				<?php endif; ?>
-				<img alt="" src="<?php echo woo_variation_swatches()->org_assets_url( '/tutorial-18.jpg' ) ?>">
+				<img alt="" src="<?php echo esc_url( woo_variation_swatches()->org_assets_url( '/tutorial-18.jpg' )); ?>">
 			</div>
 			<div class="tutorial-description-wrapper">
 				<h3>Generate Sharable Variation Link</h3>
@@ -255,12 +265,11 @@ defined( 'ABSPATH' ) or die( 'Keep Quit' );
 				<div class="tutorial-buttons">
 					<a href="https://demo.getwooplugins.com/woocommerce-variation-swatches/product-details/generate-link-for-selected-variations/" target="_blank" class="button button-live-demo">Live Video Preview</a>
 					<a href="https://getwooplugins.com/documentation/woocommerce-variation-swatches/#generate-attribute-variation-link" target="_blank" class="button button-docs">Documentation</a>
-					<?php if ( ! woo_variation_swatches()->is_pro() ): ?>
-						<a href="<?php echo woo_variation_swatches()->get_backend()->get_pro_link() ?>" target="_blank" class="button button-pro">Upgrade to pro</a>
+					<?php if ( ! woo_variation_swatches()->is_pro() ) : ?>
+						<a href="<?php echo esc_url( woo_variation_swatches()->get_backend()->get_pro_link()); ?>" target="_blank" class="button button-pro">Upgrade to pro</a>
 					<?php endif; ?>
 				</div>
 			</div>
-
 		</li>
 
 		<li>
@@ -273,25 +282,29 @@ defined( 'ABSPATH' ) or die( 'Keep Quit' );
 				<div class="tutorial-buttons">
 					<a href="https://demo.getwooplugins.com/woocommerce-variation-swatches/product-details/catalog-mode/" target="_blank" class="button button-live-demo">Live Video Preview</a>
 					<a href="https://getwooplugins.com/documentation/woocommerce-variation-swatches/#set-single-attribute-for-shop-instead-of-many-special-attribute-catalog-setting" target="_blank" class="button button-docs">Documentation</a>
-					<?php if ( ! woo_variation_swatches()->is_pro() ): ?>
-						<a href="<?php echo woo_variation_swatches()->get_backend()->get_pro_link() ?>" target="_blank" class="button button-pro">Upgrade to pro</a>
+					<?php if ( ! woo_variation_swatches()->is_pro() ) : ?>
+						<a href="<?php echo esc_url( woo_variation_swatches()->get_backend()->get_pro_link()); ?>" target="_blank" class="button button-pro">Upgrade to pro</a>
 					<?php endif; ?>
 				</div>
 			</div>
 			<div class="tutorial-image-wrapper">
-				<?php if ( ! woo_variation_swatches()->is_pro() ): ?>
-					<div class="ribbon"><span><?php esc_html_e( 'PRO', 'woo-variation-swatches' ) ?></span></div>
+				<?php if ( ! woo_variation_swatches()->is_pro() ) : ?>
+					<div class="ribbon">
+						<span><?php esc_html_e( 'PRO', 'woo-variation-swatches' ); ?></span>
+					</div>
 				<?php endif; ?>
-				<img alt="" src="<?php echo woo_variation_swatches()->org_assets_url( '/tutorial-11.jpg' ) ?>">
+				<img alt="" src="<?php echo esc_url( woo_variation_swatches()->org_assets_url( '/tutorial-11.jpg' )); ?>" />
 			</div>
 		</li>
 
 		<li>
 			<div class="tutorial-image-wrapper">
-				<?php if ( ! woo_variation_swatches()->is_pro() ): ?>
-					<div class="ribbon"><span><?php esc_html_e( 'PRO', 'woo-variation-swatches' ) ?></span></div>
+				<?php if ( ! woo_variation_swatches()->is_pro() ) : ?>
+					<div class="ribbon">
+						<span><?php esc_html_e( 'PRO', 'woo-variation-swatches' ); ?></span>
+					</div>
 				<?php endif; ?>
-				<img alt="" src="<?php echo woo_variation_swatches()->org_assets_url( '/tutorial-10.jpg' ) ?>">
+				<img alt="" src="<?php echo esc_url( woo_variation_swatches()->org_assets_url( '/tutorial-10.jpg' ) ); ?>" />
 			</div>
 			<div class="tutorial-description-wrapper">
 				<h3>Display Swatch in Catalog / Archive Page</h3>
@@ -301,12 +314,11 @@ defined( 'ABSPATH' ) or die( 'Keep Quit' );
 				<div class="tutorial-buttons">
 					<a href="https://demo.getwooplugins.com/woocommerce-variation-swatches/product-details/archive-mode/" target="_blank" class="button button-live-demo">Live Video Preview</a>
 					<a href="https://demo.getwooplugins.com/woocommerce-variation-swatches" target="_blank" class="button button-docs">Documentation</a>
-					<?php if ( ! woo_variation_swatches()->is_pro() ): ?>
-						<a href="<?php echo woo_variation_swatches()->get_backend()->get_pro_link() ?>" target="_blank" class="button button-pro">Upgrade to pro</a>
+					<?php if ( ! woo_variation_swatches()->is_pro() ) : ?>
+						<a href="<?php echo esc_url( woo_variation_swatches()->get_backend()->get_pro_link()); ?>" target="_blank" class="button button-pro">Upgrade to pro</a>
 					<?php endif; ?>
 				</div>
 			</div>
-
 		</li>
 
 		<li>
@@ -319,25 +331,29 @@ defined( 'ABSPATH' ) or die( 'Keep Quit' );
 				<div class="tutorial-buttons">
 					<a href="https://demo.getwooplugins.com/woocommerce-variation-swatches/product-details/more-link-for-catalog-swatch/" target="_blank" class="button button-live-demo">Live Video Preview</a>
 					<a href="https://getwooplugins.com/documentation/woocommerce-variation-swatches/#more-limit-for-catalog-swatches" target="_blank" class="button button-docs">Documentation</a>
-					<?php if ( ! woo_variation_swatches()->is_pro() ): ?>
-						<a href="<?php echo woo_variation_swatches()->get_backend()->get_pro_link() ?>" target="_blank" class="button button-pro">Upgrade to pro</a>
+					<?php if ( ! woo_variation_swatches()->is_pro() ) : ?>
+						<a href="<?php echo esc_url( woo_variation_swatches()->get_backend()->get_pro_link()); ?>" target="_blank" class="button button-pro">Upgrade to pro</a>
 					<?php endif; ?>
 				</div>
 			</div>
 			<div class="tutorial-image-wrapper">
-				<?php if ( ! woo_variation_swatches()->is_pro() ): ?>
-					<div class="ribbon"><span><?php esc_html_e( 'PRO', 'woo-variation-swatches' ) ?></span></div>
+				<?php if ( ! woo_variation_swatches()->is_pro() ) : ?>
+					<div class="ribbon">
+						<span><?php esc_html_e( 'PRO', 'woo-variation-swatches' ); ?></span>
+					</div>
 				<?php endif; ?>
-				<img alt="" src="<?php echo woo_variation_swatches()->org_assets_url( '/tutorial-19.jpg' ) ?>">
+				<img alt="" src="<?php echo esc_url( woo_variation_swatches()->org_assets_url( '/tutorial-19.jpg' )); ?>" />
 			</div>
 		</li>
 
 		<li>
 			<div class="tutorial-image-wrapper">
-				<?php if ( ! woo_variation_swatches()->is_pro() ): ?>
-					<div class="ribbon"><span><?php esc_html_e( 'PRO', 'woo-variation-swatches' ) ?></span></div>
+				<?php if ( ! woo_variation_swatches()->is_pro() ) : ?>
+					<div class="ribbon">
+						<span><?php esc_html_e( 'PRO', 'woo-variation-swatches' ); ?></span>
+					</div>
 				<?php endif; ?>
-				<img alt="" src="<?php echo woo_variation_swatches()->org_assets_url( '/tutorial-20.jpg' ) ?>">
+				<img alt="" src="<?php echo esc_url( woo_variation_swatches()->org_assets_url( '/tutorial-20.jpg' )); ?>" />
 			</div>
 			<div class="tutorial-description-wrapper">
 				<h3>Highlight Desired Product Attribute</h3>
@@ -347,14 +363,12 @@ defined( 'ABSPATH' ) or die( 'Keep Quit' );
 				<div class="tutorial-buttons">
 					<a href="https://demo.getwooplugins.com/woocommerce-variation-swatches/product-details/swatches-size-special-attribute/" target="_blank" class="button button-live-demo">Live Video Preview</a>
 					<a href="https://getwooplugins.com/documentation/woocommerce-variation-swatches/#enlarge-special-attribute-in-product-page" target="_blank" class="button button-docs">Documentation</a>
-					<?php if ( ! woo_variation_swatches()->is_pro() ): ?>
-						<a href="<?php echo woo_variation_swatches()->get_backend()->get_pro_link() ?>" target="_blank" class="button button-pro">Upgrade to pro</a>
+					<?php if ( ! woo_variation_swatches()->is_pro() ) : ?>
+						<a href="<?php echo esc_url( woo_variation_swatches()->get_backend()->get_pro_link()); ?>" target="_blank" class="button button-pro">Upgrade to pro</a>
 					<?php endif; ?>
 				</div>
 			</div>
-
 		</li>
-
 
 		<li>
 
@@ -366,25 +380,29 @@ defined( 'ABSPATH' ) or die( 'Keep Quit' );
 				<div class="tutorial-buttons">
 					<a href="https://demo.getwooplugins.com/woocommerce-variation-swatches/product/nike-air-vapormax-plus/" target="_blank" class="button button-live-demo">Live Video Preview</a>
 					<a href="https://getwooplugins.com/documentation/woocommerce-variation-swatches/#show-variation-product-stock-notice" target="_blank" class="button button-docs">Documentation</a>
-					<?php if ( ! woo_variation_swatches()->is_pro() ): ?>
-						<a href="<?php echo woo_variation_swatches()->get_backend()->get_pro_link() ?>" target="_blank" class="button button-pro">Upgrade to pro</a>
+					<?php if ( ! woo_variation_swatches()->is_pro() ) : ?>
+						<a href="<?php echo esc_url( woo_variation_swatches()->get_backend()->get_pro_link()); ?>" target="_blank" class="button button-pro">Upgrade to pro</a>
 					<?php endif; ?>
 				</div>
 			</div>
 			<div class="tutorial-image-wrapper">
-				<?php if ( ! woo_variation_swatches()->is_pro() ): ?>
-					<div class="ribbon"><span><?php esc_html_e( 'PRO', 'woo-variation-swatches' ) ?></span></div>
+				<?php if ( ! woo_variation_swatches()->is_pro() ) : ?>
+					<div class="ribbon">
+						<span><?php esc_html_e( 'PRO', 'woo-variation-swatches' ); ?></span>
+					</div>
 				<?php endif; ?>
-				<img alt="" src="<?php echo woo_variation_swatches()->org_assets_url( '/tutorial-21.jpg' ) ?>">
+				<img alt="" src="<?php echo esc_url( woo_variation_swatches()->org_assets_url( '/tutorial-21.jpg' )); ?>" />
 			</div>
 		</li>
 
 		<li>
 			<div class="tutorial-image-wrapper">
-				<?php if ( ! woo_variation_swatches()->is_pro() ): ?>
-					<div class="ribbon"><span><?php esc_html_e( 'PRO', 'woo-variation-swatches' ) ?></span></div>
+				<?php if ( ! woo_variation_swatches()->is_pro() ) : ?>
+					<div class="ribbon">
+						<span><?php esc_html_e( 'PRO', 'woo-variation-swatches' ); ?></span>
+					</div>
 				<?php endif; ?>
-				<img alt="" src="<?php echo woo_variation_swatches()->org_assets_url( '/tutorial-22.jpg' ) ?>">
+				<img alt="" src="<?php echo esc_url( woo_variation_swatches()->org_assets_url( '/tutorial-22.jpg' )); ?>" />
 			</div>
 			<div class="tutorial-description-wrapper">
 				<h3>WooCommerce Filter Widgets</h3>
@@ -394,12 +412,11 @@ defined( 'ABSPATH' ) or die( 'Keep Quit' );
 				<div class="tutorial-buttons">
 					<a href="https://demo.getwooplugins.com/woocommerce-variation-swatches/product-category/pattern/" target="_blank" class="button button-live-demo">Live Video Preview</a>
 					<a href="https://getwooplugins.com/documentation/woocommerce-variation-swatches/#woocommerce-color-filter-widget" target="_blank" class="button button-docs">Documentation</a>
-					<?php if ( ! woo_variation_swatches()->is_pro() ): ?>
-						<a href="<?php echo woo_variation_swatches()->get_backend()->get_pro_link() ?>" target="_blank" class="button button-pro">Upgrade to pro</a>
+					<?php if ( ! woo_variation_swatches()->is_pro() ) : ?>
+						<a href="<?php echo esc_url( woo_variation_swatches()->get_backend()->get_pro_link()); ?>" target="_blank" class="button button-pro">Upgrade to pro</a>
 					<?php endif; ?>
 				</div>
 			</div>
-
 		</li>
 
 		<li>
@@ -413,12 +430,13 @@ defined( 'ABSPATH' ) or die( 'Keep Quit' );
 				</div>
 			</div>
 			<div class="tutorial-image-wrapper">
-				<img alt="" src="<?php echo woo_variation_swatches()->org_assets_url( '/tutorial-23.png' ) ?>"></div>
+				<img alt="" src="<?php echo esc_url( woo_variation_swatches()->org_assets_url( '/tutorial-23.png' )); ?>" />
+			</div>
 		</li>
 
 		<li>
 			<div class="tutorial-image-wrapper">
-				<img alt="" src="<?php echo woo_variation_swatches()->org_assets_url( '/tutorial-24.png' ) ?>"></div>
+				<img alt="" src="<?php echo esc_url( woo_variation_swatches()->org_assets_url( '/tutorial-24.png' )); ?>"></div>
 			<div class="tutorial-description-wrapper">
 				<h3>Copy Selected Variation Image To Unlimited Variations</h3>
 				<div class="tutorial-contents">
@@ -440,18 +458,19 @@ defined( 'ABSPATH' ) or die( 'Keep Quit' );
 				<div class="tutorial-buttons">
 					<a href="https://demo.getwooplugins.com/woocommerce-variation-swatches/group-category-swatches/" target="_blank" class="button button-live-demo">Live Video Preview</a>
 					<a href="https://getwooplugins.com/documentation/woocommerce-variation-swatches/#category-group-swatches" target="_blank" class="button button-docs">Documentation</a>
-					<?php if ( ! woo_variation_swatches()->is_pro() ): ?>
-						<a href="<?php echo woo_variation_swatches()->get_backend()->get_pro_link() ?>" target="_blank" class="button button-pro">Upgrade to pro</a>
+					<?php if ( ! woo_variation_swatches()->is_pro() ) : ?>
+						<a href="<?php echo esc_url( woo_variation_swatches()->get_backend()->get_pro_link() ); ?>" target="_blank" class="button button-pro">Upgrade to pro</a>
 					<?php endif; ?>
 				</div>
 			</div>
 			<div class="tutorial-image-wrapper">
-				<?php if ( ! woo_variation_swatches()->is_pro() ): ?>
-					<div class="ribbon"><span><?php esc_html_e( 'PRO', 'woo-variation-swatches' ) ?></span></div>
+				<?php if ( ! woo_variation_swatches()->is_pro() ) : ?>
+					<div class="ribbon">
+						<span><?php esc_html_e( 'PRO', 'woo-variation-swatches' ); ?></span>
+					</div>
 				<?php endif; ?>
-				<img alt="" src="<?php echo woo_variation_swatches()->org_assets_url( '/tutorial-25.webp' ) ?>">
+				<img alt="" src="<?php echo esc_url( woo_variation_swatches()->org_assets_url( '/tutorial-25.webp' )); ?>" />
 			</div>
 		</li>
-
 	</ul>
 </div>

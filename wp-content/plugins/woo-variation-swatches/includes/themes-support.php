@@ -1,7 +1,7 @@
 <?php
-defined( 'ABSPATH' ) or die( 'Keep Quit' );
+defined( 'ABSPATH' ) || die( 'Keep Quit' );
 
-if ( ! function_exists( 'wvs_woo_layout_injector_script_override' ) ):
+if ( ! function_exists( 'wvs_woo_layout_injector_script_override' ) ) :
 	function wvs_woo_layout_injector_script_override() {
 		if ( function_exists( 'sb_et_woo_li_enqueue' ) ) :
 			$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';

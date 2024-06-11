@@ -24,12 +24,12 @@ function wpforms_admin_styles() {
 
 	$min = wpforms_get_min_suffix();
 
-	// jQuery confirm.
+	// jQuery.Confirm Reloaded.
 	wp_enqueue_style(
 		'jquery-confirm',
 		WPFORMS_PLUGIN_URL . 'assets/lib/jquery.confirm/jquery-confirm.min.css',
 		[],
-		'3.3.4'
+		'1.0.0'
 	);
 
 	// Minicolors (color picker).
@@ -37,7 +37,7 @@ function wpforms_admin_styles() {
 		'minicolors',
 		WPFORMS_PLUGIN_URL . 'assets/lib/jquery.minicolors/jquery.minicolors.min.css',
 		[],
-		'2.2.6'
+		'2.3.6'
 	);
 
 	// FontAwesome.
@@ -93,12 +93,12 @@ function wpforms_admin_scripts() {
 
 	wp_enqueue_media();
 
-	// jQuery confirm.
+	// jQuery.Confirm Reloaded.
 	wp_enqueue_script(
 		'jquery-confirm',
 		WPFORMS_PLUGIN_URL . 'assets/lib/jquery.confirm/jquery-confirm.min.js',
 		[ 'jquery' ],
-		'3.3.4',
+		'1.0.0',
 		false
 	);
 
@@ -107,7 +107,7 @@ function wpforms_admin_scripts() {
 		'minicolors',
 		WPFORMS_PLUGIN_URL . 'assets/lib/jquery.minicolors/jquery.minicolors.min.js',
 		[ 'jquery' ],
-		'2.2.6',
+		'2.3.6',
 		false
 	);
 
@@ -131,7 +131,7 @@ function wpforms_admin_scripts() {
 
 	wp_enqueue_script(
 		'wpforms-generic-utils',
-		WPFORMS_PLUGIN_URL . "assets/js/utils{$min}.js",
+		WPFORMS_PLUGIN_URL . "assets/js/share/utils{$min}.js",
 		[ 'jquery' ],
 		WPFORMS_VERSION,
 		true
@@ -140,7 +140,7 @@ function wpforms_admin_scripts() {
 	// Load admin utils JS.
 	wp_enqueue_script(
 		'wpforms-admin-utils',
-		WPFORMS_PLUGIN_URL . "assets/js/admin-utils{$min}.js",
+		WPFORMS_PLUGIN_URL . "assets/js/admin/share/admin-utils{$min}.js",
 		[ 'jquery' ],
 		WPFORMS_VERSION,
 		true
@@ -149,7 +149,7 @@ function wpforms_admin_scripts() {
 	// Main admin script.
 	wp_enqueue_script(
 		'wpforms-admin',
-		WPFORMS_PLUGIN_URL . "assets/js/admin{$min}.js",
+		WPFORMS_PLUGIN_URL . "assets/js/admin/admin{$min}.js",
 		[ 'jquery' ],
 		WPFORMS_VERSION,
 		false
@@ -233,6 +233,7 @@ function wpforms_admin_scripts() {
 		'form_delete_n_confirm'           => esc_html__( 'Are you sure you want to delete the selected forms and all their entries?', 'wpforms-lite' ),
 		'form_delete_all_confirm'         => esc_html__( 'Are you sure you want to delete ALL the forms in the trash and all their entries?', 'wpforms-lite' ),
 		'form_duplicate_confirm'          => esc_html__( 'Are you sure you want to duplicate this form?', 'wpforms-lite' ),
+		'template_duplicate_confirm'      => esc_html__( 'Are you sure you want to duplicate this template?', 'wpforms-lite' ),
 		'heads_up'                        => esc_html__( 'Heads up!', 'wpforms-lite' ),
 		'importer_forms_required'         => esc_html__( 'Please select at least one form to import.', 'wpforms-lite' ),
 		'isPro'                           => wpforms()->is_pro(),
@@ -297,8 +298,8 @@ function wpforms_admin_scripts() {
 		'something_went_wrong'            => esc_html__( 'Something went wrong', 'wpforms-lite' ),
 		'success'                         => esc_html__( 'Success', 'wpforms-lite' ),
 		'loading'                         => esc_html__( 'Loading...', 'wpforms-lite' ),
-		'use_simple_contact_form'         => esc_html__( 'Use Simple Contact Form Template', 'wpforms-lite' ),
-		'error_select_template'           => esc_html__( 'Please close the form builder and try again. If the error persists, contact our support team.', 'wpforms-lite' ),
+		'use_default_template'            => esc_html__( 'Use Default Template', 'wpforms-lite' ),
+		'error_select_template'           => esc_html__( 'Something went wrong while applying the form template. Please try again. If the error persists, contact our support team.', 'wpforms-lite' ),
 		'try_again'                       => sprintf(
 			wp_kses( /* translators: %s - link to WPForms.com docs page. */
 				__( 'Something went wrong. Please try again, and if the problem persists, <a href="%1$s" target="_blank" rel="noopener noreferrer">contact our support team</a>.', 'wpforms-lite' ),

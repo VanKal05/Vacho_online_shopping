@@ -1,3 +1,5 @@
+import clsx from 'clsx';
+import { twMerge } from 'tailwind-merge';
 import { __ } from '@wordpress/i18n';
 import { decodeEntities } from '@wordpress/html-entities';
 
@@ -83,7 +85,7 @@ export const getDefaultColorPalette = ( demo ) => {
 				defaultPaletteValues = [
 					{
 						slug: 'default',
-						title: __( 'DEFAULT COLORS', 'astra-sites' ),
+						title: __( 'Original', 'astra-sites' ),
 						colors: globalPalette,
 					},
 				];
@@ -202,3 +204,17 @@ export const getTotalTime = ( value ) => {
 
 	return '0.' + seconds;
 };
+
+export const saveGutenbergAsDefaultBuilder = ( pageBuilder = 'gutenberg' ) => {
+	const content = new FormData();
+	content.append( 'action', 'astra-sites-change-page-builder' );
+	content.append( '_ajax_nonce', astraSitesVars._ajax_nonce );
+	content.append( 'page_builder', pageBuilder );
+
+	fetch( ajaxurl, {
+		method: 'post',
+		body: content,
+	} );
+};
+
+export const classNames = ( ...classes ) => twMerge( clsx( classes ) );

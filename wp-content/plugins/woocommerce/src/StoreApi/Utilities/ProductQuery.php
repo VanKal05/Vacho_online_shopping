@@ -159,11 +159,18 @@ class ProductQuery {
 		}
 
 		// Build tax_query if taxonomies are set.
-		if ( ! empty( $tax_query ) ) {
+		if ( ! empty( $tax_query ) && 'product_variation' !== $args['post_type'] ) {
 			if ( ! empty( $args['tax_query'] ) ) {
 				$args['tax_query'] = array_merge( $tax_query, $args['tax_query'] ); // phpcs:ignore
 			} else {
 				$args['tax_query'] = $tax_query; // phpcs:ignore
+			}
+		} else {
+			// For product_variantions we need to convert the tax_query to a meta_query.
+			if ( ! empty( $args['tax_query'] ) ) {
+				$args['meta_query'] = $this->convert_tax_query_to_meta_query( array_merge( $tax_query, $args['tax_query'] ) ); // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+			} else {
+				$args['meta_query'] = $this->convert_tax_query_to_meta_query( $tax_query ); // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 			}
 		}
 
@@ -237,6 +244,34 @@ class ProductQuery {
 		}
 
 		return $args;
+	}
+
+	/**
+	 * Convert the tax_query to a meta_query which is needed to support filtering by attributes for variations.
+	 *
+	 * @param array $tax_query The tax_query to convert.
+	 * @return array
+	 */
+	public function convert_tax_query_to_meta_query( $tax_query ) {
+		$meta_query = array();
+
+		foreach ( $tax_query as $tax_query_item ) {
+			$taxonomy = $tax_query_item['taxonomy'];
+			$terms    = $tax_query_item['terms'];
+
+			$meta_key = 'attribute_' . $taxonomy;
+
+			$meta_query[] = array(
+				'key'   => $meta_key,
+				'value' => $terms,
+			);
+
+			if ( isset( $tax_query_item['operator'] ) ) {
+				$meta_query[0]['compare'] = $tax_query_item['operator'];
+			}
+		}
+
+		return $meta_query;
 	}
 
 	/**
@@ -370,9 +405,9 @@ class ProductQuery {
 			$min_price_filter = $this->prepare_price_filter( $wp_query->get( 'min_price' ) );
 
 			if ( $adjust_for_taxes ) {
-				$args['where'] .= $this->get_price_filter_query_for_displayed_taxes( $min_price_filter, 'min_price', '>=' );
+				$args['where'] .= $this->get_price_filter_query_for_displayed_taxes( $min_price_filter, 'max_price', '>=' );
 			} else {
-				$args['where'] .= $wpdb->prepare( ' AND wc_product_meta_lookup.min_price >= %f ', $min_price_filter );
+				$args['where'] .= $wpdb->prepare( ' AND wc_product_meta_lookup.max_price >= %f ', $min_price_filter );
 			}
 		}
 
@@ -380,9 +415,9 @@ class ProductQuery {
 			$max_price_filter = $this->prepare_price_filter( $wp_query->get( 'max_price' ) );
 
 			if ( $adjust_for_taxes ) {
-				$args['where'] .= $this->get_price_filter_query_for_displayed_taxes( $max_price_filter, 'max_price', '<=' );
+				$args['where'] .= $this->get_price_filter_query_for_displayed_taxes( $max_price_filter, 'min_price', '<=' );
 			} else {
-				$args['where'] .= $wpdb->prepare( ' AND wc_product_meta_lookup.max_price <= %f ', $max_price_filter );
+				$args['where'] .= $wpdb->prepare( ' AND wc_product_meta_lookup.min_price <= %f ', $max_price_filter );
 			}
 		}
 

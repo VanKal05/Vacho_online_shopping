@@ -199,6 +199,12 @@ const ImportLoader = () => {
 							>
 								{ __( 'View Your Website', 'astra-sites' ) }
 							</Button>
+							<a
+								className="view-dashboard-link"
+								href={ astraSitesVars.dashboard_url }
+							>
+								{ __( 'Visit Dashboard', 'astra-sites' ) }
+							</a>
 						</div>
 					</div>
 				</div>

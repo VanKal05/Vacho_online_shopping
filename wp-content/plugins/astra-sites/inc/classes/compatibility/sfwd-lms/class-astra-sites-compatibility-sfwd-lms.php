@@ -55,8 +55,7 @@ if ( ! class_exists( 'Astra_Sites_Compatibility_SFWD_LMS' ) ) :
 		 * @since 2.3.2
 		 */
 		public function process_landing_pages_mapping() {
-
-			$demo_data = get_option( 'astra_sites_import_data', array() );
+			$demo_data = Astra_Sites_File_System::get_instance()->get_demo_content();
 			if ( ! isset( $demo_data['astra-post-data-mapping'] ) || ! isset( $demo_data['astra-post-data-mapping']['ld_landing_pages'] ) ) {
 				return;
 			}

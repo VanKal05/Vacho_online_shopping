@@ -46,7 +46,7 @@ export default function Confetti() {
 	const startAnimation = useCallback( () => {
 		if ( ! intervalId ) {
 			setIntervalId( setInterval( nextTickAnimation, 400 ) );
-			// stop animation after 5 seconds
+			// Stop animation after 5 seconds.
 			setTimeout( () => {
 				pauseAnimation();
 			}, 5000 );

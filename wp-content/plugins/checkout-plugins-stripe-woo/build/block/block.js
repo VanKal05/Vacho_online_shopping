@@ -1,4 +1,4 @@
-/******/ (function() { // webpackBootstrap
+/******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
 /***/ "./node_modules/@stripe/react-stripe-js/dist/react-stripe.umd.js":
@@ -1313,12 +1313,12 @@
 /*!***********************************************************!*\
   !*** ./node_modules/@stripe/stripe-js/dist/stripe.esm.js ***!
   \***********************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "loadStripe": function() { return /* binding */ loadStripe; }
+/* harmony export */   loadStripe: () => (/* binding */ loadStripe)
 /* harmony export */ });
 var V3_URL = 'https://js.stripe.com/v3';
 var V3_URL_REGEX = /^https:\/\/js\.stripe\.com\/v3\/?(\?.*)?$/;
@@ -1457,7 +1457,7 @@ var loadStripe = function loadStripe() {
 /*!********************************!*\
   !*** ./src/woo-block/index.js ***!
   \********************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -1472,20 +1472,22 @@ __webpack_require__.r(__webpack_exports__);
 /*!*******************************************************!*\
   !*** ./src/woo-block/payment-methods/alipay/index.js ***!
   \*******************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _woocommerce_blocks_registry__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @woocommerce/blocks-registry */ "@woocommerce/blocks-registry");
 /* harmony import */ var _woocommerce_blocks_registry__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_woocommerce_blocks_registry__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @stripe/react-stripe-js */ "./node_modules/@stripe/react-stripe-js/dist/react-stripe.umd.js");
 /* harmony import */ var _stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _local_payment_methods_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../local-payment-methods.js */ "./src/woo-block/payment-methods/local-payment-methods.js");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../utils.js */ "./src/woo-block/payment-methods/utils.js");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _local_payment_methods_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../local-payment-methods.js */ "./src/woo-block/payment-methods/local-payment-methods.js");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../utils.js */ "./src/woo-block/payment-methods/utils.js");
 
 
 
@@ -1494,52 +1496,47 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const PAYMENT_METHOD = 'cpsw_alipay';
-
-const PaymentMethod = _ref => {
-  let {
-    Component,
-    ...props
-  } = _ref;
-  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+const PaymentMethod = ({
+  Component,
+  ...props
+}) => {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "cpsw-alipay-blocks-content"
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(Component, props)));
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(Component, {
+    ...props
+  })));
 };
-
 const AlipayContent = props => {
-  const [error, setError] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    _utils_js__WEBPACK_IMPORTED_MODULE_5__.initStripe["catch"](getError => {
+  const [error, setError] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.useState)(false);
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.useEffect)(() => {
+    _utils_js__WEBPACK_IMPORTED_MODULE_6__.initStripe.catch(getError => {
       setError(getError);
     });
   }, []);
-
   if (error) {
     throw new Error(error);
   }
-
-  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_2__.Elements, {
-    stripe: _utils_js__WEBPACK_IMPORTED_MODULE_5__.initStripe
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(AlipayElement, props));
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_2__.Elements, {
+    stripe: _utils_js__WEBPACK_IMPORTED_MODULE_6__.initStripe
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(AlipayElement, {
+    ...props
+  }));
 };
-
-const AlipayElement = _ref2 => {
-  let {
-    billing,
-    shippingData,
-    emitResponse,
-    eventRegistration,
-    activePaymentMethod,
-    shouldSavePayment,
-    element,
-    confirmMethod
-  } = _ref2;
+const AlipayElement = ({
+  billing,
+  shippingData,
+  emitResponse,
+  eventRegistration,
+  activePaymentMethod,
+  shouldSavePayment,
+  element,
+  confirmMethod
+}) => {
   const {
     onPaymentProcessing
   } = eventRegistration;
   const paymentType = 'alipay';
-  const {
-    setIsValid
-  } = (0,_local_payment_methods_js__WEBPACK_IMPORTED_MODULE_3__["default"])({
+  (0,_local_payment_methods_js__WEBPACK_IMPORTED_MODULE_4__["default"])({
     billing,
     shippingData,
     emitResponse,
@@ -1550,10 +1547,7 @@ const AlipayElement = _ref2 => {
     paymentType,
     PAYMENT_METHOD
   });
-  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    setIsValid(true);
-  }, []);
-  (0,_local_payment_methods_js__WEBPACK_IMPORTED_MODULE_3__.LocalPaymentAfterProcessing)({
+  (0,_local_payment_methods_js__WEBPACK_IMPORTED_MODULE_4__.LocalPaymentAfterProcessing)({
     billing,
     eventRegistration,
     responseTypes: emitResponse.responseTypes,
@@ -1563,38 +1557,162 @@ const AlipayElement = _ref2 => {
     PAYMENT_METHOD,
     confirmMethod
   });
-  (0,_local_payment_methods_js__WEBPACK_IMPORTED_MODULE_3__.useProcessCheckoutError)({
+  (0,_local_payment_methods_js__WEBPACK_IMPORTED_MODULE_4__.useProcessCheckoutError)({
     responseTypes: emitResponse.responseTypes,
     emitResponse,
     eventRegistration
   });
-  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "cpsw-alipay-container  cpsw-description-container"
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_utils_js__WEBPACK_IMPORTED_MODULE_5__.description, {
-    text: (0,_utils_js__WEBPACK_IMPORTED_MODULE_5__.getSettings)('description', 'cpsw_alipay_data')
-  }), (0,_utils_js__WEBPACK_IMPORTED_MODULE_5__.getSettings)('mode', 'cpsw_alipay_data') === 'test' && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_utils_js__WEBPACK_IMPORTED_MODULE_6__.description, {
+    text: (0,_utils_js__WEBPACK_IMPORTED_MODULE_6__.getSettings)('description', 'cpsw_alipay_data')
+  }), (0,_utils_js__WEBPACK_IMPORTED_MODULE_6__.getSettings)('mode', 'cpsw_alipay_data') === 'test' && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
     className: "cpsw-test-description",
     dangerouslySetInnerHTML: {
-      __html: (0,_utils_js__WEBPACK_IMPORTED_MODULE_5__.getSettings)('test_mode_description', 'cpsw_alipay_data')
+      __html: (0,_utils_js__WEBPACK_IMPORTED_MODULE_6__.getSettings)('test_mode_description', 'cpsw_alipay_data')
     }
   }));
 };
-
 (0,_woocommerce_blocks_registry__WEBPACK_IMPORTED_MODULE_1__.registerPaymentMethod)({
   name: PAYMENT_METHOD,
-  label: (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_utils_js__WEBPACK_IMPORTED_MODULE_5__.getLabel, {
-    icons: (0,_utils_js__WEBPACK_IMPORTED_MODULE_5__.getSettings)('icons', 'cpsw_alipay_data'),
+  label: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_utils_js__WEBPACK_IMPORTED_MODULE_6__.getLabel, {
+    icons: (0,_utils_js__WEBPACK_IMPORTED_MODULE_6__.getSettings)('icons', 'cpsw_alipay_data'),
     gateway: "cpsw_alipay_data"
   }),
-  ariaLabel: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('CPSW Alipay', 'checkout-plugins-stripe-woo'),
-  placeOrderButtonLabel: (0,_utils_js__WEBPACK_IMPORTED_MODULE_5__.getSettings)('order_button_text', 'cpsw_alipay_data'),
-  canMakePayment: props => (0,_utils_js__WEBPACK_IMPORTED_MODULE_5__.canDoLocalPayments)(props, 'cpsw_alipay_data'),
-  content: (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(PaymentMethod, {
+  ariaLabel: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('CPSW Alipay', 'checkout-plugins-stripe-woo'),
+  placeOrderButtonLabel: String((0,_utils_js__WEBPACK_IMPORTED_MODULE_6__.getSettings)('order_button_text', 'cpsw_alipay_data')),
+  canMakePayment: props => (0,_utils_js__WEBPACK_IMPORTED_MODULE_6__.canDoLocalPayments)(props, 'cpsw_alipay_data'),
+  content: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(PaymentMethod, {
     Component: AlipayContent,
     confirmMethod: "confirmAlipayPayment"
   }),
-  edit: (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(PaymentMethod, {
+  edit: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(PaymentMethod, {
     Component: AlipayContent
+  })
+});
+
+/***/ }),
+
+/***/ "./src/woo-block/payment-methods/bancontact/index.js":
+/*!***********************************************************!*\
+  !*** ./src/woo-block/payment-methods/bancontact/index.js ***!
+  \***********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _woocommerce_blocks_registry__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @woocommerce/blocks-registry */ "@woocommerce/blocks-registry");
+/* harmony import */ var _woocommerce_blocks_registry__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_woocommerce_blocks_registry__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @stripe/react-stripe-js */ "./node_modules/@stripe/react-stripe-js/dist/react-stripe.umd.js");
+/* harmony import */ var _stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _local_payment_methods_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../local-payment-methods.js */ "./src/woo-block/payment-methods/local-payment-methods.js");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../utils.js */ "./src/woo-block/payment-methods/utils.js");
+
+
+
+
+
+
+
+const PAYMENT_METHOD = 'cpsw_bancontact';
+const PaymentMethod = ({
+  Component,
+  ...props
+}) => {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "cpsw-alipay-blocks-content"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(Component, {
+    ...props
+  })));
+};
+const BancontactContent = props => {
+  const [error, setError] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.useState)(false);
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.useEffect)(() => {
+    _utils_js__WEBPACK_IMPORTED_MODULE_6__.initStripe.catch(getError => {
+      setError(getError);
+    });
+  }, []);
+  if (error) {
+    throw new Error(error);
+  }
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_2__.Elements, {
+    stripe: _utils_js__WEBPACK_IMPORTED_MODULE_6__.initStripe
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(BancontactElement, {
+    ...props
+  }));
+};
+const BancontactElement = ({
+  billing,
+  shippingData,
+  emitResponse,
+  eventRegistration,
+  activePaymentMethod,
+  shouldSavePayment,
+  element,
+  confirmMethod
+}) => {
+  const {
+    onPaymentProcessing
+  } = eventRegistration;
+  const paymentType = 'bancontact';
+  (0,_local_payment_methods_js__WEBPACK_IMPORTED_MODULE_4__["default"])({
+    billing,
+    shippingData,
+    emitResponse,
+    onPaymentProcessing,
+    shouldSavePayment,
+    activePaymentMethod,
+    element,
+    paymentType,
+    PAYMENT_METHOD
+  });
+  (0,_local_payment_methods_js__WEBPACK_IMPORTED_MODULE_4__.LocalPaymentAfterProcessing)({
+    billing,
+    eventRegistration,
+    responseTypes: emitResponse.responseTypes,
+    activePaymentMethod,
+    shouldSavePayment,
+    emitResponse,
+    PAYMENT_METHOD,
+    confirmMethod
+  });
+  (0,_local_payment_methods_js__WEBPACK_IMPORTED_MODULE_4__.useProcessCheckoutError)({
+    responseTypes: emitResponse.responseTypes,
+    emitResponse,
+    eventRegistration
+  });
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "cpsw-bancontact-container cpsw-description-container"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_utils_js__WEBPACK_IMPORTED_MODULE_6__.description, {
+    text: (0,_utils_js__WEBPACK_IMPORTED_MODULE_6__.getSettings)('description', 'cpsw_bancontact_data')
+  }), (0,_utils_js__WEBPACK_IMPORTED_MODULE_6__.getSettings)('mode', 'cpsw_bancontact_data') === 'test' && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
+    className: "cpsw_test_description",
+    dangerouslySetInnerHTML: {
+      __html: (0,_utils_js__WEBPACK_IMPORTED_MODULE_6__.getSettings)('test_mode_description', 'cpsw_bancontact_data')
+    }
+  }));
+};
+(0,_woocommerce_blocks_registry__WEBPACK_IMPORTED_MODULE_1__.registerPaymentMethod)({
+  name: PAYMENT_METHOD,
+  label: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_utils_js__WEBPACK_IMPORTED_MODULE_6__.getLabel, {
+    icons: (0,_utils_js__WEBPACK_IMPORTED_MODULE_6__.getSettings)('icons', 'cpsw_bancontact_data'),
+    gateway: "cpsw_bancontact_data"
+  }),
+  ariaLabel: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('CPSW Bancontact', 'checkout-plugins-stripe-woo'),
+  placeOrderButtonLabel: String((0,_utils_js__WEBPACK_IMPORTED_MODULE_6__.getSettings)('order_button_text', 'cpsw_bancontact_data')),
+  canMakePayment: props => (0,_utils_js__WEBPACK_IMPORTED_MODULE_6__.canDoLocalPayments)(props, 'cpsw_bancontact_data'),
+  content: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(PaymentMethod, {
+    Component: BancontactContent,
+    confirmMethod: "confirmBancontactPayment"
+  }),
+  edit: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(PaymentMethod, {
+    Component: BancontactContent
   })
 });
 
@@ -1604,23 +1722,24 @@ const AlipayElement = _ref2 => {
 /*!************************************************************!*\
   !*** ./src/woo-block/payment-methods/credit-card/index.js ***!
   \************************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _woocommerce_blocks_registry__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @woocommerce/blocks-registry */ "@woocommerce/blocks-registry");
 /* harmony import */ var _woocommerce_blocks_registry__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_woocommerce_blocks_registry__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @stripe/react-stripe-js */ "./node_modules/@stripe/react-stripe-js/dist/react-stripe.umd.js");
 /* harmony import */ var _stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _stripe_card_form_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./stripe-card-form.js */ "./src/woo-block/payment-methods/credit-card/stripe-card-form.js");
-/* harmony import */ var _use_process_payment_intent_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../use-process-payment-intent.js */ "./src/woo-block/payment-methods/use-process-payment-intent.js");
-/* harmony import */ var _use_after_process_payment_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../use-after-process-payment.js */ "./src/woo-block/payment-methods/use-after-process-payment.js");
-/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../utils.js */ "./src/woo-block/payment-methods/utils.js");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__);
-
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _use_process_payment_intent_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../use-process-payment-intent.js */ "./src/woo-block/payment-methods/use-process-payment-intent.js");
+/* harmony import */ var _use_after_process_payment_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../use-after-process-payment.js */ "./src/woo-block/payment-methods/use-after-process-payment.js");
+/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../utils.js */ "./src/woo-block/payment-methods/utils.js");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__);
 
 
 
@@ -1645,13 +1764,13 @@ const CreditCardElement = props => {
   } = eventRegistration;
   const stripe = (0,_stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_2__.useStripe)();
   const elements = (0,_stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_2__.useElements)();
-  const getPaymentMethodArgs = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useCallback)(() => {
-    const elementNeedToGet = _utils_js__WEBPACK_IMPORTED_MODULE_6__.isInlineCC ? _stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_2__.CardElement : _stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_2__.CardNumberElement;
+  const getPaymentMethodArgs = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_4__.useCallback)(() => {
+    const elementNeedToGet = _utils_js__WEBPACK_IMPORTED_MODULE_7__.isInlineCC ? _stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_2__.CardElement : _stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_2__.CardNumberElement;
     return {
-      card: elements === null || elements === void 0 ? void 0 : elements.getElement(elementNeedToGet)
+      card: elements?.getElement(elementNeedToGet)
     };
   }, [stripe, elements]);
-  (0,_use_process_payment_intent_js__WEBPACK_IMPORTED_MODULE_4__["default"])({
+  (0,_use_process_payment_intent_js__WEBPACK_IMPORTED_MODULE_5__["default"])({
     billing,
     shippingData,
     emitResponse,
@@ -1661,76 +1780,77 @@ const CreditCardElement = props => {
     activePaymentMethod,
     anyError
   });
-  (0,_use_after_process_payment_js__WEBPACK_IMPORTED_MODULE_5__["default"])({
+  (0,_use_after_process_payment_js__WEBPACK_IMPORTED_MODULE_6__["default"])({
     eventRegistration,
     responseTypes: emitResponse.responseTypes,
     activePaymentMethod,
     shouldSavePayment,
     emitResponse
   });
-  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "cpsw-description-container cpsw-stripe-card-container"
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_stripe_card_form_js__WEBPACK_IMPORTED_MODULE_3__["default"], props), 'test' === (0,_utils_js__WEBPACK_IMPORTED_MODULE_6__.getSettings)('mode') && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_stripe_card_form_js__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    ...props
+  }), 'test' === (0,_utils_js__WEBPACK_IMPORTED_MODULE_7__.getSettings)('mode') && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "cpsw-test-description"
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("b", null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)('Test Mode Enabled: ', 'checkout-plugins-stripe-woo')), (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)('Use demo card 4242424242424242 with any future date and CVV. ', 'checkout-plugins-stripe-woo'), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("br", null), (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)('Check more ', 'checkout-plugins-stripe-woo'), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("b", null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)('Test Mode Enabled: ', 'checkout-plugins-stripe-woo')), (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)('Use demo card 4242424242424242 with any future date and CVV. ', 'checkout-plugins-stripe-woo'), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("br", null), (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)('Check more ', 'checkout-plugins-stripe-woo'), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
     href: "https://stripe.com/docs/testing",
-    referrer: "noopener",
+    referrerPolicy: "noopener",
     target: "_blank",
     rel: "noreferrer"
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)('demo cards', 'checkout-plugins-stripe-woo'))));
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)('demo cards', 'checkout-plugins-stripe-woo'))));
 };
-
 const CreditCardContent = props => {
-  const [error, setError] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-  const [anyError, setAnyError] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)({});
-  props = { ...props,
+  const [error, setError] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_4__.useState)(false);
+  const [anyError, setAnyError] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_4__.useState)({});
+  props = {
+    ...props,
     anyError,
     setAnyError
   };
-  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    _utils_js__WEBPACK_IMPORTED_MODULE_6__.initStripe["catch"](getError => {
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_4__.useEffect)(() => {
+    _utils_js__WEBPACK_IMPORTED_MODULE_7__.initStripe.catch(getError => {
       setError(getError);
     });
   }, []);
-
   if (error) {
     throw new Error(error);
   }
-
-  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_2__.Elements, {
-    stripe: _utils_js__WEBPACK_IMPORTED_MODULE_6__.initStripe
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(CreditCardElement, props));
-};
-
-const PaymentMethod = _ref => {
-  let {
-    Component,
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_2__.Elements, {
+    stripe: _utils_js__WEBPACK_IMPORTED_MODULE_7__.initStripe
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(CreditCardElement, {
     ...props
-  } = _ref;
-  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "cpsw-stripe-blocks-content"
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_utils_js__WEBPACK_IMPORTED_MODULE_6__.description, {
-    text: (0,_utils_js__WEBPACK_IMPORTED_MODULE_6__.getSettings)('description')
-  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(Component, props)));
+  }));
 };
-
+const PaymentMethod = ({
+  Component,
+  ...props
+}) => {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "cpsw-stripe-blocks-content"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_utils_js__WEBPACK_IMPORTED_MODULE_7__.description, {
+    text: (0,_utils_js__WEBPACK_IMPORTED_MODULE_7__.getSettings)('description')
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(Component, {
+    ...props
+  })));
+};
 (0,_woocommerce_blocks_registry__WEBPACK_IMPORTED_MODULE_1__.registerPaymentMethod)({
   name: 'cpsw_stripe',
-  label: (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_utils_js__WEBPACK_IMPORTED_MODULE_6__.getLabel, {
-    icons: (0,_utils_js__WEBPACK_IMPORTED_MODULE_6__.getSettings)('icons')
+  label: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_utils_js__WEBPACK_IMPORTED_MODULE_7__.getLabel, {
+    icons: (0,_utils_js__WEBPACK_IMPORTED_MODULE_7__.getSettings)('icons')
   }),
-  ariaLabel: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)('Credit Card', 'checkout-plugins-stripe-woo'),
-  canMakePayment: () => _utils_js__WEBPACK_IMPORTED_MODULE_6__.initStripe,
-  content: (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(PaymentMethod, {
+  ariaLabel: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)('Credit Card', 'checkout-plugins-stripe-woo'),
+  canMakePayment: () => _utils_js__WEBPACK_IMPORTED_MODULE_7__.initStripe,
+  content: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(PaymentMethod, {
     Component: CreditCardContent
   }),
-  edit: (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(PaymentMethod, {
+  edit: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(PaymentMethod, {
     Component: CreditCardContent
   }),
-  placeOrderButtonLabel: (0,_utils_js__WEBPACK_IMPORTED_MODULE_6__.getSettings)('order_button_text'),
+  placeOrderButtonLabel: String((0,_utils_js__WEBPACK_IMPORTED_MODULE_7__.getSettings)('order_button_text')),
   supports: {
-    showSavedCards: _utils_js__WEBPACK_IMPORTED_MODULE_6__.shouldSaveCC,
-    showSaveOption: _utils_js__WEBPACK_IMPORTED_MODULE_6__.shouldSaveCC
+    showSavedCards: _utils_js__WEBPACK_IMPORTED_MODULE_7__.shouldSaveCC,
+    showSaveOption: _utils_js__WEBPACK_IMPORTED_MODULE_7__.shouldSaveCC
   }
 });
 
@@ -1740,69 +1860,75 @@ const PaymentMethod = _ref => {
 /*!***********************************************************************!*\
   !*** ./src/woo-block/payment-methods/credit-card/stripe-card-form.js ***!
   \***********************************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @stripe/react-stripe-js */ "./node_modules/@stripe/react-stripe-js/dist/react-stripe.umd.js");
 /* harmony import */ var _stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../utils.js */ "./src/woo-block/payment-methods/utils.js");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__);
-
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__);
 
 
 
 
 
 const handleCardType = (cardType, handleError) => {
-  var _handleError$anyError;
-
   const allowedCardTypes = (0,_utils_js__WEBPACK_IMPORTED_MODULE_2__.getSettings)('allowed_cards');
-
-  if (!(allowedCardTypes !== null && allowedCardTypes !== void 0 && allowedCardTypes.length)) {
+  if (!allowedCardTypes?.length) {
     return;
-  } // Check if card type is allowed.
+  }
 
+  // Check if card type is allowed.
+  const isCardPresent = allowedCardTypes.indexOf(cardType) > -1;
 
-  const isCardPresent = allowedCardTypes.indexOf(cardType) > -1; // Check if card type is not allowed and card type is not unknown.
-
+  // Check if card type is not allowed and card type is not unknown.
   if (!isCardPresent && 'unknown' !== cardType) {
-    const getCardType = _utils_js__WEBPACK_IMPORTED_MODULE_2__.defaultCards !== null && _utils_js__WEBPACK_IMPORTED_MODULE_2__.defaultCards !== void 0 && _utils_js__WEBPACK_IMPORTED_MODULE_2__.defaultCards[cardType] ? _utils_js__WEBPACK_IMPORTED_MODULE_2__.defaultCards[cardType] : cardType;
-    const getCardTypeText = (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.sprintf)( // translators: %s - Type of card that is not allowed.
+    const getCardType = _utils_js__WEBPACK_IMPORTED_MODULE_2__.defaultCards?.[cardType] ? _utils_js__WEBPACK_IMPORTED_MODULE_2__.defaultCards[cardType] : cardType;
+    const getCardTypeText = (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.sprintf)(
+    // translators: %s - Type of card that is not allowed.
     (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('%s card type is not allowed', 'checkout-plugins-stripe-woo'), getCardType);
     const setErrorMessage = {
       cc_card_type: getCardTypeText
     };
+
     /**
      * Set error message, this will br prevent to submit the form.
      */
-
-    const previousErrors = { ...handleError.anyError
+    const previousErrors = {
+      ...handleError.anyError
     };
-    handleError.setAnyError({ ...previousErrors,
+    handleError.setAnyError({
+      ...previousErrors,
       ...setErrorMessage
     });
     return getCardTypeText;
-  } // Check if any error is present then remove it.
+  }
 
-
-  if ((_handleError$anyError = handleError.anyError) !== null && _handleError$anyError !== void 0 && _handleError$anyError.cc_card_type) {
-    const previousErrors = { ...handleError.anyError
+  // Check if any error is present then remove it.
+  if (handleError.anyError?.cc_card_type) {
+    const previousErrors = {
+      ...handleError.anyError
     };
     delete previousErrors.cc_card_type;
-    handleError.setAnyError({ ...previousErrors
+    handleError.setAnyError({
+      ...previousErrors
     });
   }
 };
+
 /**
  * This is the default options for the Stripe Elements.
  * and based on the state condition we are changing the options.
  */
-
-
 const elementOptions = {
   style: {
     base: {
@@ -1822,28 +1948,33 @@ const elementOptions = {
     invalid: 'has-error'
   }
 };
+
 /**
  * This hook is used to set and modify the options for the Stripe Elements.
  *
  * @param {Object} overloadedOptions - This option is used to set the option from element level.
  */
-
 const useElementOptions = overloadedOptions => {
-  const [isActive, setIsActive] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-  const [options, setOptions] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)({ ...elementOptions,
+  const [isActive, setIsActive] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_4__.useState)(false);
+  const [options, setOptions] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_4__.useState)({
+    ...elementOptions,
     ...overloadedOptions
   });
-  const [error, setError] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(''); // We are using useEffect to set the options based on the isActive state.
+  const [error, setError] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_4__.useState)('');
 
-  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+  // We are using useEffect to set the options based on the isActive state.
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_4__.useEffect)(() => {
     const color = isActive ? '#CFD7E0' : '#fff';
     setOptions(prevOptions => {
       const showIcon = typeof prevOptions.showIcon !== 'undefined' ? {
         showIcon: isActive
       } : {};
-      return { ...prevOptions,
-        style: { ...prevOptions.style,
-          base: { ...prevOptions.style.base,
+      return {
+        ...prevOptions,
+        style: {
+          ...prevOptions.style,
+          base: {
+            ...prevOptions.style.base,
             '::placeholder': {
               color
             }
@@ -1852,16 +1983,18 @@ const useElementOptions = overloadedOptions => {
         ...showIcon
       };
     });
-  }, [isActive]); // This function is used to set the isActive perticular element.
+  }, [isActive]);
 
-  const onActive = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useCallback)(isEmpty => {
+  // This function is used to set the isActive perticular element.
+  const onActive = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_4__.useCallback)(isEmpty => {
     if (!isEmpty) {
       setIsActive(true);
     } else {
       setIsActive(prevActive => !prevActive);
     }
-  }, [setIsActive]); // This function is used to set the error for the perticular element.
+  }, [setIsActive]);
 
+  // This function is used to set the error for the perticular element.
   return {
     options,
     onActive,
@@ -1869,20 +2002,19 @@ const useElementOptions = overloadedOptions => {
     setError
   };
 };
-
 const ExtendedForm = props => {
   /**
    * This state is used to check if the element is empty or not.
    */
-  const [isEmpty, setIsEmpty] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)({
+  const [isEmpty, setIsEmpty] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_4__.useState)({
     cardNumber: true,
     cardExpiry: true,
     cardCvc: true
   });
+
   /**
    * This hook is used to set the options for the Stripe Elements.
    */
-
   const optionsData = useElementOptions({
     showIcon: true
   });
@@ -1909,93 +2041,91 @@ const ExtendedForm = props => {
     onActive: cardCvcOnActive,
     error: cardCvcError,
     setError: cardCvcSetError
-  } = optionsDataCvv; // This function is used for handle the on change event of the Stripe Elements and based on the incoming value we are setting the error.
+  } = optionsDataCvv;
 
+  // This function is used for handle the on change event of the Stripe Elements and based on the incoming value we are setting the error.
   const errorCallback = (errorSetter, elementId) => event => {
-    let cardTypeHandel = ''; // This condition is use for perform the card type validation.
+    let cardTypeHandel = '';
 
+    // This condition is use for perform the card type validation.
     if (elementId === 'cardNumber') {
       cardTypeHandel = handleCardType(event.brand, props);
-
       if (cardTypeHandel) {
         const createErrorObj = {
           code: 'cc_card_type',
           message: cardTypeHandel
         };
         errorSetter(createErrorObj);
-        setIsEmpty({ ...isEmpty,
+        setIsEmpty({
+          ...isEmpty,
           [elementId]: false
         });
         return;
       }
     }
-
     if (event.error) {
       errorSetter(event.error);
     } else {
       errorSetter('');
     }
-
-    setIsEmpty({ ...isEmpty,
+    setIsEmpty({
+      ...isEmpty,
       [elementId]: event.empty
     });
   };
-
-  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "cpsw-stripe-form-custom"
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "cpsw-cc-input-container cpsw-cc-number-element"
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_1__.CardNumberElement, {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_1__.CardNumberElement, {
     onChange: errorCallback(cardNumSetError, 'cardNumber'),
     options: cardNumOptions,
     className: "cpsw-cc-inputs",
     id: "cpsw-cc-number-element-id",
     onFocus: () => cardNumOnActive(isEmpty.cardNumber),
     onBlur: () => cardNumOnActive(isEmpty.cardNumber)
-  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
     htmlFor: "cpsw-cc-number-element-id"
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Card Number', 'checkout-plugins-stripe-woo')), (cardNumError === null || cardNumError === void 0 ? void 0 : cardNumError.code) && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_utils_js__WEBPACK_IMPORTED_MODULE_2__.cardElementInCompleteError, {
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Card Number', 'checkout-plugins-stripe-woo')), cardNumError?.code && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_utils_js__WEBPACK_IMPORTED_MODULE_2__.cardElementInCompleteError, {
     errorCode: cardNumError.code,
     message: 'cc_card_type' === cardNumError.code ? cardNumError.message : null
-  })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "cpsw-cc-cvc-expiry-container"
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "cpsw-cc-input-container cpsw-cc-expiry-element"
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_1__.CardExpiryElement, {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_1__.CardExpiryElement, {
     id: "cpsw-cc-expiry-element-id",
     onChange: errorCallback(cardExpirySetError, 'cardExpiry'),
     options: cardExpiryOptions,
     className: "cpsw-cc-inputs",
     onFocus: () => cardExpiryOnActive(isEmpty.cardExpiry),
     onBlur: () => cardExpiryOnActive(isEmpty.cardExpiry)
-  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
     htmlFor: "cpsw-cc-expiry-element-id"
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Expiry Date', 'checkout-plugins-stripe-woo')), (cardExpiryError === null || cardExpiryError === void 0 ? void 0 : cardExpiryError.code) && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_utils_js__WEBPACK_IMPORTED_MODULE_2__.cardElementInCompleteError, {
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Expiry Date', 'checkout-plugins-stripe-woo')), cardExpiryError?.code && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_utils_js__WEBPACK_IMPORTED_MODULE_2__.cardElementInCompleteError, {
     errorCode: cardExpiryError.code
-  })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "cpsw-cc-input-container cpsw-cc-cvc-element"
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_1__.CardCvcElement, {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_1__.CardCvcElement, {
     id: "cpsw-cc-cvc-element-id",
     onChange: errorCallback(cardCvcSetError, 'cardCvc'),
     options: cardCvcOptions,
     className: "cpsw-cc-inputs",
     onFocus: () => cardCvcOnActive(isEmpty.cardCvc),
     onBlur: () => cardCvcOnActive(isEmpty.cardCvc)
-  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
     htmlFor: "cpsw-cc-cvc-element-id"
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('CVV/CVC', 'checkout-plugins-stripe-woo')), (cardCvcError === null || cardCvcError === void 0 ? void 0 : cardCvcError.code) && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_utils_js__WEBPACK_IMPORTED_MODULE_2__.cardElementInCompleteError, {
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('CVV/CVC', 'checkout-plugins-stripe-woo')), cardCvcError?.code && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_utils_js__WEBPACK_IMPORTED_MODULE_2__.cardElementInCompleteError, {
     errorCode: cardCvcError.code
   }))));
 };
-
 const StripeCardForm = props => {
-  var _props$anyError;
-
   // If card type is not inline then return the default form this setting is available in the payment settings page.
   if (!_utils_js__WEBPACK_IMPORTED_MODULE_2__.isInlineCC) {
-    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(ExtendedForm, props);
+    return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(ExtendedForm, {
+      ...props
+    });
   }
-
   const style = {
     base: {
       color: '#32325d'
@@ -2005,21 +2135,20 @@ const StripeCardForm = props => {
     hidePostalCode: true,
     style
   };
-  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "cpsw-stripe-form"
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_1__.CardElement, {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_1__.CardElement, {
     onChange: e => {
       // This function is used for perform the card type validation.
       handleCardType(e.brand, props);
     },
     options: cardOptions
-  }), ((_props$anyError = props.anyError) === null || _props$anyError === void 0 ? void 0 : _props$anyError.cc_card_type) && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_utils_js__WEBPACK_IMPORTED_MODULE_2__.cardElementInCompleteError, {
+  }), props.anyError?.cc_card_type && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_utils_js__WEBPACK_IMPORTED_MODULE_2__.cardElementInCompleteError, {
     errorCode: "cc_card_type",
     message: props.anyError.cc_card_type
   }));
 };
-
-/* harmony default export */ __webpack_exports__["default"] = (StripeCardForm);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (StripeCardForm);
 
 /***/ }),
 
@@ -2027,21 +2156,25 @@ const StripeCardForm = props => {
 /*!***********************************************************!*\
   !*** ./src/woo-block/payment-methods/ideal/ideal-form.js ***!
   \***********************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @stripe/react-stripe-js */ "./node_modules/@stripe/react-stripe-js/dist/react-stripe.umd.js");
 /* harmony import */ var _stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__);
 
 
 
-const IdealForm = _ref => {
-  let {
-    onChange
-  } = _ref;
+const IdealForm = ({
+  setIsValid
+}) => {
   //This is for changing default style options of the Stripe Element IdealBankElement.
   const idealStyle = {
     base: {
@@ -2050,17 +2183,20 @@ const IdealForm = _ref => {
       fontSize: '16px'
     }
   };
-  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  const onChange = e => setIsValid(!e.empty);
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.useEffect)(() => {
+    setIsValid(false);
+  }, []);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "cpsw-ideal-form"
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_1__.IdealBankElement, {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_1__.IdealBankElement, {
     options: {
       style: idealStyle
     },
     onChange: onChange
   }));
 };
-
-/* harmony default export */ __webpack_exports__["default"] = (IdealForm);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (IdealForm);
 
 /***/ }),
 
@@ -2068,21 +2204,23 @@ const IdealForm = _ref => {
 /*!******************************************************!*\
   !*** ./src/woo-block/payment-methods/ideal/index.js ***!
   \******************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _woocommerce_blocks_registry__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @woocommerce/blocks-registry */ "@woocommerce/blocks-registry");
 /* harmony import */ var _woocommerce_blocks_registry__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_woocommerce_blocks_registry__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @stripe/react-stripe-js */ "./node_modules/@stripe/react-stripe-js/dist/react-stripe.umd.js");
 /* harmony import */ var _stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _ideal_form_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ideal-form.js */ "./src/woo-block/payment-methods/ideal/ideal-form.js");
-/* harmony import */ var _local_payment_methods_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../local-payment-methods.js */ "./src/woo-block/payment-methods/local-payment-methods.js");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../utils.js */ "./src/woo-block/payment-methods/utils.js");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _ideal_form_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ideal-form.js */ "./src/woo-block/payment-methods/ideal/ideal-form.js");
+/* harmony import */ var _local_payment_methods_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../local-payment-methods.js */ "./src/woo-block/payment-methods/local-payment-methods.js");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../utils.js */ "./src/woo-block/payment-methods/utils.js");
 
 
 
@@ -2092,58 +2230,55 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const PAYMENT_METHOD = 'cpsw_ideal';
-
-const PaymentMethod = _ref => {
-  let {
-    Component,
-    ...props
-  } = _ref;
-  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+const PaymentMethod = ({
+  Component,
+  ...props
+}) => {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "cpsw-ideal-blocks-content"
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(Component, props)));
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(Component, {
+    ...props
+  })));
 };
-
 const IdealContent = props => {
-  const [error, setError] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    _utils_js__WEBPACK_IMPORTED_MODULE_6__.initStripe["catch"](getError => {
+  const [error, setError] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.useState)(false);
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.useEffect)(() => {
+    _utils_js__WEBPACK_IMPORTED_MODULE_7__.initStripe.catch(getError => {
       setError(getError);
     });
   }, []);
-
   if (error) {
     throw new Error(error);
   }
-
-  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_2__.Elements, {
-    stripe: _utils_js__WEBPACK_IMPORTED_MODULE_6__.initStripe
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(IdealElement, props));
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_2__.Elements, {
+    stripe: _utils_js__WEBPACK_IMPORTED_MODULE_7__.initStripe
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(IdealElement, {
+    ...props
+  }));
 };
-
-const IdealElement = _ref2 => {
-  let {
-    billing,
-    shippingData,
-    emitResponse,
-    eventRegistration,
-    activePaymentMethod,
-    shouldSavePayment,
-    element,
-    confirmMethod
-  } = _ref2;
+const IdealElement = ({
+  billing,
+  shippingData,
+  emitResponse,
+  eventRegistration,
+  activePaymentMethod,
+  shouldSavePayment,
+  element,
+  confirmMethod
+}) => {
   const {
     onPaymentProcessing
   } = eventRegistration;
   const stripe = (0,_stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_2__.useStripe)();
   const elements = (0,_stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_2__.useElements)();
-  const getPaymentMethodArgs = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useCallback)(() => {
+  const getPaymentMethodArgs = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.useCallback)(() => {
     return {
-      ideal: elements === null || elements === void 0 ? void 0 : elements.getElement(_stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_2__.IdealBankElement)
+      ideal: elements?.getElement(_stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_2__.IdealBankElement)
     };
   }, [stripe, elements]);
   const {
     setIsValid
-  } = (0,_local_payment_methods_js__WEBPACK_IMPORTED_MODULE_4__["default"])({
+  } = (0,_local_payment_methods_js__WEBPACK_IMPORTED_MODULE_5__["default"])({
     billing,
     shippingData,
     emitResponse,
@@ -2154,7 +2289,7 @@ const IdealElement = _ref2 => {
     element,
     PAYMENT_METHOD
   });
-  (0,_local_payment_methods_js__WEBPACK_IMPORTED_MODULE_4__.LocalPaymentAfterProcessing)({
+  (0,_local_payment_methods_js__WEBPACK_IMPORTED_MODULE_5__.LocalPaymentAfterProcessing)({
     billing,
     eventRegistration,
     responseTypes: emitResponse.responseTypes,
@@ -2165,37 +2300,33 @@ const IdealElement = _ref2 => {
     PAYMENT_METHOD,
     confirmMethod
   });
-
-  const onChange = e => setIsValid(!e.empty);
-
-  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "cpsw-ideal-container cpsw-description-container"
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_utils_js__WEBPACK_IMPORTED_MODULE_6__.description, {
-    text: (0,_utils_js__WEBPACK_IMPORTED_MODULE_6__.getSettings)('description', 'cpsw_ideal_data')
-  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_ideal_form_js__WEBPACK_IMPORTED_MODULE_3__["default"], {
-    onChange: onChange
-  }), (0,_utils_js__WEBPACK_IMPORTED_MODULE_6__.getSettings)('mode', 'cpsw_ideal_data') === 'test' && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_utils_js__WEBPACK_IMPORTED_MODULE_7__.description, {
+    text: (0,_utils_js__WEBPACK_IMPORTED_MODULE_7__.getSettings)('description', 'cpsw_ideal_data')
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_ideal_form_js__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    setIsValid: setIsValid
+  }), (0,_utils_js__WEBPACK_IMPORTED_MODULE_7__.getSettings)('mode', 'cpsw_ideal_data') === 'test' && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
     className: "cpsw-test-description",
     dangerouslySetInnerHTML: {
-      __html: (0,_utils_js__WEBPACK_IMPORTED_MODULE_6__.getSettings)('test_mode_description', 'cpsw_ideal_data')
+      __html: (0,_utils_js__WEBPACK_IMPORTED_MODULE_7__.getSettings)('test_mode_description', 'cpsw_ideal_data')
     }
   }));
 };
-
 (0,_woocommerce_blocks_registry__WEBPACK_IMPORTED_MODULE_1__.registerPaymentMethod)({
   name: PAYMENT_METHOD,
-  label: (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_utils_js__WEBPACK_IMPORTED_MODULE_6__.getLabel, {
-    icons: (0,_utils_js__WEBPACK_IMPORTED_MODULE_6__.getSettings)('icons', 'cpsw_ideal_data'),
+  label: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_utils_js__WEBPACK_IMPORTED_MODULE_7__.getLabel, {
+    icons: (0,_utils_js__WEBPACK_IMPORTED_MODULE_7__.getSettings)('icons', 'cpsw_ideal_data'),
     gateway: "cpsw_ideal_data"
   }),
-  ariaLabel: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('CPSW Ideal', 'checkout-plugins-stripe-woo'),
-  placeOrderButtonLabel: (0,_utils_js__WEBPACK_IMPORTED_MODULE_6__.getSettings)('order_button_text', 'cpsw_ideal_data'),
-  canMakePayment: props => (0,_utils_js__WEBPACK_IMPORTED_MODULE_6__.canDoLocalPayments)(props),
-  content: (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(PaymentMethod, {
+  ariaLabel: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)('CPSW Ideal', 'checkout-plugins-stripe-woo'),
+  placeOrderButtonLabel: String((0,_utils_js__WEBPACK_IMPORTED_MODULE_7__.getSettings)('order_button_text', 'cpsw_ideal_data')),
+  canMakePayment: props => (0,_utils_js__WEBPACK_IMPORTED_MODULE_7__.canDoLocalPayments)(props),
+  content: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(PaymentMethod, {
     Component: IdealContent,
     confirmMethod: "confirmIdealPayment"
   }),
-  edit: (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(PaymentMethod, {
+  edit: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(PaymentMethod, {
     Component: IdealContent
   })
 });
@@ -2206,7 +2337,7 @@ const IdealElement = _ref2 => {
 /*!************************************************!*\
   !*** ./src/woo-block/payment-methods/index.js ***!
   \************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -2214,6 +2345,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ideal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ideal */ "./src/woo-block/payment-methods/ideal/index.js");
 /* harmony import */ var _alipay__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./alipay */ "./src/woo-block/payment-methods/alipay/index.js");
 /* harmony import */ var _klarna__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./klarna */ "./src/woo-block/payment-methods/klarna/index.js");
+/* harmony import */ var _sepa__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./sepa */ "./src/woo-block/payment-methods/sepa/index.js");
+/* harmony import */ var _wechat__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./wechat */ "./src/woo-block/payment-methods/wechat/index.js");
+/* harmony import */ var _p24__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./p24 */ "./src/woo-block/payment-methods/p24/index.js");
+/* harmony import */ var _bancontact__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./bancontact */ "./src/woo-block/payment-methods/bancontact/index.js");
+
+
+
+
 
 
 
@@ -2225,20 +2364,22 @@ __webpack_require__.r(__webpack_exports__);
 /*!*******************************************************!*\
   !*** ./src/woo-block/payment-methods/klarna/index.js ***!
   \*******************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _woocommerce_blocks_registry__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @woocommerce/blocks-registry */ "@woocommerce/blocks-registry");
 /* harmony import */ var _woocommerce_blocks_registry__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_woocommerce_blocks_registry__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @stripe/react-stripe-js */ "./node_modules/@stripe/react-stripe-js/dist/react-stripe.umd.js");
 /* harmony import */ var _stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../utils.js */ "./src/woo-block/payment-methods/utils.js");
-/* harmony import */ var _local_payment_methods_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../local-payment-methods.js */ "./src/woo-block/payment-methods/local-payment-methods.js");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../utils.js */ "./src/woo-block/payment-methods/utils.js");
+/* harmony import */ var _local_payment_methods_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../local-payment-methods.js */ "./src/woo-block/payment-methods/local-payment-methods.js");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__);
 
 
 
@@ -2247,52 +2388,47 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const PAYMENT_METHOD = 'cpsw_klarna';
-
-const PaymentMethod = _ref => {
-  let {
-    Component,
-    ...props
-  } = _ref;
-  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+const PaymentMethod = ({
+  Component,
+  ...props
+}) => {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "cpsw-klarna-blocks-content"
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(Component, props)));
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(Component, {
+    ...props
+  })));
 };
-
 const KlarnaContent = props => {
-  const [error, setError] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    _utils_js__WEBPACK_IMPORTED_MODULE_3__.initStripe["catch"](getError => {
+  const [error, setError] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.useState)(false);
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.useEffect)(() => {
+    _utils_js__WEBPACK_IMPORTED_MODULE_4__.initStripe.catch(getError => {
       setError(getError);
     });
   }, []);
-
   if (error) {
     throw new Error(error);
   }
-
-  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_2__.Elements, {
-    stripe: _utils_js__WEBPACK_IMPORTED_MODULE_3__.initStripe
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(KlarnaElement, props));
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_2__.Elements, {
+    stripe: _utils_js__WEBPACK_IMPORTED_MODULE_4__.initStripe
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(KlarnaElement, {
+    ...props
+  }));
 };
-
-const KlarnaElement = _ref2 => {
-  let {
-    billing,
-    shippingData,
-    emitResponse,
-    eventRegistration,
-    activePaymentMethod,
-    shouldSavePayment,
-    element,
-    confirmMethod
-  } = _ref2;
+const KlarnaElement = ({
+  billing,
+  shippingData,
+  emitResponse,
+  eventRegistration,
+  activePaymentMethod,
+  shouldSavePayment,
+  element,
+  confirmMethod
+}) => {
   const {
     onPaymentProcessing
   } = eventRegistration;
   const paymentType = 'klarna';
-  const {
-    setIsValid
-  } = (0,_local_payment_methods_js__WEBPACK_IMPORTED_MODULE_4__["default"])({
+  (0,_local_payment_methods_js__WEBPACK_IMPORTED_MODULE_5__["default"])({
     billing,
     shippingData,
     emitResponse,
@@ -2303,10 +2439,7 @@ const KlarnaElement = _ref2 => {
     paymentType,
     PAYMENT_METHOD
   });
-  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    setIsValid(true);
-  }, []);
-  (0,_local_payment_methods_js__WEBPACK_IMPORTED_MODULE_4__.LocalPaymentAfterProcessing)({
+  (0,_local_payment_methods_js__WEBPACK_IMPORTED_MODULE_5__.LocalPaymentAfterProcessing)({
     billing,
     eventRegistration,
     responseTypes: emitResponse.responseTypes,
@@ -2316,39 +2449,38 @@ const KlarnaElement = _ref2 => {
     PAYMENT_METHOD,
     confirmMethod
   });
-  (0,_local_payment_methods_js__WEBPACK_IMPORTED_MODULE_4__.useProcessCheckoutError)({
+  (0,_local_payment_methods_js__WEBPACK_IMPORTED_MODULE_5__.useProcessCheckoutError)({
     responseTypes: emitResponse.responseTypes,
     emitResponse,
     eventRegistration
   });
-  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "cpsw-klarna-container cpsw-description-container"
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_utils_js__WEBPACK_IMPORTED_MODULE_3__.description, {
-    text: (0,_utils_js__WEBPACK_IMPORTED_MODULE_3__.getSettings)('description', 'cpsw_klarna_data')
-  }), (0,_utils_js__WEBPACK_IMPORTED_MODULE_3__.getSettings)('mode', 'cpsw_klarna_data') === 'test' && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_utils_js__WEBPACK_IMPORTED_MODULE_4__.description, {
+    text: (0,_utils_js__WEBPACK_IMPORTED_MODULE_4__.getSettings)('description', 'cpsw_klarna_data')
+  }), (0,_utils_js__WEBPACK_IMPORTED_MODULE_4__.getSettings)('mode', 'cpsw_klarna_data') === 'test' && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
     className: "cpsw-test-description"
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Test verification code:', 'checkout-plugins-stripe-woo'), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("strong", null, "111000")), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)('Test verification code:', 'checkout-plugins-stripe-woo'), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("strong", null, "111000")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
     className: "cpsw-test-description",
     dangerouslySetInnerHTML: {
-      __html: (0,_utils_js__WEBPACK_IMPORTED_MODULE_3__.getSettings)('test_mode_description', 'cpsw_klarna_data')
+      __html: (0,_utils_js__WEBPACK_IMPORTED_MODULE_4__.getSettings)('test_mode_description', 'cpsw_klarna_data')
     }
   })));
 };
-
 (0,_woocommerce_blocks_registry__WEBPACK_IMPORTED_MODULE_1__.registerPaymentMethod)({
   name: PAYMENT_METHOD,
-  label: (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_utils_js__WEBPACK_IMPORTED_MODULE_3__.getLabel, {
-    icons: (0,_utils_js__WEBPACK_IMPORTED_MODULE_3__.getSettings)('icons', 'cpsw_klarna_data'),
+  label: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_utils_js__WEBPACK_IMPORTED_MODULE_4__.getLabel, {
+    icons: (0,_utils_js__WEBPACK_IMPORTED_MODULE_4__.getSettings)('icons', 'cpsw_klarna_data'),
     gateway: "cpsw_klarna_data"
   }),
-  ariaLabel: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('CPSW klarna', 'checkout-plugins-stripe-woo'),
-  placeOrderButtonLabel: (0,_utils_js__WEBPACK_IMPORTED_MODULE_3__.getSettings)('order_button_text', 'cpsw_klarna_data'),
-  canMakePayment: props => (0,_utils_js__WEBPACK_IMPORTED_MODULE_3__.canDoLocalPayments)(props, 'cpsw_klarna_data'),
-  content: (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(PaymentMethod, {
+  ariaLabel: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)('CPSW klarna', 'checkout-plugins-stripe-woo'),
+  placeOrderButtonLabel: String((0,_utils_js__WEBPACK_IMPORTED_MODULE_4__.getSettings)('order_button_text', 'cpsw_klarna_data')),
+  canMakePayment: props => (0,_utils_js__WEBPACK_IMPORTED_MODULE_4__.canDoLocalPayments)(props, 'cpsw_klarna_data'),
+  content: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(PaymentMethod, {
     Component: KlarnaContent,
     confirmMethod: "confirmKlarnaPayment"
   }),
-  edit: (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(PaymentMethod, {
+  edit: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(PaymentMethod, {
     Component: KlarnaContent
   })
 });
@@ -2359,13 +2491,14 @@ const KlarnaElement = _ref2 => {
 /*!****************************************************************!*\
   !*** ./src/woo-block/payment-methods/local-payment-methods.js ***!
   \****************************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "LocalPaymentAfterProcessing": function() { return /* binding */ LocalPaymentAfterProcessing; },
-/* harmony export */   "useProcessCheckoutError": function() { return /* binding */ useProcessCheckoutError; }
+/* harmony export */   LocalPaymentAfterProcessing: () => (/* binding */ LocalPaymentAfterProcessing),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   useProcessCheckoutError: () => (/* binding */ useProcessCheckoutError)
 /* harmony export */ });
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
@@ -2375,18 +2508,16 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-const LocalPaymentIntent = _ref => {
-  let {
-    billing,
-    onPaymentProcessing,
-    emitResponse,
-    activePaymentMethod,
-    shouldSavePayment = false,
-    paymentType = 'ideal',
-    getPaymentMethodArgs = () => ({}),
-    PAYMENT_METHOD
-  } = _ref;
+const LocalPaymentIntent = ({
+  billing,
+  onPaymentProcessing,
+  emitResponse,
+  activePaymentMethod,
+  shouldSavePayment = false,
+  paymentType = 'ideal',
+  getPaymentMethodArgs = () => ({}),
+  PAYMENT_METHOD
+}) => {
   const {
     billingData
   } = billing;
@@ -2395,7 +2526,7 @@ const LocalPaymentIntent = _ref => {
   } = emitResponse;
   const stripe = (0,_stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_1__.useStripe)();
   const currentPaymentMethodArgs = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useRef)(getPaymentMethodArgs);
-  const [isValid, setIsValid] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const [isValid, setIsValid] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
   (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     currentPaymentMethodArgs.current = getPaymentMethodArgs;
   }, [getPaymentMethodArgs]);
@@ -2404,11 +2535,11 @@ const LocalPaymentIntent = _ref => {
       type: paymentType,
       billing_details: (0,_utils_js__WEBPACK_IMPORTED_MODULE_2__.getBillingAddress)(billingData)
     };
-    return { ...args,
+    return {
+      ...args,
       ...currentPaymentMethodArgs.current()
     };
   }, [billingData, paymentType, getPaymentMethodArgs]);
-
   const getSuccessResponse = paymentMethodId => {
     const response = {
       meta: {
@@ -2420,47 +2551,43 @@ const LocalPaymentIntent = _ref => {
     };
     return response;
   };
-
   (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     // This action will be called when we click on place order button.
     const unsubscribeProcessingPayment = onPaymentProcessing(async () => {
       if (activePaymentMethod !== PAYMENT_METHOD) {
         return null;
-      } // Show error message in payment method section.
+      }
+
+      // Show error message in payment method section.
       // Display an error if no banks are selected from the bank list in the select box.
-
-
       if (!isValid) {
+        const validityMessage = paymentType === 'sepa_debit' ? cpsw_global_settings.empty_sepa_iban_message : cpsw_global_settings.empty_bank_message;
         return {
           type: emitResponse.responseTypes.ERROR,
-          message: cpsw_global_settings.empty_bank_message,
+          message: validityMessage,
           messageContext: emitResponse.noticeContexts.PAYMENTS
         };
       }
-
       try {
-        var _result$paymentMethod;
-
         // Creating the payment method.
         const result = await stripe.createPaymentMethod(getCreatePaymentMethodArgs());
-
-        if (result !== null && result !== void 0 && result.error) {
+        if (result?.error) {
           return {
             type: emitResponse.responseTypes.ERROR,
             message: (0,_utils_js__WEBPACK_IMPORTED_MODULE_2__.getStripeLocalizedMessage)(result.error.code, result.error.message, `${PAYMENT_METHOD}_data`),
             messageContext: emitResponse.noticeContexts.PAYMENTS
           };
-        } // Get payment method id from the stripe.
+        }
 
+        // Get payment method id from the stripe.
+        const paymentMethodId = result?.paymentMethod?.id;
 
-        const paymentMethodId = result === null || result === void 0 ? void 0 : (_result$paymentMethod = result.paymentMethod) === null || _result$paymentMethod === void 0 ? void 0 : _result$paymentMethod.id; // If there is no payment method id, throw processing error
-
+        // If there is no payment method id, throw processing error
         if (!paymentMethodId) {
           throw new _utils_js__WEBPACK_IMPORTED_MODULE_2__.StripeError({
             message: (0,_utils_js__WEBPACK_IMPORTED_MODULE_2__.getStripeLocalizedMessage)('processing_error', null)
           });
         }
-
         return (0,_utils_js__WEBPACK_IMPORTED_MODULE_2__.ensureSuccessResponse)(responseTypes, getSuccessResponse(paymentMethodId));
       } catch (e) {
         return (0,_utils_js__WEBPACK_IMPORTED_MODULE_2__.paymentProcessingError)(emitResponse);
@@ -2473,19 +2600,19 @@ const LocalPaymentIntent = _ref => {
     isValid
   };
 };
-
-const LocalPaymentAfterProcessing = _ref2 => {
-  let {
-    billing,
-    eventRegistration,
-    responseTypes,
-    activePaymentMethod,
-    shouldSavePayment = false,
-    getPaymentMethodArgs = () => ({}),
-    emitResponse,
-    PAYMENT_METHOD,
-    confirmMethod
-  } = _ref2;
+const LocalPaymentAfterProcessing = ({
+  billing,
+  eventRegistration,
+  responseTypes,
+  activePaymentMethod,
+  shouldSavePayment = false,
+  getPaymentMethodArgs = () => ({}),
+  emitResponse,
+  PAYMENT_METHOD,
+  confirmMethod,
+  paymentType,
+  paymentMethodOptions = {}
+}) => {
   const stripe = (0,_stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_1__.useStripe)();
   const {
     billingData
@@ -2500,56 +2627,47 @@ const LocalPaymentAfterProcessing = _ref2 => {
   (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     // Regarding this action : When we click on place order button then process will go to the backend and then come back to the frontend so based on the condition this action will be called.
     const unsubscribeAfterProcessingWithSuccess = onCheckoutAfterProcessingWithSuccess(async props => {
-      var _props$processingResp, _props$processingResp2, _props$processingResp3, _props$processingResp4;
-
       if (activePaymentMethod !== PAYMENT_METHOD) {
         return null;
       }
-
-      const intentSecret = props === null || props === void 0 ? void 0 : (_props$processingResp = props.processingResponse) === null || _props$processingResp === void 0 ? void 0 : (_props$processingResp2 = _props$processingResp.paymentDetails) === null || _props$processingResp2 === void 0 ? void 0 : _props$processingResp2.intent_secret;
-      const verificationUrl = props === null || props === void 0 ? void 0 : (_props$processingResp3 = props.processingResponse) === null || _props$processingResp3 === void 0 ? void 0 : (_props$processingResp4 = _props$processingResp3.paymentDetails) === null || _props$processingResp4 === void 0 ? void 0 : _props$processingResp4.verification_url;
-
+      const intentSecret = props?.processingResponse?.paymentDetails?.intent_secret;
+      const verificationUrl = props?.processingResponse?.paymentDetails?.verification_url;
       if (!intentSecret) {
         return (0,_utils_js__WEBPACK_IMPORTED_MODULE_2__.paymentProcessingError)(emitResponse);
-      } // If all the required data is present, call the confirmation method.
+      }
 
-
+      // If all the required data is present, call the confirmation method.
       return await stripe[confirmMethod](intentSecret, {
-        payment_method: { ...currentPaymentMethodArgs.current(),
+        payment_method: {
+          ...currentPaymentMethodArgs.current(),
           billing_details: (0,_utils_js__WEBPACK_IMPORTED_MODULE_2__.getBillingAddress)(billingData)
         },
+        payment_method_options: paymentMethodOptions,
         return_url: cpsw_global_settings.get_home_url + verificationUrl
       }).then(result => {
-        var _result$error, _result$paymentIntent;
-
-        let errorMessage = result === null || result === void 0 ? void 0 : (_result$error = result.error) === null || _result$error === void 0 ? void 0 : _result$error.message; // Todo : This need to be updated once error handling on Klarna gateway get updated
-
-        errorMessage = errorMessage.replace(new RegExp('`billing_details\\[address\\]\\[country\\]`', 'g'), 'Billing country'); // Show error if there is any after confirmation method.
-
-        if (result !== null && result !== void 0 && result.error) {
-          var _result$error2;
-
+        let errorMessage = result?.error?.message;
+        // Todo : This need to be updated once error handling on Klarna gateway get updated
+        errorMessage = errorMessage?.replace(new RegExp('`billing_details\\[address\\]\\[country\\]`', 'g'), 'Billing country');
+        // Show error if there is any after confirmation method.
+        if (result?.error) {
           return {
             type: emitResponse.responseTypes.ERROR,
-            message: (0,_utils_js__WEBPACK_IMPORTED_MODULE_2__.getStripeLocalizedMessage)((_result$error2 = result.error) === null || _result$error2 === void 0 ? void 0 : _result$error2.code, errorMessage),
+            message: (0,_utils_js__WEBPACK_IMPORTED_MODULE_2__.getStripeLocalizedMessage)(result.error?.code, errorMessage),
             messageContext: emitResponse.noticeContexts.PAYMENTS
           };
         }
-
-        const paymentStatus = result === null || result === void 0 ? void 0 : (_result$paymentIntent = result.paymentIntent) === null || _result$paymentIntent === void 0 ? void 0 : _result$paymentIntent.status;
-
+        const paymentStatus = result?.paymentIntent?.status;
         if (!paymentStatus) {
           return (0,_utils_js__WEBPACK_IMPORTED_MODULE_2__.paymentProcessingError)(emitResponse);
-        } //If payment status is succeeded or requires_capture then we will redirect to the verification url.
+        }
 
-
-        if ('succeeded' === paymentStatus || 'requires_capture' === paymentStatus) {
+        //According to payment status redirect to the verification url.
+        if (['succeeded', 'requires_capture'].includes(paymentStatus) || paymentType === 'sepa_debit' && ['pending', 'processing'].includes(paymentStatus)) {
           return {
             type: emitResponse.responseTypes.SUCCESS,
             redirectUrl: verificationUrl
           };
         }
-
         return (0,_utils_js__WEBPACK_IMPORTED_MODULE_2__.paymentProcessingError)(emitResponse);
       });
     });
@@ -2558,12 +2676,11 @@ const LocalPaymentAfterProcessing = _ref2 => {
     };
   }, [stripe, responseTypes, onCheckoutAfterProcessingWithSuccess, activePaymentMethod, shouldSavePayment]);
 };
-const useProcessCheckoutError = _ref3 => {
-  let {
-    responseTypes,
-    emitResponse,
-    eventRegistration
-  } = _ref3;
+const useProcessCheckoutError = ({
+  responseTypes,
+  emitResponse,
+  eventRegistration
+}) => {
   const {
     onCheckoutAfterProcessingWithError
   } = eventRegistration;
@@ -2571,10 +2688,9 @@ const useProcessCheckoutError = _ref3 => {
     // Regarding this action : When we click on place order button the process will go to the backend and then come back to the frontend. so then based on the condition this action will be called.
     // This action called when process get failed after checkout processing
     const unsubscribe = onCheckoutAfterProcessingWithError(props => {
-      var _props$processingResp5, _props$processingResp6;
+      const stripeError = props?.processingResponse?.paymentDetails?.stripeError;
 
-      const stripeError = props === null || props === void 0 ? void 0 : (_props$processingResp5 = props.processingResponse) === null || _props$processingResp5 === void 0 ? void 0 : (_props$processingResp6 = _props$processingResp5.paymentDetails) === null || _props$processingResp6 === void 0 ? void 0 : _props$processingResp6.stripeError; // Show the error message
-
+      // Show the error message
       if (stripeError) {
         return {
           type: emitResponse.responseTypes.ERROR,
@@ -2582,13 +2698,405 @@ const useProcessCheckoutError = _ref3 => {
           messageContext: emitResponse.noticeContexts.PAYMENTS
         };
       }
-
       return null;
     });
     return () => unsubscribe();
   }, [responseTypes, onCheckoutAfterProcessingWithError]);
 };
-/* harmony default export */ __webpack_exports__["default"] = (LocalPaymentIntent);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (LocalPaymentIntent);
+
+/***/ }),
+
+/***/ "./src/woo-block/payment-methods/p24/index.js":
+/*!****************************************************!*\
+  !*** ./src/woo-block/payment-methods/p24/index.js ***!
+  \****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _woocommerce_blocks_registry__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @woocommerce/blocks-registry */ "@woocommerce/blocks-registry");
+/* harmony import */ var _woocommerce_blocks_registry__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_woocommerce_blocks_registry__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @stripe/react-stripe-js */ "./node_modules/@stripe/react-stripe-js/dist/react-stripe.umd.js");
+/* harmony import */ var _stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _p24_form_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./p24-form.js */ "./src/woo-block/payment-methods/p24/p24-form.js");
+/* harmony import */ var _local_payment_methods_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../local-payment-methods.js */ "./src/woo-block/payment-methods/local-payment-methods.js");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../utils.js */ "./src/woo-block/payment-methods/utils.js");
+
+
+
+
+
+
+
+
+const PAYMENT_METHOD = 'cpsw_p24';
+const PaymentMethod = ({
+  Component,
+  ...props
+}) => {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "cpsw-p24-blocks-content"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(Component, {
+    ...props
+  })));
+};
+const P24Content = props => {
+  const [error, setError] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.useState)(false);
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.useEffect)(() => {
+    _utils_js__WEBPACK_IMPORTED_MODULE_7__.initStripe.catch(getError => {
+      setError(getError);
+    });
+  }, []);
+  if (error) {
+    throw new Error(error);
+  }
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_2__.Elements, {
+    stripe: _utils_js__WEBPACK_IMPORTED_MODULE_7__.initStripe
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(PrzelewyElement, {
+    ...props
+  }));
+};
+const PrzelewyElement = ({
+  billing,
+  shippingData,
+  emitResponse,
+  eventRegistration,
+  activePaymentMethod,
+  shouldSavePayment,
+  element,
+  confirmMethod
+}) => {
+  const {
+    onPaymentProcessing
+  } = eventRegistration;
+  const stripe = (0,_stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_2__.useStripe)();
+  const elements = (0,_stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_2__.useElements)();
+  const getPaymentMethodArgs = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.useCallback)(() => {
+    return {
+      p24: elements?.getElement(_stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_2__.P24BankElement)
+    };
+  }, [stripe, elements]);
+  const paymentType = 'p24';
+  (0,_local_payment_methods_js__WEBPACK_IMPORTED_MODULE_5__["default"])({
+    billing,
+    shippingData,
+    emitResponse,
+    onPaymentProcessing,
+    shouldSavePayment,
+    getPaymentMethodArgs,
+    activePaymentMethod,
+    element,
+    paymentType,
+    PAYMENT_METHOD
+  });
+  (0,_local_payment_methods_js__WEBPACK_IMPORTED_MODULE_5__.LocalPaymentAfterProcessing)({
+    billing,
+    eventRegistration,
+    responseTypes: emitResponse.responseTypes,
+    activePaymentMethod,
+    shouldSavePayment,
+    getPaymentMethodArgs,
+    emitResponse,
+    PAYMENT_METHOD,
+    confirmMethod
+  });
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "cpsw-p24-container cpsw-description-container"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_utils_js__WEBPACK_IMPORTED_MODULE_7__.description, {
+    text: (0,_utils_js__WEBPACK_IMPORTED_MODULE_7__.getSettings)('description', 'cpsw_p24_data')
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_p24_form_js__WEBPACK_IMPORTED_MODULE_4__["default"], null), (0,_utils_js__WEBPACK_IMPORTED_MODULE_7__.getSettings)('mode', 'cpsw_p24_data') === 'test' && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
+    className: "cpsw-test-description",
+    dangerouslySetInnerHTML: {
+      __html: (0,_utils_js__WEBPACK_IMPORTED_MODULE_7__.getSettings)('test_mode_description', 'cpsw_p24_data')
+    }
+  }));
+};
+(0,_woocommerce_blocks_registry__WEBPACK_IMPORTED_MODULE_1__.registerPaymentMethod)({
+  name: PAYMENT_METHOD,
+  label: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_utils_js__WEBPACK_IMPORTED_MODULE_7__.getLabel, {
+    icons: (0,_utils_js__WEBPACK_IMPORTED_MODULE_7__.getSettings)('icons', 'cpsw_p24_data'),
+    gateway: "cpsw_p24_data"
+  }),
+  ariaLabel: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)('CPSW P24', 'checkout-plugins-stripe-woo'),
+  placeOrderButtonLabel: String((0,_utils_js__WEBPACK_IMPORTED_MODULE_7__.getSettings)('order_button_text', 'cpsw_p24_data')),
+  canMakePayment: props => (0,_utils_js__WEBPACK_IMPORTED_MODULE_7__.canDoLocalPayments)(props),
+  content: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(PaymentMethod, {
+    Component: P24Content,
+    confirmMethod: "confirmP24Payment"
+  }),
+  edit: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(PaymentMethod, {
+    Component: P24Content
+  })
+});
+
+/***/ }),
+
+/***/ "./src/woo-block/payment-methods/p24/p24-form.js":
+/*!*******************************************************!*\
+  !*** ./src/woo-block/payment-methods/p24/p24-form.js ***!
+  \*******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @stripe/react-stripe-js */ "./node_modules/@stripe/react-stripe-js/dist/react-stripe.umd.js");
+/* harmony import */ var _stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_1__);
+
+
+const P24Form = () => {
+  //Custom styling can be passed to options when creating an Element.
+  const p24Style = {
+    base: {
+      padding: '10px 12px',
+      color: '#32325d',
+      fontSize: '16px'
+    }
+  };
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "cpsw-p24-form"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_1__.P24BankElement, {
+    options: {
+      style: p24Style
+    }
+  }));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (P24Form);
+
+/***/ }),
+
+/***/ "./src/woo-block/payment-methods/sepa/index.js":
+/*!*****************************************************!*\
+  !*** ./src/woo-block/payment-methods/sepa/index.js ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _woocommerce_blocks_registry__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @woocommerce/blocks-registry */ "@woocommerce/blocks-registry");
+/* harmony import */ var _woocommerce_blocks_registry__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_woocommerce_blocks_registry__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @stripe/react-stripe-js */ "./node_modules/@stripe/react-stripe-js/dist/react-stripe.umd.js");
+/* harmony import */ var _stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _local_payment_methods_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../local-payment-methods.js */ "./src/woo-block/payment-methods/local-payment-methods.js");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../utils.js */ "./src/woo-block/payment-methods/utils.js");
+/* harmony import */ var _sepa_form_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./sepa-form.js */ "./src/woo-block/payment-methods/sepa/sepa-form.js");
+
+
+
+
+
+
+
+
+const PAYMENT_METHOD = 'cpsw_sepa';
+const paymentType = 'sepa_debit';
+const shouldSave = 'yes' === (0,_utils_js__WEBPACK_IMPORTED_MODULE_6__.getSettings)('enable_saved_cards', 'cpsw_sepa_data');
+const supportFeatures = (0,_utils_js__WEBPACK_IMPORTED_MODULE_6__.getSettings)('features', 'cpsw_sepa_data') ? (0,_utils_js__WEBPACK_IMPORTED_MODULE_6__.getSettings)('features', 'cpsw_sepa_data') : ['products'];
+const PaymentMethod = ({
+  Component,
+  ...props
+}) => {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "cpsw-sepa-blocks-content"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(Component, {
+    ...props
+  })));
+};
+const SepaContent = props => {
+  const [error, setError] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.useState)(false);
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.useEffect)(() => {
+    _utils_js__WEBPACK_IMPORTED_MODULE_6__.initStripe.catch(getError => {
+      setError(getError);
+    });
+  }, []);
+  if (error) {
+    throw new Error(error);
+  }
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_2__.Elements, {
+    stripe: _utils_js__WEBPACK_IMPORTED_MODULE_6__.initStripe
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(SepaElement, {
+    ...props
+  }));
+};
+const SepaElement = ({
+  billing,
+  shippingData,
+  emitResponse,
+  eventRegistration,
+  activePaymentMethod,
+  shouldSavePayment,
+  element,
+  confirmMethod
+}) => {
+  const {
+    onPaymentProcessing
+  } = eventRegistration;
+  const stripe = (0,_stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_2__.useStripe)();
+  const elements = (0,_stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_2__.useElements)();
+  const getPaymentMethodArgs = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.useCallback)(() => {
+    return {
+      sepa_debit: elements?.getElement(_stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_2__.IbanElement)
+    };
+  }, [stripe, elements]);
+  const {
+    setIsValid
+  } = (0,_local_payment_methods_js__WEBPACK_IMPORTED_MODULE_4__["default"])({
+    billing,
+    shippingData,
+    emitResponse,
+    onPaymentProcessing,
+    shouldSavePayment,
+    activePaymentMethod,
+    element,
+    paymentType,
+    PAYMENT_METHOD,
+    getPaymentMethodArgs
+  });
+  (0,_local_payment_methods_js__WEBPACK_IMPORTED_MODULE_4__.LocalPaymentAfterProcessing)({
+    billing,
+    eventRegistration,
+    responseTypes: emitResponse.responseTypes,
+    activePaymentMethod,
+    shouldSavePayment,
+    emitResponse,
+    PAYMENT_METHOD,
+    confirmMethod,
+    getPaymentMethodArgs,
+    paymentType
+  });
+  (0,_local_payment_methods_js__WEBPACK_IMPORTED_MODULE_4__.useProcessCheckoutError)({
+    responseTypes: emitResponse.responseTypes,
+    emitResponse,
+    eventRegistration
+  });
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "cpsw-sepa-card-container"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("fieldset", null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_utils_js__WEBPACK_IMPORTED_MODULE_6__.description, {
+    text: (0,_utils_js__WEBPACK_IMPORTED_MODULE_6__.getSettings)('description', 'cpsw_sepa_data')
+  }), (0,_utils_js__WEBPACK_IMPORTED_MODULE_6__.getSettings)('local_payment_description', 'cpsw_sepa_data'), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_sepa_form_js__WEBPACK_IMPORTED_MODULE_7__["default"], {
+    setIsValid: setIsValid
+  })), (0,_utils_js__WEBPACK_IMPORTED_MODULE_6__.getSettings)('mode', 'cpsw_sepa_data') === 'test' && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
+    className: "cpsw_stripe_test_description",
+    dangerouslySetInnerHTML: {
+      __html: (0,_utils_js__WEBPACK_IMPORTED_MODULE_6__.getSettings)('test_mode_description', 'cpsw_sepa_data')
+    }
+  }));
+};
+(0,_woocommerce_blocks_registry__WEBPACK_IMPORTED_MODULE_1__.registerPaymentMethod)({
+  name: PAYMENT_METHOD,
+  label: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_utils_js__WEBPACK_IMPORTED_MODULE_6__.getLabel, {
+    icons: (0,_utils_js__WEBPACK_IMPORTED_MODULE_6__.getSettings)('icons', 'cpsw_sepa_data'),
+    gateway: "cpsw_sepa_data"
+  }),
+  ariaLabel: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('CPSW SEPA', 'checkout-plugins-stripe-woo'),
+  placeOrderButtonLabel: String((0,_utils_js__WEBPACK_IMPORTED_MODULE_6__.getSettings)('order_button_text', 'cpsw_sepa_data')),
+  canMakePayment: props => (0,_utils_js__WEBPACK_IMPORTED_MODULE_6__.canDoLocalPayments)(props, 'cpsw_sepa_data'),
+  content: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(PaymentMethod, {
+    Component: SepaContent,
+    confirmMethod: "confirmSepaDebitPayment"
+  }),
+  edit: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(PaymentMethod, {
+    Component: SepaContent
+  }),
+  supports: {
+    showSavedCards: shouldSave,
+    showSaveOption: shouldSave,
+    features: supportFeatures ? supportFeatures : ['products']
+  }
+});
+
+/***/ }),
+
+/***/ "./src/woo-block/payment-methods/sepa/sepa-form.js":
+/*!*********************************************************!*\
+  !*** ./src/woo-block/payment-methods/sepa/sepa-form.js ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @stripe/react-stripe-js */ "./node_modules/@stripe/react-stripe-js/dist/react-stripe.umd.js");
+/* harmony import */ var _stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__);
+
+
+
+
+const SepaForm = ({
+  setIsValid
+}) => {
+  // Custom styling can be passed as options when creating an Element.
+  const ibanStyle = {
+    base: {
+      color: '#32325d',
+      fontSize: '16px',
+      '::placeholder': {
+        color: '#aab7c4'
+      },
+      ':-webkit-autofill': {
+        color: '#32325d'
+      }
+    },
+    invalid: {
+      color: '#fa755a',
+      iconColor: '#fa755a',
+      ':-webkit-autofill': {
+        color: '#fa755a'
+      }
+    }
+  };
+  const ibanOptions = {
+    supportedCountries: ['SEPA'],
+    // Elements can use a placeholder as an example IBAN that reflects
+    // the IBAN format of your customer's country. If you know your
+    // customer's country, we recommend that you pass it to the Element as the
+    // placeholderCountry.
+    placeholderCountry: 'DE',
+    style: ibanStyle
+  };
+  const onChange = e => setIsValid(!e.empty);
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.useEffect)(() => {
+    setIsValid(false);
+  }, []);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "cpsw-sepa-form"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
+    className: "cpsw-sepa-iban-label"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
+    htmlFor: "iban"
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('IBAN.', 'checkout-plugins-stripe-woo'), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    className: "required"
+  }, "*"))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_1__.IbanElement, {
+    options: ibanOptions,
+    onChange: onChange
+  }));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (SepaForm);
 
 /***/ }),
 
@@ -2596,10 +3104,13 @@ const useProcessCheckoutError = _ref3 => {
 /*!********************************************************************!*\
   !*** ./src/woo-block/payment-methods/use-after-process-payment.js ***!
   \********************************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @stripe/react-stripe-js */ "./node_modules/@stripe/react-stripe-js/dist/react-stripe.umd.js");
@@ -2608,15 +3119,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-const useAfterProcessingPayment = _ref => {
-  let {
-    eventRegistration,
-    responseTypes,
-    activePaymentMethod,
-    shouldSavePayment = false,
-    emitResponse
-  } = _ref;
+const useAfterProcessingPayment = ({
+  eventRegistration,
+  responseTypes,
+  activePaymentMethod,
+  shouldSavePayment = false,
+  emitResponse
+}) => {
   const stripe = (0,_stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_1__.useStripe)();
   const {
     onCheckoutSuccess
@@ -2624,44 +3133,35 @@ const useAfterProcessingPayment = _ref => {
   (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     // Regarding this action : When we click on place order button then process will go to the backend and then come back to the frontend so based on the condition this action will be called.
     const unsubscribeAfterProcessingWithSuccess = onCheckoutSuccess(async props => {
-      var _props$processingResp, _props$processingResp2, _props$processingResp3, _props$processingResp4;
-
       if (activePaymentMethod !== _utils_js__WEBPACK_IMPORTED_MODULE_2__.PAYMENT_METHOD) {
         return null;
       }
-
-      const intentSecret = props === null || props === void 0 ? void 0 : (_props$processingResp = props.processingResponse) === null || _props$processingResp === void 0 ? void 0 : (_props$processingResp2 = _props$processingResp.paymentDetails) === null || _props$processingResp2 === void 0 ? void 0 : _props$processingResp2.intent_secret;
-      const verificationUrl = props === null || props === void 0 ? void 0 : (_props$processingResp3 = props.processingResponse) === null || _props$processingResp3 === void 0 ? void 0 : (_props$processingResp4 = _props$processingResp3.paymentDetails) === null || _props$processingResp4 === void 0 ? void 0 : _props$processingResp4.verification_url;
-
+      const intentSecret = props?.processingResponse?.paymentDetails?.intent_secret;
+      const verificationUrl = props?.processingResponse?.paymentDetails?.verification_url;
       if (!intentSecret || !verificationUrl) {
         return (0,_utils_js__WEBPACK_IMPORTED_MODULE_2__.paymentProcessingError)(emitResponse);
-      } // If everything is fine all the required data is present then we will call the confirmCardPayment method.
+      }
 
-
+      // If everything is fine all the required data is present then we will call the confirmCardPayment method.
       return await stripe.confirmCardPayment(intentSecret, {}).then(result => {
-        var _result$error, _result$paymentIntent;
+        if (result?.error?.code) {
+          let errorCode = result.error.code;
 
-        if (result !== null && result !== void 0 && (_result$error = result.error) !== null && _result$error !== void 0 && _result$error.code) {
-          var _result$error2;
-
-          let errorCode = result.error.code; // If card is declined then we will modify the error code to get proper localized message.
-
-          if ('card_declined' === result.error.code && result !== null && result !== void 0 && (_result$error2 = result.error) !== null && _result$error2 !== void 0 && _result$error2.decline_code) {
+          // If card is declined then we will modify the error code to get proper localized message.
+          if ('card_declined' === result.error.code && result?.error?.decline_code) {
             errorCode = result.error.decline_code;
           }
-
           return {
             type: emitResponse.responseTypes.ERROR,
             message: (0,_utils_js__WEBPACK_IMPORTED_MODULE_2__.getStripeLocalizedMessage)(errorCode, result.error.message),
             messageContext: emitResponse.noticeContexts.PAYMENTS
           };
         }
-
-        const paymentStatus = result === null || result === void 0 ? void 0 : (_result$paymentIntent = result.paymentIntent) === null || _result$paymentIntent === void 0 ? void 0 : _result$paymentIntent.status;
-
+        const paymentStatus = result?.paymentIntent?.status;
         if (!paymentStatus) {
           return (0,_utils_js__WEBPACK_IMPORTED_MODULE_2__.paymentProcessingError)(emitResponse);
         }
+
         /**
          * If payment status is succeeded or requires_capture then we will redirect to the verification url.
          * Regarding requires_capture : https://stripe.com/docs/payments/capture-later
@@ -2669,15 +3169,12 @@ const useAfterProcessingPayment = _ref => {
          *
          * In the payment setting page we have charge type option in case of the charge payment status should be succeeded and in case of authorize payment status should be requires_capture.
          */
-
-
         if ('succeeded' === paymentStatus || 'requires_capture' === paymentStatus) {
           return {
             type: emitResponse.responseTypes.SUCCESS,
             redirectUrl: verificationUrl
           };
         }
-
         return (0,_utils_js__WEBPACK_IMPORTED_MODULE_2__.paymentProcessingError)(emitResponse);
       });
     });
@@ -2686,8 +3183,7 @@ const useAfterProcessingPayment = _ref => {
     };
   }, [stripe, responseTypes, onCheckoutSuccess, activePaymentMethod, shouldSavePayment]);
 };
-
-/* harmony default export */ __webpack_exports__["default"] = (useAfterProcessingPayment);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (useAfterProcessingPayment);
 
 /***/ }),
 
@@ -2695,12 +3191,13 @@ const useAfterProcessingPayment = _ref => {
 /*!*********************************************************************!*\
   !*** ./src/woo-block/payment-methods/use-process-payment-intent.js ***!
   \*********************************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "StripeError": function() { return /* binding */ StripeError; }
+/* harmony export */   StripeError: () => (/* binding */ StripeError),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
@@ -2715,19 +3212,16 @@ class StripeError extends Error {
     super(error.message);
     this.error = error;
   }
-
 }
-
-const useProcessPaymentIntent = _ref => {
-  let {
-    billing,
-    onPaymentSetup,
-    emitResponse,
-    activePaymentMethod,
-    paymentType = 'card',
-    getPaymentMethodArgs = () => ({}),
-    anyError
-  } = _ref;
+const useProcessPaymentIntent = ({
+  billing,
+  onPaymentSetup,
+  emitResponse,
+  activePaymentMethod,
+  paymentType = 'card',
+  getPaymentMethodArgs = () => ({}),
+  anyError
+}) => {
   const {
     billingData
   } = billing;
@@ -2744,11 +3238,11 @@ const useProcessPaymentIntent = _ref => {
       type: paymentType,
       billing_details: (0,_utils_js__WEBPACK_IMPORTED_MODULE_2__.getBillingAddress)(billingData)
     };
-    return { ...args,
+    return {
+      ...args,
       ...currentPaymentMethodArgs.current()
     };
   }, [billingData, paymentType, getPaymentMethodArgs]);
-
   const getSuccessResponse = paymentMethodId => {
     const response = {
       meta: {
@@ -2760,56 +3254,48 @@ const useProcessPaymentIntent = _ref => {
     };
     return response;
   };
-
   (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     // This action will be called when we click on place order button.
     const unsubscribeProcessingPayment = onPaymentSetup(async () => {
       if (activePaymentMethod !== _utils_js__WEBPACK_IMPORTED_MODULE_2__.PAYMENT_METHOD) {
         return null;
-      } // Check if any error is present then show error.
+      }
 
-
+      // Check if any error is present then show error.
       const getErrorLength = Object.keys(anyError).length;
-
       if (getErrorLength) {
         // Show every error with <br> tag.
-        let errorMessage = ''; // eslint-disable-next-line no-unused-vars
-
+        let errorMessage = '';
+        // eslint-disable-next-line no-unused-vars
         for (const [key, value] of Object.entries(anyError)) {
           errorMessage += value + '<br>';
-        } // Show error message in payment method section.
+        }
 
-
+        // Show error message in payment method section.
         return {
           type: emitResponse.responseTypes.ERROR,
           message: errorMessage,
           messageContext: emitResponse.noticeContexts.PAYMENTS
         };
       }
-
       try {
-        var _result$paymentMethod;
-
         // Creating the payment method.
         const result = await stripe.createPaymentMethod(getCreatePaymentMethodArgs());
-
-        if (result !== null && result !== void 0 && result.error) {
+        if (result?.error) {
           return {
             type: emitResponse.responseTypes.ERROR,
             message: (0,_utils_js__WEBPACK_IMPORTED_MODULE_2__.getStripeLocalizedMessage)(result.error.code, result.error.message),
             messageContext: emitResponse.noticeContexts.PAYMENTS
           };
-        } // We have got the payment method id from the stripe.
+        }
 
-
-        const paymentMethodId = result === null || result === void 0 ? void 0 : (_result$paymentMethod = result.paymentMethod) === null || _result$paymentMethod === void 0 ? void 0 : _result$paymentMethod.id;
-
+        // We have got the payment method id from the stripe.
+        const paymentMethodId = result?.paymentMethod?.id;
         if (!paymentMethodId) {
           throw new StripeError({
             message: (0,_utils_js__WEBPACK_IMPORTED_MODULE_2__.getStripeLocalizedMessage)('processing_error', null)
           });
         }
-
         return (0,_utils_js__WEBPACK_IMPORTED_MODULE_2__.ensureSuccessResponse)(responseTypes, getSuccessResponse(paymentMethodId));
       } catch (e) {
         throw new StripeError({
@@ -2820,8 +3306,7 @@ const useProcessPaymentIntent = _ref => {
     return () => unsubscribeProcessingPayment();
   }, [billingData, onPaymentSetup, stripe, activePaymentMethod, anyError]);
 };
-
-/* harmony default export */ __webpack_exports__["default"] = (useProcessPaymentIntent);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (useProcessPaymentIntent);
 
 /***/ }),
 
@@ -2829,29 +3314,29 @@ const useProcessPaymentIntent = _ref => {
 /*!************************************************!*\
   !*** ./src/woo-block/payment-methods/utils.js ***!
   \************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "PAYMENT_METHOD": function() { return /* binding */ PAYMENT_METHOD; },
-/* harmony export */   "getSettings": function() { return /* binding */ getSettings; },
-/* harmony export */   "getLabel": function() { return /* binding */ getLabel; },
-/* harmony export */   "shouldSaveCC": function() { return /* binding */ shouldSaveCC; },
-/* harmony export */   "isInlineCC": function() { return /* binding */ isInlineCC; },
-/* harmony export */   "getStripeLocalizedMessage": function() { return /* binding */ getStripeLocalizedMessage; },
-/* harmony export */   "initStripe": function() { return /* binding */ initStripe; },
-/* harmony export */   "getBillingAddress": function() { return /* binding */ getBillingAddress; },
-/* harmony export */   "ensureSuccessResponse": function() { return /* binding */ ensureSuccessResponse; },
-/* harmony export */   "paymentProcessingError": function() { return /* binding */ paymentProcessingError; },
-/* harmony export */   "canDoLocalPayments": function() { return /* binding */ canDoLocalPayments; },
-/* harmony export */   "StripeError": function() { return /* binding */ StripeError; },
-/* harmony export */   "description": function() { return /* binding */ description; },
-/* harmony export */   "cardElementInCompleteError": function() { return /* binding */ cardElementInCompleteError; },
-/* harmony export */   "defaultCards": function() { return /* binding */ defaultCards; }
+/* harmony export */   PAYMENT_METHOD: () => (/* binding */ PAYMENT_METHOD),
+/* harmony export */   StripeError: () => (/* binding */ StripeError),
+/* harmony export */   canDoLocalPayments: () => (/* binding */ canDoLocalPayments),
+/* harmony export */   cardElementInCompleteError: () => (/* binding */ cardElementInCompleteError),
+/* harmony export */   defaultCards: () => (/* binding */ defaultCards),
+/* harmony export */   description: () => (/* binding */ description),
+/* harmony export */   ensureSuccessResponse: () => (/* binding */ ensureSuccessResponse),
+/* harmony export */   getBillingAddress: () => (/* binding */ getBillingAddress),
+/* harmony export */   getLabel: () => (/* binding */ getLabel),
+/* harmony export */   getSettings: () => (/* binding */ getSettings),
+/* harmony export */   getStripeLocalizedMessage: () => (/* binding */ getStripeLocalizedMessage),
+/* harmony export */   initStripe: () => (/* binding */ initStripe),
+/* harmony export */   isInlineCC: () => (/* binding */ isInlineCC),
+/* harmony export */   paymentProcessingError: () => (/* binding */ paymentProcessingError),
+/* harmony export */   shouldSaveCC: () => (/* binding */ shouldSaveCC)
 /* harmony export */ });
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _stripe_stripe_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @stripe/stripe-js */ "./node_modules/@stripe/stripe-js/dist/stripe.esm.js");
 /* harmony import */ var _woocommerce_settings__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @woocommerce/settings */ "@woocommerce/settings");
 /* harmony import */ var _woocommerce_settings__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_woocommerce_settings__WEBPACK_IMPORTED_MODULE_2__);
@@ -2862,28 +3347,24 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const PAYMENT_METHOD = 'cpsw_stripe';
-const getSettings = function (key) {
-  var _getSetting;
-
-  let gateway = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'cpsw_stripe_data';
-  const returnValue = (_getSetting = (0,_woocommerce_settings__WEBPACK_IMPORTED_MODULE_2__.getSetting)(gateway)) === null || _getSetting === void 0 ? void 0 : _getSetting[key];
+const getSettings = (key, gateway = 'cpsw_stripe_data') => {
+  const returnValue = (0,_woocommerce_settings__WEBPACK_IMPORTED_MODULE_2__.getSetting)(gateway)?.[key];
   return returnValue ? returnValue : null;
 };
-const getLabel = _ref => {
-  let {
-    icons,
-    gateway,
-    ...props
-  } = _ref;
+const getLabel = ({
+  icons,
+  gateway,
+  ...props
+}) => {
   const {
     PaymentMethodLabel,
     PaymentMethodIcons
   } = props.components;
-  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
     className: `cpsw-label-container ${PAYMENT_METHOD}`
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(PaymentMethodLabel, {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(PaymentMethodLabel, {
     text: getSettings('label', gateway)
-  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(PaymentMethodIcons, {
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(PaymentMethodIcons, {
     icons: icons,
     align: "left"
   }));
@@ -2892,7 +3373,7 @@ const shouldSaveCC = 'yes' === getSettings('enable_saved_cards');
 const isInlineCC = 'yes' === getSettings('inline_cc');
 const getStripeLocalizedMessage = (type, message, gateway) => {
   const stripeLocalized = getSettings('error_messages', gateway);
-  return stripeLocalized !== null && stripeLocalized !== void 0 && stripeLocalized[type] ? stripeLocalized[type] : message;
+  return stripeLocalized?.[type] ? stripeLocalized[type] : message;
 };
 const initStripe = new Promise(resolve => {
   const publishableKey = getSettings('public_key');
@@ -2911,27 +3392,23 @@ const getBillingAddress = billingData => {
   const billingDetails = {
     name: `${billingData.first_name} ${billingData.last_name}`,
     address: {
-      city: (billingData === null || billingData === void 0 ? void 0 : billingData.city) || null,
-      country: (billingData === null || billingData === void 0 ? void 0 : billingData.country) || null,
-      line1: (billingData === null || billingData === void 0 ? void 0 : billingData.address_1) || null,
-      line2: (billingData === null || billingData === void 0 ? void 0 : billingData.address_2) || null,
-      postal_code: (billingData === null || billingData === void 0 ? void 0 : billingData.postcode) || null,
-      state: (billingData === null || billingData === void 0 ? void 0 : billingData.state) || null
+      city: billingData?.city || null,
+      country: billingData?.country || null,
+      line1: billingData?.address_1 || null,
+      line2: billingData?.address_2 || null,
+      postal_code: billingData?.postcode || null,
+      state: billingData?.state || null
     }
   };
-
-  if (billingData !== null && billingData !== void 0 && billingData.phone) {
+  if (billingData?.phone) {
     billingDetails.phone = billingData.phone;
   }
-
-  if (billingData !== null && billingData !== void 0 && billingData.email) {
+  if (billingData?.email) {
     billingDetails.email = billingData.email;
   }
-
   return billingDetails;
 };
-const ensureSuccessResponse = function (responseTypes) {
-  let data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+const ensureSuccessResponse = (responseTypes, data = {}) => {
   return {
     type: responseTypes.SUCCESS,
     ...data
@@ -2942,12 +3419,10 @@ const paymentProcessingError = emitResponse => ({
   message: getStripeLocalizedMessage('processing_error', null),
   messageContext: emitResponse.noticeContexts.PAYMENTS
 });
-const canDoLocalPayments = function (_ref2) {
-  let {
-    billingData,
-    cartTotals
-  } = _ref2;
-  let gateway = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'cpsw_ideal_data';
+const canDoLocalPayments = ({
+  billingData,
+  cartTotals
+}, gateway = 'cpsw_ideal_data') => {
   const {
     currency_code: currencyCode
   } = cartTotals;
@@ -2955,15 +3430,14 @@ const canDoLocalPayments = function (_ref2) {
     country
   } = billingData;
   const gatewaySupportedCountries = JSON.parse(getSettings('supported_countries', gateway));
-  let canMakePayment = true; // Check if the supported countries for the gateway include the billing country.
+  let canMakePayment = true;
 
+  // Check if the supported countries for the gateway include the billing country.
   if (gatewaySupportedCountries !== null && (Array.isArray(gatewaySupportedCountries[currencyCode]) ? !gatewaySupportedCountries[currencyCode].includes(country) : Array.isArray(gatewaySupportedCountries) && !gatewaySupportedCountries.includes(country))) {
     return false;
   }
-
   const countries = getSettings('countries', gateway);
   const allowedCountryType = getSettings('allowed_countries', gateway);
-
   if (countries !== null) {
     if (allowedCountryType === 'all_except') {
       canMakePayment = !countries.includes(country);
@@ -2971,7 +3445,6 @@ const canDoLocalPayments = function (_ref2) {
       canMakePayment = countries.includes(country);
     }
   }
-
   return canMakePayment;
 };
 class StripeError extends Error {
@@ -2979,54 +3452,44 @@ class StripeError extends Error {
     super(error.message);
     this.error = error;
   }
-
 }
-const description = _ref3 => {
-  let {
-    text
-  } = _ref3;
-
+const description = ({
+  text
+}) => {
   if (!text) {
     return null;
   }
-
-  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "cpsw-stripe-blocks-payment-methoddesc"
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, text));
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, text));
 };
-const cardElementInCompleteError = _ref4 => {
-  let {
-    errorCode,
-    message = null
-  } = _ref4;
-
+const cardElementInCompleteError = ({
+  errorCode,
+  message = null
+}) => {
   if (!errorCode) {
     return null;
   }
-
   let showMessage = message;
-
   if (!message) {
-    showMessage = getStripeLocalizedMessage(errorCode, null); // If errorCode is not present in the localized message then show warning message with errorCode in console and ignore linting error for console.warn.
-
+    showMessage = getStripeLocalizedMessage(errorCode, null);
+    // If errorCode is not present in the localized message then show warning message with errorCode in console and ignore linting error for console.warn.
     if (!showMessage) {
       // eslint-disable-next-line no-console
       console.warn(`Error code ${errorCode} is not present in the localized message. Please add it in the settings.`);
     }
   }
-
   if (!showMessage) {
     return null;
   }
-
-  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "cpsw-validation-error"
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, showMessage));
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, showMessage));
 };
+
 /**
  * These are the default card types supported by Stripe.
  */
-
 const defaultCards = {
   mastercard: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('MasterCard', 'checkout-plugins-stripe-woo'),
   visa: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Visa', 'checkout-plugins-stripe-woo'),
@@ -3039,11 +3502,139 @@ const defaultCards = {
 
 /***/ }),
 
+/***/ "./src/woo-block/payment-methods/wechat/index.js":
+/*!*******************************************************!*\
+  !*** ./src/woo-block/payment-methods/wechat/index.js ***!
+  \*******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _woocommerce_blocks_registry__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @woocommerce/blocks-registry */ "@woocommerce/blocks-registry");
+/* harmony import */ var _woocommerce_blocks_registry__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_woocommerce_blocks_registry__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @stripe/react-stripe-js */ "./node_modules/@stripe/react-stripe-js/dist/react-stripe.umd.js");
+/* harmony import */ var _stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _local_payment_methods_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../local-payment-methods.js */ "./src/woo-block/payment-methods/local-payment-methods.js");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../utils.js */ "./src/woo-block/payment-methods/utils.js");
+
+
+
+
+
+
+
+const PAYMENT_METHOD = 'cpsw_wechat';
+const paymentMethodOptions = {
+  wechat_pay: {
+    client: 'web'
+  }
+};
+const PaymentMethod = ({
+  Component,
+  ...props
+}) => {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "cpsw-wechat-blocks-content"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(Component, {
+    ...props
+  })));
+};
+const WechatContent = props => {
+  const [error, setError] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.useState)(false);
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.useEffect)(() => {
+    _utils_js__WEBPACK_IMPORTED_MODULE_6__.initStripe.catch(getError => {
+      setError(getError);
+    });
+  }, []);
+  if (error) {
+    throw new Error(error);
+  }
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_2__.Elements, {
+    stripe: _utils_js__WEBPACK_IMPORTED_MODULE_6__.initStripe
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(WechatElement, {
+    ...props
+  }));
+};
+const WechatElement = ({
+  billing,
+  shippingData,
+  emitResponse,
+  eventRegistration,
+  activePaymentMethod,
+  shouldSavePayment,
+  element,
+  confirmMethod
+}) => {
+  const {
+    onPaymentProcessing
+  } = eventRegistration;
+  const paymentType = 'wechat_pay';
+  (0,_local_payment_methods_js__WEBPACK_IMPORTED_MODULE_4__["default"])({
+    billing,
+    shippingData,
+    emitResponse,
+    onPaymentProcessing,
+    shouldSavePayment,
+    activePaymentMethod,
+    element,
+    paymentType,
+    PAYMENT_METHOD
+  });
+  (0,_local_payment_methods_js__WEBPACK_IMPORTED_MODULE_4__.LocalPaymentAfterProcessing)({
+    billing,
+    eventRegistration,
+    responseTypes: emitResponse.responseTypes,
+    activePaymentMethod,
+    shouldSavePayment,
+    emitResponse,
+    PAYMENT_METHOD,
+    confirmMethod,
+    paymentMethodOptions
+  });
+  (0,_local_payment_methods_js__WEBPACK_IMPORTED_MODULE_4__.useProcessCheckoutError)({
+    responseTypes: emitResponse.responseTypes,
+    emitResponse,
+    eventRegistration
+  });
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "cpsw-wechat-container  cpsw-description-container"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_utils_js__WEBPACK_IMPORTED_MODULE_6__.description, {
+    text: (0,_utils_js__WEBPACK_IMPORTED_MODULE_6__.getSettings)('description', 'cpsw_wechat_data')
+  }), (0,_utils_js__WEBPACK_IMPORTED_MODULE_6__.getSettings)('mode', 'cpsw_wechat_data') === 'test' && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
+    className: "cpsw-test-description"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("b", null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Test Mode Enabled: ', 'checkout-plugins-stripe-woo')), (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('A QR code will pop up, scan and pay with WeChat.', 'checkout-plugins-stripe-woo')));
+};
+(0,_woocommerce_blocks_registry__WEBPACK_IMPORTED_MODULE_1__.registerPaymentMethod)({
+  name: PAYMENT_METHOD,
+  label: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_utils_js__WEBPACK_IMPORTED_MODULE_6__.getLabel, {
+    icons: (0,_utils_js__WEBPACK_IMPORTED_MODULE_6__.getSettings)('icons', 'cpsw_wechat_data'),
+    gateway: "cpsw_wechat_data"
+  }),
+  ariaLabel: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('CPSW Wechat', 'checkout-plugins-stripe-woo'),
+  placeOrderButtonLabel: String((0,_utils_js__WEBPACK_IMPORTED_MODULE_6__.getSettings)('order_button_text', 'cpsw_wechat_data')),
+  canMakePayment: props => (0,_utils_js__WEBPACK_IMPORTED_MODULE_6__.canDoLocalPayments)(props, 'cpsw_wechat_data'),
+  content: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(PaymentMethod, {
+    Component: WechatContent,
+    confirmMethod: "confirmWechatPayPayment"
+  }),
+  edit: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(PaymentMethod, {
+    Component: WechatContent
+  })
+});
+
+/***/ }),
+
 /***/ "./src/woo-block/style.scss":
 /*!**********************************!*\
   !*** ./src/woo-block/style.scss ***!
   \**********************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -3056,7 +3647,7 @@ __webpack_require__.r(__webpack_exports__);
 /*!************************!*\
   !*** external "React" ***!
   \************************/
-/***/ (function(module) {
+/***/ ((module) => {
 
 "use strict";
 module.exports = window["React"];
@@ -3067,7 +3658,7 @@ module.exports = window["React"];
 /*!******************************************!*\
   !*** external ["wc","wcBlocksRegistry"] ***!
   \******************************************/
-/***/ (function(module) {
+/***/ ((module) => {
 
 "use strict";
 module.exports = window["wc"]["wcBlocksRegistry"];
@@ -3078,7 +3669,7 @@ module.exports = window["wc"]["wcBlocksRegistry"];
 /*!************************************!*\
   !*** external ["wc","wcSettings"] ***!
   \************************************/
-/***/ (function(module) {
+/***/ ((module) => {
 
 "use strict";
 module.exports = window["wc"]["wcSettings"];
@@ -3089,7 +3680,7 @@ module.exports = window["wc"]["wcSettings"];
 /*!*********************************!*\
   !*** external ["wp","element"] ***!
   \*********************************/
-/***/ (function(module) {
+/***/ ((module) => {
 
 "use strict";
 module.exports = window["wp"]["element"];
@@ -3100,7 +3691,7 @@ module.exports = window["wp"]["element"];
 /*!******************************!*\
   !*** external ["wp","i18n"] ***!
   \******************************/
-/***/ (function(module) {
+/***/ ((module) => {
 
 "use strict";
 module.exports = window["wp"]["i18n"];
@@ -3138,9 +3729,9 @@ module.exports = window["wp"]["i18n"];
 /******/ 	
 /************************************************************************/
 /******/ 	/* webpack/runtime/chunk loaded */
-/******/ 	!function() {
+/******/ 	(() => {
 /******/ 		var deferred = [];
-/******/ 		__webpack_require__.O = function(result, chunkIds, fn, priority) {
+/******/ 		__webpack_require__.O = (result, chunkIds, fn, priority) => {
 /******/ 			if(chunkIds) {
 /******/ 				priority = priority || 0;
 /******/ 				for(var i = deferred.length; i > 0 && deferred[i - 1][2] > priority; i--) deferred[i] = deferred[i - 1];
@@ -3149,12 +3740,10 @@ module.exports = window["wp"]["i18n"];
 /******/ 			}
 /******/ 			var notFulfilled = Infinity;
 /******/ 			for (var i = 0; i < deferred.length; i++) {
-/******/ 				var chunkIds = deferred[i][0];
-/******/ 				var fn = deferred[i][1];
-/******/ 				var priority = deferred[i][2];
+/******/ 				var [chunkIds, fn, priority] = deferred[i];
 /******/ 				var fulfilled = true;
 /******/ 				for (var j = 0; j < chunkIds.length; j++) {
-/******/ 					if ((priority & 1 === 0 || notFulfilled >= priority) && Object.keys(__webpack_require__.O).every(function(key) { return __webpack_require__.O[key](chunkIds[j]); })) {
+/******/ 					if ((priority & 1 === 0 || notFulfilled >= priority) && Object.keys(__webpack_require__.O).every((key) => (__webpack_require__.O[key](chunkIds[j])))) {
 /******/ 						chunkIds.splice(j--, 1);
 /******/ 					} else {
 /******/ 						fulfilled = false;
@@ -3169,50 +3758,50 @@ module.exports = window["wp"]["i18n"];
 /******/ 			}
 /******/ 			return result;
 /******/ 		};
-/******/ 	}();
+/******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/compat get default export */
-/******/ 	!function() {
+/******/ 	(() => {
 /******/ 		// getDefaultExport function for compatibility with non-harmony modules
-/******/ 		__webpack_require__.n = function(module) {
+/******/ 		__webpack_require__.n = (module) => {
 /******/ 			var getter = module && module.__esModule ?
-/******/ 				function() { return module['default']; } :
-/******/ 				function() { return module; };
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
 /******/ 			__webpack_require__.d(getter, { a: getter });
 /******/ 			return getter;
 /******/ 		};
-/******/ 	}();
+/******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/define property getters */
-/******/ 	!function() {
+/******/ 	(() => {
 /******/ 		// define getter functions for harmony exports
-/******/ 		__webpack_require__.d = function(exports, definition) {
+/******/ 		__webpack_require__.d = (exports, definition) => {
 /******/ 			for(var key in definition) {
 /******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
 /******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
 /******/ 				}
 /******/ 			}
 /******/ 		};
-/******/ 	}();
+/******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
-/******/ 	!function() {
-/******/ 		__webpack_require__.o = function(obj, prop) { return Object.prototype.hasOwnProperty.call(obj, prop); }
-/******/ 	}();
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/make namespace object */
-/******/ 	!function() {
+/******/ 	(() => {
 /******/ 		// define __esModule on exports
-/******/ 		__webpack_require__.r = function(exports) {
+/******/ 		__webpack_require__.r = (exports) => {
 /******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
 /******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
 /******/ 			}
 /******/ 			Object.defineProperty(exports, '__esModule', { value: true });
 /******/ 		};
-/******/ 	}();
+/******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/jsonp chunk loading */
-/******/ 	!function() {
+/******/ 	(() => {
 /******/ 		// no baseURI
 /******/ 		
 /******/ 		// object to store loaded and loading chunks
@@ -3220,7 +3809,7 @@ module.exports = window["wp"]["i18n"];
 /******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
 /******/ 		var installedChunks = {
 /******/ 			"block": 0,
-/******/ 			"style-block": 0
+/******/ 			"./style-block": 0
 /******/ 		};
 /******/ 		
 /******/ 		// no chunk on demand loading
@@ -3233,17 +3822,15 @@ module.exports = window["wp"]["i18n"];
 /******/ 		
 /******/ 		// no HMR manifest
 /******/ 		
-/******/ 		__webpack_require__.O.j = function(chunkId) { return installedChunks[chunkId] === 0; };
+/******/ 		__webpack_require__.O.j = (chunkId) => (installedChunks[chunkId] === 0);
 /******/ 		
 /******/ 		// install a JSONP callback for chunk loading
-/******/ 		var webpackJsonpCallback = function(parentChunkLoadingFunction, data) {
-/******/ 			var chunkIds = data[0];
-/******/ 			var moreModules = data[1];
-/******/ 			var runtime = data[2];
+/******/ 		var webpackJsonpCallback = (parentChunkLoadingFunction, data) => {
+/******/ 			var [chunkIds, moreModules, runtime] = data;
 /******/ 			// add "moreModules" to the modules object,
 /******/ 			// then flag all "chunkIds" as loaded and fire callback
 /******/ 			var moduleId, chunkId, i = 0;
-/******/ 			if(chunkIds.some(function(id) { return installedChunks[id] !== 0; })) {
+/******/ 			if(chunkIds.some((id) => (installedChunks[id] !== 0))) {
 /******/ 				for(moduleId in moreModules) {
 /******/ 					if(__webpack_require__.o(moreModules, moduleId)) {
 /******/ 						__webpack_require__.m[moduleId] = moreModules[moduleId];
@@ -3257,22 +3844,22 @@ module.exports = window["wp"]["i18n"];
 /******/ 				if(__webpack_require__.o(installedChunks, chunkId) && installedChunks[chunkId]) {
 /******/ 					installedChunks[chunkId][0]();
 /******/ 				}
-/******/ 				installedChunks[chunkIds[i]] = 0;
+/******/ 				installedChunks[chunkId] = 0;
 /******/ 			}
 /******/ 			return __webpack_require__.O(result);
 /******/ 		}
 /******/ 		
-/******/ 		var chunkLoadingGlobal = self["webpackChunkcheckout_plugins_stripe_woo"] = self["webpackChunkcheckout_plugins_stripe_woo"] || [];
+/******/ 		var chunkLoadingGlobal = globalThis["webpackChunkcheckout_plugins_stripe_woo"] = globalThis["webpackChunkcheckout_plugins_stripe_woo"] || [];
 /******/ 		chunkLoadingGlobal.forEach(webpackJsonpCallback.bind(null, 0));
 /******/ 		chunkLoadingGlobal.push = webpackJsonpCallback.bind(null, chunkLoadingGlobal.push.bind(chunkLoadingGlobal));
-/******/ 	}();
+/******/ 	})();
 /******/ 	
 /************************************************************************/
 /******/ 	
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["style-block"], function() { return __webpack_require__("./src/woo-block/index.js"); })
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["./style-block"], () => (__webpack_require__("./src/woo-block/index.js")))
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
 /******/ })()

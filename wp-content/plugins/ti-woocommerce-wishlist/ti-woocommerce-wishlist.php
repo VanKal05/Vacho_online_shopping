@@ -4,12 +4,12 @@
  * Plugin Name:       TI WooCommerce Wishlist
  * Plugin URI:        https://wordpress.org/plugins/ti-woocommerce-wishlist/
  * Description:       Wishlist functionality for your WooCommerce store.
- * Version:           2.8.0
+ * Version:           2.8.2
  * Requires at least: 6.1
  * Tested up to: 6.4
  * Requires PHP: 7.4
  * WC requires at least: 3.2
- * WC tested up to: 8.3
+ * WC tested up to: 8.6
  * Author:            TemplateInvaders
  * Author URI:        https://templateinvaders.com/
  * License:           GPL-2.0+
@@ -28,7 +28,7 @@ defined( 'TINVWL_URL' ) || define( 'TINVWL_URL', plugins_url( '/', __FILE__ ) );
 defined( 'TINVWL_PATH' ) || define( 'TINVWL_PATH', plugin_dir_path( __FILE__ ) );
 defined( 'TINVWL_PREFIX' ) || define( 'TINVWL_PREFIX', 'tinvwl' );
 defined( 'TINVWL_DOMAIN' ) || define( 'TINVWL_DOMAIN', 'ti-woocommerce-wishlist' );
-defined( 'TINVWL_FVERSION' ) || define( 'TINVWL_FVERSION', '2.8.0' );
+defined( 'TINVWL_FVERSION' ) || define( 'TINVWL_FVERSION', '2.8.2' );
 defined( 'TINVWL_LOAD_FREE' ) || define( 'TINVWL_LOAD_FREE', plugin_basename( __FILE__ ) );
 defined( 'TINVWL_NAME' ) || define( 'TINVWL_NAME', 'TI WooCommerce Wishlist' );
 
@@ -127,6 +127,9 @@ if ( ! function_exists( 'uninstall_tinv_wishlist' ) ) {
 	 */
 	function uninstall_tinv_wishlist(): void {
 		if ( ! defined( 'TINVWL_LOAD_PREMIUM' ) ) {
+
+			require_once TINVWL_PATH . 'tinv-wishlists-function.php';
+
 			if ( tinv_get_option( 'uninstall', 'delete_data' ) ) {
 				TInvWL_Activator::uninstall();
 			}
@@ -213,7 +216,7 @@ if ( ! function_exists( 'run_tinv_wishlist' ) ) {
 			require_once $file;
 		}
 
-		if ( defined( 'TINVWL_LOAD_PREMIUM' ) && defined( 'TINVWL_LOAD_FREE' ) || defined( 'TINVWL_LOAD_PREMIUM' ) && is_plugin_active_for_network( TINVWL_LOAD_PREMIUM ) || defined( 'TINVWL_LOAD_FREE' ) && is_plugin_active_for_network( TINVWL_LOAD_FREE ) ) {
+		if ( defined( 'TINVWL_LOAD_PREMIUM' ) && defined( 'TINVWL_LOAD_FREE' ) ) {
 			$redirect = tinv_wishlist_status( plugin_basename( __FILE__ ) );
 			if ( $redirect ) {
 				header( 'Location: ' . $redirect );

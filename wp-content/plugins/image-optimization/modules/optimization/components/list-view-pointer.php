@@ -35,7 +35,7 @@ class List_View_Pointer {
 						pointerClass: 'image-optimization-list-view-pointer',
 						position: {
 							edge: 'top',
-							align: 'left'
+							align: '<?php echo is_rtl() ? 'right' : 'left'; ?>',
 						},
 						close() {
 							wp.ajax.post( 'image_optimizer_pointer_dismissed', {
@@ -52,7 +52,7 @@ class List_View_Pointer {
 
 		<style>
 			.image-optimization-list-view-pointer .wp-pointer-arrow {
-				left: 15px;
+				inset-inline-start: 15px;
 			}
 		</style>
 		<?php

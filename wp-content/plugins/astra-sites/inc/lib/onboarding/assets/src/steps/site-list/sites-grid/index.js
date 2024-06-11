@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Grid } from '@brainstormforce/starter-templates-components';
 import {
 	getDemo,
@@ -12,6 +12,7 @@ const SiteGrid = ( { sites } ) => {
 	const sitesData = sites ? sites : {};
 	const storedState = useStateValue();
 	const [ { favoriteSiteIDs, currentIndex }, dispatch ] = storedState;
+	const [ columns, setColumns ] = useState( 4 );
 
 	const allSites = [];
 
@@ -78,9 +79,31 @@ const SiteGrid = ( { sites } ) => {
 		}
 	};
 
+	useEffect( () => {
+		const handleResize = () => {
+			// Update the number of columns based on the screen width
+			if ( window.innerWidth <= 768 ) {
+				setColumns( 2 ); // Adjust for smaller screens
+			} else if ( window.innerWidth > 768 && window.innerWidth <= 1024 ) {
+				setColumns( 3 );
+			} else {
+				setColumns( 4 ); // Default for larger screens
+			}
+		};
+
+		// Listen for window resize events
+		window.addEventListener( 'resize', handleResize );
+
+		// Call handleResize initially to set the correct number of columns.
+		handleResize();
+
+		// Clean up the event listener on component unmount
+		return () => window.removeEventListener( 'resize', handleResize );
+	}, [] );
+
 	return (
 		<Grid
-			column={ 4 }
+			column={ columns }
 			options={ allSites }
 			hasFavorite
 			onFavoriteClick={ toggleFavorites }

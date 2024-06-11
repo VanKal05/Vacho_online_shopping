@@ -122,14 +122,18 @@ class File_System {
 	/**
 	 * Gets the file size (in bytes).
 	 *
-	 * @param string $path Path to file.
+	 * @param ?string $path Path to file.
 	 *
 	 * @return int Size of the file in bytes on success, false on failure.
 	 *
 	 * @throws File_System_Operation_Error
 	 */
-	public static function size( string $path ): int {
+	public static function size( ?string $path ): int {
 		global $wp_filesystem;
+
+		if ( is_null( $path ) ) {
+			throw new File_System_Operation_Error( 'Null file path provided' );
+		}
 
 		$size = $wp_filesystem->size( $path );
 

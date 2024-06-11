@@ -11,6 +11,8 @@ const Modal = ( {
 	children,
 	hideCloseIcon = false,
 	className,
+	isErrorModal = false,
+	autoClose = true,
 } ) => {
 	let modalWidth = 'max-w-[35rem]';
 
@@ -40,7 +42,7 @@ const Modal = ( {
 			<Dialog
 				as="div"
 				className="spectra-ai relative z-[99999999]"
-				onClose={ setOpen }
+				onClose={ ! autoClose ? () => {} : setOpen }
 			>
 				<Transition.Child
 					as={ Fragment }
@@ -92,7 +94,12 @@ const Modal = ( {
 										</button>
 									) }
 								</div>
-								<div className="space-y-6 font-sans">
+								<div
+									className={ classNames(
+										'font-sans',
+										! isErrorModal && 'space-y-6'
+									) }
+								>
 									{ /* Modal Body */ }
 									{ children }
 								</div>

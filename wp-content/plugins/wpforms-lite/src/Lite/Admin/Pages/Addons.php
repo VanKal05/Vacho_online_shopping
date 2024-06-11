@@ -113,6 +113,10 @@ class Addons {
 			return;
 		}
 
+		// WPForms 1.8.7 core includes Custom Captcha.
+		// The Custom Captcha addon will only work on WPForms 1.8.6 and earlier versions.
+		unset( $addons['wpforms-captcha'] );
+
 		echo wpforms_render( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			'admin/addons',
 			[

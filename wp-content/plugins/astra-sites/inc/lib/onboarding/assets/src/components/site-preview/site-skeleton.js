@@ -1,11 +1,11 @@
-import React from 'react';
-import Skeleton from '@material-ui/lab/Skeleton';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
+import { Skeleton } from '@mui/material';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import { classNames } from '../../steps/onboarding-ai/helpers';
 
-const SiteSkeleton = () => {
+const SiteSkeleton = ( { className } ) => {
 	return (
-		<div className="site-loading-skeleton">
+		<div className={ classNames( 'site-loading-skeleton', className ) }>
 			<Grid container>
 				<Grid item xs={ 4 }>
 					<Box p={ '3em 8em' } display="flex">
@@ -22,7 +22,7 @@ const SiteSkeleton = () => {
 						p="3em 8em"
 						display="flex"
 						justifyContent="flex-end"
-						gridGap="25px"
+						gap="25px"
 					>
 						<Skeleton
 							variant="rect"
@@ -99,7 +99,7 @@ const SiteSkeleton = () => {
 						p="1rem 8rem 1rem 2rem"
 						display="flex"
 						justifyContent="flex-end"
-						gridGap="25px"
+						gap="25px"
 					>
 						<Skeleton
 							variant="rect"
@@ -114,7 +114,7 @@ const SiteSkeleton = () => {
 						p="3em 8em"
 						display="flex"
 						justifyContent="space-evenly"
-						gridGap="25px"
+						gap="25px"
 					>
 						<Skeleton
 							variant="rect"

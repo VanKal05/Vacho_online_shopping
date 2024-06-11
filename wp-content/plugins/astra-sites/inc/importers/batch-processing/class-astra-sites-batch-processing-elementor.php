@@ -66,6 +66,7 @@ class Astra_Sites_Batch_Processing_Elementor extends Source_Local {
 			$this->import_single_post( $post_id );
 		}
 	}
+
 	/**
 	 * Update post meta.
 	 *
@@ -126,10 +127,10 @@ class Astra_Sites_Batch_Processing_Elementor extends Source_Local {
 				$data = $this->process_export_import_content( $data, 'on_import' );
 
 				// Replace the site urls.
-				$demo_data = get_option( 'astra_sites_import_data', array() );
+				$demo_data = \Astra_Sites_File_System::get_instance()->get_demo_content();
 				\Astra_Sites_Importer_Log::add( wp_json_encode( $demo_data ) );
 				if ( isset( $demo_data['astra-site-url'] ) ) {
-					$data = wp_json_encode( $data, true );
+					$data = wp_json_encode( $data );
 					if ( ! empty( $data ) ) {
 						$site_url      = get_site_url();
 						$site_url      = str_replace( '/', '\/', $site_url );

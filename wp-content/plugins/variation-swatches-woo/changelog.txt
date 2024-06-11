@@ -1,3 +1,6 @@
+= 1.0.8 – THURSDAY, 28th MARCH 2024 =
+* New: Introduced the border width option for the swatch. You can now set a custom border width to your swatches.
+
 = 1.0.7 – WEDNESDAY, 22nd FEBRUARY 2023 =
 * Improvement - Ajax security improved.
 

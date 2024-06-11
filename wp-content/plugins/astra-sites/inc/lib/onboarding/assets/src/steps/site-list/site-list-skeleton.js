@@ -1,7 +1,7 @@
 import React from 'react';
-import Skeleton from '@material-ui/lab/Skeleton';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
+import { Skeleton } from '@mui/material';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
 
 const SiteListSkeleton = () => {
 	return (
@@ -37,7 +37,7 @@ const SiteListSkeleton = () => {
 						justifyContent="space-between"
 						p="0 0 8px 0"
 					>
-						<Box display="flex" gridGap="15px" alignItems="center">
+						<Box display="flex" gap="15px" alignItems="center">
 							<Box>
 								<Skeleton
 									variant="rect"
@@ -103,7 +103,7 @@ const SiteListSkeleton = () => {
 								/>
 							</Box>
 						</Box>
-						<Box display="flex" gridGap="15px" alignItems="center">
+						<Box display="flex" gap="15px" alignItems="center">
 							<Box>
 								<Skeleton
 									variant="rect"
@@ -127,7 +127,7 @@ const SiteListSkeleton = () => {
 					<Box
 						p="44px 0 0 0"
 						display="grid"
-						gridGap="40px"
+						gap="40px"
 						gridTemplateColumns="1fr 1fr 1fr 1fr"
 					>
 						<Skeleton

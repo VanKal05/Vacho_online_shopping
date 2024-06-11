@@ -1,6 +1,5 @@
 <?php
-defined( 'ABSPATH' ) or die( 'Keep Quit' );
-// woo-variation-swatches
+defined( 'ABSPATH' ) || die( 'Keep Quit' );
 ?>
 
 <div>

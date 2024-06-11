@@ -1,5 +1,5 @@
 /*!*************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[3].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[3].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[3].use[3]!./src/woo-block/style.scss ***!
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./src/woo-block/style.scss ***!
   \*************************************************************************************************************************************************************************************************************************************************/
 .cpsw-label-container {
   align-items: center;
@@ -18,12 +18,14 @@
   font-size: 14px;
 }
 
-.cpsw-stripe-form .StripeElement {
+.cpsw-stripe-form .StripeElement,
+.cpsw-sepa-form .StripeElement {
   border: 1px solid #c1c5cc;
   border-radius: 2px;
   padding: 10px 8px;
 }
 
+/** Stripe custom form css. */
 .cpsw-stripe-form-custom {
   display: flex;
   width: 100%;
@@ -99,6 +101,10 @@
   margin: 0;
   padding: 4px 0 0;
   line-height: 1.5;
+}
+
+.cpsw-sepa-form .StripeElement {
+  margin-bottom: 10px;
 }
 
 /*# sourceMappingURL=style-block.css.map*/

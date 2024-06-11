@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { withDispatch, useSelect, useDispatch } from '@wordpress/data';
 import { compose } from '@wordpress/compose';
+import { __, sprintf } from '@wordpress/i18n';
 import { useEffect } from '@wordpress/element';
 import Input from './components/input';
 import Heading from './heading';
@@ -14,8 +15,8 @@ const BusinessName = ( { onClickContinue, onClickPrevious } ) => {
 		return getAIStepData();
 	} );
 	const { setWebsiteNameAIStep } = useDispatch( STORE_KEY );
-	const websiteType = businessType.slug;
-	const websiteTypeName = businessType.name.toLowerCase();
+	const websiteType = businessType;
+	const websiteTypeName = businessType.toLowerCase();
 
 	const {
 		register,
@@ -30,13 +31,12 @@ const BusinessName = ( { onClickContinue, onClickPrevious } ) => {
 	};
 
 	const getTitle = () => {
-		const prefix = 'What is the name of ';
 		let title = websiteTypeName;
 		let pronoun = 'your ';
-		const suffix = '?';
-
-		switch ( websiteType?.toLowerCase() ) {
-			case 'person':
+		switch ( websiteType?.replaceAll( ' ', '-' )?.toLowerCase?.() ) {
+			case 'personal-website':
+			case 'other':
+			case 'others':
 				title = 'website';
 				break;
 			case 'organisation':
@@ -50,18 +50,24 @@ const BusinessName = ( { onClickContinue, onClickPrevious } ) => {
 				title += ' firm';
 				break;
 			default:
+				pronoun = 'this ';
 				break;
 		}
 
-		return `${ prefix }${ pronoun }${ title }${ suffix }`;
+		return sprintf(
+			/* translators: %1$s: pronoun, %2$s: title */
+			__( 'What is the name of %1$s %2$s?', 'astra-sites' ),
+			pronoun,
+			title
+		);
 	};
 
 	const getSubHeading = () => {
-		const prefix = 'Kindly provide details about';
+		let prefix = 'Kindly provide details about';
 		let pronoun = 'this';
 		let suffix = websiteTypeName;
 
-		switch ( websiteType?.toLowerCase() ) {
+		switch ( websiteType?.replaceAll( ' ', '-' )?.toLowerCase?.() ) {
 			case 'business':
 				pronoun = 'your';
 				break;
@@ -73,7 +79,13 @@ const BusinessName = ( { onClickContinue, onClickPrevious } ) => {
 				pronoun = 'yourself';
 				suffix = '';
 				break;
+			case 'other':
+				suffix = 'website';
+				break;
 			default:
+				prefix = 'Kindly provide details';
+				pronoun = 'regarding ';
+				suffix = ' yourself, your business, or your organization.';
 				break;
 		}
 
@@ -96,10 +108,10 @@ const BusinessName = ( { onClickContinue, onClickPrevious } ) => {
 			<Input
 				className="w-full"
 				name="businessName"
-				placeholder="Enter name"
+				placeholder={ __( 'Enter name', 'astra-sites' ) }
 				register={ register }
 				validations={ {
-					required: 'Name is required',
+					required: __( 'Name is required', 'astra-sites' ),
 				} }
 				error={ errors.businessName }
 				height="12"

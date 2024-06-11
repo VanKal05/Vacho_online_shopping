@@ -1,3 +1,5 @@
+import { classNames } from '../helpers';
+
 const { forwardRef, useMemo } = wp.element;
 
 const TextArea = (
@@ -52,13 +54,14 @@ const TextArea = (
 					} }
 					name={ name }
 					disabled={ disabled }
-					className={ `${
-						label ? 'mt-2' : ''
-					} w-full placeholder:zw-placeholder zw-input rounded-md border outline-none focus:ring-1 focus:ring-accent-st p-4 ${
+					className={ classNames(
+						'w-full placeholder:zw-placeholder zw-input text-[16px] rounded-md border outline-none focus:ring-1 focus:ring-accent-st p-4',
+						label && 'mt-2',
 						error
 							? 'shadow-error border-alert-error  focus:border-accent-st '
-							: 'shadow-sm border-zip-light-border-primary focus:border-accent-st'
-					} ${ textAreaClassName }` }
+							: 'shadow-sm border-zip-light-border-primary focus:border-accent-st',
+						textAreaClassName
+					) }
 					{ ...props }
 					{ ...registerValidations }
 				/>

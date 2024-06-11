@@ -9,9 +9,9 @@ const Heading = ( { heading, subHeading, className } ) => {
 				</div>
 			) }
 			{ !! subHeading && (
-				<p className="text-zip-body-text text-[16px] font-normal leading-6">
+				<div className="text-zip-body-text text-[16px] font-normal leading-6">
 					{ subHeading }
-				</p>
+				</div>
 			) }
 		</div>
 	);

@@ -10,7 +10,7 @@ export const getFormData = ( action, value ) => {
 	return formData;
 };
 
-// Check if library synced syccessfully.
+// Check if library synced successfully.
 export const isSyncSuccess = () => {
 	if ( !! syncStatus && syncEnded ) {
 		const status = syncStatus.every( Boolean );
@@ -56,7 +56,7 @@ export const SyncStart = async () => {
 		}
 
 		return {
-			sites: allSitesData,
+			allSitesData,
 			categories,
 			categoriesAndTags,
 		};
@@ -241,21 +241,18 @@ export const SyncImportAllSites = async () => {
 				);
 			}
 
-			const results = await Promise.allSettled( allSitesRequests )
-				.then( ( res ) =>
-					Promise.all( res.map( ( item ) => item.value.json() ) )
-				)
-				.then( ( items ) => {
-					let res = {};
-					for ( const item of items ) {
-						if ( typeof item.data === 'object' ) {
-							res = { ...res, ...item.data };
-						}
-					}
-					return res;
-				} );
+			const allResponse = await Promise.allSettled( allSitesRequests );
+			const items = await Promise.all(
+				allResponse.map( ( item ) => item.value.json() )
+			);
+			let result = {};
+			for ( const item of items ) {
+				if ( typeof item.data === 'object' ) {
+					result = { ...result, ...item.data };
+				}
+			}
 
-			return results;
+			return result;
 		}
 		return null;
 	} catch ( error ) {

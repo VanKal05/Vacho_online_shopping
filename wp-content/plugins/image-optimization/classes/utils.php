@@ -77,10 +77,32 @@ class Utils {
 		return 'upload' === $current_screen->id && 'attachment' === $current_screen->post_type;
 	}
 
+	public static function is_single_attachment_page(): bool {
+		$current_screen = get_current_screen();
+
+		if ( ! $current_screen ) {
+			return false;
+		}
+
+		return 'attachment' === $current_screen->id && 'post' === $current_screen->base;
+	}
+
 	public static function is_plugin_page(): bool {
 		$current_screen = get_current_screen();
 
 		return str_contains( $current_screen->id, 'image-optimization-' );
+	}
+
+	public static function is_plugin_settings_page(): bool {
+		$current_screen = get_current_screen();
+
+		return str_contains( $current_screen->id, 'image-optimization-settings' );
+	}
+
+	public static function is_bulk_optimization_page(): bool {
+		$current_screen = get_current_screen();
+
+		return str_contains( $current_screen->id, 'image-optimization-bulk-optimization' );
 	}
 
 	public static function user_is_admin(): bool {

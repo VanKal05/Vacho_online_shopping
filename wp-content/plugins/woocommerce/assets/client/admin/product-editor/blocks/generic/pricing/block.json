@@ -17,12 +17,15 @@
         },
         "help": {
             "type": "string"
+        },
+        "tooltip": {
+            "type": "string"
         }
     },
     "supports": {
         "align": false,
         "html": false,
-        "multiple": false,
+        "multiple": true,
         "reusable": false,
         "inserter": false,
         "lock": false,

@@ -1,0 +1,6 @@
+<wpml-config>
+	<custom-term-fields>
+		<custom-term-field action="copy">product_attribute_color</custom-term-field>
+		<custom-term-field action="copy">product_attribute_image</custom-term-field>
+	</custom-term-fields>
+</wpml-config>

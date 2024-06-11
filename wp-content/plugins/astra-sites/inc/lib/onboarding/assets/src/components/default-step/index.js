@@ -58,11 +58,20 @@ const DefaultStep = ( { preview, content, controls, actions, stepName } ) => {
 						padding: currentIndex === 1 ? '5% 6% 6% 6%' : '',
 					} }
 				>
-					<div className="content-wrapper">
+					<div
+						className={ `content-wrapper
+					${ currentIndex === 3 ? 'flex flex-col items-start h-full' : '' }
+					` }
+					>
 						{ content && content }
 						{ controls && (
-							/* eslint-disable-next-line jsx-a11y/tabindex-no-positive -- This is a used for keyboard navigation support. */
-							<div className="step-controls" tabIndex="1">
+							<div
+								className={ `step-controls
+							${ currentIndex === 3 ? 'flex flex-col items-start h-full w-full' : '' }
+							` }
+								/* eslint-disable-next-line jsx-a11y/tabindex-no-positive -- This is a used for keyboard navigation support. */
+								tabIndex="1"
+							>
 								{ controls }
 							</div>
 						) }

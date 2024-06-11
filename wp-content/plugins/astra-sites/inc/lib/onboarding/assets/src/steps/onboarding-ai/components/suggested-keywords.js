@@ -8,6 +8,7 @@ const SuggestedKeywords = ( {
 	keywordClassName,
 	keywords,
 	onClick,
+	...props
 } ) => {
 	const [ scrollPosition, setScrollPosition ] = useState( 0 );
 	const [ showLeftArrow, setShowLeftArrow ] = useState( false );
@@ -61,10 +62,11 @@ const SuggestedKeywords = ( {
 				'relative flex flex-row items-start',
 				className
 			) }
+			{ ...props }
 		>
 			{ showLeftArrow && (
 				<div
-					className="absolute inset-y-0 left-0 px-1.5 py-0.5 cursor-pointer text-zip-app-inactive-icon hover:text-zip-app-inactive-icon bg-gradient-to-r from-70% from-white to-transparent transition duration-150 ease-in-out border-none bg-transparent"
+					className="absolute inset-y-0 left-0 px-1.5 py-0.5 cursor-pointer text-zip-app-inactive-icon hover:text-zip-app-inactive-icon bg-gradient-to-r from-st-background-secondary to-transparent transition duration-150 ease-in-out border-none bg-transparent"
 					onClick={ handleLeftArrowClick }
 				>
 					<ChevronLeftIcon className="w-6 h-6" />
@@ -91,7 +93,7 @@ const SuggestedKeywords = ( {
 			</div>
 			{ showRightArrow && (
 				<div
-					className="absolute inset-y-0 right-0 px-1.5 py-0.5 cursor-pointer text-zip-app-inactive-icon hover:text-zip-app-inactive-icon bg-gradient-to-l from-70% from-white to-transparent transition duration-150 ease-in-out border-none bg-transparent"
+					className="absolute inset-y-0 right-0 px-1.5 py-0.5 cursor-pointer text-zip-app-inactive-icon hover:text-zip-app-inactive-icon bg-gradient-to-l from-st-background-secondary to-transparent transition duration-150 ease-in-out border-none bg-transparent"
 					onClick={ handleRightArrowClick }
 				>
 					<ChevronRightIcon className="w-6 h-6" />

@@ -3,7 +3,7 @@ defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( 'Woo_Variation_Swatches_Product_Edit_Panel' ) ) :
 	class Woo_Variation_Swatches_Product_Edit_Panel {
-		protected static $_instance = null;
+		protected static $instance = null;
 
 		protected function __construct() {
 			$this->hooks();
@@ -11,11 +11,11 @@ if ( ! class_exists( 'Woo_Variation_Swatches_Product_Edit_Panel' ) ) :
 		}
 
 		public static function instance() {
-			if ( is_null( self::$_instance ) ) {
-				self::$_instance = new self();
+			if ( is_null( self::$instance ) ) {
+				self::$instance = new self();
 			}
 
-			return self::$_instance;
+			return self::$instance;
 		}
 
 		protected function hooks() {
@@ -28,7 +28,7 @@ if ( ! class_exists( 'Woo_Variation_Swatches_Product_Edit_Panel' ) ) :
 			if ( apply_filters( 'woo_variation_swatches_product_data_tab', true ) ) {
 
 				$tabs['woo_variation_swatches'] = array(
-					'label'    => esc_html__( 'Swatches Settings', 'woo-variation-swatches-pro' ),
+					'label'    => esc_html__( 'Swatches Settings', 'woo-variation-swatches' ),
 					'target'   => 'woo_variation_swatches_variation_product_options',
 					'class'    => array( 'show_if_variable', 'variations_tab', 'pro-inactive' ),
 					'priority' => 65,
@@ -50,5 +50,4 @@ if ( ! class_exists( 'Woo_Variation_Swatches_Product_Edit_Panel' ) ) :
 			include dirname( __FILE__ ) . '/html-product-settings-panel.php';
 		}
 	}
-
 endif;

@@ -1,16 +1,16 @@
 .st-my-favorite {
 	cursor: pointer;
 
-    svg {
-        width: 16px;
-        height: 16px;
-        fill: var(--st-color-placeholder);
-    }
+	svg {
+		width: 16px;
+		height: 16px;
+		fill: var( --st-color-placeholder );
+	}
 
 	&.active,
 	:hover {
 		svg {
-			fill: var(--st-color-favorite);
+			fill: var( --st-color-favorite );
 		}
 	}
 

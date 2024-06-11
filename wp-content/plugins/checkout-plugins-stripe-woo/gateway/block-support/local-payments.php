@@ -46,12 +46,36 @@ class Local_Payments extends AbstractPaymentMethodType {
 	public $container;
 
 	/**
+	 * Extra descriptions like mandate description.
+	 *
+	 * @var mixed
+	 * @since 1.8.0
+	 */
+	public $local_payment_description;
+
+	/**
+	 * Supported features.
+	 *
+	 * @var array
+	 * @since 1.8.0
+	 */
+	public $features = array( 'products' );
+
+	/**
 	 * Allowed countries.
 	 * 
 	 * @var array
-	 * @since X.X.X
+	 * @since 1.8.0
 	 */
 	public $supported_countries;
+
+	/**
+	 * Default title.
+	 * 
+	 * @var array
+	 * @since 1.8.0
+	 */
+	public $default_title;
 
 	/**
 	 * Constructor
@@ -105,19 +129,22 @@ class Local_Payments extends AbstractPaymentMethodType {
 			}
 
 			$localize_data = [
-				'mode'                  => Helper::get_payment_mode(),
-				'test_mode_description' => Helper::get_local_test_mode_description(),
-				'public_key'            => $public_key,
-				'account_id'            => Helper::get_setting( 'cpsw_account_id' ),
-				'icons'                 => $this->get_icon(),
-				'error_messages'        => Helper::get_localized_messages(),
-				'label'                 => $this->get_title(),
-				'description'           => Helper::get_setting( 'description', $this->name ),
-				'countries'             => $countries,
-				'allowed_countries'     => $allowed_countries,
-				'supported_countries'   => wp_json_encode( $this->supported_countries ),
-				'order_button_text'     => Helper::get_setting( 'order_button_text', $this->name ),
-				'stripe_local_nonce'    => wp_create_nonce( 'stripe_local_nonce' ),
+				'mode'                      => Helper::get_payment_mode(),
+				'test_mode_description'     => $this->get_test_mode_description(),
+				'public_key'                => $public_key,
+				'account_id'                => Helper::get_setting( 'cpsw_account_id' ),
+				'icons'                     => $this->get_icon(),
+				'error_messages'            => Helper::get_localized_messages(),
+				'label'                     => $this->get_title(),
+				'description'               => Helper::get_setting( 'description', $this->name ),
+				'local_payment_description' => $this->local_payment_description,
+				'countries'                 => $countries,
+				'enable_saved_cards'        => Helper::get_setting( 'enable_saved_card', $this->name ),
+				'allowed_countries'         => $allowed_countries,
+				'supported_countries'       => wp_json_encode( $this->supported_countries ),
+				'order_button_text'         => Helper::get_setting( 'order_button_text', $this->name ),
+				'features'                  => $this->features,
+				'stripe_local_nonce'        => wp_create_nonce( 'stripe_local_nonce' ),
 			];
 
 			$localize_data = apply_filters( "{$this->name}_localize_data", $localize_data );
@@ -194,4 +221,14 @@ class Local_Payments extends AbstractPaymentMethodType {
 		// Return the payment icon in an array, since WooCommerce checkout block expects icons in array format.
 		return [ $payment_icon ];
 	}  
+
+	/**
+	 * Get test mode description
+	 *
+	 * @return string
+	 * @since 1.8.0
+	 */
+	public function get_test_mode_description() {
+		return Helper::get_local_test_mode_description();
+	}
 }

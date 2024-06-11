@@ -10,6 +10,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use STImporter\Importer\ST_Importer;
+
 if ( ! class_exists( 'Astra_Sites_Onboarding_Setup' ) ) :
 
 	/**
@@ -50,15 +52,50 @@ if ( ! class_exists( 'Astra_Sites_Onboarding_Setup' ) ) :
 		 * @since 3.0.0-beta.1
 		 */
 		public function __construct() {
-			if ( 'spectra-one' === get_option( 'stylesheet', 'astra' ) ) {
-				add_action( 'wp_ajax_astra_sites_set_site_data', array( $this, 'set_fse_site_data' ) );
-			} else{
-				add_action( 'wp_ajax_astra_sites_set_site_data', array( $this, 'set_site_data' ) );
-			}
-			add_action( 'wp_ajax_report_error', array( $this, 'report_error' ) );
+			// if ( 'spectra-one' === get_option( 'stylesheet', 'astra' ) ) {
+			// 	add_action( 'wp_ajax_astra_sites_set_site_data', array( $this, 'set_fse_site_data' ) );
+			// } else{
+			// 	add_action( 'wp_ajax_astra_sites_set_site_data', array( $this, 'set_site_data' ) );
+			// }
+			// add_action( 'wp_ajax_report_error', array( $this, 'report_error' ) );
 			add_action( 'st_before_sending_error_report', array( $this, 'delete_transient_for_import_process' ) );
 			add_action( 'st_before_sending_error_report', array( $this, 'temporary_cache_errors' ), 10, 1 );
+			add_action( 'wp_ajax_astra-sites-import_prepare_xml', array( $this, 'import_prepare_xml' ) );
 		}
+
+	/**
+	 * Prepare XML Data.
+	 *
+	 * @since 1.1.0
+	 * @return void
+	 */
+	public function import_prepare_xml() {
+
+		// Verify Nonce.
+		check_ajax_referer( 'astra-sites', '_ajax_nonce' );
+
+		if ( ! current_user_can( 'customize' ) ) {
+			wp_send_json_error( __( 'You are not allowed to perform this action', 'ai-builder', 'astra-sites' ) );
+		}
+
+		if ( ! class_exists( 'XMLReader' ) ) {
+			wp_send_json_error( __( 'The XMLReader library is not available. This library is required to import the content for the website.', 'ai-builder', 'astra-sites' ) );
+		}
+
+		$wxr_url = astra_get_site_data( 'astra-site-wxr-path' );
+
+		$result = ST_Importer::prepare_xml_data( $wxr_url );
+
+		if ( false === $result['status'] ) {
+			wp_send_json_error(
+				$result['error']
+			);
+		} else {
+			wp_send_json_success(
+				$result['data']
+			);
+		}
+	}
 
 		/**
 		 * Delete transient for import process.
@@ -139,7 +176,7 @@ if ( ! class_exists( 'Astra_Sites_Onboarding_Setup' ) ) :
 
 			do_action( 'st_before_sending_error_report', $api_args['body'] );
 
-			$request = wp_remote_post( $api_url, $api_args );
+			$request = wp_safe_remote_post( $api_url, $api_args );
 
 			do_action( 'st_after_sending_error_report', $api_args['body'], $request );
 

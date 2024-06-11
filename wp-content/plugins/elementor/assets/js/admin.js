@@ -1,4 +1,4 @@
-/*! elementor - v3.19.0 - 05-02-2024 */
+/*! elementor - v3.21.0 - 26-05-2024 */
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
@@ -286,7 +286,8 @@ var FilesUploadHandler = /*#__PURE__*/function () {
   }, {
     key: "getUnfilteredFilesNotEnabledDialog",
     value: function getUnfilteredFilesNotEnabledDialog(callback) {
-      if (!elementor.config.user.is_administrator) {
+      var elementorInstance = window.elementorAdmin || window.elementor;
+      if (!elementorInstance.config.user.is_administrator) {
         return this.getUnfilteredFilesNonAdminDialog();
       }
       var onConfirm = function onConfirm() {
@@ -294,12 +295,12 @@ var FilesUploadHandler = /*#__PURE__*/function () {
         elementorCommon.config.filesUpload.unfilteredFiles = true;
         callback();
       };
-      return elementor.helpers.getSimpleDialog('e-enable-unfiltered-files-dialog', __('Enable Unfiltered File Uploads', 'elementor'), __('Before you enable unfiltered files upload, note that such files include a security risk. Elementor does run a process to remove possible malicious code, but there is still risk involved when using such files.', 'elementor'), __('Enable', 'elementor'), onConfirm);
+      return elementorInstance.helpers.getSimpleDialog('e-enable-unfiltered-files-dialog', __('Enable Unfiltered File Uploads', 'elementor'), __('Before you enable unfiltered files upload, note that such files include a security risk. Elementor does run a process to remove possible malicious code, but there is still risk involved when using such files.', 'elementor'), __('Enable', 'elementor'), onConfirm);
     }
   }, {
     key: "getUnfilteredFilesNotEnabledImportTemplateDialog",
     value: function getUnfilteredFilesNotEnabledImportTemplateDialog(callback) {
-      if (!elementor.config.user.is_administrator) {
+      if (!(window.elementorAdmin || window.elementor).config.user.is_administrator) {
         return this.getUnfilteredFilesNonAdminDialog();
       }
       return elementorCommon.dialogsManager.createWidget('confirm', {
@@ -1796,17 +1797,17 @@ module.exports = _superPropBase, module.exports.__esModule = true, module.export
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 var _typeof = (__webpack_require__(/*! ./typeof.js */ "../node_modules/@babel/runtime/helpers/typeof.js")["default"]);
-function _toPrimitive(input, hint) {
-  if (_typeof(input) !== "object" || input === null) return input;
-  var prim = input[Symbol.toPrimitive];
-  if (prim !== undefined) {
-    var res = prim.call(input, hint || "default");
-    if (_typeof(res) !== "object") return res;
+function toPrimitive(t, r) {
+  if ("object" != _typeof(t) || !t) return t;
+  var e = t[Symbol.toPrimitive];
+  if (void 0 !== e) {
+    var i = e.call(t, r || "default");
+    if ("object" != _typeof(i)) return i;
     throw new TypeError("@@toPrimitive must return a primitive value.");
   }
-  return (hint === "string" ? String : Number)(input);
+  return ("string" === r ? String : Number)(t);
 }
-module.exports = _toPrimitive, module.exports.__esModule = true, module.exports["default"] = module.exports;
+module.exports = toPrimitive, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
 
@@ -1818,11 +1819,11 @@ module.exports = _toPrimitive, module.exports.__esModule = true, module.exports[
 
 var _typeof = (__webpack_require__(/*! ./typeof.js */ "../node_modules/@babel/runtime/helpers/typeof.js")["default"]);
 var toPrimitive = __webpack_require__(/*! ./toPrimitive.js */ "../node_modules/@babel/runtime/helpers/toPrimitive.js");
-function _toPropertyKey(arg) {
-  var key = toPrimitive(arg, "string");
-  return _typeof(key) === "symbol" ? key : String(key);
+function toPropertyKey(t) {
+  var i = toPrimitive(t, "string");
+  return "symbol" == _typeof(i) ? i : String(i);
 }
-module.exports = _toPropertyKey, module.exports.__esModule = true, module.exports["default"] = module.exports;
+module.exports = toPropertyKey, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
 
@@ -2250,17 +2251,24 @@ var _jsonUploadWarningMessage = __webpack_require__(/*! elementor-utils/json-upl
       $importButton.on('click', function () {
         $('#elementor-import-template-area').toggle();
       });
-      var messageShown = false;
+      var messages = {
+        jsonUploadWarning: {
+          shown: false
+        },
+        enableUnfilteredFiles: {
+          shown: false
+        }
+      };
       var originalButtonValue = $importNowButton[0].value;
       $importForm.on('submit', /*#__PURE__*/function () {
         var _ref4 = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee(event) {
-          var enableUnfilteredFilesModal;
+          var hasImportedFiles, areUnfilteredFilesEnabled, enableUnfilteredFilesModal;
           return _regenerator.default.wrap(function _callee$(_context) {
             while (1) switch (_context.prev = _context.next) {
               case 0:
                 $importNowButton[0].disabled = true;
                 $importNowButton[0].value = __('Importing...', 'elementor');
-                if (messageShown) {
+                if (messages.jsonUploadWarning.shown) {
                   _context.next = 16;
                   break;
                 }
@@ -2273,7 +2281,7 @@ var _jsonUploadWarningMessage = __webpack_require__(/*! elementor-utils/json-upl
                   waitForSetViewed: true
                 });
               case 7:
-                messageShown = true;
+                messages.jsonUploadWarning.shown = true;
                 $importForm.trigger('submit');
                 _context.next = 15;
                 break;
@@ -2285,19 +2293,23 @@ var _jsonUploadWarningMessage = __webpack_require__(/*! elementor-utils/json-upl
               case 15:
                 return _context.abrupt("return");
               case 16:
-                if (!($importFormFileInput[0].files.length && !elementorCommon.config.filesUpload.unfilteredFiles)) {
-                  _context.next = 21;
+                hasImportedFiles = $importFormFileInput[0].files.length;
+                areUnfilteredFilesEnabled = elementorCommon.config.filesUpload.unfilteredFiles;
+                if (!(hasImportedFiles && !areUnfilteredFilesEnabled && !messages.enableUnfilteredFiles.shown)) {
+                  _context.next = 23;
                   break;
                 }
                 event.preventDefault();
                 enableUnfilteredFilesModal = _filesUploadHandler.default.getUnfilteredFilesNotEnabledImportTemplateDialog(function () {
+                  messages.enableUnfilteredFiles.shown = true;
                   $importForm.trigger('submit');
                 });
                 enableUnfilteredFilesModal.show();
                 return _context.abrupt("return");
-              case 21:
-                messageShown = false;
-              case 22:
+              case 23:
+                messages.jsonUploadWarning.shown = false;
+                messages.enableUnfilteredFiles.shown = false;
+              case 25:
               case "end":
                 return _context.stop();
             }

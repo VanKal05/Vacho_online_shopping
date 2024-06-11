@@ -6,6 +6,8 @@
  * @since 1.0.14
  */
 
+use STImporter\Importer\Helpers\ST_Image_Importer;
+
 if ( ! class_exists( 'Astra_Sites_Batch_Processing_Beaver_Builder' ) ) :
 
 	/**
@@ -266,7 +268,7 @@ if ( ! class_exists( 'Astra_Sites_Batch_Processing_Beaver_Builder' ) ) :
 					'id'  => $settings->bg_image,
 				);
 
-				$downloaded_image = Astra_Sites_Image_Importer::get_instance()->import( $image );
+				$downloaded_image = ST_Image_Importer::get_instance()->import( $image );
 
 				$settings->bg_image_src = $downloaded_image['url'];
 				$settings->bg_image     = $downloaded_image['id'];
@@ -290,7 +292,7 @@ if ( ! class_exists( 'Astra_Sites_Batch_Processing_Beaver_Builder' ) ) :
 					'id'  => $settings->photo,
 				);
 
-				$downloaded_image = Astra_Sites_Image_Importer::get_instance()->import( $image );
+				$downloaded_image = ST_Image_Importer::get_instance()->import( $image );
 
 				$settings->photo_src = $downloaded_image['url'];
 				$settings->photo     = $downloaded_image['id'];

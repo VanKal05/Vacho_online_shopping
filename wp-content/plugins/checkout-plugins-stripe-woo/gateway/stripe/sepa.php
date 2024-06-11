@@ -289,7 +289,7 @@ class Sepa extends Local_Gateway {
 	 */
 	public function payment_form() {
 		// translators: %s: company name.
-		$description = sprintf( __( 'By providing your IBAN and confirming this payment, you are authorizing %s and Stripe, our payment service provider, to send instructions to your bank to debit your account and your bank to debit your account in accordance with those instructions. You are entitled to a refund from your bank under the terms and conditions of your agreement with your bank. A refund must be claimed within 8 weeks starting from the date on which your account was debited.', 'checkout-plugins-stripe-woo' ), $this->get_option( 'company_name' ) );
+		$description = Helper::get_sepa_mandate_description();
 		?>
 		<fieldset id="<?php echo esc_attr( $this->id ); ?>-form" class="wc-payment-form cpsw_stripe_sepa_payment_form">
 			<?php echo wp_kses_post( wpautop( $description ) ); ?>
@@ -361,7 +361,7 @@ class Sepa extends Local_Gateway {
 		if ( 'live' !== Helper::get_payment_mode() ) {
 			echo '<div class="cpsw-test-description">';
 			/* translators: %1$1s - %6$6s: HTML Markup */
-			printf( esc_html__( '%1$1s Test Mode Enabled %2$2s : Use demo IBAN number DE89370400440532013000 for test payment. %3$3s Check more %4$4sDemo IBAN Number%5$5s', 'checkout-plugins-stripe-woo' ), '<b>', '</b>', '</br>', "<a href='https://stripe.com/docs/testing#sepa-direct-debit' referrer='noopener' target='_blank'>", '</a>' );
+			echo wp_kses_post( Helper::get_sepa_test_mode_description() );
 			echo '</div>';
 		}
 
@@ -434,7 +434,8 @@ class Sepa extends Local_Gateway {
 			];
 
 			if ( ! empty( trim( $this->statement_descriptor ) ) ) {
-				$data['statement_descriptor'] = $this->statement_descriptor;
+				$data['statement_descriptor']        = $this->statement_descriptor;
+				$data['statement_descriptor_suffix'] = $this->statement_descriptor;
 			}
 
 			if ( $this->should_save_card( $order_id ) ) {
@@ -446,12 +447,21 @@ class Sepa extends Local_Gateway {
 			$intent_data = $this->get_payment_intent( $order_id, $idempotency_key, $data );
 
 			if ( $intent_data ) {
-				return [
+				$response_data = [
 					'result'        => 'success',
 					'redirect'      => false,
 					'intent_secret' => $intent_data['client_secret'],
 					'save_card'     => $this->should_save_card( $order_id ),
 				];
+				/**
+				 * This is used to verify nonce for payment method checkout perform by block checkout.
+				 */
+				if ( isset( $_POST['payment_local_nonce'] ) && wp_verify_nonce( sanitize_text_field( $_POST['payment_local_nonce'] ), 'stripe_local_nonce' ) ) {
+					$response_data['verification_url'] = $this->get_verification_url( $order_id, $this->get_return_url( $order ), $this->should_save_card( $order_id ) );
+				}
+
+				return $response_data;
+
 			} else {
 				return [
 					'result'   => 'fail',
@@ -583,6 +593,8 @@ class Sepa extends Local_Gateway {
 
 			// translators: %s: payment fail message.
 			wc_add_notice( sprintf( __( 'Payment failed. %s', 'checkout-plugins-stripe-woo' ), $message ), $notice_type = 'error' );
+			/* translators: %1$1s order id, %2$2s payment fail message.  */
+			Logger::error( sprintf( __( 'Payment failed for Order id - %1$1s. %2$2s', 'checkout-plugins-stripe-woo' ), $order_id, $message ) );
 			$redirect_url = wc_get_checkout_url();
 		}
 		wp_safe_redirect( $redirect_url );

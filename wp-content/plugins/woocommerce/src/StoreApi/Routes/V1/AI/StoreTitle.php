@@ -45,6 +45,15 @@ class StoreTitle extends AbstractRoute {
 	 * @return string
 	 */
 	public function get_path() {
+		return self::get_path_regex();
+	}
+
+	/**
+	 * Get the path of this rest route.
+	 *
+	 * @return string
+	 */
+	public static function get_path_regex() {
 		return '/ai/store-title';
 	}
 
@@ -54,21 +63,21 @@ class StoreTitle extends AbstractRoute {
 	 * @return array An array of endpoints.
 	 */
 	public function get_args() {
-		return [
-			[
+		return array(
+			array(
 				'methods'             => \WP_REST_Server::CREATABLE,
-				'callback'            => [ $this, 'get_response' ],
-				'permission_callback' => [ Middleware::class, 'is_authorized' ],
-				'args'                => [
-					'business_description' => [
+				'callback'            => array( $this, 'get_response' ),
+				'permission_callback' => array( Middleware::class, 'is_authorized' ),
+				'args'                => array(
+					'business_description' => array(
 						'description' => __( 'The business description for a given store.', 'woocommerce' ),
 						'type'        => 'string',
-					],
-				],
-			],
-			'schema'      => [ $this->schema, 'get_public_item_schema' ],
-			'allow_batch' => [ 'v1' => true ],
-		];
+					),
+				),
+			),
+			'schema'      => array( $this->schema, 'get_public_item_schema' ),
+			'allow_batch' => array( 'v1' => true ),
+		);
 	}
 
 	/**
@@ -91,8 +100,10 @@ class StoreTitle extends AbstractRoute {
 			);
 		}
 
-		$store_title = get_option( 'blogname' );
-		if ( ! ( empty( $store_title ) || self::DEFAULT_TITLE === $store_title ) ) {
+		$store_title                 = html_entity_decode( get_option( 'blogname' ) );
+		$previous_ai_generated_title = html_entity_decode( get_option( 'ai_generated_site_title' ) );
+
+		if ( self::DEFAULT_TITLE === $store_title || ( ! empty( $store_title ) && $previous_ai_generated_title !== $store_title ) ) {
 			return rest_ensure_response( array( 'ai_content_generated' => false ) );
 		}
 
@@ -101,6 +112,7 @@ class StoreTitle extends AbstractRoute {
 			return $this->error_to_response( $ai_generated_title );
 		}
 
+		update_option( 'ai_generated_site_title', $ai_generated_title );
 		update_option( self::STORE_TITLE_OPTION_NAME, $ai_generated_title );
 
 		return rest_ensure_response(

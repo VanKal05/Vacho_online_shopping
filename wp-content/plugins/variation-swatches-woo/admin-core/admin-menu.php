@@ -227,6 +227,7 @@ class Admin_Menu {
 			'min_width',
 			'min_height',
 			'border_radius',
+			'border_width',
 		];
 
 		foreach ( $data as $key => $value ) {

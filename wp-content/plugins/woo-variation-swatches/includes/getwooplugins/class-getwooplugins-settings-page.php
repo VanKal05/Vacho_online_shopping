@@ -88,13 +88,13 @@ if ( ! class_exists( 'GetWooPlugins_Settings_Page', false ) ) :
 
 		protected function generate_id( $setting ) {
 
-			if ( isset( $setting['standalone'] ) && $setting['standalone'] === true ) {
+			if ( isset( $setting['standalone'] ) && true === $setting['standalone']  ) {
 				$setting['id'] = sprintf( '%s_%s', $this->get_id(), $setting['id'] );
 			} else {
 				$setting['id'] = ( in_array( $setting['type'], array(
 					'sectionend',
 					'title'
-				) ) ) ? $setting['id'] : sprintf( '%s[%s]', $this->get_id(), $setting['id'] );
+				), true ) ) ? $setting['id'] : sprintf( '%s[%s]', $this->get_id(), $setting['id'] );
 			}
 
 
@@ -180,10 +180,12 @@ if ( ! class_exists( 'GetWooPlugins_Settings_Page', false ) ) :
 				$target = '_self';
 
 				if ( empty( $id ) ) {
-					$original_url = $url = admin_url( 'admin.php?page=getwooplugins-settings&tab=' . $this->get_id() );
+					$original_url = admin_url( 'admin.php?page=getwooplugins-settings&tab=' . $this->get_id() );
 				} else {
-					$original_url = $url = admin_url( 'admin.php?page=getwooplugins-settings&tab=' . $this->get_id() . '&section=' . sanitize_title( $id ) );
+					$original_url = admin_url( 'admin.php?page=getwooplugins-settings&tab=' . $this->get_id() . '&section=' . sanitize_title( $id ) );
 				}
+
+				$url = $original_url;
 
 				if ( is_array( $label ) ) {
 					$url    = $label['url'];
@@ -211,10 +213,7 @@ if ( ! class_exists( 'GetWooPlugins_Settings_Page', false ) ) :
 					'strong' => array()
 				) );
 
-				printf( '<a target="%s" href="%s" class="nav-tab %s">%s</a>', esc_attr( $target ), esc_url( $url ), $class, $text ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-
-
-				// echo "<a target='$target' href='$url' class='nav-tab $class'>$text</a>";
+				printf( '<a target="%s" href="%s" class="nav-tab %s">%s</a>', esc_attr( $target ), esc_url( $url ), esc_attr($class), wp_kses_post( $name) );
 			}
 
 			echo '</nav>';
@@ -254,13 +253,13 @@ if ( ! class_exists( 'GetWooPlugins_Settings_Page', false ) ) :
 				return;
 			}
 
-			if ( $current_action === 'reset' ) {
+			if ( 'reset' === $current_action ) {
 				check_admin_referer( 'getwooplugins-settings' );
 				do_action( 'getwooplugins_before_delete_options', $this->get_id() );
 				delete_option( $this->get_id() );
 				do_action( 'getwooplugins_after_delete_options', $this->get_id() );
 				$current_section_url = $current_section ? '&section=' . $current_section : '';
-				wp_safe_redirect( admin_url( 'admin.php?page=getwooplugins-settings&tab=' . $this->get_id() . $current_section_url . '&' . $current_action . '=1' ) );
+				wp_safe_redirect( admin_url( 'admin.php?page=getwooplugins-settings&tab=' . $this->get_id() . $current_section_url . '&message=' . $current_action ) );
 				exit();
 			}
 		}

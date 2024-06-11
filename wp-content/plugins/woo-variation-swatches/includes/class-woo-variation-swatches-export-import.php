@@ -1,13 +1,13 @@
 <?php
 
-defined( 'ABSPATH' ) or die( 'Keep Quit' );
+defined( 'ABSPATH' ) || die( 'Keep Quit' );
 
-if ( ! class_exists( 'Woo_Variation_Swatches_Export_Import' ) ):
+if ( ! class_exists( 'Woo_Variation_Swatches_Export_Import' ) ) :
 
 	class Woo_Variation_Swatches_Export_Import {
 
-		private $export_type = 'product';
-		private $column_id = 'attributes_type';
+		private $export_type        = 'product';
+		private $column_id          = 'attributes_type';
 		protected static $_instance = null;
 
 		protected function __construct() {
@@ -85,7 +85,7 @@ if ( ! class_exists( 'Woo_Variation_Swatches_Export_Import' ) ):
 							$name  = wc_attribute_label( $attribute->get_name(), $product );
 							$terms = $attribute->get_terms();
 
-							if ( ! in_array( $name, $types ) && $attr->type !== 'select' ) {
+							if ( ! in_array( $name, $types, true ) &&  'select' !== $attr->type ) {
 								$types[ $name ]          = array();
 								$types[ $name ]['name']  = $name;
 								$types[ $name ]['type']  = $attr->type;
@@ -99,7 +99,6 @@ if ( ! class_exists( 'Woo_Variation_Swatches_Export_Import' ) ):
 									$term_image_id = get_term_meta( $term->term_id, 'product_attribute_image', true );
 
 									$types[ $name ]['terms'][ $term->name ]['image'] = $term_image_id ? wp_get_attachment_image_url( $term_image_id, 'full' ) : '';
-
 
 									$types[ $name ]['terms'][ $term->name ]['show_tooltip'] = get_term_meta( $term->term_id, 'show_tooltip', true );
 									$types[ $name ]['terms'][ $term->name ]['tooltip_text'] = get_term_meta( $term->term_id, 'tooltip_text', true );

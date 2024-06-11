@@ -40,6 +40,7 @@ class Loader {
 		$this->populate_common();
 		$this->populate_frontend();
 		$this->populate_admin();
+		$this->populate_caches();
 		$this->populate_fields();
 		$this->populate_forms_overview();
 		$this->populate_entries();
@@ -66,6 +67,10 @@ class Loader {
 		$this->classes[] = [
 			'name' => 'API',
 			'id'   => 'api',
+		];
+
+		$this->classes[] = [
+			'name' => 'Emails\Summaries',
 		];
 	}
 
@@ -203,6 +208,14 @@ class Loader {
 				'hook' => 'admin_init',
 			],
 			[
+				'name' => 'Admin\Forms\UserTemplates',
+				'id'   => 'user_templates',
+			],
+			[
+				'name' => 'Admin\Forms\Page',
+				'id'   => 'forms_overview',
+			],
+			[
 				'name' => 'Admin\Challenge',
 				'id'   => 'challenge',
 			],
@@ -275,8 +288,51 @@ class Loader {
 				'hook' => 'admin_init',
 			],
 			[
+				'name' => 'Admin\Addons\Calculations',
+				'id'   => 'calculations',
+			],
+			[
 				'name' => 'Admin\PluginList',
 				'hook' => 'admin_init',
+			],
+			[
+				'name' => 'Admin\Splash\SplashScreen',
+				'id'   => 'splash_screen',
+				'hook' => 'admin_init',
+			],
+			[
+				'name' => 'Admin\Splash\SplashCache',
+				'id'   => 'splash_cache',
+				'hook' => 'plugins_loaded',
+			],
+			[
+				'name' => 'Admin\Splash\SplashUpgrader',
+				'id'   => 'splash_upgrader',
+				'hook' => 'plugins_loaded',
+			]
+		);
+	}
+
+	/**
+	 * Populate Caches related classes.
+	 *
+	 * @since 1.8.7
+	 */
+	private function populate_caches() {
+
+		array_push(
+			$this->classes,
+			[
+				'name' => 'LicenseApi\PluginUpdateCache',
+				'id'   => 'license_api_plugin_update_cache',
+			],
+			[
+				'name' => 'LicenseApi\PluginInfoCache',
+				'id'   => 'license_api_plugin_info_cache',
+			],
+			[
+				'name' => 'LicenseApi\ValidateKeyCache',
+				'id'   => 'license_api_validate_key_cache',
 			]
 		);
 	}
@@ -312,6 +368,11 @@ class Loader {
 			'name' => 'Forms\Fields\PaymentTotal\Field',
 			'hook' => 'init',
 		];
+
+		// Load custom captcha field class.
+		$this->classes[] = [
+			'name' => 'Forms\Fields\CustomCaptcha\Field',
+		];
 	}
 
 	/**
@@ -327,10 +388,6 @@ class Loader {
 
 		array_push(
 			$this->classes,
-			[
-				'name' => 'Admin\Forms\Page',
-				'id'   => 'forms_overview',
-			],
 			[
 				'name' => 'Admin\Forms\Ajax\Columns',
 				'id'   => 'forms_columns_ajax',
@@ -378,7 +435,7 @@ class Loader {
 			],
 			[
 				'name' => 'Admin\Entries\Overview\Page',
-				'hook' => 'admin_init',
+				'id'   => 'entries_overview',
 			],
 			[
 				'name'      => 'Admin\Entries\Overview\Ajax',
@@ -442,12 +499,17 @@ class Loader {
 				'hook' => 'wpforms_builder_init',
 			],
 			[
+				'name' => 'Admin\Builder\Settings\Themes',
+				'hook' => 'wpforms_builder_init',
+			],
+			[
 				'name' => 'Admin\Builder\Notifications\Advanced\EmailTemplate',
 				'hook' => 'wpforms_builder_init',
 			],
 			[
 				'name' => 'Admin\Builder\ContextMenu',
 				'hook' => 'wpforms_builder_init',
+				'id'   => 'context_menu',
 			],
 			[
 				'name' => 'Admin\Builder\Notifications\Advanced\Settings',
@@ -590,7 +652,17 @@ class Loader {
 	private function populate_education() {
 
 		// Kill switch.
-		if ( ! (bool) apply_filters( 'wpforms_admin_education', true ) ) {
+
+		/**
+		 * Filters admin education status.
+		 *
+		 * @since 1.6.6
+		 *
+		 * @param bool $status Current admin education status.
+		 *
+		 * @return bool
+		 */
+		if ( ! apply_filters( 'wpforms_admin_education', true ) ) { // phpcs:ignore WPForms.PHP.ValidateHooks.InvalidHookName
 			return;
 		}
 
@@ -620,6 +692,11 @@ class Loader {
 			[
 				'name' => 'Admin\Education\Admin\EditPost',
 				'hook' => 'load-post.php',
+			],
+			[
+				'name'     => 'Admin\Education\Pointers\Payment',
+				'hook'     => 'admin_init',
+				'priority' => 20,
 			]
 		);
 

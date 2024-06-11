@@ -29,7 +29,7 @@ if ( ! class_exists( 'Woo_Variation_Swatches_Cache' ) ) {
 
 		private $name;
 		private $group_name;
-		static $transients = array();
+		public static $transients = array();
 
 		public function __construct( $name, $group_name ) {
 			$this->name       = $name;
@@ -99,7 +99,6 @@ if ( ! class_exists( 'Woo_Variation_Swatches_Cache' ) ) {
 			return $prefix_key . '_cache_' . $prefix . '_';
 		}
 
-
 		public function get_transient_name() {
 			return $this->name;
 		}
@@ -153,12 +152,10 @@ if ( ! class_exists( 'Woo_Variation_Swatches_Cache' ) ) {
 				$group = sprintf( '_transient_%s-transient-version', ( $transient_group ? $transient_group : $this->group_name ) );
 
 				// Delete Version
-				$sql_1 = $wpdb->prepare( "DELETE FROM {$wpdb->options} WHERE option_name LIKE %s LIMIT %d;", $group, 100 );
-				$wpdb->query( $sql_1 ); // WPCS: cache ok, db call ok.
+				$wpdb->query( $wpdb->prepare( "DELETE FROM $wpdb->options WHERE option_name LIKE %s LIMIT %d;", $group, 100 ) );
 
 				// Delete Name
-				$sql_2 = $wpdb->prepare( "DELETE FROM {$wpdb->options} WHERE option_name LIKE %s LIMIT %d;", $name, 10 );
-				$wpdb->query( $sql_2 ); // WPCS: cache ok, db call ok.
+				$wpdb->query( $wpdb->prepare( "DELETE FROM $wpdb->options WHERE option_name LIKE %s LIMIT %d;", $name, 10 ) );
 
 			}
 		}
@@ -202,7 +199,7 @@ if ( ! class_exists( 'Woo_Variation_Swatches_Cache' ) ) {
 			$name = $group_name ? $group_name : $this->group_name;
 
 			if ( ! wp_cache_supports( 'flush_group' ) ) {
-				_doing_it_wrong( __FUNCTION__, __( 'Your object cache implementation does not support flushing individual groups.' ), '6.1.0' );
+				_doing_it_wrong( __FUNCTION__, esc_html__( 'Your object cache implementation does not support flushing individual groups.', 'default' ), '6.1.0' );
 
 				return false;
 			}
@@ -211,4 +208,4 @@ if ( ! class_exists( 'Woo_Variation_Swatches_Cache' ) ) {
 		}
 	}
 }
-	
+

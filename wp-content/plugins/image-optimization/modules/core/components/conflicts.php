@@ -43,7 +43,7 @@ class Conflicts {
 			</p>
 
 			<form action="<?php echo esc_url( admin_url( 'plugins.php' ) ); ?>" method="post" style="margin:0.5em 0;padding:2px">
-				<span style="margin-right: 8px;"><?php echo esc_html( join( ', ', $conflicting_plugins_names ) ); ?></span>
+				<span style="margin-inline-end: 8px;"><?php echo esc_html( join( ', ', $conflicting_plugins_names ) ); ?></span>
 
 				<input type="hidden" name="action" value="deactivate-selected">
 

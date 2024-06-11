@@ -64,6 +64,7 @@ const ImportSite = () => {
 	 * @param {string} text      Text received from the AJAX call.
 	 * @param {string} code      Error code received from the AJAX call.
 	 * @param {string} solution  Solution provided for the current error.
+	 * @param {string} stack
 	 */
 	const report = (
 		primary = '',
@@ -115,7 +116,8 @@ const ImportSite = () => {
 			return;
 		}
 		const reportErr = new FormData();
-		reportErr.append( 'action', 'report_error' );
+		reportErr.append( 'action', 'astra-sites-report_error' );
+		reportErr.append( '_ajax_nonce', astraSitesVars._ajax_nonce );
 		reportErr.append(
 			'error',
 			JSON.stringify( {
@@ -300,6 +302,8 @@ const ImportSite = () => {
 
 	/**
 	 * Activate Plugin
+	 *
+	 * @param {Object} plugin
 	 */
 	const activatePlugin = ( plugin ) => {
 		percentage += 2;
@@ -316,7 +320,7 @@ const ImportSite = () => {
 		const activatePluginOptions = new FormData();
 		activatePluginOptions.append(
 			'action',
-			'astra-required-plugin-activate'
+			'astra-sites-required_plugin_activate'
 		);
 		activatePluginOptions.append( 'init', plugin.init );
 		activatePluginOptions.append(
@@ -511,10 +515,12 @@ const ImportSite = () => {
 
 	/**
 	 * Reset a chunk of posts.
+	 *
+	 * @param {Object} chunk
 	 */
 	const performPostsReset = async ( chunk ) => {
 		const data = new FormData();
-		data.append( 'action', 'astra-sites-get-deleted-post-ids' );
+		data.append( 'action', 'astra-sites-get_deleted_post_ids' );
 		data.append( '_ajax_nonce', astraSitesVars._ajax_nonce );
 
 		dispatch( {
@@ -523,7 +529,7 @@ const ImportSite = () => {
 		} );
 
 		const formOption = new FormData();
-		formOption.append( 'action', 'astra-sites-reset-posts' );
+		formOption.append( 'action', 'astra-sites-reset_posts' );
 		formOption.append( 'ids', JSON.stringify( chunk ) );
 		formOption.append( '_ajax_nonce', astraSitesVars._ajax_nonce );
 
@@ -589,7 +595,7 @@ const ImportSite = () => {
 		} );
 
 		const customizerContent = new FormData();
-		customizerContent.append( 'action', 'astra-sites-backup-settings' );
+		customizerContent.append( 'action', 'astra-sites-backup_settings' );
 		customizerContent.append( '_ajax_nonce', astraSitesVars._ajax_nonce );
 
 		const status = await fetch( ajaxurl, {
@@ -635,7 +641,7 @@ const ImportSite = () => {
 		const customizerContent = new FormData();
 		customizerContent.append(
 			'action',
-			'astra-sites-reset-customizer-data'
+			'astra-sites-reset_customizer_data'
 		);
 		customizerContent.append( '_ajax_nonce', astraSitesVars._ajax_nonce );
 
@@ -693,7 +699,7 @@ const ImportSite = () => {
 		} );
 
 		const siteOptions = new FormData();
-		siteOptions.append( 'action', 'astra-sites-reset-site-options' );
+		siteOptions.append( 'action', 'astra-sites-reset_site_options' );
 		siteOptions.append( '_ajax_nonce', astraSitesVars._ajax_nonce );
 
 		const status = await fetch( ajaxurl, {
@@ -744,7 +750,7 @@ const ImportSite = () => {
 	 */
 	const performResetWidget = async () => {
 		const widgets = new FormData();
-		widgets.append( 'action', 'astra-sites-reset-widgets-data' );
+		widgets.append( 'action', 'astra-sites-reset_widgets_data' );
 		widgets.append( '_ajax_nonce', astraSitesVars._ajax_nonce );
 
 		dispatch( {
@@ -802,7 +808,7 @@ const ImportSite = () => {
 	 */
 	const performResetTermsAndForms = async () => {
 		const formOption = new FormData();
-		formOption.append( 'action', 'astra-sites-reset-terms-and-forms' );
+		formOption.append( 'action', 'astra-sites-reset_terms_and_forms' );
 		formOption.append( '_ajax_nonce', astraSitesVars._ajax_nonce );
 
 		dispatch( {
@@ -861,7 +867,7 @@ const ImportSite = () => {
 	 */
 	const performResetPosts = async () => {
 		const data = new FormData();
-		data.append( 'action', 'astra-sites-get-deleted-post-ids' );
+		data.append( 'action', 'astra-sites-get_deleted_post_ids' );
 		data.append( '_ajax_nonce', astraSitesVars._ajax_nonce );
 
 		dispatch( {
@@ -1049,7 +1055,7 @@ const ImportSite = () => {
 		} );
 
 		const forms = new FormData();
-		forms.append( 'action', 'astra-sites-import-customizer-settings' );
+		forms.append( 'action', 'astra-sites-import_customizer_settings' );
 		forms.append( '_ajax_nonce', astraSitesVars._ajax_nonce );
 
 		const status = await fetch( ajaxurl, {
@@ -1134,7 +1140,7 @@ const ImportSite = () => {
 		} );
 
 		const content = new FormData();
-		content.append( 'action', 'astra-sites-import-prepare-xml' );
+		content.append( 'action', 'astra-sites-import_prepare_xml' );
 		content.append( '_ajax_nonce', astraSitesVars._ajax_nonce );
 
 		const status = await fetch( ajaxurl, {
@@ -1189,8 +1195,7 @@ const ImportSite = () => {
 	 */
 	const importSpectraSettings = async () => {
 		const spectraSettings =
-			encodeURI( templateResponse[ 'astra-site-spectra-settings' ] ) ||
-			'';
+			templateResponse[ 'astra-site-spectra-options' ] || '';
 
 		if ( '' === spectraSettings || 'null' === spectraSettings ) {
 			return true;
@@ -1202,7 +1207,7 @@ const ImportSite = () => {
 		} );
 
 		const spectra = new FormData();
-		spectra.append( 'action', 'astra-sites-import-spectra-settings' );
+		spectra.append( 'action', 'astra-sites-import_spectra_settings' );
 		spectra.append( '_ajax_nonce', astraSitesVars._ajax_nonce );
 
 		const status = await fetch( ajaxurl, {
@@ -1261,7 +1266,7 @@ const ImportSite = () => {
 			return true;
 		}
 		const surecart = new FormData();
-		surecart.append( 'action', 'astra-sites-import-surecart-settings' );
+		surecart.append( 'action', 'astra-sites-import_surecart_settings' );
 		surecart.append( 'source_id', sourceID );
 		surecart.append( 'source_currency', sourceCurrency );
 		surecart.append( '_ajax_nonce', astraSitesVars._ajax_nonce );
@@ -1348,15 +1353,17 @@ const ImportSite = () => {
 		};
 
 		evtSource.onerror = ( error ) => {
-			evtSource.close();
-			report(
-				__(
-					'Importing Site Content Failed. - Import Process Interrupted',
-					'astra-sites'
-				),
-				'',
-				error
-			);
+			if ( ! ( error && error?.isTrusted ) ) {
+				evtSource.close();
+				report(
+					__(
+						'Importing Site Content Failed. - Import Process Interrupted',
+						'astra-sites'
+					),
+					'',
+					error
+				);
+			}
 		};
 
 		evtSource.addEventListener( 'log', function ( message ) {
@@ -1389,7 +1396,7 @@ const ImportSite = () => {
 		} );
 
 		const siteOptions = new FormData();
-		siteOptions.append( 'action', 'astra-sites-import-options' );
+		siteOptions.append( 'action', 'astra-sites-import_options' );
 		siteOptions.append( '_ajax_nonce', astraSitesVars._ajax_nonce );
 
 		const status = await fetch( ajaxurl, {
@@ -1455,7 +1462,7 @@ const ImportSite = () => {
 		const widgetsData = templateResponse[ 'astra-site-widgets-data' ] || '';
 
 		const widgets = new FormData();
-		widgets.append( 'action', 'astra-sites-import-widgets' );
+		widgets.append( 'action', 'astra-sites-import_widgets' );
 		widgets.append( 'widgets_data', widgetsData );
 		widgets.append( '_ajax_nonce', astraSitesVars._ajax_nonce );
 
@@ -1525,7 +1532,7 @@ const ImportSite = () => {
 		} );
 
 		const finalSteps = new FormData();
-		finalSteps.append( 'action', 'astra-sites-import-end' );
+		finalSteps.append( 'action', 'astra-sites-import_end' );
 		finalSteps.append( '_ajax_nonce', astraSitesVars._ajax_nonce );
 
 		const status = await fetch( ajaxurl, {
@@ -1595,9 +1602,9 @@ const ImportSite = () => {
 	};
 
 	useEffect( () => {
-		window.addEventListener('beforeunload', preventRefresh); // eslint-disable-line
+		window.addEventListener( 'beforeunload', preventRefresh ); // eslint-disable-line
 		return () => {
-		  window.removeEventListener('beforeunload', preventRefresh); // eslint-disable-line
+			window.removeEventListener( 'beforeunload', preventRefresh ); // eslint-disable-line
 		};
 	}, [ importPercent ] ); // Add importPercent as a dependency.
 

@@ -378,7 +378,6 @@ window.addEventListener(
 
 		console.log( 'addEventListener message: ', event );
 
-		// debugger;
 		if (
 			typeof event.data === 'object' &&
 			callFromKey === event.data.call

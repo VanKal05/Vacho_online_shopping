@@ -401,4 +401,28 @@ class Helper {
 	public static function is_block_checkout() {
 		return has_block( 'woocommerce/checkout' );
 	}
+
+	/**
+	 * Get test mode description for SEPA
+	 *
+	 * @return string
+	 * @since 1.8.0
+	 */
+	public static function get_sepa_test_mode_description() {
+		/* translators: HTML Entities. */
+		return apply_filters( 'cpsw_sepa_gateway_test_description', sprintf( esc_html__( '%1$1s Test Mode Enabled %2$2s : Use demo IBAN number DE89370400440532013000 for test payment. %3$3s Check more %4$4sDemo IBAN Number%5$5s', 'checkout-plugins-stripe-woo' ), '<b>', '</b>', '</br>', "<a href='https://stripe.com/docs/testing#sepa-direct-debit' referrer='noopener' target='_blank'>", '</a>' ) );
+	}
+
+	/**
+	 * Get  SEPA Direct Debit mandate description for SEPA gateway
+	 *
+	 * Reference : https://stripe.com/docs/payments/sepa-debit/accept-a-payment?platform=web&ui=element#add-and-configure-an-component
+	 * 
+	 * @return string
+	 * @since 1.8.0
+	 */
+	public static function get_sepa_mandate_description() {
+		/* translators: HTML Entities. */
+		return apply_filters( 'cpsw_sepa_mandate_description', sprintf( __( 'By providing your IBAN and confirming this payment, you are authorizing %s and Stripe, our payment service provider, to send instructions to your bank to debit your account and your bank to debit your account in accordance with those instructions. You are entitled to a refund from your bank under the terms and conditions of your agreement with your bank. A refund must be claimed within 8 weeks starting from the date on which your account was debited.', 'checkout-plugins-stripe-woo' ), self::get_setting( 'company_name', 'cpsw_sepa' ) ) );
+	}
 }

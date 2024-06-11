@@ -6,6 +6,9 @@
  * @package Astra Addon
  */
 
+use STImporter\Importer\ST_Importer_Helper;
+use STImporter\Importer\Helpers\ST_Image_Importer;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -40,14 +43,23 @@ class Astra_Site_Options_Import {
 	}
 
 	/**
-	 * Site Options
-	 *
-	 * @since 1.0.2
-	 *
-	 * @return array    List of defined array.
+	 * Constructor.
 	 */
-	private static function site_options() {
-		return array(
+	public function __construct() {
+		add_filter( 'st_importer_site_options', array( $this, 'classic_templates_options' ), 10, 1 );
+		add_action( 'st_importer_import_site_options', array( $this, 'import_classic_templates_options' ), 10, 2 );
+	}
+
+	/**
+	 * Classic templates options.
+	 *
+	 * @since 4.3.0
+	 * @param array<int, string> $default_options List of defined array.
+	 * @return array<int, string> List of defined array.
+	 */
+	public function classic_templates_options( $default_options ) {
+
+		$classic_templates_options = array(
 			'custom_logo',
 			'nav_menu_locations',
 			'show_on_front',
@@ -120,18 +132,23 @@ class Astra_Site_Options_Import {
 			'astra-color-palettes',
 			'astra-typography-presets',
 		);
+		$options = array_merge( $default_options, $classic_templates_options );
+		return $options; 
+		
 	}
 
 	/**
-	 * Import site options.
+	 * Import Classic Templates Options.
 	 *
-	 * @since  1.0.2    Updated option if exist in defined option array 'site_options()'.
-	 *
-	 * @since  1.0.0
-	 *
-	 * @param  (Array) $options Array of site options to be imported from the demo.
+	 * @since 4.3.0
+	 * 
+	 * @param array<string, mixed> $options List of default options.
+	 * @param array<int, string>   $site_options List of site options.
+	 * 
+	 * @return void
 	 */
-	public function import_options( $options = array() ) {
+	public function import_classic_templates_options( $options, $site_options ) {
+
 		if ( ! isset( $options ) ) {
 			return;
 		}
@@ -143,7 +160,7 @@ class Astra_Site_Options_Import {
 				if ( null !== $option_value ) {
 
 					// Is option exist in defined array site_options()?
-					if ( in_array( $option_name, self::site_options(), true ) ) {
+					if ( in_array( $option_name, $site_options, true ) ) {
 
 						switch ( $option_name ) {
 
@@ -200,6 +217,7 @@ class Astra_Site_Options_Import {
 			// Do nothing.
 			astra_sites_error_log( 'Error while importing site options: ' . $e->getMessage() );
 		}
+
 	}
 
 	/**
@@ -343,7 +361,7 @@ class Astra_Site_Options_Import {
 
 				if ( ! empty( $cat['slug'] ) && ! empty( $cat['thumbnail_src'] ) ) {
 
-					$downloaded_image = Astra_Sites_Image_Importer::get_instance()->import(
+					$downloaded_image = ST_Image_Importer::get_instance()->import(
 						array(
 							'url' => $cat['thumbnail_src'],
 							'id'  => 0,
@@ -372,7 +390,7 @@ class Astra_Site_Options_Import {
 	 */
 	private function insert_logo( $image_url = '' ) {
 
-		$downloaded_image = Astra_Sites_Image_Importer::get_instance()->import(
+		$downloaded_image = ST_Image_Importer::get_instance()->import(
 			array(
 				'url' => $image_url,
 				'id'  => 0,
@@ -380,10 +398,15 @@ class Astra_Site_Options_Import {
 		);
 
 		if ( $downloaded_image['id'] ) {
-			Astra_WXR_Importer::instance()->track_post( $downloaded_image['id'] );
+			ST_Importer_Helper::track_post( $downloaded_image['id'] );
 			set_theme_mod( 'custom_logo', $downloaded_image['id'] );
 		}
 
 	}
 
 }
+
+/**
+ * Kicking this off by calling 'get_instance()' method
+ */
+Astra_Site_Options_Import::instance();

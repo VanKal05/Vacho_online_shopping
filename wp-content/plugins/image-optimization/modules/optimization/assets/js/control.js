@@ -8,14 +8,29 @@ import ControlMeta from './classes/control/control-meta';
 
 class OptimizationControl {
 	constructor() {
+		this.controlSyncRequestInProgress = false;
+
 		this.init();
+
+		this.controlSync = new ControlSync();
 	}
 
 	init() {
 		this.initEventListeners();
 
-		const controlSync = new ControlSync();
-		setInterval( () => controlSync.run(), 5000 );
+		setInterval( () => this.runStatusCheckLoop(), 5000 );
+	}
+
+	async runStatusCheckLoop() {
+		if ( this.controlSyncRequestInProgress ) {
+			return;
+		}
+
+		this.controlSyncRequestInProgress = true;
+
+		await this.controlSync.run();
+
+		this.controlSyncRequestInProgress = false;
 	}
 
 	initEventListeners() {
@@ -37,6 +52,8 @@ class OptimizationControl {
 		states.renderLoading( 'optimize' );
 
 		try {
+			controlWrapper.dataset.isFrozen = true;
+
 			await API.optimizeSingleImage( {
 				imageId: new ControlMeta( controlWrapper ).getImageId(),
 				reoptimize: false,
@@ -59,6 +76,8 @@ class OptimizationControl {
 		states.renderLoading( 'reoptimize' );
 
 		try {
+			controlWrapper.dataset.isFrozen = true;
+
 			await API.optimizeSingleImage( {
 				imageId: new ControlMeta( controlWrapper ).getImageId(),
 				reoptimize: true,
@@ -81,6 +100,8 @@ class OptimizationControl {
 		states.renderLoading( 'restore' );
 
 		try {
+			controlWrapper.dataset.isFrozen = true;
+
 			await API.restoreSingleImage( new ControlMeta( controlWrapper ).getImageId() );
 		} catch ( error ) {
 			states.renderError( error );

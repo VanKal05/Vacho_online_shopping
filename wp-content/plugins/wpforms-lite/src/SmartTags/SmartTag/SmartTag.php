@@ -2,6 +2,8 @@
 
 namespace WPForms\SmartTags\SmartTag;
 
+use WP_User;
+
 /**
  * Class SmartTag.
  *
@@ -20,6 +22,15 @@ abstract class SmartTag {
 	protected $smart_tag;
 
 	/**
+	 * Context usage.
+	 *
+	 * @since 1.8.7
+	 *
+	 * @var string
+	 */
+	protected $context;
+
+	/**
 	 * List of attributes.
 	 *
 	 * @since 1.6.7
@@ -32,12 +43,15 @@ abstract class SmartTag {
 	 * SmartTag constructor.
 	 *
 	 * @since 1.6.7
+	 * @since 1.8.7 Added $context parameter.
 	 *
 	 * @param string $smart_tag Full smart tag.
+	 * @param string $context   Context usage.
 	 */
-	public function __construct( $smart_tag ) {
+	public function __construct( $smart_tag, $context = '' ) {
 
 		$this->smart_tag = $smart_tag;
+		$this->context   = $context;
 	}
 
 	/**
@@ -77,5 +91,141 @@ abstract class SmartTag {
 		$this->attributes = array_combine( $attributes[1], $attributes[3] );
 
 		return $this->attributes;
+	}
+
+	/**
+	 * Get current user.
+	 *
+	 * @since 1.8.7
+	 *
+	 * @param string|int $entry_id Entry ID.
+	 *
+	 * @return WP_User|string
+	 */
+	public function get_user( $entry_id ) {
+
+		$user = $this->get_entry_user( $entry_id );
+
+		if ( ! empty( $user ) ) {
+			return $user;
+		}
+
+		return is_user_logged_in() ? wp_get_current_user() : '';
+	}
+
+	/**
+	 * Get user from the entry.
+	 *
+	 * @since 1.8.8
+	 *
+	 * @param string|int $entry_id Entry ID.
+	 *
+	 * @return WP_User|string
+	 */
+	private function get_entry_user( $entry_id ) {
+
+		if ( empty( $entry_id ) ) {
+			return '';
+		}
+
+		$entry = wpforms()->get( 'entry' );
+
+		if ( empty( $entry ) ) {
+			return '';
+		}
+
+		$user          = null;
+		$entry_data    = $entry->get( $entry_id );
+		$entry_user_id = $entry_data->user_id ?? 0;
+
+		if ( ! empty( $entry_user_id ) ) {
+			$user = get_user_by( 'id', $entry_user_id );
+		}
+
+		if ( ! $user instanceof WP_User ) {
+			return '';
+		}
+
+		return $user;
+	}
+
+	/**
+	 * Get author.
+	 *
+	 * @since 1.8.7
+	 *
+	 * @param int $post_id Submitted post ID.
+	 *
+	 * @return WP_User|false WP_User object on success, false on failure.
+	 */
+	public function get_author( $post_id ) {
+
+		$author_id = get_post_field( 'post_author', $post_id );
+
+		return get_user_by( 'id', $author_id );
+	}
+
+	/**
+	 * Get author property.
+	 *
+	 * @since 1.8.8
+	 *
+	 * @param int|string $entry_id Entry ID.
+	 * @param string     $meta_key User property.
+	 *
+	 * @return string
+	 */
+	protected function get_author_meta( $entry_id, string $meta_key ): string {
+
+		if ( empty( $entry_id ) ) {
+			return '';
+		}
+
+		$page_id = $this->get_meta( $entry_id, 'page_id' );
+
+		if ( empty( $page_id ) ) {
+			return '';
+		}
+
+		$author = $this->get_author( $page_id );
+
+		if ( ! $author ) {
+			return '';
+		}
+
+		return $author->{$meta_key} ?? '';
+	}
+
+	/**
+	 * Get entry meta.
+	 *
+	 * @since 1.8.7
+	 *
+	 * @param string|int $entry_id Entry ID.
+	 * @param string     $meta_key Meta key.
+	 *
+	 * @return string Meta value.
+	 */
+	public function get_meta( $entry_id, string $meta_key ) {
+
+		if ( empty( $entry_id ) ) {
+			return '';
+		}
+
+		$entry_meta = wpforms()->get( 'entry_meta' );
+
+		if ( empty( $entry_meta ) ) {
+			return '';
+		}
+
+		$meta = $entry_meta->get_meta(
+			[
+				'entry_id' => $entry_id,
+				'type'     => $meta_key,
+				'number'   => 1,
+			]
+		);
+
+		return $meta[0]->data ?? '';
 	}
 }

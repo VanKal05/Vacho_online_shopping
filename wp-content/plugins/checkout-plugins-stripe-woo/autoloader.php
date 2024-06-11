@@ -26,6 +26,10 @@ use CPSW\Gateway\BlockSupport\Credit_Card_Payments;
 use CPSW\Gateway\BlockSupport\Ideal_Payments;
 use CPSW\Gateway\BlockSupport\Alipay_Payments;
 use CPSW\Gateway\BlockSupport\Klarna_Payments;
+use CPSW\Gateway\BlockSupport\Sepa_Payments;
+use CPSW\Gateway\BlockSupport\Wechat_Payments;
+use CPSW\Gateway\BlockSupport\P24_Payments;
+use CPSW\Gateway\BlockSupport\Bancontact_Payments;
 
 /**
  * CPSW_Loader
@@ -100,7 +104,7 @@ class CPSW_Loader {
 		$this->setup_classes();
 		add_action( 'plugins_loaded', [ $this, 'load_classes' ] );
 		add_filter( 'plugin_action_links_' . CPSW_BASE, [ $this, 'action_links' ] );
-		add_action( 'before_woocommerce_init', [ $this, 'hpos_compatibility_declaration' ] );
+		add_action( 'before_woocommerce_init', [ $this, 'compatibility_declaration' ] );
 		add_action( 'woocommerce_init', [ $this, 'frontend_scripts' ] );
 		add_action( 'plugins_loaded', [ $this, 'load_cpsw_textdomain' ] );
 		add_action( 'woocommerce_blocks_loaded', [ $this, 'woocommerce_block_supports' ] );
@@ -287,14 +291,20 @@ class CPSW_Loader {
 	}
 
 	/**
-	 * Declares compatibility with WooCommerce HPOS
+	 * Declares compatibility with WooCommerce
 	 *
 	 * @return void
 	 * @since 1.4.8
 	 */
-	public function hpos_compatibility_declaration() {
+	public function compatibility_declaration() {
+		// HPOS compatibility declaration.
 		if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
 			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', CPSW_FILE, true );
+		}
+
+		// Woo Block compatibility declaration.
+		if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'cart_checkout_blocks', CPSW_FILE, true );
 		}
 	}
 
@@ -326,6 +336,10 @@ class CPSW_Loader {
 					Ideal_Payments::class,
 					Alipay_Payments::class,
 					Klarna_Payments::class,
+					Bancontact_Payments::class,
+					Sepa_Payments::class,
+					Wechat_Payments::class,
+					P24_Payments::class,
 				];
 
 				// registers as shared instance.

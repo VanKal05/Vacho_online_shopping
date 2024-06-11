@@ -47,7 +47,7 @@ if ( ! class_exists( 'Astra_Sites_Zip_AI' ) ) :
 		 */
 		private function __construct() {
 			$this->version_check();
-			add_action( 'plugins_loaded', array( $this, 'load' ), 999 );
+			add_action( 'plugins_loaded', array( $this, 'load' ), 15 );
 		}
 
 		/**

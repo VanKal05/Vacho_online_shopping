@@ -2,7 +2,7 @@
  * Variation Swatches for WooCommerce
  *
  * Author: Emran Ahmed ( emran.bd.08@gmail.com )
- * Date: 1/15/2024, 5:59:37 PM
+ * Date: 6/6/2024, 4:31:57 PM
  * Released under the GPLv3 license.
  */
 .woo-variation-swatches.wvs-tooltip {
@@ -83,7 +83,6 @@
   -webkit-transform: translateZ(0);
           transform: translateZ(0);
   -webkit-transition: opacity 500ms ease-in-out;
-  -o-transition: opacity 500ms ease-in-out;
   transition: opacity 500ms ease-in-out;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -485,7 +484,6 @@
   width: 20px;
   -webkit-transition: -webkit-box-shadow 200ms ease;
   transition: -webkit-box-shadow 200ms ease;
-  -o-transition: box-shadow 200ms ease;
   transition: box-shadow 200ms ease;
   transition: box-shadow 200ms ease, -webkit-box-shadow 200ms ease;
 }
@@ -689,7 +687,6 @@
   padding: 0;
   list-style: none;
   -webkit-transition: all 200ms ease;
-  -o-transition: all 200ms ease;
   transition: all 200ms ease;
   -webkit-user-select: none;
      -moz-user-select: none;

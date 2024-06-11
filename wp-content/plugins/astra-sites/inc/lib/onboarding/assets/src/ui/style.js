@@ -120,7 +120,7 @@ export const Link = styled.span`
 	}
 
 	${ ( props ) =>
-		props.before &&
+		props.$before &&
 		`
 		svg {
 			margin-right: 10px;
@@ -128,7 +128,7 @@ export const Link = styled.span`
 	` }
 
 	${ ( props ) =>
-		props.after &&
+		props.$after &&
 		`
 		svg {
 			margin-left: 10px;

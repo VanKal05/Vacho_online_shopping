@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Tooltip } from '@brainstormforce/starter-templates-components';
+import Tooltip from '../../steps/onboarding-ai/components/tooltip';
 import { __ } from '@wordpress/i18n';
 import { useStateValue } from '../../store/store';
 import ICONS from '../../../icons';
@@ -24,12 +24,7 @@ const ChooseEcommerce = () => {
 		selectedTemplate?.related_ecommerce_template !== undefined
 			? selectedTemplate.related_ecommerce_template
 			: '';
-	if ( ! relatedTemplateID ) {
-		dispatch( {
-			type: 'set',
-			currentCustomizeIndex: currentCustomizeIndex + 1, // Skip 1 step.
-		} );
-	}
+
 	const changeEcommerceTemplate = async ( event ) => {
 		event.stopPropagation();
 		const newTemplateId = parseInt( event.target.value );
@@ -47,9 +42,18 @@ const ChooseEcommerce = () => {
 		setCheckedTemplateID( selectedTemplateID );
 	}, [] );
 
+	useEffect( () => {
+		if ( ! relatedTemplateID ) {
+			dispatch( {
+				type: 'set',
+				currentCustomizeIndex: currentCustomizeIndex + 1, // Skip 1 step.
+			} );
+		}
+	}, [] );
+
 	return (
-		<div className="customizer-ecommerce-selection">
-			<label className="ist-customizer-heading" htmlFor="surecart">
+		<div className="customizer-ecommerce-selection mb-5 w-full">
+			<label className="ist-customizer-heading w-full" htmlFor="surecart">
 				<div className="ist-image-section">
 					<img
 						className="ist-surecart-icon"
@@ -78,7 +82,7 @@ const ChooseEcommerce = () => {
 					name="ecommerce"
 					value={ relatedTemplateID }
 					checked={ checkedTemplateID === relatedTemplateID }
-					onClick={ changeEcommerceTemplate }
+					onChange={ changeEcommerceTemplate }
 				/>
 			</label>
 			<label className="ist-customizer-heading" htmlFor="woocommerce">
@@ -110,7 +114,7 @@ const ChooseEcommerce = () => {
 					name="ecommerce"
 					value={ selectedTemplateID }
 					checked={ checkedTemplateID === selectedTemplateID }
-					onClick={ changeEcommerceTemplate }
+					onChange={ changeEcommerceTemplate }
 				/>
 			</label>
 		</div>

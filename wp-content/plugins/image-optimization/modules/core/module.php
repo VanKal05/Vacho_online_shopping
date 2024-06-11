@@ -36,6 +36,7 @@ class Module extends Module_Base {
 		return [
 			'Pointers',
 			'Conflicts',
+			'User_Feedback',
 		];
 	}
 
@@ -86,7 +87,7 @@ class Module extends Module_Base {
 	}
 
 	public function add_plugin_links( $links, $plugin_file_name ): array {
-		if ( false === strpos( $plugin_file_name, '/image-optimization.php' ) ) {
+		if ( ! str_ends_with( $plugin_file_name, '/image-optimization.php' ) ) {
 			return (array) $links;
 		}
 
@@ -96,40 +97,12 @@ class Module extends Module_Base {
 				admin_url( 'admin.php?page=' . \ImageOptimization\Modules\Settings\Module::SETTING_BASE_SLUG ),
 				esc_html__( 'Settings', 'image-optimization' )
 			),
+			'upgrade' => sprintf(
+				'<a href="%s" style="color: #524CFF; font-weight: 700;" target="_blank" rel="noopener noreferrer">%s</a>',
+				'https://go.elementor.com/io-panel-upgrade/',
+				esc_html__( 'Upgrade', 'image-optimization' )
+			),
 		];
-
-		if ( ! Connect::is_connected() ) {
-			$custom_links['connect'] = sprintf(
-				'<a href="%s" style="color: #524CFF; font-weight: 700;">%s</a>',
-				admin_url( 'admin.php?page=' . \ImageOptimization\Modules\Settings\Module::SETTING_BASE_SLUG . '&action=connect' ),
-				esc_html__( 'Connect', 'image-optimization' )
-			);
-		}
-
-		if ( Connect::is_connected() && ! Connect::is_activated() ) {
-			$custom_links['activate'] = sprintf(
-				'<a href="%s" style="color: #524CFF; font-weight: 700;">%s</a>',
-				admin_url( 'admin.php?page=' . \ImageOptimization\Modules\Settings\Module::SETTING_BASE_SLUG ),
-				esc_html__( 'Activate', 'image-optimization' )
-			);
-		}
-
-		if ( Connect::is_connected() && Connect::is_activated() ) {
-			$plan_data = Connect::check_connect_status();
-			$usage_percentage = 0;
-
-			if ( ! empty( $plan_data ) ) {
-				$usage_percentage = $plan_data->used_quota / $plan_data->quota * 100;
-			}
-
-			if ( $usage_percentage >= 80 ) {
-				$custom_links['upgrade'] = sprintf(
-					'<a href="%s" style="color: #524CFF; font-weight: 700;">%s</a>',
-					'https://go.elementor.com/io-panel-upgrade/',
-					esc_html__( 'Upgrade', 'image-optimization' )
-				);
-			}
-		}
 
 		return array_merge( $custom_links, $links );
 	}
@@ -144,7 +117,7 @@ class Module extends Module_Base {
 
 		wp_enqueue_style(
 			'image-optimization-core-style-admin',
-			$this->get_css_assets_url( 'style-admin', '/assets/build/' ),
+			$this->get_css_assets_url( 'style-admin', 'assets/build/' ),
 			[],
 			IMAGE_OPTIMIZATION_VERSION,
 		);
@@ -154,7 +127,7 @@ class Module extends Module_Base {
 	 * Enqueue styles and scripts
 	 */
 	private function enqueue_scripts() {
-		$asset_file = include IMAGE_OPTIMIZATION_ASSETS_PATH . 'build/admin.asset.php';
+		$asset_file = require IMAGE_OPTIMIZATION_ASSETS_PATH . 'build/admin.asset.php';
 
 		foreach ( $asset_file['dependencies'] as $style ) {
 			wp_enqueue_style( $style );
@@ -164,7 +137,7 @@ class Module extends Module_Base {
 			'image-optimization-admin',
 			$this->get_js_assets_url( 'admin' ),
 			array_merge( $asset_file['dependencies'], [ 'wp-util' ] ),
-			IMAGE_OPTIMIZATION_VERSION,
+			$asset_file['version'],
 			true
 		);
 
@@ -186,7 +159,7 @@ class Module extends Module_Base {
 			[
 				'isConnected' => Connect::is_connected(),
 				'isActivated' => Connect::is_activated(),
-				'planData' => Connect::is_activated() ? Connect::check_connect_status() : null,
+				'planData' => Connect::is_activated() ? Connect::get_connect_status() : null,
 				'licenseKey' => Connect::is_activated() ? Data::get_activation_state() : null,
 				'imagesLeft' => Connect::is_activated() ? Data::images_left() : null,
 				'isOwner' => Connect::is_connected() ? Data::user_is_subscription_owner() : null,

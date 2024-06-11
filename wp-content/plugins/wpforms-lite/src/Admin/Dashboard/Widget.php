@@ -58,6 +58,7 @@ abstract class Widget {
 			'timespan'               => $this->get_timespan_default(),
 			'active_form_id'         => 0,
 			'hide_recommended_block' => 0,
+			'hide_welcome_block'     => 0,
 			'hide_graph'             => 0,
 			'color_scheme'           => 1, // 1 - wpforms, 2 - wp
 			'graph_style'            => 2, // 1 - bar, 2 - line
@@ -68,9 +69,10 @@ abstract class Widget {
 		}
 
 		$meta_key = 'wpforms_' . static::SLUG . '_' . $meta;
+		$user_id  = get_current_user_id();
 
 		if ( $action === 'get' ) {
-			$meta_value = absint( get_user_meta( get_current_user_id(), $meta_key, true ) );
+			$meta_value = absint( get_user_meta( $user_id, $meta_key, true ) );
 			// Return a default value from $defaults if $meta_value is empty.
 
 			return empty( $meta_value ) ? $defaults[ $meta ] : $meta_value;
@@ -79,11 +81,11 @@ abstract class Widget {
 		$value = absint( $value );
 
 		if ( $action === 'set' && ! empty( $value ) ) {
-			return update_user_meta( get_current_user_id(), $meta_key, $value );
+			return update_user_meta( $user_id, $meta_key, $value );
 		}
 
 		if ( $action === 'set' && empty( $value ) ) {
-			return delete_user_meta( get_current_user_id(), $meta_key );
+			return delete_user_meta( $user_id, $meta_key );
 		}
 
 		return false;
@@ -111,7 +113,7 @@ abstract class Widget {
 	 *
 	 * @return array
 	 */
-	protected function get_timespan_options() {
+	protected function get_timespan_options(): array {
 
 		$default = [ 7, 30 ];
 
@@ -139,6 +141,7 @@ abstract class Widget {
 		// phpcs:disable WPForms.Comments.PHPDocHooks.RequiredHookDocumentation, WPForms.PHP.ValidateHooks.InvalidHookName
 		$options = apply_filters( "wpforms_{$widget_slug}_timespan_options", $options );
 		// phpcs:enable WPForms.Comments.PHPDocHooks.RequiredHookDocumentation, WPForms.PHP.ValidateHooks.InvalidHookName
+
 		if ( ! is_array( $options ) ) {
 			return [];
 		}
@@ -172,13 +175,13 @@ abstract class Widget {
 	}
 
 	/**
-	 * Return randomly chosen one of recommended plugins.
+	 * Return randomly chosen one of the recommended plugins.
 	 *
 	 * @since 1.7.3
 	 *
 	 * @return array
 	 */
-	final protected function get_recommended_plugin() {
+	final protected function get_recommended_plugin(): array {
 
 		$plugins = [
 			'google-analytics-for-wordpress/googleanalytics.php' => [
@@ -278,7 +281,7 @@ abstract class Widget {
 	 *
 	 * @return bool
 	 */
-	protected function is_dashboard_page() {
+	protected function is_dashboard_page(): bool {
 
 		global $pagenow;
 
@@ -293,7 +296,7 @@ abstract class Widget {
 	 *
 	 * @return bool
 	 */
-	protected function is_dashboard_widget_ajax_request() {
+	protected function is_dashboard_widget_ajax_request(): bool {
 
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		return wpforms_is_admin_ajax() && isset( $_REQUEST['action'] ) && strpos( sanitize_key( $_REQUEST['action'] ), 'wpforms_dash_widget' ) !== false;

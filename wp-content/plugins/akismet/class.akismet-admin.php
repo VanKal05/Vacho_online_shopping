@@ -135,20 +135,20 @@ class Akismet_Admin {
 			'plugins.php',
 		) ) ) ) {
 			$akismet_css_path = is_rtl() ? '_inc/rtl/akismet-rtl.css' : '_inc/akismet.css';
-			wp_register_style( 'akismet', plugin_dir_url( __FILE__ ) . $akismet_css_path, array(), filemtime( dirname( __FILE__ ) . '/' . $akismet_css_path ) );
+			wp_register_style( 'akismet', plugin_dir_url( __FILE__ ) . $akismet_css_path, array(), self::get_asset_file_version( $akismet_css_path ) );
 			wp_enqueue_style( 'akismet' );
 
-			wp_register_style( 'akismet-font-inter', plugin_dir_url( __FILE__ ) . '_inc/fonts/inter.css', array(), filemtime( dirname( __FILE__ ) . '/_inc/fonts/inter.css' ) );
+			wp_register_style( 'akismet-font-inter', plugin_dir_url( __FILE__ ) . '_inc/fonts/inter.css', array(), self::get_asset_file_version( '_inc/fonts/inter.css' ) );
 			wp_enqueue_style( 'akismet-font-inter' );
 
 			$akismet_admin_css_path = is_rtl() ? '_inc/rtl/akismet-admin-rtl.css' : '_inc/akismet-admin.css';
-			wp_register_style( 'akismet-admin', plugin_dir_url( __FILE__ ) . $akismet_admin_css_path, array(), filemtime( dirname( __FILE__ ) . '/' . $akismet_admin_css_path ) );
+			wp_register_style( 'akismet-admin', plugin_dir_url( __FILE__ ) . $akismet_admin_css_path, array(), self::get_asset_file_version( $akismet_admin_css_path ) );
 			wp_enqueue_style( 'akismet-admin' );
 
-			wp_register_script( 'akismet.js', plugin_dir_url( __FILE__ ) . '_inc/akismet.js', array( 'jquery' ), AKISMET_VERSION );
+			wp_register_script( 'akismet.js', plugin_dir_url( __FILE__ ) . '_inc/akismet.js', array( 'jquery' ), self::get_asset_file_version( '_inc/akismet.js' ) );
 			wp_enqueue_script( 'akismet.js' );
 
-			wp_register_script( 'akismet-admin.js', plugin_dir_url( __FILE__ ) . '_inc/akismet-admin.js', array(), filemtime( dirname( __FILE__ ) . '/_inc/akismet-admin.js' ) );
+			wp_register_script( 'akismet-admin.js', plugin_dir_url( __FILE__ ) . '_inc/akismet-admin.js', array(), self::get_asset_file_version( '/_inc/akismet-admin.js' ) );
 			wp_enqueue_script( 'akismet-admin.js' );
 
 			$inline_js = array(
@@ -555,7 +555,7 @@ class Akismet_Admin {
 		}
 
 		// add a History item to the hover links, just after Edit
-		if ( $akismet_result ) {
+		if ( $akismet_result && is_array( $a ) ) {
 			$b = array();
 			foreach ( $a as $k => $item ) {
 				$b[ $k ] = $item;
@@ -666,6 +666,18 @@ class Akismet_Admin {
 							} else {
 								$message = esc_html( __( 'Akismet was unable to recheck this comment.', 'akismet' ) );
 							}
+							break;
+						case 'webhook-spam':
+							$message = esc_html( __( 'Akismet caught this comment as spam and updated its status via webhook.', 'akismet' ) );
+							break;
+						case 'webhook-ham':
+							$message = esc_html( __( 'Akismet cleared this comment and updated its status via webhook.', 'akismet' ) );
+							break;
+						case 'webhook-spam-noaction':
+							$message = esc_html( __( 'Akismet determined this comment was spam during a recheck. It did not update the comment status because it had already been modified by another user or plugin.', 'akismet' ) );
+							break;
+						case 'webhook-ham-noaction':
+							$message = esc_html( __( 'Akismet cleared this comment during a recheck. It did not update the comment status because it had already been modified by another user or plugin.', 'akismet' ) );
 							break;
 						default:
 							if ( preg_match( '/^status-changed/', $row['event'] ) ) {
@@ -852,7 +864,14 @@ class Akismet_Admin {
 	public static function get_akismet_user( $api_key ) {
 		$akismet_user = false;
 
-		$subscription_verification = Akismet::http_post( Akismet::build_query( array( 'key' => $api_key, 'blog' => get_option( 'home' ) ) ), 'get-subscription' );
+		$request_args = array(
+			'key' => $api_key,
+			'blog' => get_option( 'home' ),
+		);
+
+		$request_args = apply_filters( 'akismet_request_args', $request_args, 'get-subscription' );
+
+		$subscription_verification = Akismet::http_post( Akismet::build_query( $request_args ), 'get-subscription' );
 
 		if ( ! empty( $subscription_verification[1] ) ) {
 			if ( 'invalid' !== $subscription_verification[1] ) {
@@ -867,7 +886,15 @@ class Akismet_Admin {
 		$stat_totals = array();
 
 		foreach( array( '6-months', 'all' ) as $interval ) {
-			$response = Akismet::http_post( Akismet::build_query( array( 'blog' => get_option( 'home' ), 'key' => $api_key, 'from' => $interval ) ), 'get-stats' );
+			$request_args = array(
+				'blog' => get_option( 'home' ),
+				'key' => $api_key,
+				'from' => $interval,
+			);
+
+			$request_args = apply_filters( 'akismet_request_args', $request_args, 'get-stats' );
+
+			$response = Akismet::http_post( Akismet::build_query( $request_args ), 'get-stats' );
 
 			if ( ! empty( $response[1] ) ) {
 				$stat_totals[$interval] = json_decode( $response[1] );
@@ -878,11 +905,18 @@ class Akismet_Admin {
 	}
 
 	public static function verify_wpcom_key( $api_key, $user_id, $extra = array() ) {
-		$akismet_account = Akismet::http_post( Akismet::build_query( array_merge( array(
-			'user_id'          => $user_id,
-			'api_key'          => $api_key,
-			'get_account_type' => 'true'
-		), $extra ) ), 'verify-wpcom-key' );
+		$request_args = array_merge(
+			array(
+				'user_id' => $user_id,
+				'api_key' => $api_key,
+				'get_account_type' => 'true',
+			),
+			$extra
+		);
+
+		$request_args = apply_filters( 'akismet_request_args', $request_args, 'verify-wpcom-key' );
+
+		$akismet_account = Akismet::http_post( Akismet::build_query( $request_args ), 'verify-wpcom-key' );
 
 		if ( ! empty( $akismet_account[1] ) )
 			$akismet_account = json_decode( $akismet_account[1] );
@@ -1076,26 +1110,29 @@ class Akismet_Admin {
 		}
 
 		/*
-		// To see all variants when testing.
-		$notices[] = array( 'type' => 'active-notice', 'time_saved' => 'Cleaning up spam takes time. Akismet has saved you 1 minute!' );
-		$notices[] = array( 'type' => 'plugin' );
-		$notices[] = array( 'type' => 'spam-check', 'link_text' => 'Link text.' );
-		$notices[] = array( 'type' => 'notice', 'notice_header' => 'This is the notice header.', 'notice_text' => 'This is the notice text.' );
-		$notices[] = array( 'type' => 'missing-functions' );
-		$notices[] = array( 'type' => 'servers-be-down' );
-		$notices[] = array( 'type' => 'active-dunning' );
-		$notices[] = array( 'type' => 'cancelled' );
-		$notices[] = array( 'type' => 'suspended' );
-		$notices[] = array( 'type' => 'missing' );
-		$notices[] = array( 'type' => 'no-sub' );
-		$notices[] = array( 'type' => 'new-key-valid' );
-		$notices[] = array( 'type' => 'new-key-invalid' );
-		$notices[] = array( 'type' => 'existing-key-invalid' );
-		$notices[] = array( 'type' => 'new-key-failed' );
-		$notices[] = array( 'type' => 'usage-limit', 'api_calls' => '15000', 'usage_limit' => '10000', 'upgrade_plan' => 'Enterprise', 'upgrade_url' => 'https://akismet.com/account/', 'code' => 10502 );
-		$notices[] = array( 'type' => 'spam-check-cron-disabled' );
-		$notices[] = array( 'type' => 'alert', 'code' => 123 );
+		 *  To see all variants when testing.
+		 *
+		 *  You may also want to comment out the akismet_view_arguments filter in Akismet::view()
+		 *  to ensure that you can see all of the notices (e.g. suspended, active-notice).
 		*/
+		// $notices[] = array( 'type' => 'active-notice', 'time_saved' => 'Cleaning up spam takes time. Akismet has saved you 1 minute!' );
+		// $notices[] = array( 'type' => 'plugin' );
+		// $notices[] = array( 'type' => 'spam-check', 'link_text' => 'Link text.' );
+		// $notices[] = array( 'type' => 'notice', 'notice_header' => 'This is the notice header.', 'notice_text' => 'This is the notice text.' );
+		// $notices[] = array( 'type' => 'missing-functions' );
+		// $notices[] = array( 'type' => 'servers-be-down' );
+		// $notices[] = array( 'type' => 'active-dunning' );
+		// $notices[] = array( 'type' => 'cancelled' );
+		// $notices[] = array( 'type' => 'suspended' );
+		// $notices[] = array( 'type' => 'missing' );
+		// $notices[] = array( 'type' => 'no-sub' );
+		// $notices[] = array( 'type' => 'new-key-valid' );
+		// $notices[] = array( 'type' => 'new-key-invalid' );
+		// $notices[] = array( 'type' => 'existing-key-invalid' );
+		// $notices[] = array( 'type' => 'new-key-failed' );
+		// $notices[] = array( 'type' => 'usage-limit', 'api_calls' => '15000', 'usage_limit' => '10000', 'upgrade_plan' => 'Enterprise', 'upgrade_url' => 'https://akismet.com/account/', 'code' => 10502 );
+		// $notices[] = array( 'type' => 'spam-check-cron-disabled' );
+		// $notices[] = array( 'type' => 'alert', 'code' => 123 );
 
 		Akismet::log( compact( 'stat_totals', 'akismet_user' ) );
 		Akismet::view( 'config', compact( 'api_key', 'akismet_user', 'stat_totals', 'notices' ) );
@@ -1331,5 +1368,25 @@ class Akismet_Admin {
 	 */
 	public static function get_notice_kses_allowed_elements() {
 		return self::$allowed;
+	}
+
+	/**
+	 * Return a version to append to the URL of an asset file (e.g. CSS and images).
+	 *
+	 * @param string $relative_path Relative path to asset file
+	 * @return string
+	 */
+	public static function get_asset_file_version( $relative_path ) {
+
+		$full_path = AKISMET__PLUGIN_DIR . $relative_path;
+
+		// If the AKISMET_VERSION contains a lower-case letter, it's a development version (e.g. 5.3.1a2).
+		// Use the file modified time in development.
+		if ( preg_match( '/[a-z]/', AKISMET_VERSION ) && file_exists( $full_path ) ) {
+			return filemtime( $full_path );
+		}
+
+		// Otherwise, use the AKISMET_VERSION.
+		return AKISMET_VERSION;
 	}
 }

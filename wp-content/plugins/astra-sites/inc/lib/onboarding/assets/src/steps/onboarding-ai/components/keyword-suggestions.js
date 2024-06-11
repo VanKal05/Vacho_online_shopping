@@ -14,7 +14,9 @@ const KeywordSuggestions = ( {
 	const containerRef = useRef( null );
 
 	useEffect( () => {
-		if ( ! containerRef.current ) return;
+		if ( ! containerRef.current ) {
+			return;
+		}
 		const { scrollWidth, clientWidth } = containerRef.current;
 		setShowLeftArrow( scrollPosition > 0 );
 		setShowRightArrow( scrollPosition < scrollWidth - clientWidth );
@@ -34,7 +36,9 @@ const KeywordSuggestions = ( {
 	};
 
 	const scrollTo = ( element, position ) => {
-		if ( ! element ) return;
+		if ( ! element ) {
+			return;
+		}
 		element.scrollTo( {
 			left: position,
 			behavior: 'smooth',

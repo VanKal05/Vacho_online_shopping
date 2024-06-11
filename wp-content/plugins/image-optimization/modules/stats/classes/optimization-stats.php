@@ -12,6 +12,8 @@ use ImageOptimization\Classes\Image\{
 use ImageOptimization\Classes\File_System\Exceptions\File_System_Operation_Error;
 use ImageOptimization\Classes\File_System\File_System;
 use ImageOptimization\Classes\Logger;
+use ImageOptimization\Modules\Optimization\Classes\Exceptions\Image_Validation_Error;
+use ImageOptimization\Modules\Optimization\Classes\Validate_Image;
 use ImageOptimization\Modules\Settings\Classes\Settings;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -80,9 +82,10 @@ class Optimization_Stats {
 
 		foreach ( $query->posts as $attachment_id ) {
 			try {
+				Validate_Image::is_valid( $attachment_id );
 				$wp_meta = new WP_Image_Meta( $attachment_id );
-			} catch ( Invalid_Image_Exception $ii ) {
-				Logger::log( Logger::LEVEL_ERROR, $ii->getMessage() );
+			} catch ( Invalid_Image_Exception | Image_Validation_Error $ie ) {
+				Logger::log( Logger::LEVEL_ERROR, $ie->getMessage() );
 
 				continue;
 			}
@@ -137,7 +140,7 @@ class Optimization_Stats {
 		$enabled_sizes = Settings::get( Settings::CUSTOM_SIZES_OPTION_NAME );
 
 		if ( 'all' === $enabled_sizes ) {
-			return $size_keys;
+			return array_filter( $size_keys, fn( string $size_key ) => ! str_starts_with( $size_key, 'elementor_' ) );
 		}
 
 		return array_filter($size_keys, function( string $size ) use ( $enabled_sizes ) {

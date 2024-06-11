@@ -66,7 +66,10 @@ if ( ! class_exists( 'GetWooPlugins_Plugin_Deactivate_Feedback', false ) ) :
 
 		public function dialog() {
 
-			if ( in_array( get_current_screen()->id, array( 'plugins', 'plugins-network' ), true ) ) {
+			$screen    = get_current_screen();
+			$screen_id = $screen ? $screen->id : '';
+
+			if ( in_array( $screen_id, array( 'plugins', 'plugins-network' ), true ) ) {
 
 				$deactivate_reasons = $this->reasons();
 				$slug               = $this->slug();
@@ -82,11 +85,14 @@ if ( ! class_exists( 'GetWooPlugins_Plugin_Deactivate_Feedback', false ) ) :
 
 			$deactivate_reasons = $this->reasons();
 
-			$plugin         = sanitize_title( $_POST['plugin'] );
-			$reason_id      = sanitize_title( $_POST['reason_type'] );
+			check_ajax_referer('gwp_deactivate_feedback');
+
+			$data           = map_deep( $_POST, 'sanitize_text_field');
+			$plugin         = sanitize_title( $data['plugin'] );
+			$reason_id      = sanitize_title( $data['reason_type'] );
 			$reason_title   = wp_kses_post( $deactivate_reasons[ $reason_id ]['title'] );
-			$reason_text    = ( isset( $_POST['reason_text'] ) ? sanitize_text_field( $_POST['reason_text'] ) : '' );
-			$plugin_version = sanitize_text_field( $_POST['version'] );
+			$reason_text    = ( isset( $data['reason_text'] ) ? sanitize_text_field( $data['reason_text'] ) : '' );
+			$plugin_version = sanitize_text_field( $data['version'] );
 
 			if ( 'temporary_deactivation' === $reason_id ) {
 				wp_send_json_success( true );

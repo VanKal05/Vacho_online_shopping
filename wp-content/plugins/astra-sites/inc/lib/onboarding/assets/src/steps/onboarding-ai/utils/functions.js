@@ -64,7 +64,7 @@ export const savePostIfSpectraInactive = async () => {
 		try {
 			message = __(
 				'Installed the required plugin. The page will be saved and refreshed.',
-				'ast-block-templates'
+				'astra-sites'
 			);
 			displayNotice( 'success', message );
 			await dispatch( 'core/editor' ).savePost( currentPostId );
@@ -72,7 +72,7 @@ export const savePostIfSpectraInactive = async () => {
 		} catch ( error ) {
 			message = sprintf(
 				/* translators: %s: error message */
-				__( `Error saving the page: %s`, 'ast-block-templates' ),
+				__( `Error saving the page: %s`, 'astra-sites' ),
 				error
 			);
 			displayNotice( 'error', message );
@@ -146,7 +146,6 @@ export const generateContentForAllCategories = async (
 				succeeded.push( true );
 			}
 		} catch ( error ) {
-			console.error( error );
 			succeeded.push( false );
 		}
 	}

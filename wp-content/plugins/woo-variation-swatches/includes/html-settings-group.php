@@ -1,5 +1,5 @@
 <?php
-defined( 'ABSPATH' ) or die( 'Keep Quit' );
+defined( 'ABSPATH' ) || die( 'Keep Quit' );
 ?>
 
 <h2><?php esc_html_e( 'Swatches Group', 'woo-variation-swatches' ); ?></h2>

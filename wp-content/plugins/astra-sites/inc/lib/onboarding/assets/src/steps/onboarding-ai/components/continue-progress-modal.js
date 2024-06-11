@@ -2,9 +2,12 @@ import { ClipboardIcon } from '@heroicons/react/24/outline';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { STORE_KEY } from '../store';
 import { removeLocalStorageItem } from '../helpers';
-import { initialState } from '../store/reducer';
+import { defaultOnboardingAIState } from '../store/reducer';
 import Modal from './modal';
 import Button from './button';
+import { useStateValue } from '../../../store/store';
+import { siteLogoDefault } from '../../../store/reducer';
+import { __ } from '@wordpress/i18n';
 
 const ContinueProgressModal = () => {
 	const { setContinueProgressModal, setWebsiteOnboardingAIDetails } =
@@ -15,12 +18,19 @@ const ContinueProgressModal = () => {
 		return {
 			continueProgressModal: getContinueProgressModalInfo(),
 		};
-	} );
+	}, [] );
+	const [ , dispatch ] = useStateValue();
 
 	const handleStartOver = () => {
 		removeLocalStorageItem( 'ai-onboarding-details' );
-		setWebsiteOnboardingAIDetails( initialState.onboardingAI );
+		setWebsiteOnboardingAIDetails( defaultOnboardingAIState );
 		setContinueProgressModal( { open: false } );
+		dispatch( {
+			type: 'set',
+			aiSiteLogo: siteLogoDefault,
+			aiActiveTypography: null,
+			aiActivePallette: null,
+		} );
 	};
 
 	const handleContinue = () => {
@@ -44,7 +54,7 @@ const ContinueProgressModal = () => {
 				<div className="flex items-center gap-3">
 					<ClipboardIcon className="w-8 h-8 text-accent-st" />
 					<div className="font-bold text-2xl leading-8 text-zip-app-heading">
-						Resume your last session?
+						{ __( 'Resume your last session?', 'astra-sites' ) }
 					</div>
 				</div>
 
@@ -60,7 +70,7 @@ const ContinueProgressModal = () => {
 							className="min-w-[206px] text-sm font-semibold leading-5 px-5"
 							onClick={ handleContinue }
 						>
-							Resume Previous Session
+							{ __( 'Resume Previous Session', 'astra-sites' ) }
 						</Button>
 						<Button
 							variant="white"
@@ -68,7 +78,7 @@ const ContinueProgressModal = () => {
 							onClick={ handleStartOver }
 							className="min-w-[206px] text-sm font-semibold leading-5"
 						>
-							Start Over
+							{ __( 'Start Over', 'astra-sites' ) }
 						</Button>
 					</div>
 				</div>

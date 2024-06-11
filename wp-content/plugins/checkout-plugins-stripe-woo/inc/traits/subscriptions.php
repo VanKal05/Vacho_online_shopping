@@ -309,7 +309,8 @@ trait Subscriptions {
 		}
 
 		if ( ! empty( trim( $this->statement_descriptor ) ) ) {
-			$request['statement_descriptor'] = $this->statement_descriptor;
+			$request['statement_descriptor_suffix'] = $this->statement_descriptor;
+			$request['statement_descriptor']        = $this->statement_descriptor;
 		}
 
 		if ( ! empty( $this->capture_method ) ) {

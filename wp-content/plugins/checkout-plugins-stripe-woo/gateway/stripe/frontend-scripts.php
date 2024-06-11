@@ -58,7 +58,7 @@ class Frontend_Scripts {
 	 * @return void
 	 */
 	public function enqueue_scripts() {
-		if ( apply_filters( 'cpsw_exclude_frontend_scripts', ! is_product() && ! is_cart() && ! is_checkout() && ! is_add_payment_method_page() ) ) {
+		if ( apply_filters( 'cpsw_exclude_frontend_scripts', ! is_product() && ! is_cart() && ! is_checkout() && ! is_add_payment_method_page() && ! Helper::is_block_checkout() ) ) {
 			return;
 		}
 

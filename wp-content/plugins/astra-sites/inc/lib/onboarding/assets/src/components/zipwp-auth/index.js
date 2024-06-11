@@ -1,4 +1,5 @@
 import Button from '../button/button';
+import { __ } from '@wordpress/i18n';
 
 const ZipWPAuthorize = () => {
 	return (
@@ -12,7 +13,7 @@ const ZipWPAuthorize = () => {
 				window.location.href = url;
 			} }
 		>
-			Authorize
+			{ __( 'Authorize', 'astra-sites' ) }
 		</Button>
 	);
 };

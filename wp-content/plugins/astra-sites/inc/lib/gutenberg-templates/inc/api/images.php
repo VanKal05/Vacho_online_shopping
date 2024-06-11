@@ -87,7 +87,7 @@ class Images extends Api_Base {
 	 */
 	public function get_item_permissions_check( $request ) {
 
-		if ( ! current_user_can( 'manage_options' ) ) {
+		if ( ! current_user_can( 'manage_ast_block_templates' ) ) {
 			return new \WP_Error(
 				'gt_rest_cannot_access',
 				__( 'Sorry, you are not allowed to do that.', 'ast-block-templates' ),
@@ -117,7 +117,7 @@ class Images extends Api_Base {
 			);
 		}
 
-		$api_endpoint = AST_BLOCK_TEMPLATES_LIBRARY_URL . '/wp-json/image/v1/images';
+		$api_endpoint = AST_BLOCK_TEMPLATES_LIBRARY_URL . 'wp-json/image/v1/images';
 
 		$post_data = array(
 			'keywords' => isset( $request['keywords'] ) ? $request['keywords'] : '',
@@ -134,7 +134,7 @@ class Images extends Api_Base {
 			),
 			'timeout' => 100,
 		);
-		$response = wp_remote_post( $api_endpoint, $request_args );
+		$response = wp_safe_remote_post( $api_endpoint, $request_args );
 
 
 

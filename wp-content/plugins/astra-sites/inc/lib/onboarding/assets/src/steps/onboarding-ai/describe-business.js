@@ -18,7 +18,8 @@ import Divider from './components/divider';
 import { STORE_KEY } from './store';
 import { adjustTextAreaHeight } from './utils/helpers';
 import { classNames } from './helpers';
-import StyledText from './components/styled-text';
+import StyledText from './components/StyledText';
+import { __ } from '@wordpress/i18n';
 
 const DescribeBusiness = ( { onClickContinue, onClickPrevious } ) => {
 	const {
@@ -32,11 +33,10 @@ const DescribeBusiness = ( { onClickContinue, onClickPrevious } ) => {
 	} );
 
 	const aiOnboardingDetails = useSelect( ( select ) => {
-		const { getOnboardingAI } = select( STORE_KEY );
-		return getOnboardingAI();
-	} );
-
-	console.log( { descriptionListStore } );
+			const { getOnboardingAI } = select( STORE_KEY );
+			return getOnboardingAI();
+		} ),
+		{ loadingNextStep } = aiOnboardingDetails;
 
 	const {
 		setWebsiteDetailsAIStep,
@@ -76,8 +76,6 @@ const DescribeBusiness = ( { onClickContinue, onClickPrevious } ) => {
 		}
 		setIsLoading( true );
 
-		console.log( { formBusinessDetails } );
-
 		const newDescList = [ formBusinessDetails ];
 
 		try {
@@ -85,26 +83,21 @@ const DescribeBusiness = ( { onClickContinue, onClickPrevious } ) => {
 				path: `zipwp/v1/description`,
 				method: 'POST',
 				headers: {
-					'content-type': 'application/json',
 					'X-WP-Nonce': astraSitesVars.rest_api_nonce,
 				},
 				data: {
 					business_name: businessName,
 					business_description: formBusinessDetails,
-					category: businessType.slug,
+					category: businessType,
 				},
 			} );
 			if ( response.success ) {
-				// setValue( 'businessDetails', response.data?.data, {
-				// 	shouldValidate: true,
-				// } );
 				const description = response.data?.data || [];
 				if ( description !== undefined ) {
 					newDescList.push( description );
 
 					addDescriptionToList( newDescList );
 
-					// setBusinessDesc( description );
 					setValue( 'businessDetails', description, {
 						shouldValidate: true,
 					} );
@@ -131,13 +124,12 @@ const DescribeBusiness = ( { onClickContinue, onClickPrevious } ) => {
 				path: `zipwp/v1/keywords`,
 				method: 'POST',
 				headers: {
-					'content-type': 'application/json',
 					'X-WP-Nonce': astraSitesVars.rest_api_nonce,
 				},
 				data: {
 					business_name: businessName,
 					business_description: details,
-					category: businessType.slug,
+					category: businessType,
 				},
 			} );
 			if ( response.success ) {
@@ -150,7 +142,6 @@ const DescribeBusiness = ( { onClickContinue, onClickPrevious } ) => {
 			}
 		} catch ( error ) {
 			// DO Nothing.
-			console.error( error );
 		} finally {
 			setIsFetchingKeywords( false );
 		}
@@ -162,11 +153,11 @@ const DescribeBusiness = ( { onClickContinue, onClickPrevious } ) => {
 		}
 
 		return (
-			<h1>
+			<div className="text-[2rem] font-semibold leading-[45px]">
 				{ strings[ 0 ] }
 				<StyledText text={ businessName } />
 				{ strings[ 1 ] }
-			</h1>
+			</div>
 		);
 	};
 
@@ -176,7 +167,7 @@ const DescribeBusiness = ( { onClickContinue, onClickPrevious } ) => {
 			description:
 				'Please be as descriptive as you can. Share details such as services, products, goals, etc.',
 		},
-		person: {
+		'personal-website': {
 			question: getTitle`Who is ${ 'name' }? Tell us more about the person.`,
 			description:
 				'Please be as descriptive as you can. Share details such as what they do, their expertise, offerings, etc.',
@@ -212,14 +203,17 @@ const DescribeBusiness = ( { onClickContinue, onClickPrevious } ) => {
 				'Please be as descriptive as you can. Share details such as treatments, procedures, facilities, etc.',
 		},
 		unknown: {
-			question: getTitle`What is ${ 'name' }? Please describe the website in a few words.`,
+			question: getTitle`Please describe ${ 'name' } in a few words.`,
 		},
 	};
 
 	const getDescription = ( type ) => {
 		return (
 			CATEGORY_DATA[ type ]?.description ??
-			'Please be as descriptive as you can. Share details such services, products, goal, etc.'
+			__(
+				'The best way to describe anything is by answering a few WH questions. Who, What, Where, Why, When, etc.',
+				'astra-sites'
+			)
 		);
 	};
 
@@ -237,10 +231,6 @@ const DescribeBusiness = ( { onClickContinue, onClickPrevious } ) => {
 	const { list: descriptionList, currentPage: descriptionPage } =
 		descriptionListStore || {};
 
-	useEffect( () => {
-		console.log( { descriptionList }, descriptionList.length );
-	}, [ descriptionListStore ] );
-
 	const navigateDescription = ( showNext ) => {
 		const newPageNumber = showNext
 			? descriptionPage + 1
@@ -250,7 +240,7 @@ const DescribeBusiness = ( { onClickContinue, onClickPrevious } ) => {
 
 		const newList = [ ...descriptionList ];
 
-		// check if user has made changes to current description and save that change in new slot
+		// Check if user has made changes to current description and save that change in new slot.
 		if ( descriptionList[ currentPageIndex ] !== formBusinessDetails ) {
 			newList[ currentPageIndex ] = formBusinessDetails;
 		}
@@ -267,24 +257,12 @@ const DescribeBusiness = ( { onClickContinue, onClickPrevious } ) => {
 				},
 			},
 		} );
-
-		// dispatch( {
-		// 	type: 'set',
-		// 	createWebsiteFormData: {
-		// 		...createWebsiteFormData,
-		// 		descriptionListStore: {
-		// 			...descriptionListStore,
-		// 			list: newList,
-		// 			currentPage: newPageNumber,
-		// 		},
-		// 	},
-		// } );
 	};
 
 	const addDescriptionToList = ( descList ) => {
-		if ( ! Array.isArray( descList ) ) return;
-
-		console.log( { descList } );
+		if ( ! Array.isArray( descList ) ) {
+			return;
+		}
 
 		const filteredList = descList.filter(
 			( desc ) =>
@@ -306,24 +284,12 @@ const DescribeBusiness = ( { onClickContinue, onClickPrevious } ) => {
 				templateList: [],
 			},
 		} );
-
-		console.log( { descList } );
-
-		// dispatch( {
-		// 	type: 'set',
-		// 	createWebsiteFormData: {
-		// 		...createWebsiteFormData,
-		// 		descriptionListStore: {
-		// 			list: newDescList,
-		// 			currentPage: newDescList.length,
-		// 		},
-		// 		description,
-		// 	},
-		// } );
 	};
 
 	const setBusinessDesc = ( descriptionValue, isOnSubmit ) => {
-		if ( descriptionValue?.trim() === businessDetails?.trim() ) return;
+		if ( descriptionValue?.trim() === businessDetails?.trim() ) {
+			return;
+		}
 
 		setOnboardingAIDetails( {
 			...aiOnboardingDetails,
@@ -336,27 +302,8 @@ const DescribeBusiness = ( { onClickContinue, onClickPrevious } ) => {
 					imagesPreSelected: false,
 				} ),
 				templateList: [],
-				// templateKeywords: [],
 			},
 		} );
-
-		// dispatch( {
-		// 	type: 'set',
-		// 	createWebsiteFormData: {
-		// 		...createWebsiteFormData,
-		// 		description: descriptionValue,
-		// 		...( ! isOnSubmit && {
-		// 			keywords: [],
-		// 			selectedImages: [],
-		// 			imagesPreSelected: false,
-		// 		} ),
-		// 	},
-		// 	createSiteInfo: {
-		// 		...createSiteInfo,
-		// 		templateList: [],
-		// 		templateKeywords: [],
-		// 	},
-		// } );
 	};
 
 	useEffect( () => {
@@ -372,11 +319,11 @@ const DescribeBusiness = ( { onClickContinue, onClickPrevious } ) => {
 		>
 			<Heading
 				heading={
-					CATEGORY_DATA[ businessType?.slug ]?.question ??
+					CATEGORY_DATA[ businessType ]?.question ??
 					CATEGORY_DATA.unknown.question
 				}
 				subHeading={ getDescription(
-					businessType?.slug?.toLowerCase()
+					businessType?.replaceAll( ' ', '-' )?.toLowerCase()
 				) }
 			/>
 			<div>
@@ -384,45 +331,55 @@ const DescribeBusiness = ( { onClickContinue, onClickPrevious } ) => {
 					ref={ textareaRef }
 					rows={ 8 }
 					className="w-full"
-					placeholder="E.g. I am a Yoga Teacher from London who’s passionate about guiding students towards inner peace, strength, and mindfulness. I offer personalized classes that nurture the mind, body, and soul."
+					placeholder={ __(
+						'E.g. Mantra Minds is a yoga studio located in Chino Hills, California. The studio offers a variety of classes such as Hatha yoga, Vinyasa flow, and Restorative yoga. The studio is led by Jane, an experienced and certified yoga instructor with over 10 years of teaching expertise. The welcoming atmosphere and personalized Jane make it a favorite among yoga enthusiasts in the area.',
+						'astra-sites'
+					) }
 					name="businessDetails"
 					register={ register }
+					maxLength={ 1000 }
 					validations={ {
-						required: 'Details are required',
+						required: __( 'Details are required', 'astra-sites' ),
+						maxLength: 1000,
 					} }
 					error={ errors.businessDetails }
-					disabled={ isLoading }
+					disabled={ isLoading || loadingNextStep }
 				/>
 
 				{ /* Wand Button */ }
 				<div
 					className={ classNames(
-						'mt-3 flex items-center gap-2 text-app-secondary hover:text-app-accent-hover',
-						isLoading ? 'cursor-progress' : 'cursor-pointer'
+						'h-7 mt-3 flex items-center gap-2 text-app-secondary hover:text-app-accent-hover'
 					) }
 				>
 					{ isLoading && (
-						// <div className="loader border-2 border-t-gray-300 rounded-full border-t-2 border-blue-500 w-[15px] h-[15px] animate-spin" />
-						<LoadingSpinner className="text-accent-st" />
+						<LoadingSpinner className="text-accent-st cursor-progress" />
 					) }
 					{ ! isLoading && (
 						<div className="flex justify-between w-full">
 							<div
-								className="flex gap-2"
+								className="flex gap-2 cursor-pointer"
 								onClick={ handleGenerateContent }
+								data-disabled={ loadingNextStep }
 							>
 								<WandIcon className="w-5 h-5 transition duration-150 ease-in-out text-accent-st" />
 								<span className="font-semibold text-sm transition duration-150 ease-in-out text-accent-st">
 									{ formBusinessDetails?.trim() === ''
-										? 'Write Using AI'
-										: 'Improve Using AI' }
+										? __( 'Write Using AI', 'astra-sites' )
+										: __(
+												'Improve Using AI',
+												'astra-sites'
+										  ) }
 								</span>
 							</div>
 
 							{ descriptionPage > 0 &&
 								descriptionList?.length > 1 && (
 									<div className="flex gap-2 items-center justify-start w-[100px] cursor-default text-zip-body-text">
-										<div className="w-5">
+										<div
+											className="w-5"
+											data-disabled={ loadingNextStep }
+										>
 											{ descriptionPage !== 1 && (
 												<ChevronLeftIcon
 													className="w-5 cursor-pointer text-zip-body-text"
@@ -438,7 +395,10 @@ const DescribeBusiness = ( { onClickContinue, onClickPrevious } ) => {
 											{ descriptionPage } /{ ' ' }
 											{ descriptionList?.length }
 										</div>
-										<div className="w-5">
+										<div
+											className="w-5"
+											data-disabled={ loadingNextStep }
+										>
 											{ descriptionPage !==
 												descriptionList?.length && (
 												<ChevronRightIcon

@@ -20,17 +20,27 @@ class Pointers {
 			wp_send_json_error( [ 'message' => 'The pointer id must be provided' ] );
 		}
 
+		$pointer = explode( ',', $pointer );
+
 		$user_dismissed_meta = get_user_meta( get_current_user_id(), self::DISMISSED_POINTERS_META_KEY, true );
 
 		if ( ! $user_dismissed_meta ) {
 			$user_dismissed_meta = [];
 		}
 
-		$user_dismissed_meta[ $pointer ] = true;
+		foreach ( $pointer as $item ) {
+			$user_dismissed_meta[ $item ] = true;
+		}
 
 		update_user_meta( get_current_user_id(), self::DISMISSED_POINTERS_META_KEY, $user_dismissed_meta );
 
 		wp_send_json_success( [] );
+	}
+
+	public static function is_dismissed( string $slug ): bool {
+		$meta = (array) get_user_meta( get_current_user_id(), self::DISMISSED_POINTERS_META_KEY, true );
+
+		return key_exists( $slug, $meta );
 	}
 
 	public function __construct() {

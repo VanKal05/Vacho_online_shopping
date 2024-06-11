@@ -63,8 +63,8 @@ class DashboardWidget extends Widget {
 		/**
 		 * Clear cache after Lite plugin deactivation.
 		 *
-		 * Also triggered when the user upgrades plugin to the Pro version.
-		 * After activation of the Pro version the cache will be cleared.
+		 * Also triggered when the user upgrades the plugin to the Pro version.
+		 * After activation of the Pro version, the cache will be cleared.
 		 */
 		add_action( 'deactivate_wpforms-lite/wpforms.php', [ static::class, 'clear_widget_cache' ] );
 
@@ -87,16 +87,17 @@ class DashboardWidget extends Widget {
 
 		$this->settings = [
 
-			// Number of forms to display in the forms list before "Show More" button appears.
+			// Number of forms to display in the forms' list before the "Show More" button appears.
 			'forms_list_number_to_display'     => apply_filters( 'wpforms_dash_widget_forms_list_number_to_display', 5 ),
 
-			// Allow results caching to reduce DB load.
+			// Allow results caching to reduce a DB load.
 			'allow_data_caching'               => apply_filters( 'wpforms_dash_widget_allow_data_caching', true ),
 
 			// Transient lifetime in seconds. Defaults to the end of a current day.
 			'transient_lifetime'               => apply_filters( 'wpforms_dash_widget_transient_lifetime', strtotime( 'tomorrow' ) - time() ),
 
-			// Determine if the forms with no entries should appear in a forms list. Once switched, the effect applies after cache expiration.
+			// Determine if the forms with no entries should appear in a forms' list.
+			// Once switched, the effect applies after cache expiration.
 			'display_forms_list_empty_entries' => apply_filters( 'wpforms_dash_widget_display_forms_list_empty_entries', true ),
 		];
 
@@ -196,6 +197,7 @@ class DashboardWidget extends Widget {
 
 		$sorted_dashboard = array_merge( $widget_instance, $normal_dashboard );
 
+		// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 		$wp_meta_boxes['dashboard']['normal']['core'] = $sorted_dashboard;
 	}
 
@@ -229,6 +231,15 @@ class DashboardWidget extends Widget {
 			$this->recommended_plugin_block_html( $plugin );
 		}
 
+		$hide_welcome        = $this->widget_meta( 'get', 'hide_welcome_block' );
+		$splash              = wpforms()->get( 'splash_screen' );
+		$is_splash_available = $splash && $splash->is_available_for_display();
+		$is_splash_allowed   = $splash && $splash->is_allow_splash();
+
+		if ( $is_splash_available && $is_splash_allowed && ! $hide_welcome ) {
+			$this->welcome_block_html();
+		}
+
 		echo '</div><!-- .wpforms-dash-widget -->';
 	}
 
@@ -239,23 +250,23 @@ class DashboardWidget extends Widget {
 	 */
 	public function widget_content_no_forms_html() {
 
-		$create_form_url = \add_query_arg( 'page', 'wpforms-builder', \admin_url( 'admin.php' ) );
+		$create_form_url = add_query_arg( 'page', 'wpforms-builder', admin_url( 'admin.php' ) );
 		$learn_more_url  = 'https://wpforms.com/docs/creating-first-form/?utm_source=WordPress&utm_medium=link&utm_campaign=liteplugin&utm_content=dashboardwidget';
 
 		?>
 		<div class="wpforms-dash-widget-block wpforms-dash-widget-block-no-forms">
-			<img class="wpforms-dash-widget-block-sullie-logo" src="<?php echo \esc_url( WPFORMS_PLUGIN_URL . 'assets/images/sullie.png' ); ?>" alt="<?php \esc_attr_e( 'Sullie the WPForms mascot', 'wpforms-lite' ); ?>">
-			<h2><?php \esc_html_e( 'Create Your First Form to Start Collecting Leads', 'wpforms-lite' ); ?></h2>
-			<p><?php \esc_html_e( 'You can use WPForms to build contact forms, surveys, payment forms, and more with just a few clicks.', 'wpforms-lite' ); ?></p>
+			<img class="wpforms-dash-widget-block-sullie-logo" src="<?php echo esc_url( WPFORMS_PLUGIN_URL . 'assets/images/sullie.png' ); ?>" alt="<?php esc_attr_e( 'Sullie the WPForms mascot', 'wpforms-lite' ); ?>">
+			<h2><?php esc_html_e( 'Create Your First Form to Start Collecting Leads', 'wpforms-lite' ); ?></h2>
+			<p><?php esc_html_e( 'You can use WPForms to build contact forms, surveys, payment forms, and more with just a few clicks.', 'wpforms-lite' ); ?></p>
 
 			<?php if ( wpforms_current_user_can( 'create_forms' ) ) : ?>
-				<a href="<?php echo \esc_url( $create_form_url ); ?>" class="button button-primary">
-					<?php \esc_html_e( 'Create Your Form', 'wpforms-lite' ); ?>
+				<a href="<?php echo esc_url( $create_form_url ); ?>" class="button button-primary">
+					<?php esc_html_e( 'Create Your Form', 'wpforms-lite' ); ?>
 				</a>
 			<?php endif; ?>
 
-			<a href="<?php echo \esc_url( $learn_more_url ); ?>" class="button" target="_blank" rel="noopener noreferrer">
-				<?php \esc_html_e( 'Learn More', 'wpforms-lite' ); ?>
+			<a href="<?php echo esc_url( $learn_more_url ); ?>" class="button" target="_blank" rel="noopener noreferrer">
+				<?php esc_html_e( 'Learn More', 'wpforms-lite' ); ?>
 			</a>
 		</div>
 		<?php
@@ -267,7 +278,7 @@ class DashboardWidget extends Widget {
 	 * @since 1.5.0
 	 * @since 1.7.4 Added hide graph parameter.
 	 *
-	 * @param bool $hide_graph Is graph hidden.
+	 * @param bool $hide_graph Whether the graph is hidden.
 	 */
 	public function widget_content_html( $hide_graph = false ) {
 
@@ -313,7 +324,7 @@ class DashboardWidget extends Widget {
 		<?php endif; ?>
 
 		<div class="wpforms-dash-widget-block wpforms-dash-widget-block-title">
-			<h3><?php \esc_html_e( 'Total Entries by Form', 'wpforms-lite' ); ?></h3>
+			<h3><?php esc_html_e( 'Total Entries by Form', 'wpforms-lite' ); ?></h3>
 			<div class="wpforms-dash-widget-settings">
 				<?php
 				$this->timespan_select_html( 0, false );
@@ -354,7 +365,7 @@ class DashboardWidget extends Widget {
 
 		?>
 		<p class="wpforms-error wpforms-error-no-data-forms-list">
-			<?php \esc_html_e( 'No entries were submitted yet.', 'wpforms-lite' ); ?>
+			<?php esc_html_e( 'No entries were submitted yet.', 'wpforms-lite' ); ?>
 		</p>
 		<?php
 	}
@@ -368,22 +379,22 @@ class DashboardWidget extends Widget {
 	 */
 	public function forms_list_block_html( $forms ) {
 
-		// Number of forms to display in the forms list before "Show More" button appears.
+		// Number of forms to display in the forms' list before the "Show More" button appears.
 		$show_forms = $this->settings['forms_list_number_to_display'];
 
 		?>
 		<table id="wpforms-dash-widget-forms-list-table" cellspacing="0">
-			<?php foreach ( \array_values( $forms ) as $key => $form ) : ?>
-				<tr <?php echo $key >= $show_forms ? 'class="wpforms-dash-widget-forms-list-hidden-el"' : ''; ?> data-form-id="<?php echo \absint( $form['form_id'] ); ?>">
-					<td><span class="wpforms-dash-widget-form-title"><?php echo \esc_html( $form['title'] ); ?></span></td>
-					<td><?php echo \absint( $form['count'] ); ?></td>
+			<?php foreach ( array_values( $forms ) as $key => $form ) : ?>
+				<tr <?php echo $key >= $show_forms ? 'class="wpforms-dash-widget-forms-list-hidden-el"' : ''; ?> data-form-id="<?php echo absint( $form['form_id'] ); ?>">
+					<td><span class="wpforms-dash-widget-form-title"><?php echo esc_html( $form['title'] ); ?></span></td>
+					<td><?php echo absint( $form['count'] ); ?></td>
 				</tr>
 			<?php endforeach; ?>
 		</table>
 
-		<?php if ( \count( $forms ) > $show_forms ) : ?>
-			<button type="button" id="wpforms-dash-widget-forms-more" class="wpforms-dash-widget-forms-more" title="<?php \esc_html_e( 'Show all forms', 'wpforms-lite' ); ?>">
-				<?php \esc_html_e( 'Show More', 'wpforms-lite' ); ?> <span class="dashicons dashicons-arrow-down"></span>
+		<?php if ( count( $forms ) > $show_forms ) : ?>
+			<button type="button" id="wpforms-dash-widget-forms-more" class="wpforms-dash-widget-forms-more" title="<?php esc_html_e( 'Show all forms', 'wpforms-lite' ); ?>">
+				<?php esc_html_e( 'Show More', 'wpforms-lite' ); ?> <span class="dashicons dashicons-arrow-down"></span>
 			</button>
 		<?php endif; ?>
 
@@ -411,7 +422,7 @@ class DashboardWidget extends Widget {
 		);
 
 		?>
-		<div class="wpforms-dash-widget-recommended-plugin-block">
+		<div class="wpforms-dash-widget-block wpforms-dash-widget-recommended-plugin-block">
 			<span class="wpforms-dash-widget-recommended-plugin">
 				<span class="recommended"><?php esc_html_e( 'Recommended Plugin:', 'wpforms-lite' ); ?></span>
 				<strong><?php echo esc_html( $plugin['name'] ); ?></strong>
@@ -424,11 +435,48 @@ class DashboardWidget extends Widget {
 					<a href="<?php echo esc_url( $plugin['more'] ); ?>?utm_source=wpformsplugin&utm_medium=link&utm_campaign=wpformsdashboardwidget"><?php esc_html_e( 'Learn More', 'wpforms-lite' ); ?></a>
 				</span>
 			</span>
-			<button type="button" id="wpforms-dash-widget-dismiss-recommended-plugin-block" class="wpforms-dash-widget-dismiss-recommended-plugin-block" title="<?php esc_html_e( 'Dismiss recommended plugin', 'wpforms-lite' ); ?>">
+			<button type="button" class="wpforms-dash-widget-dismiss-icon" title="<?php esc_html_e( 'Dismiss', 'wpforms-lite' ); ?>" data-field="hide_recommended_block">
 				<span class="dashicons dashicons-no-alt"></span>
 			</button>
 		</div>
 		<?php
+	}
+
+	/**
+	 * The welcome block HTML.
+	 *
+	 * @since 1.8.7
+	 */
+	public function welcome_block_html() {
+
+		$welcome_message = sprintf(
+			wp_kses(
+			/* translators: %s - WPForms version. */
+				__( 'Welcome to <strong>WPForms %s</strong>', 'wpforms-lite' ),
+				[
+					'strong' => [],
+				]
+			),
+			WPFORMS_VERSION
+		);
+
+		/**
+		 * Filters the welcome message in the Dashboard Widget.
+		 *
+		 * @since 1.8.7
+		 *
+		 * @param string $welcome_message Welcome message.
+		 */
+		$welcome_message = apply_filters( 'wpforms_lite_admin_dashboard_widget_welcome_block_html_message', $welcome_message );
+
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo wpforms_render(
+			'admin/dashboard/widget/welcome',
+			[
+				'welcome_message' => $welcome_message,
+			],
+			true
+		);
 	}
 
 	/**
@@ -440,16 +488,23 @@ class DashboardWidget extends Widget {
 	 *
 	 * @return array
 	 */
-	public function get_entries_count_by_form() {
+	public function get_entries_count_by_form(): array { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.TooHigh
 
-		// Allow results caching to reduce DB load.
-		$allow_caching = $this->settings['allow_data_caching'];
+		// Allow results caching to reduce a DB load.
+		$allow_caching  = $this->settings['allow_data_caching'];
+		$transient_name = 'wpforms_dash_widget_lite_entries_by_form';
 
 		if ( $allow_caching ) {
-			$transient_name = 'wpforms_dash_widget_lite_entries_by_form';
-			$cache          = \get_transient( $transient_name );
-			// Filter the cache to clear or alter its data.
-			$cache = \apply_filters( 'wpforms_dash_widget_lite_cached_data', $cache );
+			$cache = get_transient( $transient_name );
+
+			/**
+			 * Filters the cache to clear or alter its data.
+			 *
+			 * @since 1.5.0
+			 *
+			 * @param mixed $cache The cache content.
+			 */
+			$cache = apply_filters( 'wpforms_dash_widget_lite_cached_data', $cache ); // phpcs:ignore WPForms.PHP.ValidateHooks.InvalidHookName
 		}
 
 		// is_array() detects cached empty searches.
@@ -466,28 +521,35 @@ class DashboardWidget extends Widget {
 		$result = [];
 
 		foreach ( $forms as $form_id ) {
-			$count = \absint( \get_post_meta( $form_id, 'wpforms_entries_count', true ) );
+			$count = absint( get_post_meta( $form_id, 'wpforms_entries_count', true ) );
+
 			if ( empty( $count ) && empty( $this->settings['display_forms_list_empty_entries'] ) ) {
 				continue;
 			}
+
 			$result[ $form_id ] = [
 				'form_id' => $form_id,
 				'count'   => $count,
-				'title'   => \get_the_title( $form_id ),
+				'title'   => get_the_title( $form_id ),
 			];
 		}
 
 		if ( ! empty( $result ) ) {
 			// Sort forms by entries count (desc).
-			\uasort( $result, function ( $a, $b ) {
-				return ( $a['count'] > $b['count'] ) ? - 1 : 1;
-			} );
+			uasort(
+				$result,
+				static function ( $a, $b ) {
+
+					return ( $a['count'] > $b['count'] ) ? -1 : 1;
+				}
+			);
 		}
 
 		if ( $allow_caching ) {
 			// Transient lifetime in seconds. Defaults to the end of a current day.
 			$transient_lifetime = $this->settings['transient_lifetime'];
-			\set_transient( $transient_name, $result, $transient_lifetime );
+
+			set_transient( $transient_name, $result, $transient_lifetime );
 		}
 
 		return $result;

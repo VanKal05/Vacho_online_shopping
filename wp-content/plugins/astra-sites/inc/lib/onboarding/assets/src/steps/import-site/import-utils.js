@@ -1,5 +1,6 @@
 import { __ } from '@wordpress/i18n';
-const { themeStatus, nonce } = starterTemplates;
+const { themeStatus } = starterTemplates;
+import apiFetch from '@wordpress/api-fetch';
 
 export const getDemo = async ( id, storedState ) => {
 	const [ { currentIndex }, dispatch ] = storedState;
@@ -126,147 +127,60 @@ export const getDemo = async ( id, storedState ) => {
 		} );
 };
 
-export const getAiDemo = async ( url, uuid, storedState ) => {
-	const [ { currentIndex }, dispatch ] = storedState;
-	const generateData = new FormData();
-	generateData.append( 'action', 'astra-sites-ai-api-request' );
-	generateData.append( 'url', url );
-	generateData.append( 'uuid', uuid );
-	generateData.append( '_ajax_nonce', astraSitesVars._ajax_nonce );
+export const getAiDemo = async (
+	{ businessName, selectedTemplate },
+	storedState,
+	websiteInfo
+) => {
+	const [ , dispatch ] = storedState;
+	const { uuid } = websiteInfo;
+	const aiResponse = await apiFetch( {
+		path: 'zipwp/v1/ai-site',
+		method: 'POST',
+		data: {
+			template: selectedTemplate,
+			business_name: businessName,
+			uuid,
+		},
+	} );
 
-	try {
-		const res = await fetch( ajaxurl, {
-			method: 'post',
-			body: generateData,
-		} );
-		const response = await res.json();
-
-		if ( response.success ) {
-			dispatch( {
-				type: 'set',
-				templateId: url,
-				templateResponse: response.data,
-				importErrorMessages: {},
-				importErrorResponse: [],
-				importError: false,
-			} );
-			return { success: true, data: response.data };
-		}
-		let errorMessages = {};
-
-		if ( undefined !== response?.data?.response_code ) {
-			const code = response.data.code.toString();
-			switch ( code ) {
-				case '401':
-				case '404':
-					errorMessages = {
-						primaryText: astraSitesVars.server_import_primary_error,
-						secondaryText: '',
-						errorCode: code,
-						errorText: response.data.message,
-						solutionText: '',
-						tryAgain: true,
-					};
-					break;
-				case '500':
-					errorMessages = {
-						primaryText: astraSitesVars.server_import_primary_error,
-						secondaryText: '',
-						errorCode: code,
-						errorText: response.data.message,
-						solutionText:
-							astraSitesVars.ajax_request_failed_secondary,
-						tryAgain: true,
-					};
-					break;
-
-				case 'WP_Error':
-					errorMessages = {
-						primaryText: astraSitesVars.client_import_primary_error,
-						secondaryText: '',
-						errorCode: code,
-						errorText: response.data.message,
-						solutionText: '',
-						tryAgain: true,
-					};
-					break;
-
-				case 'Cloudflare':
-					errorMessages = {
-						primaryText:
-							astraSitesVars.cloudflare_import_primary_error,
-						secondaryText: '',
-						errorCode: code,
-						errorText: response.data.message,
-						solutionText: '',
-						tryAgain: true,
-					};
-					break;
-
-				default:
-					errorMessages = {
-						primaryText: __(
-							'Fetching related demo failed.',
-							'astra-sites'
-						),
-						secondaryText: '',
-						errorCode: '',
-						errorText: response.data,
-						solutionText:
-							astraSitesVars.ajax_request_failed_secondary,
-						tryAgain: false,
-					};
-					break;
-			}
-			dispatch( {
-				type: 'set',
-				importError: true,
-				importErrorMessages: errorMessages,
-				importErrorResponse: response.data,
-				templateResponse: null,
-				currentIndex: currentIndex + 3,
-			} );
-		}
-		return { success: false, data: response.data };
-	} catch ( error ) {
+	if ( aiResponse.success ) {
 		dispatch( {
 			type: 'set',
-			importError: true,
-			importErrorMessages: {
-				primaryText: __(
-					'Fetching related demo failed.',
-					'astra-sites'
-				),
-				secondaryText: astraSitesVars.ajax_request_failed_secondary,
-				errorCode: '',
-				errorText: error,
-				solutionText: '',
-				tryAgain: false,
-			},
+			templateId: selectedTemplate,
+			templateResponse: aiResponse.data?.data,
+			importErrorMessages: {},
+			importErrorResponse: [],
+			importError: false,
 		} );
-		console.error( error );
-		return { success: false, data: 'Fetching related demo failed' };
+		return { success: true, data: aiResponse.data?.data };
 	}
-};
-
-export const exportAiSite = async ( uuid ) => {
-	const exportPayload = new FormData();
-	exportPayload.append( 'action', 'astra-site-export-ai-site' );
-	exportPayload.append( '_ajax_nonce', astraSitesVars._ajax_nonce );
-	exportPayload.append( 'uuid', uuid );
-
-	return await fetch( ajaxurl, {
-		method: 'post',
-		body: exportPayload,
+	dispatch( {
+		type: 'set',
+		importError: true,
+		importErrorMessages: {
+			primaryText: __( 'Fetching related demo failed.', 'astra-sites' ),
+			secondaryText: '',
+			errorCode: '',
+			errorText:
+				typeof aiResponse.data === 'string'
+					? aiResponse.data
+					: aiResponse?.data?.data ?? '',
+			solutionText: '',
+			tryAgain: false,
+		},
 	} );
+	return { success: false, data: aiResponse.data };
 };
 
 export const checkRequiredPlugins = async ( storedState ) => {
-	const [ {}, dispatch ] = storedState;
-
+	const [ { enabledFeatureIds }, dispatch ] = storedState;
 	const reqPlugins = new FormData();
-	reqPlugins.append( 'action', 'astra-required-plugins' );
+	reqPlugins.append( 'action', 'astra-sites-required_plugins' );
 	reqPlugins.append( '_ajax_nonce', astraSitesVars._ajax_nonce );
+	if ( enabledFeatureIds.length !== 0 ) {
+		reqPlugins.append( 'features', JSON.stringify( enabledFeatureIds ) );
+	}
 
 	await fetch( ajaxurl, {
 		method: 'post',
@@ -285,6 +199,49 @@ export const checkRequiredPlugins = async ( storedState ) => {
 					notActivatedList: notActivePlugins,
 				} );
 			}
+		} );
+};
+
+export const activateAstra = ( storedState ) => {
+	const [ , dispatch ] = storedState;
+
+	const data = new FormData();
+	data.append( 'action', 'astra-sites-activate_theme' );
+	data.append( '_ajax_nonce', astraSitesVars._ajax_nonce );
+
+	fetch( ajaxurl, {
+		method: 'post',
+		body: data,
+	} )
+		.then( ( response ) => response.json() )
+		.then( ( response ) => {
+			if ( response.success ) {
+				dispatch( {
+					type: 'set',
+					themeStatus: response,
+					importStatus: __( 'Astra Theme Installed.', 'astra-sites' ),
+				} );
+			} else {
+				dispatch( {
+					type: 'set',
+					importError: true,
+					importErrorMessages: {
+						primaryText: __(
+							'Astra theme installation failed.',
+							'astra-sites'
+						),
+						secondaryText: '',
+						errorCode: '',
+						errorText: response.data,
+						solutionText: '',
+						tryAgain: true,
+					},
+				} );
+			}
+		} )
+		.catch( ( error ) => {
+			/* eslint-disable-next-line no-console -- We are displaying errors in the console. */
+			console.error( error );
 		} );
 };
 
@@ -314,63 +271,18 @@ export const installAstra = ( storedState ) => {
 		} );
 
 		// eslint-disable-next-line no-undef
-		jQuery( document ).on(
-			'wp-theme-install-success',
-			function ( event, response ) {
-				dispatch( {
-					type: 'set',
-					themeStatus: response,
-					importStatus: __( 'Astra Theme Installed.', 'astra-sites' ),
-				} );
-			}
-		);
+		jQuery( document ).on( 'wp-theme-install-success', function () {
+			dispatch( {
+				type: 'set',
+				importStatus: __( 'Astra Theme Installed.', 'astra-sites' ),
+			} );
+			activateAstra( storedState );
+		} );
 	}
 
 	if ( 'installed-but-inactive' === themeStatus ) {
 		// WordPress adds "Activate" button after waiting for 1000ms. So we will run our activation after that.
-		setTimeout( function () {
-			const data = new FormData();
-			data.append( 'action', 'astra-sites-activate-theme' );
-			data.append( '_ajax_nonce', astraSitesVars._ajax_nonce );
-
-			fetch( ajaxurl, {
-				method: 'post',
-				body: data,
-			} )
-				.then( ( response ) => response.json() )
-				.then( ( response ) => {
-					if ( response.success ) {
-						dispatch( {
-							type: 'set',
-							themeStatus: response,
-							importStatus: __(
-								'Astra Theme Installed.',
-								'astra-sites'
-							),
-						} );
-					} else {
-						dispatch( {
-							type: 'set',
-							importError: true,
-							importErrorMessages: {
-								primaryText: __(
-									'Astra theme installation failed.',
-									'astra-sites'
-								),
-								secondaryText: '',
-								errorCode: '',
-								errorText: response.data,
-								solutionText: '',
-								tryAgain: true,
-							},
-						} );
-					}
-				} )
-				.catch( ( error ) => {
-					/* eslint-disable-next-line no-console -- We are displaying errors in the console. */
-					console.error( error );
-				} );
-		}, 3000 );
+		setTimeout( () => activateAstra( storedState ), 3000 );
 	}
 
 	if ( 'installed-and-active' === themeStatus ) {
@@ -386,11 +298,11 @@ export const setSiteLogo = async ( logo ) => {
 		return;
 	}
 	const data = new FormData();
-	data.append( 'action', 'astra_sites_set_site_data' );
+	data.append( 'action', 'astra-sites-set_site_data' );
 	data.append( 'param', 'site-logo' );
 	data.append( 'logo', logo.id );
 	data.append( 'logo-width', logo.width );
-	data.append( 'security', nonce );
+	data.append( '_ajax_nonce', astraSitesVars._ajax_nonce );
 
 	await fetch( ajaxurl, {
 		method: 'post',
@@ -404,10 +316,10 @@ export const setColorPalettes = async ( palette ) => {
 	}
 
 	const data = new FormData();
-	data.append( 'action', 'astra_sites_set_site_data' );
+	data.append( 'action', 'astra-sites-set_site_data' );
 	data.append( 'param', 'site-colors' );
 	data.append( 'palette', palette );
-	data.append( 'security', nonce );
+	data.append( '_ajax_nonce', astraSitesVars._ajax_nonce );
 
 	await fetch( ajaxurl, {
 		method: 'post',
@@ -421,10 +333,26 @@ export const setSiteTitle = async ( businessName ) => {
 	}
 
 	const data = new FormData();
-	data.append( 'action', 'astra_sites_set_site_data' );
+	data.append( 'action', 'astra-sites-set_site_data' );
 	data.append( 'param', 'site-title' );
 	data.append( 'business-name', businessName );
-	data.append( 'security', nonce );
+	data.append( '_ajax_nonce', astraSitesVars._ajax_nonce );
+
+	await fetch( ajaxurl, {
+		method: 'post',
+		body: data,
+	} );
+};
+
+export const setSiteLanguage = async ( siteLanguage = 'en_US' ) => {
+	if ( ! siteLanguage ) {
+		return;
+	}
+
+	const data = new FormData();
+	data.append( 'action', 'astra-sites-site-language' );
+	data.append( 'language', siteLanguage );
+	data.append( '_ajax_nonce', astraSitesVars._ajax_nonce );
 
 	await fetch( ajaxurl, {
 		method: 'post',
@@ -434,10 +362,10 @@ export const setSiteTitle = async ( businessName ) => {
 
 export const saveTypography = async ( selectedValue ) => {
 	const data = new FormData();
-	data.append( 'action', 'astra_sites_set_site_data' );
+	data.append( 'action', 'astra-sites-set_site_data' );
 	data.append( 'param', 'site-typography' );
 	data.append( 'typography', JSON.stringify( selectedValue ) );
-	data.append( 'security', nonce );
+	data.append( '_ajax_nonce', astraSitesVars._ajax_nonce );
 
 	await fetch( ajaxurl, {
 		method: 'post',
@@ -467,7 +395,7 @@ export const divideIntoChunks = ( chunkSize, inputArray ) => {
 export const checkFileSystemPermissions = async ( [ , dispatch ] ) => {
 	try {
 		const formData = new FormData();
-		formData.append( 'action', 'astra-sites-filesystem-permission' );
+		formData.append( 'action', 'astra-sites-filesystem_permission' );
 		formData.append( '_ajax_nonce', astraSitesVars._ajax_nonce );
 		const response = await fetch( astraSitesVars.ajaxurl, {
 			method: 'POST',

@@ -76,11 +76,11 @@ const SiteSearch = ( { setSiteData } ) => {
 	useEffect( () => {
 		document
 			.querySelector( '.step-content' )
-			.addEventListener( 'scroll', handleScroll );
+			?.addEventListener( 'scroll', handleScroll );
 		return () =>
 			document
 				.querySelector( '.step-content' )
-				.removeEventListener( 'scroll', handleScroll );
+				?.removeEventListener( 'scroll', handleScroll );
 	}, [] );
 
 	const onSearchKeyUp = ( event ) => {

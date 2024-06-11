@@ -38,7 +38,7 @@ class Connect_Pointer {
 						pointerClass: 'image-optimization-auth-connect-pointer',
 						position: {
 							edge: 'top',
-							align: 'right'
+							align: <?php echo is_rtl() ? "'left'" : "'right'"; ?>,
 						},
 					} ).pointer( 'open' );
 				}, 100 );
@@ -47,12 +47,12 @@ class Connect_Pointer {
 
 		<style>
 			.image-optimization-auth-connect-pointer .wp-pointer-arrow {
-				top: 4px;
-				left: 78%;
+				inset-block-start: 4px;
+				inset-inline-start: 78%;
 			}
 
 			.image-optimization-auth-connect-pointer .wp-pointer-arrow-inner {
-				top: 10px;
+				inset-block-start: 10px;
 			}
 		</style>
 		<?php

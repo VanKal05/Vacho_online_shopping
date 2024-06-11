@@ -561,6 +561,7 @@ class Swatches {
 		$custom_css .= "--cfvsw-swatches-font-size: {$settings['font_size']}px;";
 		$custom_css .= "--cfvsw-swatches-border-color: {$style['border_color']};";
 		$custom_css .= "--cfvsw-swatches-border-color-hover: {$style['border_color']}80;";
+		$custom_css .= ! empty( $settings['border_width'] ) ? "--cfvsw-swatches-border-width: {$settings['border_width']}px;" : '';
 		$custom_css .= ! empty( $style['label_font_size'] ) ? "--cfvsw-swatches-label-font-size: {$style['label_font_size']}px;" : '';
 		$custom_css .= "--cfvsw-swatches-tooltip-font-size: {$style['tooltip_font_size']}px;";
 		$custom_css .= '}';

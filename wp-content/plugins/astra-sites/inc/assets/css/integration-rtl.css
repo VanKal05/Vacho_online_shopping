@@ -1,4 +1,4 @@
-.notice:not(.ast-img-notice) {
+.notice:not( .ast-img-notice ) {
 	display: none;
 }
 .ast-img-flex {
@@ -25,7 +25,7 @@
 	margin: 1em 0;
 }
 
-.ast-img-container{
+.ast-img-container {
 	max-width: 1200px;
 	margin: 0 auto;
 	padding: 0 20px;
@@ -44,15 +44,15 @@
 }
 .form-wrap .ast-img-response-success {
 	display: block;
- 	color: #2dbe15;
+	color: #2dbe15;
 }
 .postbox .inside .form-wrap .ast-img-integration-heading {
 	font-size: 15px;
-    font-weight: 600;
+	font-weight: 600;
 }
 #ast-img-menu-page .ast-img-notice {
-    max-width: 860px;
-    margin: 0 auto;
+	max-width: 860px;
+	margin: 0 auto;
 }
 
 .ast-img-menu-page-wrapper a {
@@ -92,13 +92,13 @@
 	-ms-flex-line-pack: center;
 	align-content: center;
 	padding: 10px 12px;
-	-moz-box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.1) inset;
-	-webkit-box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.1) inset;
-	box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.1) inset;
+	-moz-box-shadow: 0px 0px 2px rgba( 0, 0, 0, 0.1 ) inset;
+	-webkit-box-shadow: 0px 0px 2px rgba( 0, 0, 0, 0.1 ) inset;
+	box-shadow: 0px 0px 2px rgba( 0, 0, 0, 0.1 ) inset;
 	margin-bottom: 0;
 }
 
-.ast-img-list-section .ast-img-widget-list li:nth-child(even) {
+.ast-img-list-section .ast-img-widget-list li:nth-child( even ) {
 	background-color: #fbfbfb;
 }
 
@@ -138,13 +138,13 @@
 .ast-img-widget-list li a:before {
 	display: inline-block;
 	margin-left: 2px;
-	font: normal 20px/1 'dashicons';
+	font: normal 20px/1 "dashicons";
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	vertical-align: top;
 }
 
-.ast-img-widget-link-wrapper a:nth-child(even) {
+.ast-img-widget-link-wrapper a:nth-child( even ) {
 	margin: 0 10px;
 }
 
@@ -162,14 +162,14 @@
 	box-shadow: none;
 }
 
-.ast-img-branding-list{
-	margin:0;
+.ast-img-branding-list {
+	margin: 0;
 }
 .ast-img-menu-page-wrapper .ast-img-container .clear {
 	overflow: auto;
-    visibility: visible;
-    width: auto;
-    height: auto;
+	visibility: visible;
+	width: auto;
+	height: auto;
 }
 
 /* Update icon. */
@@ -184,7 +184,7 @@
 	animation: rotation 2s infinite linear;
 }
 
-.settings_page_astra-images  #wpcontent{
+.settings_page_astra-images #wpcontent {
 	padding: 0;
 }
 
@@ -229,7 +229,7 @@
 }
 
 /* White Label link*/
-.ast-img-widget-list .ast-img-white-label{
+.ast-img-widget-list .ast-img-white-label {
 	border-right: 3px solid #008ec2;
 	padding-right: 12px;
 }
@@ -248,14 +248,13 @@
 
 .ast-img-integration-form-wrap .form-field select {
 	border-style: solid;
-    border-width: 1px;
-    width: 95%;
+	border-width: 1px;
+	width: 95%;
 }
-
 
 /* Spinner */
 .ast-img-button-spinner:before {
-	font: normal 20px/.5 dashicons;
+	font: normal 20px/0.5 dashicons;
 	speak: none;
 	display: inline-block;
 	padding: 0;
@@ -272,33 +271,33 @@
 }
 
 .ast-img-title > a {
-    display: flex;
-    align-items: center;
+	display: flex;
+	align-items: center;
 }
 .ast-img-title .ast-img-plugin-version {
-    background-color: #e5e5e5;
-    border-radius: 3px;
-    font-size: 0.5em;
-    font-weight: 400;
-    margin-right: 10px;
-    padding: 2px 7px;
-    color: #333;
+	background-color: #e5e5e5;
+	border-radius: 3px;
+	font-size: 0.5em;
+	font-weight: 400;
+	margin-right: 10px;
+	padding: 2px 7px;
+	color: #333;
 }
 
 /* New extensions badge */
 #Particles .ast-img-widget-title:after {
-    content: "extension";
-    color: #fff;
-    background: #2ecc71;
-    font-size: 0.7em;
-    font-weight: 600;
-    position: relative;
-    padding: 0.3em 0.6em;
-    top: -1px;
-    right: 12px;
-    letter-spacing: 0.5px;
-    line-height: 1em;
-    text-transform: none;
-    text-transform: uppercase !important;
-    border-radius: 2px;
+	content: "extension";
+	color: #fff;
+	background: #2ecc71;
+	font-size: 0.7em;
+	font-weight: 600;
+	position: relative;
+	padding: 0.3em 0.6em;
+	top: -1px;
+	right: 12px;
+	letter-spacing: 0.5px;
+	line-height: 1em;
+	text-transform: none;
+	text-transform: uppercase !important;
+	border-radius: 2px;
 }

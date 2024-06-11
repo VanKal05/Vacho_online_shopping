@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from 'react';
-// import { __ } from '@wordpress/i18n';
-import { prependHTTPS } from '@wordpress/url';
+import { __ } from '@wordpress/i18n';
 import { useStateValue } from '../../../store/store';
 import { DefaultStep } from '../../../components';
-// import SitePreview from '../../../components/site-preview';
 import { sendPostMessage } from '../utils/helpers';
 import SiteSkeleton from '../../../components/site-preview/site-skeleton';
-import { addTrailingSlash } from '../../../utils/add-trailing-slash';
-import { stripSlashes } from '../../../utils/strip-slashes';
 import { CustomizeAiSteps } from './customize-ai-steps';
 
 const CustomizeAiSite = () => {
@@ -64,29 +60,11 @@ const CustomizeAiSite = () => {
 		} );
 	};
 
-	// const preventRefresh = ( event ) => {
-	// 	event.returnValue = __(
-	// 		'Are you sure you want to cancel the site import process?',
-	// 		'astra-sites'
-	// 	);
-	// 	return event;
-	// };
-
-	// useEffect( () => {
-	// 	window.addEventListener( 'beforeunload', preventRefresh ); // eslint-disable-line
-	// 	return () =>
-	// 		window.removeEventListener( 'beforeunload', preventRefresh ); // eslint-disable-line
-	// } );
-
 	const [ previewUrl, setPreviewUrl ] = useState( '' );
 	const [ loading, setLoading ] = useState( true );
 
 	useEffect( () => {
-		setPreviewUrl(
-			addTrailingSlash(
-				prependHTTPS( stripSlashes( window.location.origin ) )
-			)
-		);
+		setPreviewUrl( astraSitesVars.siteURL );
 	}, [] );
 
 	useEffect( () => {
@@ -130,7 +108,7 @@ const CustomizeAiSite = () => {
 					{ previewUrl !== '' && (
 						<iframe
 							id="astra-starter-templates-preview"
-							title="Website Preview"
+							title={ __( 'Website Preview', 'astra-sites' ) }
 							height="100%"
 							width="100%"
 							src={ previewUrl }

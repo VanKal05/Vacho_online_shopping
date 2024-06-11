@@ -10,7 +10,9 @@ use ImageOptimization\Classes\Image\{
 	Image_Restore,
 	Image_Status
 };
+use ImageOptimization\Classes\Async_Operation\Exceptions\Async_Operation_Exception;
 use ImageOptimization\Classes\Logger;
+use ImageOptimization\Classes\Utils;
 use ImageOptimization\Modules\Oauth\Classes\Exceptions\Quota_Exceeded_Error;
 use ImageOptimization\Modules\Optimization\{
 	Classes\Exceptions\Bulk_Token_Expired_Error,
@@ -134,10 +136,49 @@ class Bulk_Optimization {
 		}
 	}
 
+	/**
+	 * Renders the bulk optimization notice
+	 *
+	 * @return void
+	 */
+	public function render_bulk_optimization_notice() {
+		try {
+			$is_in_progress = Bulk_Optimization_Controller::is_optimization_in_progress();
+		} catch ( Async_Operation_Exception $aoe ) {
+			$is_in_progress = false;
+		}
+		?>
+		<div class="notice notice-info notice image-optimizer__notice image-optimizer__notice--info image-optimizer__notice--bulk-tip"
+				style="display: <?php echo $is_in_progress ? 'block' : 'none'; ?>">
+			<p>
+				<b>
+					<?php esc_html_e(
+						'Heads up!',
+						'image-optimization'
+					); ?>
+				</b>
+
+				<span>
+					<?php esc_html_e(
+						'Bulk optimizing may take a lot of processing and server time, depending on the number of images. Your site will still work smoothly until the processing is all done, without any downtime.',
+						'image-optimization'
+					); ?>
+				</span>
+			</p>
+		</div>
+		<?php
+	}
+
 	public function __construct() {
 		add_action( 'admin_menu', [ $this, 'register_page' ] );
 
 		add_action( Async_Operation_Hook::OPTIMIZE_BULK, [ $this, 'optimize_bulk' ], 10, 2 );
 		add_action( Async_Operation_Hook::REOPTIMIZE_BULK, [ $this, 'reoptimize_bulk' ], 10, 2 );
+
+		add_action('current_screen', function () {
+			if ( Utils::is_bulk_optimization_page() ) {
+				add_filter( 'admin_footer_text', [ $this, 'render_bulk_optimization_notice' ] );
+			}
+		});
 	}
 }

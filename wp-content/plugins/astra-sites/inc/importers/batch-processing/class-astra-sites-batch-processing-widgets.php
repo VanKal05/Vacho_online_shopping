@@ -6,6 +6,8 @@
  * @since 1.0.14
  */
 
+use STImporter\Importer\Helpers\ST_Image_Importer;
+
 if ( ! class_exists( 'Astra_Sites_Batch_Processing_Widgets' ) ) :
 
 	/**
@@ -190,7 +192,7 @@ if ( ! class_exists( 'Astra_Sites_Batch_Processing_Widgets' ) ) :
 						'id'  => $value['attachment_id'],
 					);
 
-					$downloaded_image = Astra_Sites_Image_Importer::get_instance()->import( $image );
+					$downloaded_image = ST_Image_Importer::get_instance()->import( $image );
 
 					$data[ $key ]['url']           = $downloaded_image['url'];
 					$data[ $key ]['attachment_id'] = $downloaded_image['id'];

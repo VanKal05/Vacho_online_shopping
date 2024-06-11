@@ -87,7 +87,7 @@ const Button = (
 			onClick={ handleOnClick }
 			ref={ ref }
 			disabled={ disabled }
-			id={ id }
+			{ ...( id && { id } ) }
 			{ ...props }
 		>
 			{ children }

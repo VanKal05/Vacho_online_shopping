@@ -60,6 +60,11 @@ class Optimize_Image {
 		$sizes_enabled = Settings::get( Settings::CUSTOM_SIZES_OPTION_NAME );
 		$sizes_exist = $this->wp_meta->get_size_keys();
 
+		Logger::log(
+			Logger::LEVEL_INFO,
+			"Start optimization of {$this->image->get_id()}"
+		);
+
 		foreach ( $sizes_exist as $size_exist ) {
 			// If some image sizes optimization is disabled in settings, we check if the current one is still enabled
 			if (
@@ -70,14 +75,29 @@ class Optimize_Image {
 				continue;
 			}
 
+			// Elementor editor generates thumbnails we don't need to optimize.
+			if ( str_starts_with( $size_exist, 'elementor_' ) ) {
+				continue;
+			}
+
 			$image_meta = new Image_Meta( $this->image->get_id() );
 
 			// If the current size was already optimized -- ignore it.
 			if ( in_array( $size_exist, $image_meta->get_optimized_sizes(), true ) ) {
+				Logger::log(
+					Logger::LEVEL_INFO,
+					"Size `$size_exist` is already optimized"
+				);
+
 				continue;
 			}
 
 			if ( ! file_exists( $this->image->get_file_path( $size_exist ) ) ) {
+				Logger::log(
+					Logger::LEVEL_ERROR,
+					"Can't access file for size `$size_exist`"
+				);
+
 				throw new Image_Optimization_Error( esc_html__( 'File is missing. Verify the upload', 'image-optimization' ) );
 			}
 
@@ -97,6 +117,11 @@ class Optimize_Image {
 		if ( ! $this->keep_backups ) {
 			Image_Backup::remove( $this->image->get_id() );
 		}
+
+		Logger::log(
+			Logger::LEVEL_INFO,
+			"End optimization of {$this->image->get_id()}"
+		);
 	}
 
 	private function optimize_current_size(): void {
@@ -132,7 +157,7 @@ class Optimize_Image {
 	}
 
 	private function send_file() {
-		$connect_status = Connect::check_connect_status();
+		$connect_status = Connect::get_connect_status();
 		$headers = [
 			'access_token' => $connect_status->access_token ?? '',
 		];
@@ -169,6 +194,10 @@ class Optimize_Image {
 			$this->current_image_path,
 			'image'
 		);
+
+		if ( isset( $response->stats ) ) {
+			Connect::update_usage_data( $response->stats );
+		}
 
 		if ( ! isset( $response->imageKey ) || $image_key !== $response->imageKey ) { // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 			Logger::log(

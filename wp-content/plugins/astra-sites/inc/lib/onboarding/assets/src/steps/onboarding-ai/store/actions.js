@@ -292,6 +292,13 @@ const actions = {
 		};
 	},
 
+	setSiteLanguageListAIStep( siteLanguageList ) {
+		return {
+			type: actionsTypes.SET_WEBSITE_LANGUAGE_LIST_AI_STEP,
+			payload: siteLanguageList,
+		};
+	},
+
 	setWebsiteVersionList( websiteVersionList ) {
 		return {
 			type: actionsTypes.SET_WEBSITE_VERSION_LIST,
@@ -311,6 +318,12 @@ const actions = {
 			payload: limitExceedModal,
 		};
 	},
+	setAuthenticationErrorModal( authenticationErrorModal ) {
+		return {
+			type: actionsTypes.SET_AUTHENTICATION_ERROR_MODAL,
+			payload: authenticationErrorModal,
+		};
+	},
 	setContinueProgressModal( continueProgressModal ) {
 		return {
 			type: actionsTypes.SET_CONTINUE_PROGRESS_MODAL,
@@ -322,6 +335,13 @@ const actions = {
 		return {
 			type: actionsTypes.SET_WEBSITE_TYPE_AI_STEP,
 			payload: websiteType,
+		};
+	},
+
+	setWebsiteLanguageAIStep( siteLanguage ) {
+		return {
+			type: actionsTypes.SET_WEBSITE_LANGUAGE_AI_STEP,
+			payload: siteLanguage,
 		};
 	},
 
@@ -380,7 +400,26 @@ const actions = {
 		};
 	},
 
+	setWebsiteTemplateKeywords( templateKeywords ) {
+		return {
+			type: actionsTypes.SET_WEBSITE_TEMPLATE_KEYWORDS,
+			payload: templateKeywords,
+		};
+	},
+
 	setWebsiteTemplateSearchResultsAIStep( templateSearchResults ) {
+		const uuidSet = new Set(); // Set to keep track of unique UUIDs
+
+		templateSearchResults.forEach( ( result ) => {
+			result.designs = result?.designs?.filter( ( template ) => {
+				if ( ! uuidSet.has( template.uuid ) ) {
+					uuidSet.add( template.uuid );
+					return true;
+				}
+				return false;
+			} );
+		} );
+
 		return {
 			type: actionsTypes.SET_WEBSITE_TEMPLATE_RESULTS_AI_STEP,
 			payload: templateSearchResults,
@@ -532,6 +571,13 @@ const actions = {
 	setSiteFeatures( payload ) {
 		return {
 			type: actionsTypes.SET_SITE_FEATURES,
+			payload,
+		};
+	},
+
+	setLoadingNextStep( payload ) {
+		return {
+			type: actionsTypes.LOADING_NEXT_STEP,
 			payload,
 		};
 	},

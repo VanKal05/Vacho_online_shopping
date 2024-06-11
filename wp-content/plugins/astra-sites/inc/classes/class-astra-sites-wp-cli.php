@@ -9,6 +9,10 @@
  * @since 1.4.0
  */
 
+use STImporter\Importer\WXR_Importer\ST_WXR_Importer;
+use STImporter\Importer\Batch\ST_Batch_Processing;
+use AiBuilder\Inc\Traits\Helper;
+
 if ( class_exists( 'WP_CLI_Command' ) && ! class_exists( 'Astra_Sites_WP_CLI' ) ) :
 
 	/**
@@ -43,7 +47,7 @@ if ( class_exists( 'WP_CLI_Command' ) && ! class_exists( 'Astra_Sites_WP_CLI' ) 
 
 			WP_CLI::line( 'Processing Site: ' . site_url() );
 
-			Astra_Sites_Batch_Processing::get_instance()->start_process();
+			ST_Batch_Processing::get_instance()->start_process();
 		}
 
 		/**
@@ -134,11 +138,12 @@ if ( class_exists( 'WP_CLI_Command' ) && ! class_exists( 'Astra_Sites_WP_CLI' ) 
 		 *
 		 * [--yes]
 		 * : Forcefully import the site without asking any prompt message.
+		 * 
 		 *
 		 * ## EXAMPLES
 		 *
 		 *     # Import demo site.
-		 *     $ wp astra-sites import 34184 --reset --yes
+		 *     $ wp astra-sites import 34184 --reset --yes --license_key={{YOUR_KEY}}
 		 *     Activating Plugins..
 		 *     Reseting Posts..
 		 *     ..
@@ -191,7 +196,7 @@ if ( class_exists( 'WP_CLI_Command' ) && ! class_exists( 'Astra_Sites_WP_CLI' ) 
 			/**
 			 * Check File System permissions.
 			 */
-			$filesystem_permission = Astra_Sites::get_instance()->filesystem_permission();
+			Helper::filesystem_permission();
 
 			/**
 			 * Install & Activate Required Plugins.
@@ -199,7 +204,7 @@ if ( class_exists( 'WP_CLI_Command' ) && ! class_exists( 'Astra_Sites_WP_CLI' ) 
 			if ( isset( $demo_data['required-plugins'] ) ) {
 				$plugins = (array) $demo_data['required-plugins'];
 				if ( ! empty( $plugins ) ) {
-					$plugin_status = Astra_Sites::get_instance()->required_plugin( $plugins, $demo_data['astra-site-options-data'], $demo_data['astra-enabled-extensions'] );
+					$plugin_status = Helper::required_plugins( $plugins, $demo_data['astra-site-options-data'], $demo_data['astra-enabled-extensions'] );
 
 					// Install Plugins.
 					if ( ! empty( $plugin_status['required_plugins']['notinstalled'] ) ) {
@@ -221,7 +226,7 @@ if ( class_exists( 'WP_CLI_Command' ) && ! class_exists( 'Astra_Sites_WP_CLI' ) 
 						WP_CLI::line( __( 'Activating Plugins..', 'astra-sites' ) );
 						foreach ( $plugin_status['required_plugins']['inactive'] as $key => $plugin ) {
 							if ( isset( $plugin['init'] ) ) {
-								Astra_Sites::get_instance()->required_plugin_activate( $plugin['init'], $demo_data['astra-site-options-data'], $demo_data['astra-enabled-extensions'] );
+								Helper::required_plugin_activate( $plugin['init'], $demo_data['astra-site-options-data'], $demo_data['astra-enabled-extensions'] );
 							}
 						}
 					}
@@ -231,7 +236,7 @@ if ( class_exists( 'WP_CLI_Command' ) && ! class_exists( 'Astra_Sites_WP_CLI' ) 
 			/**
 			 * Backup Customizer Settings
 			 */
-			Astra_Sites::get_instance()->backup_settings();
+			Helper::backup_settings();
 
 			/**
 			 * Reset Site Data
@@ -271,7 +276,7 @@ if ( class_exists( 'WP_CLI_Command' ) && ! class_exists( 'Astra_Sites_WP_CLI' ) 
 			 */
 			if ( isset( $demo_data['astra-site-options-data'] ) && ! empty( $demo_data['astra-site-options-data'] ) ) {
 				WP_CLI::line( __( 'Importing Site Options..', 'astra-sites' ) );
-				Astra_Sites_Importer::get_instance()->import_options( $demo_data['astra-site-options-data'] );
+				Helper::import_options( $demo_data['astra-site-options-data'] );
 			}
 
 			/**
@@ -279,7 +284,7 @@ if ( class_exists( 'WP_CLI_Command' ) && ! class_exists( 'Astra_Sites_WP_CLI' ) 
 			 */
 			if ( isset( $demo_data['astra-site-widgets-data'] ) && ! empty( $demo_data['astra-site-widgets-data'] ) ) {
 				WP_CLI::line( __( 'Importing Widgets..', 'astra-sites' ) );
-				Astra_Sites_Importer::get_instance()->import_widgets( $demo_data['astra-site-widgets-data'] );
+				Helper::import_widgets( $demo_data['astra-site-widgets-data'] );
 			}
 
 			/**
@@ -298,7 +303,7 @@ if ( class_exists( 'WP_CLI_Command' ) && ! class_exists( 'Astra_Sites_WP_CLI' ) 
 		 * @return void
 		 */
 		public function import_end() {
-			Astra_Sites_Importer::get_instance()->import_end();
+			Helper::import_end();
 		}
 
 		/**
@@ -329,11 +334,11 @@ if ( class_exists( 'WP_CLI_Command' ) && ! class_exists( 'Astra_Sites_WP_CLI' ) 
 			// Download XML file.
 			/* translators: %s is the XML file URL. */
 			WP_CLI::line( sprintf( esc_html__( 'Downloading %s', 'astra-sites' ), $url ) );
-			$xml_path = Astra_Sites_Helper::download_file( $url );
+			$xml_path = ST_WXR_Importer::download_file( $url );
 
 			if ( $xml_path['success'] && isset( $xml_path['data']['file'] ) ) {
 				WP_CLI::line( esc_html__( 'Importing WXR..', 'astra-sites' ) );
-				Astra_WXR_Importer::instance()->sse_import( $xml_path['data']['file'] );
+				ST_WXR_Importer::get_instance()->sse_import( $xml_path['data']['file'] );
 			} else {
 				/* translators: %s is error message. */
 				WP_CLI::line( printf( esc_html__( 'WXR file Download Failed. Error %s', 'astra-sites' ), esc_html( $xml_path['data'] ) ) );
@@ -387,18 +392,18 @@ if ( class_exists( 'WP_CLI_Command' ) && ! class_exists( 'Astra_Sites_WP_CLI' ) 
 			if ( isset( $reset_data['reset_wp_forms'] ) && ! empty( $reset_data['reset_wp_forms'] ) ) {
 				WP_CLI::line( __( 'Resting WP Forms...', 'astra-sites' ) );
 				foreach ( $reset_data['reset_wp_forms'] as $key => $post_id ) {
-					Astra_Sites_Importer::get_instance()->delete_imported_wp_forms( $post_id );
+					Astra_Sites_Importer::get_instance()->delete_imported_terms( $post_id );
 				}
 			}
 
 			// Delete Customizer Data.
-			Astra_Sites_Importer::get_instance()->reset_customizer_data();
+			Helper::reset_customizer_data();
 
 			// Delete Site Options.
-			Astra_Sites_Importer::get_instance()->reset_site_options();
+			Helper::reset_site_options();
 
 			// Delete Widgets Data.
-			Astra_Sites_Importer::get_instance()->reset_widgets_data();
+			Helper::reset_widgets_data();
 		}
 
 		/**
@@ -431,7 +436,7 @@ if ( class_exists( 'WP_CLI_Command' ) && ! class_exists( 'Astra_Sites_WP_CLI' ) 
 
 			WP_CLI::line( __( 'Importing customizer settings..', 'astra-sites' ) );
 
-			Astra_Sites_Importer::get_instance()->import_customizer_settings( $demo_data['astra-site-customizer-data'] );
+			Helper::import_customizer_settings( $demo_data['astra-site-customizer-data'] );
 		}
 
 		/**
@@ -539,7 +544,8 @@ if ( class_exists( 'WP_CLI_Command' ) && ! class_exists( 'Astra_Sites_WP_CLI' ) 
 			if ( empty( $this->current_site_data ) ) {
 				// @todo Use Astra_Sites::get_instance()->api_request() instead of below function.
 				$this->current_site_data = Astra_Sites_Importer::get_instance()->get_single_demo( $id );
-				update_option( 'astra_sites_import_data', $this->current_site_data, 'no' );
+				Astra_Sites_File_System::get_instance()->update_demo_data( $this->current_site_data );
+				
 			}
 
 			return $this->current_site_data;
@@ -684,7 +690,7 @@ if ( class_exists( 'WP_CLI_Command' ) && ! class_exists( 'Astra_Sites_WP_CLI' ) 
 					'timeout' => 60,
 				);
 
-				$response = wp_remote_get( $url, $api_args );
+				$response = wp_safe_remote_get( $url, $api_args );
 				if ( ! is_wp_error( $response ) || wp_remote_retrieve_response_code( $response ) === 200 ) {
 					$request_term_data = json_decode( wp_remote_retrieve_body( $response ), true );
 
@@ -734,7 +740,7 @@ if ( class_exists( 'WP_CLI_Command' ) && ! class_exists( 'Astra_Sites_WP_CLI' ) 
 				);
 
 				$success  = false;
-				$response = wp_remote_get( $url, $api_args );
+				$response = wp_safe_remote_get( $url, $api_args );
 				if ( ! is_wp_error( $response ) || wp_remote_retrieve_response_code( $response ) === 200 ) {
 					$all_posts = json_decode( wp_remote_retrieve_body( $response ), true );
 
@@ -768,6 +774,32 @@ if ( class_exists( 'WP_CLI_Command' ) && ! class_exists( 'Astra_Sites_WP_CLI' ) 
 		public function sync( $args = array(), $assoc_args = array() ) {
 			Astra_Sites_Batch_Processing::get_instance()->process_batch();
 		}
+
+		/**
+		 * Init.
+		 */
+		public static function init() {
+			add_filter( 'wp_check_filetype_and_ext', array( 'Astra_Sites_WP_CLI', 'real_mime_types' ), 10, 5 );
+		}
+
+		/**
+		 * Different MIME type of different PHP version
+		 *
+		 * Filters the "real" file type of the given file.
+		 *
+		 * @since 1.2.9
+		 *
+		 * @param array                 $defaults File data array containing 'ext', 'type', and
+		 *                                                         'proper_filename' keys.
+		 * @param string                $file                      Full path to the file.
+		 * @param string                $filename                  The name of the file (may differ from $file due to
+		 *                                                         $file being in a tmp directory).
+		 * @param array<string, string> $mimes                     Key is the file extension with value as the mime type.
+		 * @param string                $real_mime                Real MIME type of the uploaded file.
+		 */
+		public static function real_mime_types( $defaults, $file, $filename, $mimes, $real_mime ) {
+			return ST_WXR_Importer::get_instance()->real_mime_types_5_1_0( $defaults, $file, $filename, $mimes, $real_mime );
+		}
 	}
 
 	/**
@@ -775,5 +807,6 @@ if ( class_exists( 'WP_CLI_Command' ) && ! class_exists( 'Astra_Sites_WP_CLI' ) 
 	 */
 	WP_CLI::add_command( 'starter-templates', 'Astra_Sites_WP_CLI' );
 	WP_CLI::add_command( 'astra-sites', 'Astra_Sites_WP_CLI' );
+	Astra_Sites_WP_CLI::init();
 
 endif;

@@ -1,9 +1,11 @@
 import { useSelect, useDispatch } from '@wordpress/data';
+import { renderToString } from 'react-dom/server';
 import { ExclamationTriangleColorfulIcon } from '../../ui/icons';
 import { STORE_KEY } from '../store';
 import Modal from './modal';
 import ModalTitle from './modal-title';
 import Button from './button';
+import { __, sprintf } from '@wordpress/i18n';
 
 const LimitExceedModal = ( { onOpenChange, openTarget = '_blank' } ) => {
 	const { setLimitExceedModal } = useDispatch( STORE_KEY );
@@ -29,10 +31,79 @@ const LimitExceedModal = ( { onOpenChange, openTarget = '_blank' } ) => {
 	);
 
 	const teamPlanInfo = (
-		<span>
-			Your current active organisation is { teamName }, which is on the{ ' ' }
-			{ planName } plan
+		<span
+			dangerouslySetInnerHTML={ {
+				__html: sprintf(
+					/* translators: %1$s: team name, %2$s: plan name */
+					__(
+						'Your current active organization is %1$s, which is on the %2$s plan.',
+						'astra-sites'
+					),
+					renderToString( teamName ),
+					renderToString( planName )
+				),
+			} }
+		/>
+	);
+
+	const dailyLimit = (
+		<span className="zw-base-semibold text-app-heading ">
+			{ sprintf(
+				/* translators: %s: daily limit */
+				__( '%s AI sites', 'astra-sites' ),
+				astraSitesVars?.zip_plans?.plan_data?.limit
+					?.ai_sites_count_daily
+			) }
 		</span>
+	);
+
+	const aiSitesCount =
+		astraSitesVars?.zip_plans?.plan_data?.remaining?.ai_sites_count_daily;
+
+	const displayMessage = (
+		<span
+			dangerouslySetInnerHTML={ {
+				__html:
+					typeof aiSitesCount === 'number' && aiSitesCount <= 0
+						? `
+				<br />
+					${ sprintf(
+						/* translators: %s: daily limit */
+						__(
+							'This plan allows you to generate %s per day, and you have reached this limit.',
+							'astra-sites'
+						),
+						renderToString( dailyLimit )
+					) }
+					<br />
+					<br />
+					${ __(
+						'To create more AI websites, you will need to either upgrade your plan or wait until the limit resets.',
+						'astra-sites'
+					) }
+				`
+						: `
+				${ sprintf(
+					/* translators: %s: plan name */
+					__(
+						'You have reached the maximum number of sites allowed to be created on %s plan.',
+						'astra-sites'
+					),
+					renderToString( planName )
+				) }
+				<br />
+				<br />
+				${ sprintf(
+					/* translators: %s: team name */
+					__(
+						'Please upgrade the plan for %s in order to create more sites.',
+						'astra-sites'
+					),
+					renderToString( teamName )
+				) }
+				`,
+			} }
+		/>
 	);
 
 	return (
@@ -54,17 +125,13 @@ const LimitExceedModal = ( { onOpenChange, openTarget = '_blank' } ) => {
 		>
 			<ModalTitle>
 				<ExclamationTriangleColorfulIcon className="w-6 h-6" />
-				<span>Limit reached</span>
+				<span>{ __( 'Limit reached', 'astra-sites' ) }</span>
 			</ModalTitle>
 			<div className="space-y-8">
 				<div className="text-app-text text-base leading-6">
 					<div>
-						{ teamPlanInfo }. You have reached the maximum number of
-						sites allowed to be created on { planName } plan.
-						<br /> <br /> Please upgrade the plan for {
-							teamName
-						}{ ' ' }
-						in order to create more sites.
+						{ teamPlanInfo }
+						{ displayMessage }
 					</div>
 				</div>
 				<Button
@@ -76,14 +143,16 @@ const LimitExceedModal = ( { onOpenChange, openTarget = '_blank' } ) => {
 							...limitExceedModal,
 							open: false,
 						} );
-						if ( typeof window === 'undefined' ) return;
+						if ( typeof window === 'undefined' ) {
+							return;
+						}
 						window.open(
 							'https://app.zipwp.com/founders-deal',
 							openTarget
 						);
 					} }
 				>
-					Unlock Full Power
+					{ __( 'Unlock Full Power', 'astra-sites' ) }
 				</Button>
 			</div>
 		</Modal>

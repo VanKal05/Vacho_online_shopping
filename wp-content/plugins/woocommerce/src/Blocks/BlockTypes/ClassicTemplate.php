@@ -2,6 +2,9 @@
 namespace Automattic\WooCommerce\Blocks\BlockTypes;
 
 use Automattic\WooCommerce\Blocks\Templates\ProductAttributeTemplate;
+use Automattic\WooCommerce\Blocks\Templates\ProductCatalogTemplate;
+use Automattic\WooCommerce\Blocks\Templates\ProductCategoryTemplate;
+use Automattic\WooCommerce\Blocks\Templates\ProductTagTemplate;
 use Automattic\WooCommerce\Blocks\Templates\ProductSearchResultsTemplate;
 use Automattic\WooCommerce\Blocks\Templates\OrderConfirmationTemplate;
 use Automattic\WooCommerce\Blocks\Utils\StyleAttributesUtils;
@@ -28,16 +31,28 @@ class ClassicTemplate extends AbstractDynamicBlock {
 	 */
 	protected $api_version = '2';
 
-	const FILTER_PRODUCTS_BY_STOCK_QUERY_PARAM = 'filter_stock_status';
-
 	/**
 	 * Initialize this block.
 	 */
 	protected function initialize() {
 		parent::initialize();
 		add_filter( 'render_block', array( $this, 'add_alignment_class_to_wrapper' ), 10, 2 );
-		add_filter( 'woocommerce_product_query_meta_query', array( $this, 'filter_products_by_stock' ) );
 		add_action( 'enqueue_block_assets', array( $this, 'enqueue_block_assets' ) );
+	}
+
+	/**
+	 * Extra data passed through from server to client for block.
+	 *
+	 * @param array $attributes  Any attributes that currently are available from the block.
+	 *                           Note, this will be empty in the editor context when the block is
+	 *                           not in the post content on editor load.
+	 */
+	protected function enqueue_data( array $attributes = [] ) {
+		parent::enqueue_data( $attributes );
+
+		// Indicate to interactivity powered components that this block is on the page,
+		// and needs refresh to update data.
+		$this->asset_data_registry->add( 'needsRefreshForInteractivityAPI', true );
 	}
 
 	/**
@@ -87,7 +102,7 @@ class ClassicTemplate extends AbstractDynamicBlock {
 			$frontend_scripts::load_scripts();
 		}
 
-		if ( OrderConfirmationTemplate::get_slug() === $attributes['template'] ) {
+		if ( OrderConfirmationTemplate::SLUG === $attributes['template'] ) {
 			return $this->render_order_received();
 		}
 
@@ -97,9 +112,9 @@ class ClassicTemplate extends AbstractDynamicBlock {
 
 		$valid             = false;
 		$archive_templates = array(
-			'archive-product',
-			'taxonomy-product_cat',
-			'taxonomy-product_tag',
+			ProductCatalogTemplate::SLUG,
+			ProductCategoryTemplate::SLUG,
+			ProductTagTemplate::SLUG,
 			ProductAttributeTemplate::SLUG,
 			ProductSearchResultsTemplate::SLUG,
 		);
@@ -118,15 +133,14 @@ class ClassicTemplate extends AbstractDynamicBlock {
 
 		if ( $valid ) {
 			// Set this so that our product filters can detect if it's a PHP template.
-			$this->asset_data_registry->add( 'isRenderingPhpTemplate', true, true );
+			$this->asset_data_registry->add( 'isRenderingPhpTemplate', true );
 
 			// Set this so filter blocks being used as widgets know when to render.
-			$this->asset_data_registry->add( 'hasFilterableProducts', true, true );
+			$this->asset_data_registry->add( 'hasFilterableProducts', true );
 
 			$this->asset_data_registry->add(
 				'pageUrl',
-				html_entity_decode( get_pagenum_link() ),
-				''
+				html_entity_decode( get_pagenum_link() )
 			);
 
 			return $this->render_archive_product();
@@ -375,47 +389,6 @@ class ClassicTemplate extends AbstractDynamicBlock {
 		// If there is a tag, and it has a class already, add the class attribute.
 		$pattern_get_class = '/(?<=class=\"|\')[^"|\']+(?=\"|\')/';
 		return preg_replace( $pattern_get_class, '$0 ' . $align_class_and_style['class'], $content, 1 );
-	}
-
-
-	/**
-	 * Filter products by stock status when as query param there is "filter_stock_status"
-	 *
-	 * @param array $meta_query Meta query.
-	 * @return array
-	 */
-	public function filter_products_by_stock( $meta_query ) {
-		global $wp_query;
-
-		if (
-			is_admin() ||
-			! $wp_query->is_main_query() ||
-			! isset( $_GET[ self::FILTER_PRODUCTS_BY_STOCK_QUERY_PARAM ] ) // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-		) {
-			return $meta_query;
-		}
-
-		$stock_status = array_keys( wc_get_product_stock_status_options() );
-		$values       = sanitize_text_field( wp_unslash( $_GET[ self::FILTER_PRODUCTS_BY_STOCK_QUERY_PARAM ] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-
-		$values_to_array = explode( ',', $values );
-
-		$filtered_values = array_filter(
-			$values_to_array,
-			function( $value ) use ( $stock_status ) {
-				return in_array( $value, $stock_status, true );
-			}
-		);
-
-		if ( ! empty( $filtered_values ) ) {
-
-			$meta_query[] = array(
-				'key'     => '_stock_status',
-				'value'   => $filtered_values,
-				'compare' => 'IN',
-			);
-		}
-		return $meta_query;
 	}
 
 	/**

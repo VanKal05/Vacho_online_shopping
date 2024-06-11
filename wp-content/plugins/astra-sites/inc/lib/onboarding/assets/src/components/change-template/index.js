@@ -1,11 +1,11 @@
 import React from 'react';
-import { PremiumBadge } from '@brainstormforce/starter-templates-components';
 import { __ } from '@wordpress/i18n';
 import { decodeEntities } from '@wordpress/html-entities';
 import { useStateValue } from '../../store/store';
 import './style.scss';
 import ICONS from '../../../icons';
 import { sendPostMessage } from '../../utils/functions';
+import { XMarkIcon } from '@heroicons/react/24/outline';
 
 const ChangeTemplate = () => {
 	const [
@@ -32,20 +32,21 @@ const ChangeTemplate = () => {
 			} );
 		}, 300 );
 	};
-
 	return (
-		<div className="change-template-wrap">
+		<div className="change-template-wrap w-full">
 			<div className="template-name">
 				<p className="label">
 					{ __( 'Selected Template:', 'astra-sites' ) }
 				</p>
-				<h5>{ decodeEntities( selectedTemplateName ) }</h5>
-				{ ! licenseStatus && 'free' !== selectedTemplateType && (
-					<PremiumBadge />
-				) }
+				<div className="flex gap-2 items-center">
+					<h5>{ decodeEntities( selectedTemplateName ) }</h5>
+					{ ! licenseStatus && 'free' !== selectedTemplateType && (
+						<span>{ ICONS.premiumIcon }</span>
+					) }
+				</div>
 			</div>
 			<div className="change-btn-wrap" onClick={ goToShowcase }>
-				<span className="change-btn">{ ICONS.cross }</span>
+				<XMarkIcon className="w-6 h-6 text-zip-body-text" />
 			</div>
 		</div>
 	);

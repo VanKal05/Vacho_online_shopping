@@ -2,7 +2,7 @@
 import React from 'react';
 
 // Internal dependencies.
-import { Tooltip } from '@brainstormforce/starter-templates-components';
+import Tooltip from '../../../onboarding-ai/components/tooltip';
 import { __ } from '@wordpress/i18n';
 import { useStateValue } from '../../../../store/store';
 import ICONS from '../../../../../icons';
@@ -12,6 +12,10 @@ import { initialState } from '../../../../store/reducer';
 const MyFavorite = () => {
 	const [ stateValue, dispatch ] = useStateValue();
 	const { onMyFavorite } = stateValue;
+
+	if ( 0 === stateValue.currentIndex ) {
+		return null;
+	}
 
 	const handleClick = ( event ) => {
 		event.stopPropagation();
@@ -31,7 +35,10 @@ const MyFavorite = () => {
 			className={ `st-my-favorite ${ onMyFavorite ? 'active' : '' }` }
 			onClick={ handleClick }
 		>
-			<Tooltip content={ __( 'My Favorite', 'astra-sites' ) }>
+			<Tooltip
+				content={ __( 'My Favorite', 'astra-sites' ) }
+				offset={ [ 5, 20 ] }
+			>
 				{ ICONS.favorite }
 			</Tooltip>
 		</div>

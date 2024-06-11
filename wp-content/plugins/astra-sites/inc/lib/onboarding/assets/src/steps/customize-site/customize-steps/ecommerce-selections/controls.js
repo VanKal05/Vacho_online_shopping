@@ -4,6 +4,7 @@ import Button from '../../../../components/button/button';
 import { useStateValue } from '../../../../store/store';
 import PreviousStepLink from '../../../../components/util/previous-step-link/index';
 import ChooseEcommerce from '../../../../components/choose-ecommerce';
+import { ChevronRightIcon } from '@heroicons/react/24/outline';
 
 const EcommerceSelectionsControls = () => {
 	const [ { currentCustomizeIndex, currentIndex, templateId }, dispatch ] =
@@ -24,23 +25,28 @@ const EcommerceSelectionsControls = () => {
 			} );
 		}, 300 );
 	};
-	const disabledClass = templateId === 0 ? 'disabled-btn' : '';
 
 	return (
 		<>
 			<ChooseEcommerce />
-			<Button
-				className={ `ist-button ist-next-step ${ disabledClass }` }
-				onClick={ nextStep }
-				disabled={ templateId !== 0 ? false : true }
-				after
-			>
-				{ __( 'Continue', 'astra-sites' ) }
-			</Button>
+			<div className="w-full flex flex-col gap-4 mt-auto">
+				<Button
+					className={ `w-full flex gap-2 items-center ${
+						templateId === 0
+							? '!bg-border-tertiary !text-zip-app-inactive-icon'
+							: ''
+					}` }
+					onClick={ nextStep }
+					disabled={ templateId !== 0 ? false : true }
+				>
+					<span>{ __( 'Continue', 'astra-sites' ) }</span>
+					<ChevronRightIcon className="w-4 h-4 !fill-none" />
+				</Button>
 
-			<PreviousStepLink onClick={ lastStep }>
-				{ __( 'Back', 'astra-sites' ) }
-			</PreviousStepLink>
+				<PreviousStepLink onClick={ lastStep } before>
+					{ __( 'Back', 'astra-sites' ) }
+				</PreviousStepLink>
+			</div>
 		</>
 	);
 };

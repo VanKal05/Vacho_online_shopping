@@ -2,6 +2,8 @@
 
 namespace WPForms\Integrations\Stripe\Api;
 
+use WPForms\Vendor\Stripe\Mandate;
+use WPForms\Vendor\Stripe\SetupIntent;
 use WPForms\Vendor\Stripe\Customer;
 use WPForms\Vendor\Stripe\PaymentIntent;
 use WPForms\Vendor\Stripe\PaymentMethod;
@@ -246,6 +248,7 @@ class PaymentIntents extends Common implements ApiInterface {
 	 * Retrieve PaymentIntent object from Stripe.
 	 *
 	 * @since 1.8.2
+	 * @since 1.8.7 Changed method visibility.
 	 *
 	 * @param string $id   PaymentIntent id.
 	 * @param array  $args Additional arguments (e.g. 'expand').
@@ -254,13 +257,27 @@ class PaymentIntents extends Common implements ApiInterface {
 	 *
 	 * @return PaymentIntent|null
 	 */
-	protected function retrieve_payment_intent( $id, $args = [] ) {
+	public function retrieve_payment_intent( $id, $args = [] ) {
 
-		$defaults = [ 'id' => $id ];
+		try {
 
-		$args = wp_parse_args( $args, $defaults );
+			$defaults = [ 'id' => $id ];
 
-		return PaymentIntent::retrieve( $args, Helpers::get_auth_opts() );
+			if ( isset( $args['mode'] ) ) {
+				$auth_opts = [ 'api_key' => Helpers::get_stripe_key( 'secret', $args['mode'] ) ];
+
+				unset( $args['mode'] );
+			}
+
+			$args = wp_parse_args( $args, $defaults );
+
+			return PaymentIntent::retrieve( $args, $auth_opts ?? Helpers::get_auth_opts() );
+		} catch ( Exception $e ) {
+
+			$this->handle_exception( $e );
+		}
+
+		return null;
 	}
 
 	/**
@@ -290,12 +307,14 @@ class PaymentIntents extends Common implements ApiInterface {
 	 * Refund a payment.
 	 *
 	 * @since 1.8.4
+	 * @since 1.8.8.2 $args param was added.
 	 *
 	 * @param string $payment_intent_id PaymentIntent id.
+	 * @param array  $args              Additional arguments (e.g. 'mode', 'metadata', 'reason' ).
 	 *
 	 * @return bool
 	 */
-	public function refund_payment( $payment_intent_id ) {
+	public function refund_payment( string $payment_intent_id, array $args = [] ): bool {
 
 		try {
 
@@ -305,15 +324,19 @@ class PaymentIntents extends Common implements ApiInterface {
 				return false;
 			}
 
-			$refund = Refund::create(
-				[
-					'payment_intent' => $payment_intent_id,
-					'metadata'       => [
-						'refunded_by' => 'wpforms_dashboard',
-					],
-				],
-				Helpers::get_auth_opts()
-			);
+			$defaults = [
+				'payment_intent' => $payment_intent_id,
+			];
+
+			if ( isset( $args['mode'] ) ) {
+				$auth_opts = [ 'api_key' => Helpers::get_stripe_key( 'secret', $args['mode'] ) ];
+
+				unset( $args['mode'] );
+			}
+
+			$args = wp_parse_args( $args, $defaults );
+
+			$refund = Refund::create( $args, $auth_opts ?? Helpers::get_auth_opts() );
 
 			if ( ! $refund ) {
 				return false;
@@ -436,17 +459,13 @@ class PaymentIntents extends Common implements ApiInterface {
 		try {
 
 			if ( isset( $args['customer_email'] ) || isset( $args['customer_name'] ) ) {
-
-				$name  = $args['customer_name'] ?? '';
-				$email = $args['customer_email'] ?? '';
-
-				$this->set_customer( $email, $name );
+				$this->set_customer( $args['customer_email'] ?? '', $args['customer_name'] ?? '', $args['customer_address'] ?? [] );
 				$this->attach_customer_to_payment();
 
 				$args['customer'] = $this->get_customer( 'id' );
-
-				unset( $args['customer_email'], $args['customer_name'] );
 			}
+
+			unset( $args['customer_email'], $args['customer_name'], $args['customer_address'] );
 
 			$this->intent = PaymentIntent::create( $args, Helpers::get_auth_opts() );
 
@@ -527,7 +546,7 @@ class PaymentIntents extends Common implements ApiInterface {
 	 *
 	 * @param array $args Subscription payment arguments.
 	 */
-	protected function charge_subscription( $args ) { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.TooHigh
+	protected function charge_subscription( $args ) { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.MaxExceeded
 
 		if ( empty( $this->payment_method_id ) ) {
 			$this->error = esc_html__( 'Stripe subscription stopped, missing PaymentMethod id.', 'wpforms-lite' );
@@ -553,10 +572,7 @@ class PaymentIntents extends Common implements ApiInterface {
 		}
 
 		try {
-
-			$name = $args['customer_name'] ?? '';
-
-			$this->set_customer( $args['email'], $name );
+			$this->set_customer( $args['email'], $args['customer_name'] ?? '', $args['customer_address'] ?? [] );
 			$sub_args['customer'] = $this->get_customer( 'id' );
 
 			if ( Helpers::is_payment_element_enabled() ) {
@@ -564,9 +580,12 @@ class PaymentIntents extends Common implements ApiInterface {
 				$sub_args['payment_behavior'] = 'default_incomplete';
 				$sub_args['off_session']      = true;
 				$sub_args['payment_settings'] = [
-					'payment_method_types'        => [ 'card', 'link' ],
 					'save_default_payment_method' => 'on_subscription',
 				];
+
+				if ( Helpers::is_link_supported() ) {
+					$sub_args['payment_settings']['payment_method_types'] = [ 'card', 'link' ];
+				}
 			} else {
 
 				$new_payment_method = $this->attach_customer_to_payment();
@@ -950,5 +969,80 @@ class PaymentIntents extends Common implements ApiInterface {
 		$intent->update( $intent->id, $intent->serializeParameters(), Helpers::get_auth_opts() );
 
 		return true;
+	}
+
+	/**
+	 * Retrieve Mandate object from Stripe.
+	 *
+	 * @since 1.8.7
+	 *
+	 * @param string $id   Mandate id.
+	 * @param array  $args Additional arguments.
+	 *
+	 * @throws ApiErrorException If the request fails.
+	 *
+	 * @return Mandate|null
+	 */
+	public function retrieve_mandate( string $id, array $args = [] ) {
+
+		try {
+
+			$defaults = [ 'id' => $id ];
+
+			if ( isset( $args['mode'] ) ) {
+				$auth_opts = [ 'api_key' => Helpers::get_stripe_key( 'secret', $args['mode'] ) ];
+
+				unset( $args['mode'] );
+			}
+
+			$args = wp_parse_args( $args, $defaults );
+
+			return Mandate::retrieve( $args, $auth_opts ?? Helpers::get_auth_opts() );
+		} catch ( Exception $e ) {
+
+			wpforms_log(
+				'Stripe: Unable to get Mandate.',
+				$e->getMessage(),
+				[
+					'type' => [ 'payment', 'error' ],
+				]
+			);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Create Stripe Setup Intent.
+	 *
+	 * @since 1.8.7
+	 *
+	 * @param array $intent_data Intent data.
+	 * @param array $args        Additional arguments.
+	 *
+	 * @throws ApiErrorException If the request fails.
+	 *
+	 * @return SetupIntent|null
+	 */
+	public function create_setup_intent( array $intent_data, array $args ) {
+
+		try {
+			if ( isset( $args['mode'] ) ) {
+				$auth_opts = [ 'api_key' => Helpers::get_stripe_key( 'secret', $args['mode'] ) ];
+			}
+
+			return SetupIntent::create( $intent_data, $auth_opts ?? Helpers::get_auth_opts() );
+		} catch ( Exception $e ) {
+
+			wpforms_log(
+				'Stripe: Unable to create Setup Intent.',
+				$e->getMessage(),
+				[
+					'type' => [ 'payment', 'error' ],
+				]
+			);
+		}
+
+		return null;
 	}
 }

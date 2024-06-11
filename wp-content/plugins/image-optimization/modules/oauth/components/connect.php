@@ -11,6 +11,7 @@ use ImageOptimization\Classes\Logger;
 use ImageOptimization\Classes\Utils;
 use ImageOptimization\Modules\Settings\Module as Settings_Module;
 
+use stdClass;
 use Throwable;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -22,6 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class Connect {
 	const API_URL = 'https://my.elementor.com/api/connect/v1';
+	const STATUS_CHECK_TRANSIENT = 'image_optimizer_status_check';
 
 	/**
 	 * is_connected
@@ -301,7 +303,27 @@ class Connect {
 		return $response->subscriptions;
 	}
 
-	public static function check_connect_status() {
+	public static function get_connect_status() {
+		if ( ! self::is_connected() ) {
+			Logger::log( Logger::LEVEL_INFO, 'Status getting error. Reason: User is not connected' );
+
+			return null;
+		}
+
+		$cached_status = get_transient( self::STATUS_CHECK_TRANSIENT );
+
+		if ( $cached_status ) {
+			return $cached_status;
+		}
+
+		$status = self::check_connect_status();
+
+		set_transient( self::STATUS_CHECK_TRANSIENT, $status, MINUTE_IN_SECONDS * 5 );
+
+		return $status;
+	}
+
+	private static function check_connect_status() {
 		if ( ! self::is_connected() ) {
 			Logger::log( Logger::LEVEL_INFO, 'Status check error. Reason: User is not connected' );
 
@@ -329,6 +351,23 @@ class Connect {
 		}
 
 		return $response;
+	}
+
+	public static function update_usage_data( stdClass $new_usage_data ) {
+		$connect_status = self::get_connect_status();
+
+		if ( ! isset( $new_usage_data->allowed ) || ! isset( $new_usage_data->used ) ) {
+			return;
+		}
+
+		if ( 0 === $new_usage_data->allowed - $new_usage_data->used ) {
+			$connect_status->status = 'expired';
+		}
+
+		$connect_status->quota = $new_usage_data->allowed;
+		$connect_status->used_quota = $new_usage_data->used;
+
+		set_transient( self::STATUS_CHECK_TRANSIENT, $connect_status, MINUTE_IN_SECONDS * 5 );
 	}
 
 	public function __construct() {

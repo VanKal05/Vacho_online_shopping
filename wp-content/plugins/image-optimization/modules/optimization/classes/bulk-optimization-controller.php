@@ -258,7 +258,13 @@ class Bulk_Optimization_Controller {
 		}
 
 		foreach ( $wp_query->posts as $attachment_id ) {
-			$wp_meta = new WP_Image_Meta( $attachment_id );
+			try {
+				Validate_Image::is_valid( $attachment_id );
+				$wp_meta = new WP_Image_Meta( $attachment_id );
+			} catch ( Invalid_Image_Exception | Exceptions\Image_Validation_Error $ie ) {
+				continue;
+			}
+
 			$sizes_count = count( $wp_meta->get_size_keys() );
 
 			if ( $output['total_images_count'] + $sizes_count <= $images_left ) {

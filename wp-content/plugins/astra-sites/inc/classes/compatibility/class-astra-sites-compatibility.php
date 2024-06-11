@@ -50,9 +50,6 @@ if ( ! class_exists( 'Astra_Sites_Compatibility' ) ) :
 			// Plugin - WooCommerce.
 			require_once ASTRA_SITES_DIR . 'inc/classes/compatibility/woocommerce/class-astra-sites-compatibility-woocommerce.php';
 
-			// Plugin - WooCommerce.
-			require_once ASTRA_SITES_DIR . 'inc/classes/compatibility/surecart/class-astra-sites-compatibility-surecart.php';
-
 			// Plugin - LearnDash LMS.
 			require_once ASTRA_SITES_DIR . 'inc/classes/compatibility/sfwd-lms/class-astra-sites-compatibility-sfwd-lms.php';
 
@@ -65,20 +62,12 @@ if ( ! class_exists( 'Astra_Sites_Compatibility' ) ) :
 			// Plugin - LearnDash.
 			require_once ASTRA_SITES_DIR . 'inc/classes/compatibility/learndash/class-astra-sites-compatibility-learndash.php';
 
-			// Plugin - UAG.
-			require_once ASTRA_SITES_DIR . 'inc/classes/compatibility/uag/class-astra-sites-compatibility-uag.php';
-
 			// Plugin - UABB.
 			require_once ASTRA_SITES_DIR . 'inc/classes/compatibility/uabb/class-astra-sites-compatibility-uabb.php';
 
 			// Plugin - Checkout Plugins - Stripe.
 			require_once ASTRA_SITES_DIR . 'inc/classes/compatibility/checkout-plugins-stripe-woo/class-astra-sites-checkout-plugins-stripe-woo.php';
 
-			// Plugin - Cartflows.
-			require_once ASTRA_SITES_DIR . 'inc/classes/compatibility/cartflows/class-astra-sites-compatibility-cartflows.php';
-
-			// Plugin - Suretriggers.
-			require_once ASTRA_SITES_DIR . 'inc/classes/compatibility/suretriggers/class-astra-sites-compatibility-suretriggers.php';
 		}
 
 	}

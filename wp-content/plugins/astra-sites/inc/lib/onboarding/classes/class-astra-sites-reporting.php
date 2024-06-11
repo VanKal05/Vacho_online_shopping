@@ -125,7 +125,7 @@ class Astra_Sites_Reporting {
             ),
         );
 
-        $request = wp_remote_post( Astra_Sites::get_instance()->import_analytics_url, $api_args );
+        $request = wp_safe_remote_post( Astra_Sites::get_instance()->import_analytics_url, $api_args );
 
         if ( is_wp_error( $request ) ) {
             return array(

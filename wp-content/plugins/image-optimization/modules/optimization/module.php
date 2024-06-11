@@ -99,5 +99,6 @@ class Module extends Module_Base {
 		$this->register_routes();
 
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
+		add_action( 'elementor/editor/after_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
 	}
 }

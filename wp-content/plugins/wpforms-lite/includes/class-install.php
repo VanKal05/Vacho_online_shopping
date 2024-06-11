@@ -1,5 +1,8 @@
 <?php
 
+use WPForms\Helpers\DB;
+use WPForms\Helpers\Transient;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -100,6 +103,15 @@ class WPForms_Install {
 
 		// Remove plugin cron jobs.
 		wp_clear_scheduled_hook( 'wpforms_email_summaries_cron' );
+
+		// Check if the event is scheduled before attempting to clear it.
+		// This event is only registered for the Lite edition of the plugin.
+		// It's advisable to verify if the CRON event is scheduled using `wp_next_scheduled`.
+		// This precaution ensures that you are not attempting to clear a scheduled
+		// hook that may not exist, which could result in unexpected behavior.
+		if ( wp_next_scheduled( 'wpforms_weekly_entries_count_cron' ) ) {
+			wp_clear_scheduled_hook( 'wpforms_weekly_entries_count_cron' );
+		}
 	}
 
 	/**
@@ -186,8 +198,10 @@ class WPForms_Install {
 	 */
 	private function maybe_create_tables() {
 
+		Transient::delete( DB::EXISTING_TABLES_TRANSIENT_NAME );
+
 		array_map(
-			static function( $handler ) {
+			static function ( $handler ) {
 
 				if ( ! method_exists( $handler, 'table_exists' ) ) {
 					return;
@@ -203,6 +217,7 @@ class WPForms_Install {
 				wpforms()->get( 'tasks_meta' ),
 				wpforms()->get( 'payment' ),
 				wpforms()->get( 'payment_meta' ),
+				wpforms()->get( 'log' ),
 			]
 		);
 	}

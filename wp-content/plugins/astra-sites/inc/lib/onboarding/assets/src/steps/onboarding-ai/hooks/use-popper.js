@@ -1,6 +1,5 @@
+import { useRef, useCallback, useMemo } from 'react';
 import { createPopper } from '@popperjs/core';
-
-const { useRef, useCallback, useMemo } = wp.element;
 
 const usePopper = ( options ) => {
 	const reference = useRef( null );

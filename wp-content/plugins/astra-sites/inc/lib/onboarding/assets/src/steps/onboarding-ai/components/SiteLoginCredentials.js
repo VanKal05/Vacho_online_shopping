@@ -4,6 +4,7 @@ import toast from 'react-hot-toast';
 import { classNames, copyToClipboard } from '../utils/helpers';
 import { toastBody } from '../helpers/index';
 import { ExternalLinkIcon } from '../../ui/icons';
+import { __ } from '@wordpress/i18n';
 
 const SiteLoginCredentials = ( {
 	url,
@@ -41,7 +42,9 @@ const SiteLoginCredentials = ( {
 		const copyTextNode =
 			event.target.closest( 'div#zw-copy-info' ).firstChild;
 
-		if ( ! copyTextNode ) return;
+		if ( ! copyTextNode ) {
+			return;
+		}
 
 		copyTextNode.innerText = 'Copied!';
 		setTimeout( () => {
@@ -66,7 +69,7 @@ const SiteLoginCredentials = ( {
 							textClassName[ variant ]?.heading
 						) }
 					>
-						Login credentials:
+						{ __( 'Login credentials:', 'astra-sites' ) }
 					</h4>
 				) }
 				{ ! hideCopyIcon && (
@@ -85,7 +88,7 @@ const SiteLoginCredentials = ( {
 								textClassName[ variant ]?.text
 							) }
 						>
-							Copy
+							{ __( 'Copy', 'astra-sites' ) }
 						</p>
 						<DocumentDuplicateIcon className="w-4 h-4 text-app-inactive-icon" />
 					</div>
@@ -98,7 +101,7 @@ const SiteLoginCredentials = ( {
 						textClassName[ variant ]?.heading
 					) }
 				>
-					URL:
+					{ __( 'URL:', 'astra-sites' ) }
 				</p>
 				<a
 					href={ url }
@@ -125,7 +128,7 @@ const SiteLoginCredentials = ( {
 						textClassName[ variant ]?.heading
 					) }
 				>
-					Username:
+					{ __( 'Username:', 'astra-sites' ) }
 				</p>
 				<div className="flex items-center gap-2">
 					<p
@@ -156,7 +159,7 @@ const SiteLoginCredentials = ( {
 						textClassName[ variant ]?.heading
 					) }
 				>
-					Password:
+					{ __( 'Password:', 'astra-sites' ) }
 				</p>
 				<div className="flex items-center gap-2">
 					<p

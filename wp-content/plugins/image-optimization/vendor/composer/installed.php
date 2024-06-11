@@ -5,7 +5,7 @@
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '781db0ca928ef3558e0e474fb39fe904ce3269d6',
+        'reference' => '74d07c2382222b532afb0fcfa4c9d46d388fe467',
         'name' => 'elementor/image-optimizer',
         'dev' => false,
     ),
@@ -16,7 +16,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '781db0ca928ef3558e0e474fb39fe904ce3269d6',
+            'reference' => '74d07c2382222b532afb0fcfa4c9d46d388fe467',
             'dev_requirement' => false,
         ),
         'woocommerce/action-scheduler' => array(

@@ -4,9 +4,12 @@ module.exports = {
 	theme: {
 		extend: {
 			colors: {
-				'accent-st': '#2563EB',
+				'accent-st': '#3D4592',
+				'accent-st-secondary': '#2563EB',
 				'accent-wp-primary': '#0073AA',
+				'accent-wp-primary-alt': '#70CFFF',
 				'accent-wp-secondary': '#00A0D2',
+				'browser-bar': '#FAFAFA',
 				'heading-text': '#030712',
 				'body-text': '#374151',
 				'secondary-text': '#9CA3AF',
@@ -18,11 +21,12 @@ module.exports = {
 				'background-tertiary': '#F0F0FF',
 				'border-primary': '#D1D5DB',
 				'border-secondary': '#6B7280',
+				'border-tertiary': '#D8DFE9',
 				'icon-primary': '#5A03EF',
 				'icon-secondary': '#374151',
 				'alert-info': '#3B82F6',
 				'alert-info-bg': '#EFF6FF',
-				'alert-info-text': '#2563eb',
+				'alert-info-text': '#3D4592',
 				'alert-success': '#22C55E',
 				'alert-success-bg': '#F0FDF4',
 				'alert-success-text': '#16a34a',
@@ -35,9 +39,10 @@ module.exports = {
 				favorite: '#FD3997',
 				tooltip: '#334155',
 				'credit-warning': '#FB7E0A',
+				'button-bg': '#2F327E',
 				'credit-danger': '#EA1522',
 				'button-disabled': '#E5E7EB',
-				'blue-crayola': '#2563eb',
+				'blue-crayola': '#3D4592',
 				'zip-body-text': '#475569',
 				'zip-app-highlight-bg': '#F6FAFE',
 				'zip-app-heading': '#0F172A',
@@ -52,13 +57,19 @@ module.exports = {
 				'gradient-color-1': '#B809A7',
 				'gradient-color-2': '#E90B76',
 				'gradient-color-3': '#FC8536',
-				'gradient-2':
-					'linear-gradient(180deg, #B809A7 0%, #E90B76 46.88%, #FC8536 100%)',
 				'step-gradient':
 					'linear-gradient(to bottom, #FFF 0%, #0000FF 100%)',
 				'zip-app-inactive-icon': '#94A3B8',
 				'zip-app-light-bg': '#F0F4FA',
 				'st-background-secondary': '#f7f7f9',
+				'outline-color': '#FF580E',
+				'preview-background': '#F2F4F7',
+			},
+			backgroundImage: {
+				'gradient-1':
+					'linear-gradient(90deg, #B809A7 0%, #E90B76 46.88%, #FC8536 100%)',
+				'gradient-2':
+					'linear-gradient(180deg, #B809A7 0%, #E90B76 46.88%, #FC8536 100%)',
 			},
 			animation: {
 				rotate: 'rotation 7s linear infinite',
@@ -77,6 +88,8 @@ module.exports = {
 				card: '0px 24px 64px -16px rgba(0, 0, 0, 0.16)',
 				error: '0px 1px 1px 0px #EF4444, 0px 0px 0px 1px #EF4444',
 				sm: '0px 1px 2px 0px rgba(0, 0, 0, 0.05)',
+				'template-preview': '0px 40px 120px -16px rgba(0, 0, 0, 0.30)',
+				'template-info': '0px -20px 25px -5px rgba(0, 0, 0, 0.10)',
 			},
 			gradientColorStopPositions: {
 				0: '0%',

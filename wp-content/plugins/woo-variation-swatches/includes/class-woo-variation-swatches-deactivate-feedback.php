@@ -2,7 +2,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-if ( ! class_exists( 'Woo_Variation_Swatches_Deactivate_Feedback' ) ):
+if ( ! class_exists( 'Woo_Variation_Swatches_Deactivate_Feedback' ) ) :
 
 	class Woo_Variation_Swatches_Deactivate_Feedback extends GetWooPlugins_Plugin_Deactivate_Feedback {
 

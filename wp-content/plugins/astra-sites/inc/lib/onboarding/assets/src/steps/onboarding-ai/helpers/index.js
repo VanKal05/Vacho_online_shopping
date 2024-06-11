@@ -1,7 +1,8 @@
+import clsx from 'clsx';
 import { twMerge } from 'tailwind-merge';
+import { __ } from '@wordpress/i18n';
 
-export const classNames = ( ...classes ) =>
-	twMerge( classes.filter( Boolean ).join( ' ' ) );
+export const classNames = ( ...classes ) => twMerge( clsx( classes ) );
 
 /**
  * Formats a number to display in a human-readable format.
@@ -54,19 +55,40 @@ export const getColorClass = ( percentage ) => {
 };
 
 export const SITE_CREATION_STATUS_CODES = {
-	A001: 'Spinning up a server',
-	A002: 'Preparing details',
-	A003: 'Setting up options',
-	A004: 'Connecting to AI',
-	A005: 'Finding images',
-	A006: 'Writing compelling copy',
-	A007: 'Optimizing for SEO',
-	A008: 'Optimizing for mobile',
-	A009: 'Adding final touches',
-	A010: "It's taking a bit more than usual. Bear with us...",
-	A011: 'Done',
-	R001: 'Oops, Site creation hiccupped, we are trying one more time',
-	F001: "Oops, our site creation magic misfired! We couldn't create your site. Please try again...",
+	A001: __( 'Downloading the images in media library…', 'astra-sites' ),
+	A002: __( 'Downloading the images in media library…', 'astra-sites' ),
+	A003: __(
+		'Adding interactive elements to engage visitors…',
+		'astra-sites'
+	),
+	A004: __(
+		'Crafting compelling copy that speaks to audience…',
+		'astra-sites'
+	),
+	A005: __( 'Optimizing website for performance and speed…', 'astra-sites' ),
+	A006: __( 'Adding essential features to engage visitors…', 'astra-sites' ),
+	A007: __(
+		'Optimizing SEO settings to boost online presence…',
+		'astra-sites'
+	),
+	A008: __( 'Finalizing website layout and structure…', 'astra-sites' ),
+	A009: __(
+		'Testing functionality across different browsers…',
+		'astra-sites'
+	),
+	A010: __(
+		"It's taking a bit more than usual. Bear with us…",
+		'astra-sites'
+	),
+	A011: __( 'Done', 'astra-sites' ),
+	R001: __(
+		'Oops, Site creation hiccupped, we are trying one more time',
+		'astra-sites'
+	),
+	F001: __(
+		"Oops, our site creation magic misfired! We couldn't create your site. Please try again…",
+		'astra-sites'
+	),
 };
 
 export const toastBody = ( { title, message } ) => {
@@ -88,6 +110,7 @@ export const toastBody = ( { title, message } ) => {
 /**
  * Get data from local storage.
  *
+ * @param {string} key
  * @return {Object} - The value from local storage.
  */
 export const getLocalStorageItem = ( key ) => {
@@ -99,7 +122,6 @@ export const getLocalStorageItem = ( key ) => {
 		return value ? JSON.parse( value ) : null;
 	} catch ( error ) {
 		// Handle error (e.g., data is not JSON, localStorage is not available, etc.)
-		console.error( 'Error while getting localStorage item:', error );
 		return null;
 	}
 };
@@ -119,7 +141,6 @@ export const setLocalStorageItem = ( key, value ) => {
 		localStorage.setItem( key, JSON.stringify( value ) );
 	} catch ( error ) {
 		// Handle error (e.g., localStorage is full, etc.)
-		console.error( 'Error while setting localStorage:', error );
 	}
 };
 
@@ -135,6 +156,8 @@ export const removeLocalStorageItem = ( key ) => {
 };
 
 export const getPercent = ( num, den ) => {
-	if ( typeof num !== 'number' || typeof den !== 'number' ) return 0;
+	if ( typeof num !== 'number' || typeof den !== 'number' ) {
+		return 0;
+	}
 	return ( num / den ) * 100;
 };

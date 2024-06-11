@@ -9,7 +9,7 @@ if ( ! function_exists( 'wc_admin_get_feature_config' ) ) {
 			'product-block-editor' => true,
 			'coupons' => true,
 			'core-profiler' => true,
-			'customize-store' => false,
+			'customize-store' => true,
 			'customer-effort-score-tracks' => true,
 			'import-products-task' => true,
 			'experimental-fashion-sample-products' => true,
@@ -27,7 +27,9 @@ if ( ! function_exists( 'wc_admin_get_feature_config' ) ) {
 			'product-virtual-downloadable' => true,
 			'product-external-affiliate' => true,
 			'product-grouped' => true,
-			'product-linked' => false,
+			'product-linked' => true,
+			'product-pre-publish-modal' => true,
+			'product-custom-fields' => true,
 			'remote-inbox-notifications' => true,
 			'remote-free-extensions' => true,
 			'payment-gateway-suggestions' => true,
@@ -40,6 +42,7 @@ if ( ! function_exists( 'wc_admin_get_feature_config' ) ) {
 			'wc-pay-promotion' => true,
 			'wc-pay-welcome-page' => true,
 			'async-product-editor-category-field' => false,
+			'launch-your-store' => false,
 		);
 	}
 }

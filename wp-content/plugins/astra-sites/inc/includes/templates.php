@@ -377,7 +377,7 @@ $suggestion_link = astra_sites_get_suggestion_link();
 
 			var parent_name = '';
 			if ( undefined != data[ind]['parent-site-name'] ) {
-				var parent_name = $( "<textarea/>") .html( data[ind]['parent-site-name'] ).text();
+				var parent_name = jQuery( "<textarea/>") .html( data[ind]['parent-site-name'] ).text();
 			}
 
 			var complete_title = parent_name + ' - ' + data[ ind ]['title'];

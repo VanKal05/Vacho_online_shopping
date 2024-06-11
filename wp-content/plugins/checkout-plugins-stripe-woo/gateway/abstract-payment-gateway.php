@@ -804,7 +804,8 @@ abstract class Abstract_Payment_Gateway extends WC_Payment_Gateway {
 			}
 
 			if ( ! empty( trim( $this->statement_descriptor ) ) ) {
-				$request['statement_descriptor'] = $this->statement_descriptor;
+				$request['statement_descriptor']        = $this->statement_descriptor;
+				$request['statement_descriptor_suffix'] = $this->statement_descriptor;
 			}
 
 			$response = $this->create_payment_for_saved_payment_method( apply_filters( 'cpsw_saved_card_payment_intent_post_data', $request ) );

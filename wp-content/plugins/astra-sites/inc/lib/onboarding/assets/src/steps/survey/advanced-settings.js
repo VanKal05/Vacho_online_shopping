@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Tooltip } from '@brainstormforce/starter-templates-components';
+import Tooltip from '../onboarding-ai/components/tooltip';
 import { __ } from '@wordpress/i18n';
 import { decodeEntities } from '@wordpress/html-entities';
 import { useStateValue } from '../../store/store';
@@ -94,7 +94,11 @@ const AdvancedSettings = () => {
 				showSection ? 'show-section' : 'hidden-section'
 			}` }
 		>
-			<p className="label-text row-label" onClick={ toggleSection }>
+			<p
+				className="label-text row-label"
+				onClick={ toggleSection }
+				role="presentation"
+			>
 				{ __( 'Advanced Options', 'astra-sites' ) }
 				<span className="advanced-options-icons">
 					{ showSection ? ICONS.angleUP : ICONS.angleDown }
@@ -286,6 +290,7 @@ const AdvancedSettings = () => {
 								) }
 							</label>
 							<Tooltip
+								interactive={ true }
 								content={
 									<div>
 										{ __(

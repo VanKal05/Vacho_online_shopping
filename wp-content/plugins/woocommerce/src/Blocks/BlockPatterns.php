@@ -1,12 +1,13 @@
 <?php
 namespace Automattic\WooCommerce\Blocks;
 
+use Automattic\WooCommerce\Admin\Features\Features;
 use Automattic\WooCommerce\Blocks\AI\Connection;
 use Automattic\WooCommerce\Blocks\Images\Pexels;
 use Automattic\WooCommerce\Blocks\Domain\Package;
-use Automattic\WooCommerce\Blocks\Patterns\PatternsHelper;
-use Automattic\WooCommerce\Blocks\Patterns\PatternUpdater;
-use Automattic\WooCommerce\Blocks\Patterns\ProductUpdater;
+use Automattic\WooCommerce\Blocks\AIContent\PatternsHelper;
+use Automattic\WooCommerce\Blocks\AIContent\UpdatePatterns;
+use Automattic\WooCommerce\Blocks\AIContent\UpdateProducts;
 
 /**
  * Registers patterns under the `./patterns/` directory and updates their content.
@@ -119,6 +120,7 @@ class BlockPatterns {
 			'keywords'      => 'Keywords',
 			'blockTypes'    => 'Block Types',
 			'inserter'      => 'Inserter',
+			'featureFlag'   => 'Feature Flag',
 		);
 
 		if ( ! file_exists( $this->patterns_path ) ) {
@@ -167,6 +169,10 @@ class BlockPatterns {
 			}
 
 			if ( \WP_Block_Patterns_Registry::get_instance()->is_registered( $pattern_data['slug'] ) ) {
+				continue;
+			}
+
+			if ( $pattern_data['featureFlag'] && ! Features::is_enabled( $pattern_data['featureFlag'] ) ) {
 				continue;
 			}
 
@@ -298,7 +304,7 @@ class BlockPatterns {
 	public function schedule_on_plugin_update( $upgrader_object, $options ) {
 		if ( 'update' === $options['action'] && 'plugin' === $options['type'] && isset( $options['plugins'] ) ) {
 			foreach ( $options['plugins'] as $plugin ) {
-				if ( str_contains( $plugin, 'woocommerce-gutenberg-products-block.php' ) || str_contains( $plugin, 'woocommerce.php' ) ) {
+				if ( str_contains( $plugin, 'woocommerce.php' ) ) {
 					$business_description = get_option( 'woo_ai_describe_store_description' );
 
 					if ( $business_description ) {
@@ -369,13 +375,13 @@ class BlockPatterns {
 			return $images->get_error_message();
 		}
 
-		$populate_patterns = ( new PatternUpdater() )->generate_content( $ai_connection, $token, $images, $business_description );
+		$populate_patterns = ( new UpdatePatterns() )->generate_content( $ai_connection, $token, $images, $business_description );
 
 		if ( is_wp_error( $populate_patterns ) ) {
 			return $populate_patterns->get_error_message();
 		}
 
-		$populate_products = ( new ProductUpdater() )->generate_content( $ai_connection, $token, $images, $business_description );
+		$populate_products = ( new UpdateProducts() )->generate_content( $ai_connection, $token, $images, $business_description );
 
 		if ( is_wp_error( $populate_products ) ) {
 			return $populate_products->get_error_message();

@@ -8,6 +8,8 @@
  * @since 1.0.0
  */
 
+use STImporter\Importer\Helpers\ST_Image_Importer;
+
 if ( ! class_exists( 'Astra_Sites_Compatibility_Astra_Pro' ) ) :
 
 	/**
@@ -134,7 +136,7 @@ if ( ! class_exists( 'Astra_Sites_Compatibility_Astra_Pro' ) ) :
 		 * @return null     If there is no import option data found.
 		 */
 		public static function start_post_mapping() {
-			$demo_data = get_option( 'astra_sites_import_data', array() );
+			$demo_data = Astra_Sites_File_System::get_instance()->get_demo_content();
 			if ( ! isset( $demo_data['astra-post-data-mapping'] ) ) {
 				return;
 			}
@@ -281,7 +283,7 @@ if ( ! class_exists( 'Astra_Sites_Compatibility_Astra_Pro' ) ) :
 			if ( isset( $headers_data['images'] ) && ! empty( $headers_data['images'] ) ) {
 				foreach ( $headers_data['images'] as $key => $image_data ) {
 					if ( isset( $image_data['image'] ) && ! empty( $image_data['image'] ) ) {
-						$downloaded_image = Astra_Sites_Image_Importer::get_instance()->import( $image_data['image'] );
+						$downloaded_image = ST_Image_Importer::get_instance()->import( $image_data['image'] );
 
 						$headers_old[ $image_data['key_map']['url'] ] = $downloaded_image['url'];
 						$headers_old[ $image_data['key_map']['id'] ]  = $downloaded_image['id'];

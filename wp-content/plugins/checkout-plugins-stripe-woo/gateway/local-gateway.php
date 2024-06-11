@@ -37,6 +37,7 @@ class Local_Gateway extends Abstract_Payment_Gateway {
 		add_action( 'admin_init', [ $this, 'add_notice' ] );
 		add_action( 'wc_ajax_' . $this->id . '_verify_payment_intent', [ $this, 'verify_intent' ] );
 		add_filter( 'woocommerce_payment_successful_result', [ $this, 'modify_successful_payment_result' ], 999, 2 );
+		add_filter( 'woocommerce_get_credit_card_type_label', [ $this, 'normalize_sepa_label' ] );
 	}
 
 	/**
@@ -100,8 +101,16 @@ class Local_Gateway extends Abstract_Payment_Gateway {
 			// translators: %s: except countries.
 			$desc .= sprintf( __( ' & billing country is not <strong>%s</strong>', 'checkout-plugins-stripe-woo' ), implode( ', ', $this->get_option( 'except_countries', array() ) ) );
 		} elseif ( 'specific' === $this->get_option( 'allowed_countries' ) ) {
+			$allowed_countries = $this->get_option( 'specific_countries', array() );
 			// translators: %s: specificcountries.
-			$desc .= sprintf( __( ' & billing country is <strong>%s</strong>', 'checkout-plugins-stripe-woo' ), implode( ', ', $this->get_option( 'specific_countries', array() ) ) );
+			$description = sprintf( __( ' & billing country is %1$s%2$s%3$s', 'checkout-plugins-stripe-woo' ), '<strong>', implode( ', ', $allowed_countries ), '</strong>' );
+			if ( empty( $allowed_countries ) ) {
+				// translators: %s: billing countries are not selected.
+				$description = sprintf( __( ' & %1$s billing country is not selected %2$s', 'checkout-plugins-stripe-woo' ), '<strong style="color:#ff0000;">', '</strong>' );
+			}
+			
+			
+			$desc .= $description;
 		}
 
 		return apply_filters( 'cpsw_local_payment_description', $desc );
@@ -448,6 +457,8 @@ class Local_Gateway extends Abstract_Payment_Gateway {
 					}
 
 					wc_add_notice( $error . $intent_data['message'], 'error' );
+					/* translators: %1$1s stripe error message.  */
+					Logger::info( sprintf( __( 'Stripe error:  %1$1s', 'checkout-plugins-stripe-woo' ), $error . $intent_data['message'] ) );
 
 					return [
 						'result'      => 'fail',
@@ -573,6 +584,8 @@ class Local_Gateway extends Abstract_Payment_Gateway {
 
 			// translators: %s: payment fail message.
 			wc_add_notice( sprintf( __( 'Payment failed. %s', 'checkout-plugins-stripe-woo' ), Helper::get_localized_messages( $code, $message ) ), 'error' );
+			/* translators: %1$1s order id, %2$2s payment fail message.  */
+			Logger::error( sprintf( __( 'Payment failed for Order id - %1$1s. %2$2s', 'checkout-plugins-stripe-woo' ), $order_id, Helper::get_localized_messages( $code, $message ) ) );
 			$redirect_url = wc_get_checkout_url();
 		}
 		wp_safe_redirect( $redirect_url );
@@ -582,20 +595,37 @@ class Local_Gateway extends Abstract_Payment_Gateway {
 	/**
 	 * Get verification url for payment intent
 	 *
-	 * @param int    $order_id woocommerce order id.
-	 * @param string $redirect_url redirect url.
+	 * @param int     $order_id woocommerce order id.
+	 * @param string  $redirect_url redirect url.
+	 * @param boolean $save_card save card.
 	 * @since 1.7.0
 	 * @return string verification url.
 	 */
-	public function get_verification_url( $order_id, $redirect_url ) {
+	public function get_verification_url( $order_id, $redirect_url, $save_card = false ) {
 		// Put the final thank you page redirect into the verification URL.
 		return add_query_arg(
 			[
 				'order'                 => $order_id,
 				'confirm_payment_nonce' => wp_create_nonce( 'cpsw_confirm_payment_intent' ),
 				'redirect_to'           => rawurlencode( $redirect_url ),
+				'save_card'             => $save_card,
 			],
 			WC_AJAX::get_endpoint( $this->id . '_verify_payment_intent' )
 		);
+	}
+
+	/**
+	 * Normalizes the SEPA IBAN label.
+	 *
+	 * @param string $label label.
+	 * @since 1.8.0
+	 * @return string $label
+	 */
+	public function normalize_sepa_label( $label ) {
+		if ( 'sepa iban' === strtolower( $label ) ) {
+			return 'SEPA IBAN';
+		}
+
+		return $label;
 	}
 }

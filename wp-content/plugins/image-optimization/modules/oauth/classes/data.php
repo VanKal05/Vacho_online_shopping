@@ -159,7 +159,7 @@ class Data {
 	}
 
 	public static function images_left(): int {
-		$plan_data = Connect::check_connect_status();
+		$plan_data = Connect::get_connect_status();
 
 		if ( empty( $plan_data ) ) {
 			return 0;

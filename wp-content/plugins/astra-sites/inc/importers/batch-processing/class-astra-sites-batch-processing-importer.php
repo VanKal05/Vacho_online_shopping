@@ -58,7 +58,7 @@ if ( ! class_exists( 'Astra_Sites_Batch_Processing_Importer' ) ) :
 			$api_args     = array(
 				'timeout' => 30,
 			);
-			$request = wp_remote_get( trailingslashit( Astra_Sites::get_instance()->get_api_domain() ) . 'wp-content/uploads/all-site-categories.json', $api_args );
+			$request = wp_safe_remote_get( trailingslashit( Astra_Sites::get_instance()->get_api_domain() ) . 'wp-content/uploads/all-site-categories.json', $api_args );
 			if ( ! is_wp_error( $request ) && 200 === (int) wp_remote_retrieve_response_code( $request ) ) {
 				$cats = json_decode( wp_remote_retrieve_body( $request ), true );
 
@@ -70,8 +70,7 @@ if ( ! class_exists( 'Astra_Sites_Batch_Processing_Importer' ) ) :
 						astra_sites_error_log( 'HTTP Request Error!' );
 					}
 				} else {
-					update_site_option( 'astra-sites-all-site-categories-and-tags', $cats );
-
+					Astra_Sites_File_System::get_instance()->update_json_file( 'astra-sites-all-site-categories-and-tags.json', $cats );
 					do_action( 'astra_sites_sync_all_site_categories_and_tags', $cats );
 				}
 			}
@@ -93,7 +92,7 @@ if ( ! class_exists( 'Astra_Sites_Batch_Processing_Importer' ) ) :
 			$api_args     = array(
 				'timeout' => 30,
 			);
-			$request = wp_remote_get( trailingslashit( Astra_Sites::get_instance()->get_api_domain() ) . 'wp-json/wp/v2/astra-sites-site-category/?hide_empty=true&_fields=id,name,slug&per_page=100', $api_args );
+			$request = wp_safe_remote_get( trailingslashit( Astra_Sites::get_instance()->get_api_domain() ) . 'wp-json/wp/v2/astra-sites-site-category/?hide_empty=true&_fields=id,name,slug&per_page=100', $api_args );
 			if ( ! is_wp_error( $request ) && 200 === (int) wp_remote_retrieve_response_code( $request ) ) {
 				$cats = json_decode( wp_remote_retrieve_body( $request ), true );
 
@@ -105,8 +104,7 @@ if ( ! class_exists( 'Astra_Sites_Batch_Processing_Importer' ) ) :
 						astra_sites_error_log( 'HTTP Request Error!' );
 					}
 				} else {
-					update_site_option( 'astra-sites-all-site-categories', $cats );
-
+					Astra_Sites_File_System::get_instance()->update_json_file( 'astra-sites-all-site-categories.json', $cats );
 					do_action( 'astra_sites_sync_all_site_categories', $cats );
 				}
 			}
@@ -128,7 +126,7 @@ if ( ! class_exists( 'Astra_Sites_Batch_Processing_Importer' ) ) :
 			$api_args           = array(
 				'timeout' => 30,
 			);
-			$categories_request = wp_remote_get( trailingslashit( Astra_Sites::get_instance()->get_api_domain() ) . 'wp-json/wp/v2/astra-sites-site-category/?hide_empty=true&_fields=id,name,slug&per_page=100', $api_args );
+			$categories_request = wp_safe_remote_get( trailingslashit( Astra_Sites::get_instance()->get_api_domain() ) . 'wp-json/wp/v2/astra-sites-site-category/?hide_empty=true&_fields=id,name,slug&per_page=100', $api_args );
 			if ( ! is_wp_error( $categories_request ) && 200 === (int) wp_remote_retrieve_response_code( $categories_request ) ) {
 				$categories = json_decode( wp_remote_retrieve_body( $categories_request ), true );
 
@@ -140,8 +138,7 @@ if ( ! class_exists( 'Astra_Sites_Batch_Processing_Importer' ) ) :
 						astra_sites_error_log( 'HTTP Request Error!' );
 					}
 				} else {
-					update_site_option( 'astra-sites-categories', $categories );
-
+					Astra_Sites_File_System::get_instance()->update_json_file( 'astra-sites-categories.json', $categories );
 					do_action( 'astra_sites_sync_categories', $categories );
 				}
 			}
@@ -163,7 +160,7 @@ if ( ! class_exists( 'Astra_Sites_Batch_Processing_Importer' ) ) :
 			$api_args     = array(
 				'timeout' => 30,
 			);
-			$tags_request = wp_remote_get( trailingslashit( Astra_Sites::get_instance()->get_api_domain() ) . 'wp-json/wp/v2/blocks-category/?_fields=id,name,slug&per_page=100&hide_empty=1', $api_args );
+			$tags_request = wp_safe_remote_get( trailingslashit( Astra_Sites::get_instance()->get_api_domain() ) . 'wp-json/wp/v2/blocks-category/?_fields=id,name,slug&per_page=100&hide_empty=1', $api_args );
 			if ( ! is_wp_error( $tags_request ) && 200 === (int) wp_remote_retrieve_response_code( $tags_request ) ) {
 				$tags = json_decode( wp_remote_retrieve_body( $tags_request ), true );
 
@@ -180,8 +177,7 @@ if ( ! class_exists( 'Astra_Sites_Batch_Processing_Importer' ) ) :
 						$categories[ $value['id'] ] = $value;
 					}
 
-					update_site_option( 'astra-blocks-categories', $categories );
-
+					Astra_Sites_File_System::get_instance()->update_json_file( 'astra-blocks-categories.json', $categories );
 					do_action( 'astra_sites_sync_blocks_categories', $categories );
 				}
 			}
@@ -215,7 +211,7 @@ if ( ! class_exists( 'Astra_Sites_Batch_Processing_Importer' ) ) :
 				'timeout' => 30,
 			);
 
-			$page_builder_request = wp_remote_get( $url, $api_args );
+			$page_builder_request = wp_safe_remote_get( $url, $api_args );
 			if ( ! is_wp_error( $page_builder_request ) && 200 === (int) wp_remote_retrieve_response_code( $page_builder_request ) ) {
 				$page_builders = json_decode( wp_remote_retrieve_body( $page_builder_request ), true );
 				if ( isset( $page_builders['code'] ) ) {
@@ -259,7 +255,7 @@ if ( ! class_exists( 'Astra_Sites_Batch_Processing_Importer' ) ) :
 				'timeout' => 30,
 			);
 
-			$page_builder_request = wp_remote_get( trailingslashit( Astra_Sites::get_instance()->get_api_domain() ) . 'wp-json/wp/v2/astra-site-page-builder/?_fields=id,name,slug&site_url=' . $site_url . '&purchase_key=' . $purchase_key, $api_args );
+			$page_builder_request = wp_safe_remote_get( trailingslashit( Astra_Sites::get_instance()->get_api_domain() ) . 'wp-json/wp/v2/astra-site-page-builder/?_fields=id,name,slug&site_url=' . $site_url . '&purchase_key=' . $purchase_key, $api_args );
 			if ( ! is_wp_error( $page_builder_request ) && 200 === (int) wp_remote_retrieve_response_code( $page_builder_request ) ) {
 				$page_builders = json_decode( wp_remote_retrieve_body( $page_builder_request ), true );
 
@@ -271,8 +267,7 @@ if ( ! class_exists( 'Astra_Sites_Batch_Processing_Importer' ) ) :
 						astra_sites_error_log( 'HTTP Request Error!' );
 					}
 				} else {
-					update_site_option( 'astra-sites-page-builders', $page_builders );
-
+					Astra_Sites_File_System::get_instance()->update_json_file( 'astra-sites-page-builders.json', $page_builders );
 					do_action( 'astra_sites_sync_page_builders', $page_builders );
 				}
 			}
@@ -310,7 +305,7 @@ if ( ! class_exists( 'Astra_Sites_Batch_Processing_Importer' ) ) :
 
 			$api_url = add_query_arg( $query_args, trailingslashit( Astra_Sites::get_instance()->get_api_domain() ) . 'wp-json/astra-blocks/v1/blocks/' );
 
-			$response = wp_remote_get( $api_url, $api_args );
+			$response = wp_safe_remote_get( $api_url, $api_args );
 
 			if ( ! is_wp_error( $response ) || wp_remote_retrieve_response_code( $response ) === 200 ) {
 				$astra_blocks = json_decode( wp_remote_retrieve_body( $response ), true );
@@ -325,8 +320,7 @@ if ( ! class_exists( 'Astra_Sites_Batch_Processing_Importer' ) ) :
 				} else {
 					astra_sites_error_log( 'BLOCK: Storing data for page ' . $page . ' in option astra-blocks-' . $page );
 					update_site_option( 'astra-blocks-batch-status-string', 'Storing data for page ' . $page . ' in option astra-blocks-' . $page );
-
-					update_site_option( 'astra-blocks-' . $page, $astra_blocks );
+					Astra_Sites_File_System::get_instance()->update_json_file( 'astra-blocks-' . $page . '.json', $astra_blocks );
 
 					do_action( 'astra_sites_sync_blocks', $page, $astra_blocks );
 				}
@@ -365,7 +359,7 @@ if ( ! class_exists( 'Astra_Sites_Batch_Processing_Importer' ) ) :
 
 			$api_url = add_query_arg( $query_args, trailingslashit( Astra_Sites::get_instance()->get_api_domain() ) . 'wp-json/astra-sites/v1/sites-and-pages/' );
 
-			$response = wp_remote_get( $api_url, $api_args );
+			$response = wp_safe_remote_get( $api_url, $api_args );
 			if ( ! is_wp_error( $response ) || wp_remote_retrieve_response_code( $response ) === 200 ) {
 				$sites_and_pages = json_decode( wp_remote_retrieve_body( $response ), true );
 
@@ -380,7 +374,7 @@ if ( ! class_exists( 'Astra_Sites_Batch_Processing_Importer' ) ) :
 					astra_sites_error_log( 'Storing data for page ' . $page . ' in option astra-sites-and-pages-page-' . $page );
 					update_site_option( 'astra-sites-batch-status-string', 'Storing data for page ' . $page . ' in option astra-sites-and-pages-page-' . $page );
 
-					update_site_option( 'astra-sites-and-pages-page-' . $page, $sites_and_pages );
+					Astra_Sites_File_System::get_instance()->update_json_file( 'astra-sites-and-pages-page-' . $page . '.json', $sites_and_pages );
 
 					do_action( 'astra_sites_sync_sites_and_pages', $page, $sites_and_pages );
 				}

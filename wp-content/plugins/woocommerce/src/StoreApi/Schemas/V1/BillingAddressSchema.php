@@ -53,22 +53,24 @@ class BillingAddressSchema extends AbstractAddressSchema {
 	 * @return array
 	 */
 	public function sanitize_callback( $address, $request, $param ) {
-		$address          = parent::sanitize_callback( $address, $request, $param );
-		$address['email'] = sanitize_text_field( wp_unslash( $address['email'] ) );
+		$address = parent::sanitize_callback( $address, $request, $param );
+		if ( isset( $address['email'] ) ) {
+			$address['email'] = sanitize_email( wp_unslash( $address['email'] ) );
+		}
 		return $address;
 	}
 
 	/**
 	 * Validate the given address object.
 	 *
-	 * @param array            $address Value being sanitized.
+	 * @param array            $address Value being validated.
 	 * @param \WP_REST_Request $request The Request.
-	 * @param string           $param The param being sanitized.
+	 * @param string           $param The param being validated.
 	 * @return true|\WP_Error
 	 */
 	public function validate_callback( $address, $request, $param ) {
 		$errors  = parent::validate_callback( $address, $request, $param );
-		$address = $this->sanitize_callback( $address, $request, $param );
+		$address = (array) $address;
 		$errors  = is_wp_error( $errors ) ? $errors : new \WP_Error();
 
 		if ( ! empty( $address['email'] ) && ! is_email( $address['email'] ) ) {
@@ -99,27 +101,9 @@ class BillingAddressSchema extends AbstractAddressSchema {
 				$billing_state = '';
 			}
 
-			if ( $address instanceof \WC_Order ) {
-				// get additional fields from order.
-				$additional_address_fields = $this->additional_fields_controller->get_all_fields_from_order( $address );
-			} elseif ( $address instanceof \WC_Customer ) {
-				// get additional fields from customer.
-				$additional_address_fields = $this->additional_fields_controller->get_all_fields_from_customer( $address );
-			}
+			$additional_address_fields = $this->additional_fields_controller->get_all_fields_from_object( $address, 'billing' );
 
-			$additional_address_fields = array_reduce(
-				array_keys( $additional_address_fields ),
-				function( $carry, $key ) use ( $additional_address_fields ) {
-					if ( 0 === strpos( $key, '/billing/' ) ) {
-						$value         = $additional_address_fields[ $key ];
-						$key           = str_replace( '/billing/', '', $key );
-						$carry[ $key ] = $value;
-					}
-					return $carry;
-				},
-				[]
-			);
-			$address_object            = \array_merge(
+			$address_object = \array_merge(
 				[
 					'first_name' => $address->get_billing_first_name(),
 					'last_name'  => $address->get_billing_last_name(),

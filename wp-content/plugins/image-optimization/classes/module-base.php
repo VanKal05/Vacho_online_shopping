@@ -233,7 +233,7 @@ abstract class Module_Base {
 		}
 
 		if ( ! $relative_url ) {
-			$relative_url = $this->get_assets_relative_url() . '/';
+			$relative_url = $this->get_assets_relative_url();
 		}
 
 		$url = $this->get_assets_base_url() . $relative_url . $file_name;

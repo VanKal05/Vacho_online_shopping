@@ -34,10 +34,6 @@ class EditPost implements EducationInterface {
 			return false;
 		}
 
-		if ( ! $this->is_supported_version() ) {
-			return false;
-		}
-
 		if ( ! wpforms_current_user_can( 'view_forms' ) ) {
 			return false;
 		}
@@ -112,24 +108,6 @@ class EditPost implements EducationInterface {
 	}
 
 	/**
-	 * We support Classic Editor or Block Editor for WordPress 5.5+.
-	 *
-	 * @since 1.8.1
-	 *
-	 * @return bool
-	 */
-	private function is_supported_version() {
-
-		if ( ! $this->is_gutenberg_editor() ) {
-			return true;
-		}
-
-		global $wp_version;
-
-		return (bool) version_compare( $wp_version, '5.5', '>=' );
-	}
-
-	/**
 	 * Enqueue styles.
 	 *
 	 * @since 1.8.1
@@ -157,7 +135,7 @@ class EditPost implements EducationInterface {
 
 		wp_enqueue_script(
 			'wpforms-edit-post-education',
-			WPFORMS_PLUGIN_URL . "assets/lite/js/admin/edit-post-education.es5{$min}.js",
+			WPFORMS_PLUGIN_URL . "assets/lite/js/admin/education/edit-post.es5{$min}.js",
 			[ 'jquery' ],
 			WPFORMS_VERSION,
 			true

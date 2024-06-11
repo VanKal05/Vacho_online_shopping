@@ -1,6 +1,8 @@
 <?php
-defined( 'ABSPATH' ) or die( 'Keep Quit' );
+defined( 'ABSPATH' ) || die( 'Keep Quit' );
 /**
+ * Deactivate feedback dialog html.
+ *
  * @var $slug
  * @var $version
  * @var $deactivate_reasons
@@ -8,7 +10,7 @@ defined( 'ABSPATH' ) or die( 'Keep Quit' );
 $template_id = sprintf( 'tmpl-gwp-deactive-feedback-dialog-%s', esc_attr( $slug ) );
 ?>
 
-<script type="text/template" id="<?php echo esc_attr( $template_id ) ?>">
+<script type="text/template" id="<?php echo esc_attr( $template_id ); ?>">
 	<div class="gwp-backbone-modal gwp-deactive-feedback-dialog">
 		<div class="gwp-backbone-modal-content">
 			<section class="gwp-backbone-modal-main" role="main">
@@ -25,15 +27,16 @@ $template_id = sprintf( 'tmpl-gwp-deactive-feedback-dialog-%s', esc_attr( $slug 
 
 						<form class="feedback-dialog-form" method="post" onsubmit="return false">
 							<input type="hidden" name="action" value="gwp_deactivate_feedback" />
-							<input type="hidden" name="plugin" value="<?php echo esc_attr( $slug ) ?>" />
-							<input type="hidden" name="version" value="<?php echo esc_attr( $version ) ?>" />
+							<?php wp_nonce_field('gwp_deactivate_feedback'); ?>
+							<input type="hidden" name="plugin" value="<?php echo esc_attr( $slug ); ?>" />
+							<input type="hidden" name="version" value="<?php echo esc_attr( $version ); ?>" />
 							<div class="feedback-dialog-form-body">
 								<?php foreach ( $deactivate_reasons as $reason_key => $reason ) : ?>
 									<div class="feedback-dialog-input-wrapper">
-										<input id="feedback-<?php echo esc_attr( $reason_key ); ?><?php echo esc_attr( $slug ) ?>" class="feedback-dialog-input" type="radio" name="reason_type" value="<?php echo esc_attr( $reason_key ); ?>" />
-										<label for="feedback-<?php echo esc_attr( $reason_key ); ?><?php echo esc_attr( $slug ) ?>" class="feedback-dialog-label"><?php echo wp_kses_post( $reason['title'] ); ?></label>
+										<input id="feedback-<?php echo esc_attr( $reason_key ); ?><?php echo esc_attr( $slug ); ?>" class="feedback-dialog-input" type="radio" name="reason_type" value="<?php echo esc_attr( $reason_key ); ?>" />
+										<label for="feedback-<?php echo esc_attr( $reason_key ); ?><?php echo esc_attr( $slug ); ?>" class="feedback-dialog-label"><?php echo wp_kses_post( $reason['title'] ); ?></label>
 										<?php if ( ! empty( $reason['input_placeholder'] ) ) : ?>
-											<input value="<?php echo( isset( $reason['input_value'] ) ? esc_attr( $reason['input_value'] ) : '' ) ?>" class="feedback-text" style="display: none" disabled type="text" name="reason_text" placeholder="<?php echo esc_attr( $reason['input_placeholder'] ); ?>" />
+											<input value="<?php echo( isset( $reason['input_value'] ) ? esc_attr( $reason['input_value'] ) : '' ); ?>" class="feedback-text" style="display: none" disabled type="text" name="reason_text" placeholder="<?php echo esc_attr( $reason['input_placeholder'] ); ?>" />
 										<?php endif; ?>
 										<?php if ( ! empty( $reason['alert'] ) ) : ?>
 											<div class="feedback-text feedback-alert"><?php echo wp_kses_post( $reason['alert'] ); ?></div>
@@ -47,11 +50,11 @@ $template_id = sprintf( 'tmpl-gwp-deactive-feedback-dialog-%s', esc_attr( $slug 
 				<footer>
 					<div class="inner">
 						<div class="gwp-action-button-group">
-							<button id="send-ajax" class="button button-primary feedback-dialog-form-button-send" data-defaultvalue="<?php esc_html_e( 'Send feedback &amp; Deactivate', 'woo-variation-swatches' ) ?>" data-deactivating="<?php esc_html_e( 'Deactivating...', 'woo-variation-swatches' ) ?>"><?php esc_html_e( 'Send feedback &amp; Deactivate', 'woo-variation-swatches' ) ?></button>
+							<button id="send-ajax" class="button button-primary feedback-dialog-form-button-send" data-defaultvalue="<?php esc_html_e( 'Send feedback &amp; Deactivate', 'woo-variation-swatches' ); ?>" data-deactivating="<?php esc_html_e( 'Deactivating...', 'woo-variation-swatches' ); ?>"><?php esc_html_e( 'Send feedback &amp; Deactivate', 'woo-variation-swatches' ); ?></button>
 							<span class="spinner"></span>
 						</div>
 
-						<a class="feedback-dialog-form-button-skip" href="{{ data.deactivate_link }}"><?php esc_html_e( 'Skip &amp; Deactivate', 'woo-variation-swatches' ) ?></a>
+						<a class="feedback-dialog-form-button-skip" href="{{ data.deactivate_link }}"><?php esc_html_e( 'Skip &amp; Deactivate', 'woo-variation-swatches' ); ?></a>
 						<div class="clear"></div>
 					</div>
 				</footer>

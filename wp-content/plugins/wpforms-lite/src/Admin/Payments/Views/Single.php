@@ -136,7 +136,7 @@ class Single implements PaymentsViewsInterface {
 
 		wp_enqueue_script(
 			'wpforms-admin-payments-single',
-			WPFORMS_PLUGIN_URL . "assets/js/components/admin/payments/single{$min}.js",
+			WPFORMS_PLUGIN_URL . "assets/js/admin/payments/single{$min}.js",
 			[ 'tooltipster' ],
 			WPFORMS_VERSION,
 			true
@@ -899,8 +899,14 @@ class Single implements PaymentsViewsInterface {
 					absint( $field['id'] )
 				);
 
-			if ( wpforms_is_empty_string( $field_value ) ) {
+			$is_empty_value    = wpforms_is_empty_string( $field_value );
+			$is_empty_quantity = isset( $field['quantity'] ) && ! $field['quantity'];
+
+			if ( $is_empty_value ) {
 				$prepared_fields[ $key ]['field_value']  = esc_html__( 'Empty', 'wpforms-lite' );
+			}
+
+			if ( $is_empty_value || $is_empty_quantity ) {
 				$prepared_fields[ $key ]['field_class'] .= ' empty';
 			}
 		}
@@ -1172,7 +1178,7 @@ class Single implements PaymentsViewsInterface {
 				break;
 
 			case 'square':
-				$link = $is_test_mode ? 'https://squareupsandbox.com/dashboard/' : 'https://squareup.com/dashboard/';
+				$link = $is_test_mode ? 'https://squareupsandbox.com/dashboard/' : 'https://squareup.com/t/cmtp_performance/pr_developers/d_partnerships/p_WPForms/?route=dashboard/';
 				break;
 
 			default:

@@ -53,7 +53,7 @@
 }
 
 .cfvsw-swatches-option:not( .cfvsw-swatches-disabled, .cfvsw-swatches-out-of-stock ):hover {
-	border: 1px solid var( --cfvsw-swatches-border-color-hover, #00000090 );
+	border-color: var( --cfvsw-swatches-border-color-hover, #00000090 );
 	box-sizing: border-box;
 }
 .cfvsw-image-option {
@@ -63,11 +63,13 @@
 
 .cfvsw-label-option {
 	font-size: var( --cfvsw-swatches-font-size, 12px );
+	border-width: var( --cfvsw-swatches-border-width, 1px );
 	padding: 5px 10px;
 }
 
 .cfvsw-selected-swatch {
-	border: 1px solid var( --cfvsw-swatches-border-color-hover, #00000090 ) !important;
+	border-color: var( --cfvsw-swatches-border-color, #000 ) !important;
+	border-width: var( --cfvsw-swatches-border-width, 1px );
 	box-sizing: border-box;
 }
 

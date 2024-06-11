@@ -2,12 +2,12 @@
 Contributors: EmranAhmed, getwooplugins
 Tags: woocommerce variation swatches, woocommerce variation, woocommerce, variation swatches, woocommerce attributes, product attributes, product color, product size, variable product attributes, variation product swatches, color variation swatch, image variation swatch, printful color swatches
 Requires PHP: 7.4
-Requires at least: 5.6
-Tested up to: 6.4
-WC requires at least: 5.6
-WC tested up to: 8.4
-Stable tag: 2.0.30
-License: GPLv3
+Requires at least: 5.9
+Tested up to: 6.5
+WC requires at least: 7.5
+WC tested up to: 8.9
+Stable tag: 2.1.0
+License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
 Beautiful Color, Image and Buttons Variation Swatches For WooCommerce Product Attributes 
@@ -613,6 +613,19 @@ And your are ready to go.
 12. Global Variation Color Swatches Attribute List Preview
 
 == Changelog ==
+
+= 2.1.0 - 06-06-2024 =
+
+* Fixed: PHPCS Issues.
+* Updated: Add 3rd param to `get_swatch_data()` method.
+* New: `wpml-config.xml` file added to support WPML.
+* Update: WooCommerce 8.9+ Compatibility.
+* Update: Modify theme support feature. to `woo_variation_swatches`. Example: `add_theme_support( 'woo_variation_swatches', array( 'enable_stylesheet' => 'no', 'enable_tooltip' => 'no' ) );` for theme developer default setting control.
+
+= 2.0.31 - 23-04-2024 =
+
+* Update: WordPress 6.5+ Compatibility.
+* Update: WooCommerce 8.8+ Compatibility.
 
 = 2.0.30 - 15-01-2023 =
 
@@ -1230,37 +1243,37 @@ And your are ready to go.
 * Update: Renamed tooltip attribute to resolve conflict
 * Update: Renamed variation javascript class name
 
-= 1.0.7 =
+= 1.0.7 - 2018-01-21 =
 
 * Update: Improving frontend CSS
 * Update: Disable Bootstrap tooltip conflict
 
-= 1.0.6  =
+= 1.0.6 - 2018-01-19 =
 
 * Update: translation
 
-= 1.0.5 =
+= 1.0.5 - 2018-01-19 =
 
 * Fix: backend js issue
 
-= 1.0.4 =
+= 1.0.4 - 2018-01-17 =
 
 * Fix: Number Select Issue
 
-= 1.0.3 =
+= 1.0.3 - 2018-01-15 =
 
 * New: Css class on body based on settings
 * Update: tooltip and frontend css changed
 * New: `add_theme_support( 'woo-variation-swatches', array( 'tooltip' => FALSE, 'stylesheet' => FALSE ) );` for theme developer default setting control.
 * New: `wvs_clear_transient` to clear saved transient.
 
-= 1.0.2 =
+= 1.0.2 - 2018-01-08 =
 
 * New: attribute tooltip
 * New: Default stylesheet enable/disable option
 * New: Display style added to show Rounded / Squared shaped style
 
-= 1.0.1 =
+= 1.0.1 - 2017-12-23 =
 
 * Fix: text type select list
 

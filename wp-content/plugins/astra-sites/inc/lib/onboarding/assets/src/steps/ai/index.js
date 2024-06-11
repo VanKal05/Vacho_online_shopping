@@ -22,7 +22,6 @@ const PageBuilder = () => {
 	} );
 
 	const update = ( builder ) => {
-		// setBuilder( builder );
 		if ( builder !== 'ai' ) {
 			dispatch( {
 				type: 'set',

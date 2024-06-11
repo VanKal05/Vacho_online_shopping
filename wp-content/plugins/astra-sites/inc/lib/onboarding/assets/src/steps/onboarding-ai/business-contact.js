@@ -1,14 +1,20 @@
 import { useForm } from 'react-hook-form';
-import { useEffect, useState } from '@wordpress/element';
+import { useEffect, useState, useRef } from '@wordpress/element';
 import { withDispatch, useDispatch, useSelect } from '@wordpress/data';
 import { compose } from '@wordpress/compose';
+import { __ } from '@wordpress/i18n';
 import SocialMediaAdd from './components/social-media';
 import Textarea from './components/textarea';
 import Input from './components/input';
 import { STORE_KEY } from './store';
 import Divider from './components/divider';
-import Heading from './heading';
 import NavigationButtons from './navigation-buttons';
+import StyledText from './components/StyledText';
+import { z as zod } from 'zod';
+
+const PHONE_VALIDATION_REGEX = /^\+?[0-9()\s-]{6,20}$/,
+	EMAIL_VALIDATION_REGEX =
+		/^[a-z0-9!'#$%&*+\/=?^_`{|}~-]+(?:\.[a-z0-9!'#$%&*+\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-zA-Z]{2,}$/i;
 
 const mapSocialUrl = ( list ) => {
 	return list.map( ( item ) => {
@@ -31,18 +37,62 @@ const BusinessContact = ( {
 	} );
 	const { setWebsiteContactAIStep } = useDispatch( STORE_KEY );
 	const [ socialMediaList, setSocialMediaList ] = useState(
-		mapSocialUrl( businessContact.socialMedia ?? [] )
+		mapSocialUrl( businessContact.socialMedia ?? [] )?.map( ( item ) => ( {
+			...item,
+			valid: true,
+		} ) )
 	);
+	const previousValues = useRef( {
+		...businessContact,
+		socialMedia: mapSocialUrl( businessContact?.socialMedia ?? [] )?.map(
+			( item ) => ( { ...item, valid: true } )
+		),
+	} );
 
 	const handleOnChangeSocialMedia = ( list ) => {
 		setSocialMediaList( list );
 	};
+
+	const { businessName } = useSelect( ( select ) => {
+		const { getAIStepData } = select( STORE_KEY );
+		return getAIStepData();
+	} );
+
+	const getValidationSchema = () =>
+		zod.object( {
+			email: zod
+				.string()
+				.refine(
+					( value ) =>
+						value === '' || EMAIL_VALIDATION_REGEX.test( value ),
+					{
+						message: __(
+							'Please enter a valid email',
+							'astra-sites'
+						),
+					}
+				),
+			phone: zod
+				.string()
+				.refine(
+					( value ) =>
+						value === '' || PHONE_VALIDATION_REGEX.test( value ),
+					{
+						message: __(
+							'Please enter a valid phone number',
+							'astra-sites'
+						),
+					}
+				),
+			address: zod.string().optional(),
+		} );
 
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
 		setFocus,
+		watch,
 	} = useForm( { defaultValues: { ...businessContact } } );
 
 	const handleSubmitForm = ( data ) => {
@@ -53,20 +103,80 @@ const BusinessContact = ( {
 		onClickContinue();
 	};
 
+	const getFilteredSocialMediaList = ( list ) => {
+		return list.filter( ( item ) => item.valid );
+	};
+
 	useEffect( () => {
 		setFocus( 'email' );
 	}, [ setFocus ] );
 
+	const getValidFormValues = ( formValue ) => {
+		const schema = getValidationSchema();
+
+		const validationResult = schema.safeParse( formValue );
+
+		return validationResult?.success
+			? validationResult.data
+			: {
+					...formValue,
+					...validationResult.error.issues.reduce( ( acc, error ) => {
+						acc[ error.path[ 0 ] ] = '';
+						return acc;
+					}, {} ),
+			  };
+	};
+
+	const handleClickSkip = async () => {
+		const { socialMedia = [], ...formValue } = previousValues.current;
+		const validValues = getValidFormValues( formValue );
+
+		setWebsiteContactAIStep( {
+			...validValues,
+			socialMedia: mapSocialUrl(
+				getFilteredSocialMediaList( socialMedia )
+			),
+		} );
+		onClickSkip();
+	};
+
+	// Save inputs before moving to the previous step.
+	const handleClickPrevious = async () => {
+		const formValue = watch();
+		const validValues = getValidFormValues( formValue );
+
+		setWebsiteContactAIStep( {
+			...validValues,
+			socialMedia: mapSocialUrl(
+				getFilteredSocialMediaList( socialMediaList )
+			),
+		} );
+		onClickPrevious();
+	};
+
+	const hasInvalidSocialMediaUrl = socialMediaList.some(
+		( item ) => ! item.valid
+	);
+
 	return (
 		<form
-			className="w-full max-w-container flex flex-col gap-8 pb-10"
+			className="w-full max-w-container flex flex-col gap-4 pb-10"
 			action="#"
 			onSubmit={ handleSubmit( handleSubmitForm ) }
 		>
-			<Heading
-				heading="How people can get in touch"
-				subHeading="Please provide the contact information details below. These will be used on the website."
-			/>
+			{ /* Heading */ }
+			<div className="text-[2rem] font-semibold leading-[140%]">
+				{ __( 'How can people get in touch with ', 'astra-sites' ) }
+				<StyledText text={ businessName } />?
+			</div>
+			{ /* Subheading */ }
+			<div className="text-zip-body-text text-[16px] font-normal leading-6">
+				{ __(
+					'Please provide the contact information details below. These will be used on the website.',
+					'astra-sites'
+				) }
+			</div>
+
 			<div className="space-y-5">
 				<div className="flex justify-between gap-x-8 items-start w-full h-[76px]">
 					<Input
@@ -74,14 +184,17 @@ const BusinessContact = ( {
 						type="text"
 						name="email"
 						id="email"
-						label="Email"
-						placeholder="Your email"
+						label={ __( 'Email', 'astra-sites' ) }
+						placeholder={ __( 'Your email', 'astra-sites' ) }
 						register={ register }
 						error={ errors.email }
 						validations={ {
 							pattern: {
-								value: /^[a-z0-9!'#$%&*+\/=?^_`{|}~-]+(?:\.[a-z0-9!'#$%&*+\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-zA-Z]{2,}$/i,
-								message: 'Please enter a valid email',
+								value: EMAIL_VALIDATION_REGEX,
+								message: __(
+									'Please enter a valid email',
+									'astra-sites'
+								),
 							},
 						} }
 						height="[48px]"
@@ -91,14 +204,17 @@ const BusinessContact = ( {
 						type="text"
 						name="phone"
 						id="phone"
-						label="Phone Number"
-						placeholder="Your phone number"
+						label={ __( 'Phone Number', 'astra-sites' ) }
+						placeholder={ __( 'Your phone number', 'astra-sites' ) }
 						register={ register }
 						error={ errors.phone }
 						validations={ {
 							pattern: {
-								value: /^\+?[0-9()\s-]{6,20}$/,
-								message: 'Please enter a valid phone number',
+								value: PHONE_VALIDATION_REGEX,
+								message: __(
+									'Please enter a valid phone number',
+									'astra-sites'
+								),
 							},
 						} }
 						height="[48px]"
@@ -108,7 +224,7 @@ const BusinessContact = ( {
 					rows={ 4 }
 					name="address"
 					id="address"
-					label="Address"
+					label={ __( 'Address', 'astra-sites' ) }
 					placeholder=""
 					register={ register }
 					error={ errors.address }
@@ -121,8 +237,9 @@ const BusinessContact = ( {
 			</div>
 			<Divider />
 			<NavigationButtons
-				onClickPrevious={ onClickPrevious }
-				onClickSkip={ onClickSkip }
+				onClickPrevious={ handleClickPrevious }
+				onClickSkip={ handleClickSkip }
+				disableContinue={ hasInvalidSocialMediaUrl }
 			/>
 		</form>
 	);

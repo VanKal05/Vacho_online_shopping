@@ -167,7 +167,7 @@ class UsageTracking implements IntegrationInterface {
 			'theme_name'                     => $theme_data->name,
 			'theme_version'                  => $theme_data->version,
 			'locale'                         => get_locale(),
-			'timezone_offset'                => $this->get_timezone_offset(),
+			'timezone_offset'                => wp_timezone_string(),
 			// WPForms-specific data.
 			'wpforms_version'                => WPFORMS_VERSION,
 			'wpforms_license_key'            => wpforms_get_license_key(),
@@ -191,6 +191,7 @@ class UsageTracking implements IntegrationInterface {
 			'wpforms_multiple_notifications' => count( $this->get_forms_with_multiple_notifications( $forms ) ),
 			'wpforms_ajax_form_submissions'  => count( $this->get_ajax_form_submissions( $forms ) ),
 			'wpforms_notification_count'     => wpforms()->get( 'notifications' )->get_count(),
+			'wpforms_stats'                  => $this->get_additional_stats(),
 		];
 
 		if ( ! empty( $first_form_date ) ) {
@@ -327,46 +328,6 @@ class UsageTracking implements IntegrationInterface {
 
 		// Add favorite templates to the settings array.
 		return array_merge( $data, $this->get_favorite_templates() );
-	}
-
-	/**
-	 * Get timezone offset.
-	 * We use `wp_timezone_string()` when it's available (WP 5.3+),
-	 * otherwise fallback to the same code, copy-pasted.
-	 *
-	 * @see wp_timezone_string()
-	 *
-	 * @since 1.6.1
-	 *
-	 * @return string
-	 */
-	private function get_timezone_offset() {
-
-		// It was added in WordPress 5.3.
-		if ( function_exists( 'wp_timezone_string' ) ) {
-			return wp_timezone_string();
-		}
-
-		/*
-		 * The code below is basically a copy-paste from that function.
-		 */
-
-		$timezone_string = get_option( 'timezone_string' );
-
-		if ( $timezone_string ) {
-			return $timezone_string;
-		}
-
-		$offset  = (float) get_option( 'gmt_offset' );
-		$hours   = (int) $offset;
-		$minutes = ( $offset - $hours );
-
-		$sign      = ( $offset < 0 ) ? '-' : '+';
-		$abs_hour  = abs( $hours );
-		$abs_mins  = abs( $minutes * 60 );
-		$tz_offset = sprintf( '%s%02d:%02d', $sign, $abs_hour, $abs_mins );
-
-		return $tz_offset;
 	}
 
 	/**
@@ -784,5 +745,64 @@ class UsageTracking implements IntegrationInterface {
 
 		// We are all set. Confirm the connection.
 		return true;
+	}
+
+	/**
+	 * Retrieves additional statistics.
+	 *
+	 * @since 1.8.8
+	 *
+	 * @return array
+	 */
+	private function get_additional_stats(): array {
+
+		// Initialize an empty array to store the statistics.
+		$stats = [];
+
+		return $this->get_admin_pointer_stats( $stats );
+	}
+
+	/**
+	 * Retrieves statistics for admin pointers.
+	 * This function retrieves statistics for admin pointers based on their engagement or dismissal status.
+	 *
+	 * Note: Pointers can only be engaged (interacted with) or dismissed.
+	 *
+	 * - If the value is 1 or true, it means the pointer is shown and interacted with (engaged).
+	 * - If the value is 0 or false, it means the pointer is dismissed.
+	 * - If there is no pointer ID in the stats, it means the user hasn't seen the pointer yet.
+	 *
+	 * @since 1.8.8
+	 *
+	 * @param array $stats An array containing existing statistics.
+	 *
+	 * @return array
+	 */
+	private function get_admin_pointer_stats( array $stats ): array {
+
+		$pointers = get_option( 'wpforms_pointers', [] );
+
+		// If there are no pointers, return empty statistics.
+		if ( empty( $pointers ) ) {
+			return $stats;
+		}
+
+		// Pointers can only be interacted with or dismissed.
+
+		// If there are engagement pointers, process them.
+		if ( isset( $pointers['engagement'] ) ) {
+			foreach ( $pointers['engagement'] as $pointer ) {
+				$stats[ sanitize_key( $pointer ) ] = true;
+			}
+		}
+
+		// If there are dismiss pointers, process them.
+		if ( isset( $pointers['dismiss'] ) ) {
+			foreach ( $pointers['dismiss'] as $pointer ) {
+				$stats[ sanitize_key( $pointer ) ] = false;
+			}
+		}
+
+		return $stats;
 	}
 }

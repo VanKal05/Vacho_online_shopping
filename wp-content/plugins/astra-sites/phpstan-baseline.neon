@@ -16,11 +16,6 @@ parameters:
 			path: astra-sites.php
 
 		-
-			message: "#^Call to an undefined method object\\:\\:get_cta_link\\(\\)\\.$#"
-			count: 2
-			path: classes/class-astra-sites-admin.php
-
-		-
 			message: "#^Call to an undefined method object\\:\\:is_white_labeled\\(\\)\\.$#"
 			count: 3
 			path: classes/class-astra-sites-admin.php
@@ -59,361 +54,6 @@ parameters:
 			message: "#^Static property Astra_Sites_Admin\\:\\:\\$instance \\(object\\) in isset\\(\\) is not nullable\\.$#"
 			count: 1
 			path: classes/class-astra-sites-admin.php
-
-		-
-			message: "#^Static property Astra_Sites_Batch_Import\\:\\:\\$instance \\(object\\) in isset\\(\\) is not nullable\\.$#"
-			count: 1
-			path: inc/classes/batch-import/class-astra-sites-batch-import.php
-
-		-
-			message: "#^Method Astra_Sites_Batch_Site_Import_Batch\\:\\:task\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/classes/batch-import/class-astra-sites-batch-site-import-batch.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:backup_settings\\(\\)\\.$#"
-			count: 1
-			path: inc/classes/batch-import/class-astra-sites-batch-site-import.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:delete_imported_posts\\(\\)\\.$#"
-			count: 1
-			path: inc/classes/batch-import/class-astra-sites-batch-site-import.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:delete_imported_terms\\(\\)\\.$#"
-			count: 1
-			path: inc/classes/batch-import/class-astra-sites-batch-site-import.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:delete_imported_wp_forms\\(\\)\\.$#"
-			count: 1
-			path: inc/classes/batch-import/class-astra-sites-batch-site-import.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:get_reset_data\\(\\)\\.$#"
-			count: 1
-			path: inc/classes/batch-import/class-astra-sites-batch-site-import.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:get_single_demo\\(\\)\\.$#"
-			count: 1
-			path: inc/classes/batch-import/class-astra-sites-batch-site-import.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:import_cartflows\\(\\)\\.$#"
-			count: 1
-			path: inc/classes/batch-import/class-astra-sites-batch-site-import.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:import_customizer_settings\\(\\)\\.$#"
-			count: 1
-			path: inc/classes/batch-import/class-astra-sites-batch-site-import.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:import_end\\(\\)\\.$#"
-			count: 1
-			path: inc/classes/batch-import/class-astra-sites-batch-site-import.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:import_options\\(\\)\\.$#"
-			count: 1
-			path: inc/classes/batch-import/class-astra-sites-batch-site-import.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:import_widgets\\(\\)\\.$#"
-			count: 1
-			path: inc/classes/batch-import/class-astra-sites-batch-site-import.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:import_wpforms\\(\\)\\.$#"
-			count: 1
-			path: inc/classes/batch-import/class-astra-sites-batch-site-import.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:push_to_queue\\(\\)\\.$#"
-			count: 3
-			path: inc/classes/batch-import/class-astra-sites-batch-site-import.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:required_plugin\\(\\)\\.$#"
-			count: 1
-			path: inc/classes/batch-import/class-astra-sites-batch-site-import.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:required_plugin_activate\\(\\)\\.$#"
-			count: 2
-			path: inc/classes/batch-import/class-astra-sites-batch-site-import.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:reset_customizer_data\\(\\)\\.$#"
-			count: 1
-			path: inc/classes/batch-import/class-astra-sites-batch-site-import.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:reset_site_options\\(\\)\\.$#"
-			count: 1
-			path: inc/classes/batch-import/class-astra-sites-batch-site-import.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:reset_widgets_data\\(\\)\\.$#"
-			count: 1
-			path: inc/classes/batch-import/class-astra-sites-batch-site-import.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:save\\(\\)\\.$#"
-			count: 1
-			path: inc/classes/batch-import/class-astra-sites-batch-site-import.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:sse_import\\(\\)\\.$#"
-			count: 1
-			path: inc/classes/batch-import/class-astra-sites-batch-site-import.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with bool will always evaluate to false\\.$#"
-			count: 1
-			path: inc/classes/batch-import/class-astra-sites-batch-site-import.php
-
-		-
-			message: "#^Call to function is_wp_error\\(\\) with array will always evaluate to false\\.$#"
-			count: 1
-			path: inc/classes/batch-import/class-astra-sites-batch-site-import.php
-
-		-
-			message: "#^Call to method add_menu\\(\\) on an unknown class instance\\.$#"
-			count: 1
-			path: inc/classes/batch-import/class-astra-sites-batch-site-import.php
-
-		-
-			message: "#^Cannot access property \\$download_link on array\\|object\\.$#"
-			count: 1
-			path: inc/classes/batch-import/class-astra-sites-batch-site-import.php
-
-		-
-			message: "#^Cannot access property \\$name on array\\|object\\.$#"
-			count: 1
-			path: inc/classes/batch-import/class-astra-sites-batch-site-import.php
-
-		-
-			message: "#^Default value of the parameter \\#1 \\$admin_bar \\(string\\) of method Astra_Sites_Batch_Site_Import\\:\\:admin_bar_menu_item\\(\\) is incompatible with type instance\\.$#"
-			count: 1
-			path: inc/classes/batch-import/class-astra-sites-batch-site-import.php
-
-		-
-			message: "#^Method Astra_Sites_Batch_Site_Import\\:\\:admin_bar_menu_item\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/classes/batch-import/class-astra-sites-batch-site-import.php
-
-		-
-			message: "#^Method Astra_Sites_Batch_Site_Import\\:\\:backup_customizer_settings\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/classes/batch-import/class-astra-sites-batch-site-import.php
-
-		-
-			message: "#^Method Astra_Sites_Batch_Site_Import\\:\\:check_import_status\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/classes/batch-import/class-astra-sites-batch-site-import.php
-
-		-
-			message: "#^Method Astra_Sites_Batch_Site_Import\\:\\:direct_import\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/classes/batch-import/class-astra-sites-batch-site-import.php
-
-		-
-			message: "#^Method Astra_Sites_Batch_Site_Import\\:\\:enqueue_scripts\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/classes/batch-import/class-astra-sites-batch-site-import.php
-
-		-
-			message: "#^Method Astra_Sites_Batch_Site_Import\\:\\:get_site_data\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/classes/batch-import/class-astra-sites-batch-site-import.php
-
-		-
-			message: "#^Method Astra_Sites_Batch_Site_Import\\:\\:get_site_data\\(\\) should return array but returns object\\.$#"
-			count: 1
-			path: inc/classes/batch-import/class-astra-sites-batch-site-import.php
-
-		-
-			message: "#^Method Astra_Sites_Batch_Site_Import\\:\\:get_status\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/classes/batch-import/class-astra-sites-batch-site-import.php
-
-		-
-			message: "#^Method Astra_Sites_Batch_Site_Import\\:\\:import\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/classes/batch-import/class-astra-sites-batch-site-import.php
-
-		-
-			message: "#^Method Astra_Sites_Batch_Site_Import\\:\\:import_customizer_settings\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/classes/batch-import/class-astra-sites-batch-site-import.php
-
-		-
-			message: "#^Method Astra_Sites_Batch_Site_Import\\:\\:import_customizer_settings\\(\\) invoked with 1 parameter, 0 required\\.$#"
-			count: 1
-			path: inc/classes/batch-import/class-astra-sites-batch-site-import.php
-
-		-
-			message: "#^Method Astra_Sites_Batch_Site_Import\\:\\:import_end\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/classes/batch-import/class-astra-sites-batch-site-import.php
-
-		-
-			message: "#^Method Astra_Sites_Batch_Site_Import\\:\\:import_end\\(\\) invoked with 1 parameter, 0 required\\.$#"
-			count: 1
-			path: inc/classes/batch-import/class-astra-sites-batch-site-import.php
-
-		-
-			message: "#^Method Astra_Sites_Batch_Site_Import\\:\\:import_flows_and_steps\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/classes/batch-import/class-astra-sites-batch-site-import.php
-
-		-
-			message: "#^Method Astra_Sites_Batch_Site_Import\\:\\:import_flows_and_steps\\(\\) invoked with 1 parameter, 0 required\\.$#"
-			count: 1
-			path: inc/classes/batch-import/class-astra-sites-batch-site-import.php
-
-		-
-			message: "#^Method Astra_Sites_Batch_Site_Import\\:\\:import_queue_1\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/classes/batch-import/class-astra-sites-batch-site-import.php
-
-		-
-			message: "#^Method Astra_Sites_Batch_Site_Import\\:\\:import_queue_2\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/classes/batch-import/class-astra-sites-batch-site-import.php
-
-		-
-			message: "#^Method Astra_Sites_Batch_Site_Import\\:\\:import_queue_3\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/classes/batch-import/class-astra-sites-batch-site-import.php
-
-		-
-			message: "#^Method Astra_Sites_Batch_Site_Import\\:\\:import_site_options\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/classes/batch-import/class-astra-sites-batch-site-import.php
-
-		-
-			message: "#^Method Astra_Sites_Batch_Site_Import\\:\\:import_site_options\\(\\) invoked with 1 parameter, 0 required\\.$#"
-			count: 1
-			path: inc/classes/batch-import/class-astra-sites-batch-site-import.php
-
-		-
-			message: "#^Method Astra_Sites_Batch_Site_Import\\:\\:import_widgets\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/classes/batch-import/class-astra-sites-batch-site-import.php
-
-		-
-			message: "#^Method Astra_Sites_Batch_Site_Import\\:\\:import_widgets\\(\\) invoked with 1 parameter, 0 required\\.$#"
-			count: 1
-			path: inc/classes/batch-import/class-astra-sites-batch-site-import.php
-
-		-
-			message: "#^Method Astra_Sites_Batch_Site_Import\\:\\:import_wp_forms\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/classes/batch-import/class-astra-sites-batch-site-import.php
-
-		-
-			message: "#^Method Astra_Sites_Batch_Site_Import\\:\\:import_wp_forms\\(\\) invoked with 1 parameter, 0 required\\.$#"
-			count: 1
-			path: inc/classes/batch-import/class-astra-sites-batch-site-import.php
-
-		-
-			message: "#^Method Astra_Sites_Batch_Site_Import\\:\\:import_xml\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/classes/batch-import/class-astra-sites-batch-site-import.php
-
-		-
-			message: "#^Method Astra_Sites_Batch_Site_Import\\:\\:import_xml\\(\\) invoked with 1 parameter, 0 required\\.$#"
-			count: 1
-			path: inc/classes/batch-import/class-astra-sites-batch-site-import.php
-
-		-
-			message: "#^Method Astra_Sites_Batch_Site_Import\\:\\:install_plugin\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/classes/batch-import/class-astra-sites-batch-site-import.php
-
-		-
-			message: "#^Method Astra_Sites_Batch_Site_Import\\:\\:install_plugin\\(\\) has parameter \\$plugin with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/classes/batch-import/class-astra-sites-batch-site-import.php
-
-		-
-			message: "#^Method Astra_Sites_Batch_Site_Import\\:\\:install_required_plugins\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/classes/batch-import/class-astra-sites-batch-site-import.php
-
-		-
-			message: "#^Method Astra_Sites_Batch_Site_Import\\:\\:install_required_plugins\\(\\) invoked with 1 parameter, 0 required\\.$#"
-			count: 1
-			path: inc/classes/batch-import/class-astra-sites-batch-site-import.php
-
-		-
-			message: "#^Method Astra_Sites_Batch_Site_Import\\:\\:reset_previously_import_site\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/classes/batch-import/class-astra-sites-batch-site-import.php
-
-		-
-			message: "#^Method Astra_Sites_Batch_Site_Import\\:\\:set_cron_interval\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/classes/batch-import/class-astra-sites-batch-site-import.php
-
-		-
-			message: "#^Method Astra_Sites_Batch_Site_Import\\:\\:set_site_data\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/classes/batch-import/class-astra-sites-batch-site-import.php
-
-		-
-			message: "#^Method Astra_Sites_Batch_Site_Import\\:\\:update_status\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/classes/batch-import/class-astra-sites-batch-site-import.php
-
-		-
-			message: "#^Method Astra_Sites_Batch_Site_Import\\:\\:update_status\\(\\) has parameter \\$args with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/classes/batch-import/class-astra-sites-batch-site-import.php
-
-		-
-			message: "#^Method Astra_Sites_Batch_Site_Import\\:\\:validate_id\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/classes/batch-import/class-astra-sites-batch-site-import.php
-
-		-
-			message: "#^Parameter \\#3 \\$deps of function wp_enqueue_style expects array\\<string\\>, null given\\.$#"
-			count: 1
-			path: inc/classes/batch-import/class-astra-sites-batch-site-import.php
-
-		-
-			message: "#^Parameter \\$admin_bar of method Astra_Sites_Batch_Site_Import\\:\\:admin_bar_menu_item\\(\\) has invalid type instance\\.$#"
-			count: 1
-			path: inc/classes/batch-import/class-astra-sites-batch-site-import.php
-
-		-
-			message: "#^Property Astra_Sites_Batch_Site_Import\\:\\:\\$current_site_data \\(object\\) in empty\\(\\) is not falsy\\.$#"
-			count: 1
-			path: inc/classes/batch-import/class-astra-sites-batch-site-import.php
-
-		-
-			message: "#^Static property Astra_Sites_Batch_Site_Import\\:\\:\\$instance \\(object\\) in isset\\(\\) is not nullable\\.$#"
-			count: 1
-			path: inc/classes/batch-import/class-astra-sites-batch-site-import.php
-
-		-
-			message: "#^Variable \\$site_id in isset\\(\\) always exists and is not nullable\\.$#"
-			count: 1
-			path: inc/classes/batch-import/class-astra-sites-batch-site-import.php
-
-		-
-			message: "#^is_wp_error\\(WP_Error\\) will always evaluate to true\\.$#"
-			count: 1
-			path: inc/classes/batch-import/class-astra-sites-batch-site-import.php
-
-		-
-			message: "#^is_wp_error\\(array\\) will always evaluate to false\\.$#"
-			count: 1
-			path: inc/classes/batch-import/class-astra-sites-batch-site-import.php
 
 		-
 			message: "#^Call to static method generate_random_string\\(\\) on an unknown class Elementor\\\\Utils\\.$#"
@@ -466,11 +106,6 @@ parameters:
 			path: inc/classes/class-astra-sites-elementor-pages.php
 
 		-
-			message: "#^Parameter \\#2 \\$options of function wp_json_encode expects int, true given\\.$#"
-			count: 2
-			path: inc/classes/class-astra-sites-elementor-pages.php
-
-		-
 			message: "#^Parameter \\#3 \\$subject of function str_replace expects array\\|string, string\\|false given\\.$#"
 			count: 1
 			path: inc/classes/class-astra-sites-elementor-pages.php
@@ -511,38 +146,8 @@ parameters:
 			path: inc/classes/class-astra-sites-error-handler.php
 
 		-
-			message: "#^Method Astra_Sites_Image_Processing\\:\\:buffer_images_for_processing\\(\\) has parameter \\$image_meta with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites-image-processing.php
-
-		-
-			message: "#^Method Astra_Sites_Image_Processing\\:\\:buffer_images_for_processing\\(\\) has parameter \\$new_sizes with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites-image-processing.php
-
-		-
-			message: "#^Method Astra_Sites_Image_Processing\\:\\:buffer_images_for_processing\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites-image-processing.php
-
-		-
-			message: "#^Method Astra_Sites_Image_Processing\\:\\:defer_image_processing_while_import\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites-image-processing.php
-
-		-
-			message: "#^Static property Astra_Sites_Image_Processing\\:\\:\\$instance \\(object\\) in isset\\(\\) is not nullable\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites-image-processing.php
-
-		-
 			message: "#^Argument of an invalid type array\\<string\\>\\|false supplied for foreach, only iterables are supported\\.$#"
 			count: 1
-			path: inc/classes/class-astra-sites-importer-log.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:get_filesystem\\(\\)\\.$#"
-			count: 5
 			path: inc/classes/class-astra-sites-importer-log.php
 
 		-
@@ -626,82 +231,12 @@ parameters:
 			path: inc/classes/class-astra-sites-importer-log.php
 
 		-
-			message: "#^Action callback returns array but should not return anything\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites-importer.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:get_api_url\\(\\)\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites-importer.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:get_filesystem\\(\\)\\.$#"
-			count: 3
-			path: inc/classes/class-astra-sites-importer.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:get_xml_data\\(\\)\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites-importer.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:import\\(\\)\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites-importer.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:import_options\\(\\)\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites-importer.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:import_widgets_data\\(\\)\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites-importer.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:track_post\\(\\)\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites-importer.php
-
-		-
 			message: "#^Call to function is_int\\(\\) with string will always evaluate to false\\.$#"
 			count: 1
 			path: inc/classes/class-astra-sites-importer.php
 
 		-
-			message: "#^Call to function is_wp_error\\(\\) with int\\<0, max\\> will always evaluate to false\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites-importer.php
-
-		-
-			message: "#^Call to static method clear\\(\\) on an unknown class SureCart\\\\Models\\\\ApiToken\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites-importer.php
-
-		-
-			message: "#^Call to static method create\\(\\) on an unknown class SureCart\\\\Models\\\\ProvisionalAccount\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites-importer.php
-
-		-
 			message: "#^Call to static method delete_asset_cache_for_all_posts\\(\\) on an unknown class FLBuilderModel\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites-importer.php
-
-		-
-			message: "#^Call to static method get\\(\\) on an unknown class SureCart\\\\Models\\\\ApiToken\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites-importer.php
-
-		-
-			message: "#^Call to static method get_instance\\(\\) on an unknown class CartFlows_Importer\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites-importer.php
-
-		-
-			message: "#^Call to static method get_instance\\(\\) on an unknown class UAGB_Admin_Helper\\.$#"
 			count: 1
 			path: inc/classes/class-astra-sites-importer.php
 
@@ -751,21 +286,6 @@ parameters:
 			path: inc/classes/class-astra-sites-importer.php
 
 		-
-			message: "#^Method Astra_Sites_Importer\\:\\:import_customizer_settings\\(\\) has parameter \\$customizer_data with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites-importer.php
-
-		-
-			message: "#^Method Astra_Sites_Importer\\:\\:import_options\\(\\) has parameter \\$options_data with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites-importer.php
-
-		-
-			message: "#^Method Astra_Sites_Importer\\:\\:load_importer\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites-importer.php
-
-		-
 			message: "#^Method Astra_Sites_Importer\\:\\:plugin_install_clear_directory\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: inc/classes/class-astra-sites-importer.php
@@ -776,18 +296,8 @@ parameters:
 			path: inc/classes/class-astra-sites-importer.php
 
 		-
-			message: "#^Method Astra_Sites_Importer\\:\\:set_start_flag\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites-importer.php
-
-		-
 			message: "#^Method Astra_Sites_Importer\\:\\:set_timeout_for_images\\(\\) has no return type specified\\.$#"
 			count: 1
-			path: inc/classes/class-astra-sites-importer.php
-
-		-
-			message: "#^Parameter \\#1 \\$content of static method Astra_Sites_Importer_Log\\:\\:add\\(\\) expects string, string\\|false given\\.$#"
-			count: 3
 			path: inc/classes/class-astra-sites-importer.php
 
 		-
@@ -811,42 +321,7 @@ parameters:
 			path: inc/classes/class-astra-sites-importer.php
 
 		-
-			message: "#^Variable \\$widgets_data in empty\\(\\) always exists and is not falsy\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites-importer.php
-
-		-
-			message: "#^is_wp_error\\(int\\<0, max\\>\\) will always evaluate to false\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites-importer.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:get_all_sites\\(\\)\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites-page.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:get_api_option\\(\\)\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites-page.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:get_page_builders\\(\\)\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites-page.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:get_status\\(\\)\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites-page.php
-
-		-
 			message: "#^Call to an undefined method object\\:\\:get_white_label_name\\(\\)\\.$#"
-			count: 2
-			path: inc/classes/class-astra-sites-page.php
-
-		-
-			message: "#^Call to static method get_whitelabel_string\\(\\) on an unknown class Astra_Ext_White_Label_Markup\\.$#"
 			count: 1
 			path: inc/classes/class-astra-sites-page.php
 
@@ -882,21 +357,6 @@ parameters:
 
 		-
 			message: "#^Method Astra_Sites_Page\\:\\:get_view_actions\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites-page.php
-
-		-
-			message: "#^Method Astra_Sites_Page\\:\\:init_nav_menu\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites-page.php
-
-		-
-			message: "#^Method Astra_Sites_Page\\:\\:render\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites-page.php
-
-		-
-			message: "#^Method Astra_Sites_Page\\:\\:render_tab_menu\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: inc/classes/class-astra-sites-page.php
 
@@ -1061,7 +521,7 @@ parameters:
 			path: inc/classes/class-astra-sites-wp-cli.php
 
 		-
-			message: "#^Call to an undefined method object\\:\\:backup_settings\\(\\)\\.$#"
+			message: "#^Binary operation \"\\.\" between string and array results in an error\\.$#"
 			count: 1
 			path: inc/classes/class-astra-sites-wp-cli.php
 
@@ -1072,32 +532,12 @@ parameters:
 
 		-
 			message: "#^Call to an undefined method object\\:\\:delete_imported_terms\\(\\)\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites-wp-cli.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:delete_imported_wp_forms\\(\\)\\.$#"
-			count: 1
+			count: 2
 			path: inc/classes/class-astra-sites-wp-cli.php
 
 		-
 			message: "#^Call to an undefined method object\\:\\:display_items\\(\\)\\.$#"
 			count: 2
-			path: inc/classes/class-astra-sites-wp-cli.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:filesystem_permission\\(\\)\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites-wp-cli.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:get_api_url\\(\\)\\.$#"
-			count: 2
-			path: inc/classes/class-astra-sites-wp-cli.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:get_reset_data\\(\\)\\.$#"
-			count: 1
 			path: inc/classes/class-astra-sites-wp-cli.php
 
 		-
@@ -1111,62 +551,12 @@ parameters:
 			path: inc/classes/class-astra-sites-wp-cli.php
 
 		-
-			message: "#^Call to an undefined method object\\:\\:import_customizer_settings\\(\\)\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites-wp-cli.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:import_end\\(\\)\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites-wp-cli.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:import_options\\(\\)\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites-wp-cli.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:import_widgets\\(\\)\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites-wp-cli.php
-
-		-
 			message: "#^Call to an undefined method object\\:\\:import_wpforms\\(\\)\\.$#"
 			count: 1
 			path: inc/classes/class-astra-sites-wp-cli.php
 
 		-
 			message: "#^Call to an undefined method object\\:\\:process_batch\\(\\)\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites-wp-cli.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:required_plugin\\(\\)\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites-wp-cli.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:required_plugin_activate\\(\\)\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites-wp-cli.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:reset_customizer_data\\(\\)\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites-wp-cli.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:reset_site_options\\(\\)\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites-wp-cli.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:reset_widgets_data\\(\\)\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites-wp-cli.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:sse_import\\(\\)\\.$#"
 			count: 1
 			path: inc/classes/class-astra-sites-wp-cli.php
 
@@ -1306,6 +696,11 @@ parameters:
 			path: inc/classes/class-astra-sites-wp-cli.php
 
 		-
+			message: "#^Method Astra_Sites_WP_CLI\\:\\:init\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: inc/classes/class-astra-sites-wp-cli.php
+
+		-
 			message: "#^Method Astra_Sites_WP_CLI\\:\\:list_sites\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: inc/classes/class-astra-sites-wp-cli.php
@@ -1332,6 +727,16 @@ parameters:
 
 		-
 			message: "#^Method Astra_Sites_WP_CLI\\:\\:page_builder\\(\\) has parameter \\$assoc_args with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: inc/classes/class-astra-sites-wp-cli.php
+
+		-
+			message: "#^Method Astra_Sites_WP_CLI\\:\\:real_mime_types\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: inc/classes/class-astra-sites-wp-cli.php
+
+		-
+			message: "#^Method Astra_Sites_WP_CLI\\:\\:real_mime_types\\(\\) has parameter \\$defaults with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: inc/classes/class-astra-sites-wp-cli.php
 
@@ -1401,33 +806,13 @@ parameters:
 			path: inc/classes/class-astra-sites.php
 
 		-
-			message: "#^Call to an undefined method object\\:\\:get_api_domain\\(\\)\\.$#"
-			count: 4
-			path: inc/classes/class-astra-sites.php
-
-		-
 			message: "#^Call to an undefined method object\\:\\:get_attachment_data\\(\\)\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:get_filesystem\\(\\)\\.$#"
 			count: 1
 			path: inc/classes/class-astra-sites.php
 
 		-
 			message: "#^Call to an undefined method object\\:\\:get_option\\(\\)\\.$#"
 			count: 1
-			path: inc/classes/class-astra-sites.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:get_page_builders\\(\\)\\.$#"
-			count: 2
-			path: inc/classes/class-astra-sites.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:get_sync_complete_message\\(\\)\\.$#"
-			count: 2
 			path: inc/classes/class-astra-sites.php
 
 		-
@@ -1446,18 +831,13 @@ parameters:
 			path: inc/classes/class-astra-sites.php
 
 		-
-			message: "#^Call to an undefined method object\\:\\:log_dir\\(\\)\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites.php
-
-		-
 			message: "#^Call to an undefined method object\\:\\:start_error_handler\\(\\)\\.$#"
-			count: 8
+			count: 3
 			path: inc/classes/class-astra-sites.php
 
 		-
 			message: "#^Call to an undefined method object\\:\\:stop_error_handler\\(\\)\\.$#"
-			count: 8
+			count: 3
 			path: inc/classes/class-astra-sites.php
 
 		-
@@ -1472,16 +852,6 @@ parameters:
 
 		-
 			message: "#^Call to static method get\\(\\) on an unknown class SureCart\\\\Models\\\\ApiToken\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites.php
-
-		-
-			message: "#^Call to static method instance\\(\\) on an unknown class Elementor\\\\Plugin\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites.php
-
-		-
-			message: "#^Cannot access offset 'ast\\-sites\\-search…' on object\\.$#"
 			count: 1
 			path: inc/classes/class-astra-sites.php
 
@@ -1531,17 +901,7 @@ parameters:
 			path: inc/classes/class-astra-sites.php
 
 		-
-			message: "#^Method Astra_Sites\\:\\:ai_api_request\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites.php
-
-		-
 			message: "#^Method Astra_Sites\\:\\:api_request\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites.php
-
-		-
-			message: "#^Method Astra_Sites\\:\\:backup_settings\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: inc/classes/class-astra-sites.php
 
@@ -1596,26 +956,6 @@ parameters:
 			path: inc/classes/class-astra-sites.php
 
 		-
-			message: "#^Method Astra_Sites\\:\\:get_api_domain\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites.php
-
-		-
-			message: "#^Method Astra_Sites\\:\\:get_api_option\\(\\) has parameter \\$option with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites.php
-
-		-
-			message: "#^Method Astra_Sites\\:\\:get_api_option\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites.php
-
-		-
-			message: "#^Method Astra_Sites\\:\\:get_api_url\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites.php
-
-		-
 			message: "#^Method Astra_Sites\\:\\:get_compatibilities\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: inc/classes/class-astra-sites.php
@@ -1637,21 +977,6 @@ parameters:
 
 		-
 			message: "#^Method Astra_Sites\\:\\:get_default_page_builders\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites.php
-
-		-
-			message: "#^Method Astra_Sites\\:\\:get_deleted_post_ids\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites.php
-
-		-
-			message: "#^Method Astra_Sites\\:\\:get_license_key\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites.php
-
-		-
-			message: "#^Method Astra_Sites\\:\\:get_license_key\\(\\) should return array but returns string\\.$#"
 			count: 1
 			path: inc/classes/class-astra-sites.php
 
@@ -1681,7 +1006,7 @@ parameters:
 			path: inc/classes/class-astra-sites.php
 
 		-
-			message: "#^Method Astra_Sites\\:\\:get_reset_data\\(\\) has no return type specified\\.$#"
+			message: "#^Method Astra_Sites\\:\\:get_reset_data\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: inc/classes/class-astra-sites.php
 
@@ -1731,57 +1056,12 @@ parameters:
 			path: inc/classes/class-astra-sites.php
 
 		-
-			message: "#^Method Astra_Sites\\:\\:required_plugin\\(\\) has parameter \\$enabled_extensions with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites.php
-
-		-
-			message: "#^Method Astra_Sites\\:\\:required_plugin\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites.php
-
-		-
-			message: "#^Method Astra_Sites\\:\\:required_plugin\\(\\) has parameter \\$required_plugins with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites.php
-
-		-
-			message: "#^Method Astra_Sites\\:\\:required_plugin_activate\\(\\) has parameter \\$enabled_extensions with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites.php
-
-		-
-			message: "#^Method Astra_Sites\\:\\:required_plugin_activate\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites.php
-
-		-
-			message: "#^Method Astra_Sites\\:\\:reset_posts\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites.php
-
-		-
-			message: "#^Method Astra_Sites\\:\\:reset_terms_and_forms\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites.php
-
-		-
 			message: "#^Method Astra_Sites\\:\\:search_images\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: inc/classes/class-astra-sites.php
 
 		-
 			message: "#^Method Astra_Sites\\:\\:search_push\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites.php
-
-		-
-			message: "#^Method Astra_Sites\\:\\:search_push\\(\\) should return array but returns ArrayAccess\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites.php
-
-		-
-			message: "#^Method Astra_Sites\\:\\:search_push\\(\\) should return array but returns object\\.$#"
 			count: 1
 			path: inc/classes/class-astra-sites.php
 
@@ -1835,16 +1115,6 @@ parameters:
 			path: inc/classes/class-astra-sites.php
 
 		-
-			message: "#^Parameter \\#1 \\$option of function get_site_option expects string, array given\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites.php
-
-		-
-			message: "#^Parameter \\#1 \\$option of method Astra_Sites\\:\\:get_api_option\\(\\) expects array, string given\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites.php
-
-		-
 			message: "#^Parameter \\#1 \\$string of function stripslashes expects string, array given\\.$#"
 			count: 2
 			path: inc/classes/class-astra-sites.php
@@ -1856,7 +1126,7 @@ parameters:
 
 		-
 			message: "#^Parameter \\#3 \\$deps of function wp_enqueue_style expects array\\<string\\>, string given\\.$#"
-			count: 5
+			count: 4
 			path: inc/classes/class-astra-sites.php
 
 		-
@@ -1890,7 +1160,7 @@ parameters:
 			path: inc/classes/class-astra-sites.php
 
 		-
-			message: "#^Static property Astra_Sites\\:\\:\\$instance \\(object\\) in isset\\(\\) is not nullable\\.$#"
+			message: "#^Static property Astra_Sites\\:\\:\\$instance \\(Astra_Sites\\) in isset\\(\\) is not nullable\\.$#"
 			count: 1
 			path: inc/classes/class-astra-sites.php
 
@@ -2065,11 +1335,6 @@ parameters:
 			path: inc/classes/compatibility/beaver-builder/class-astra-sites-compatibility-bb.php
 
 		-
-			message: "#^Static property AstraSites\\\\Cartflows\\\\Astra_Sites_Compatibility_Cartflows\\:\\:\\$instance \\(object\\) in isset\\(\\) is not nullable\\.$#"
-			count: 1
-			path: inc/classes/compatibility/cartflows/class-astra-sites-compatibility-cartflows.php
-
-		-
 			message: "#^Callback expects 1 parameter, \\$accepted_args is set to 2\\.$#"
 			count: 1
 			path: inc/classes/compatibility/checkout-plugins-stripe-woo/class-astra-sites-checkout-plugins-stripe-woo.php
@@ -2175,26 +1440,6 @@ parameters:
 			path: inc/classes/compatibility/sfwd-lms/class-astra-sites-compatibility-sfwd-lms.php
 
 		-
-			message: "#^Argument of an invalid type array\\<WP_Post\\>\\|false supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: inc/classes/compatibility/surecart/class-astra-sites-compatibility-surecart.php
-
-		-
-			message: "#^Callback expects 0 parameters, \\$accepted_args is set to 2\\.$#"
-			count: 1
-			path: inc/classes/compatibility/surecart/class-astra-sites-compatibility-surecart.php
-
-		-
-			message: "#^Parameter \\#1 \\$page_id of method Astra_Sites_Compatibility_SureCart\\:\\:check_page_types_and_update_options\\(\\) expects string, int given\\.$#"
-			count: 1
-			path: inc/classes/compatibility/surecart/class-astra-sites-compatibility-surecart.php
-
-		-
-			message: "#^Static property Astra_Sites_Compatibility_SureCart\\:\\:\\$instance \\(object\\) in isset\\(\\) is not nullable\\.$#"
-			count: 1
-			path: inc/classes/compatibility/surecart/class-astra-sites-compatibility-surecart.php
-
-		-
 			message: "#^Callback expects 0 parameters, \\$accepted_args is set to 2\\.$#"
 			count: 1
 			path: inc/classes/compatibility/uabb/class-astra-sites-compatibility-uabb.php
@@ -2203,16 +1448,6 @@ parameters:
 			message: "#^Static property Astra_Sites_Compatibility_UABB\\:\\:\\$instance \\(object\\) in isset\\(\\) is not nullable\\.$#"
 			count: 1
 			path: inc/classes/compatibility/uabb/class-astra-sites-compatibility-uabb.php
-
-		-
-			message: "#^Callback expects 0 parameters, \\$accepted_args is set to 2\\.$#"
-			count: 1
-			path: inc/classes/compatibility/uag/class-astra-sites-compatibility-uag.php
-
-		-
-			message: "#^Static property Astra_Sites_Compatibility_UAG\\:\\:\\$instance \\(object\\) in isset\\(\\) is not nullable\\.$#"
-			count: 1
-			path: inc/classes/compatibility/uag/class-astra-sites-compatibility-uag.php
 
 		-
 			message: "#^Call to static method create_events\\(\\) on an unknown class Automattic\\\\WooCommerce\\\\Admin\\\\Install\\.$#"
@@ -2295,32 +1530,12 @@ parameters:
 			path: inc/classes/compatibility/woocommerce/class-astra-sites-compatibility-woocommerce.php
 
 		-
-			message: "#^Call to an undefined method object\\:\\:get_api_domain\\(\\)\\.$#"
-			count: 1
-			path: inc/classes/functions.php
-
-		-
-			message: "#^Cannot access offset 'host' on array\\{scheme\\?\\: string, host\\?\\: string, port\\?\\: int, user\\?\\: string, pass\\?\\: string, path\\?\\: string, query\\?\\: string, fragment\\?\\: string\\}\\|false\\.$#"
-			count: 1
-			path: inc/classes/functions.php
-
-		-
 			message: "#^Function astra_sites_empty_post_excerpt\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: inc/classes/functions.php
 
 		-
-			message: "#^Function astra_sites_get_api_params\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/classes/functions.php
-
-		-
 			message: "#^Function astra_sites_get_reset_form_data\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/classes/functions.php
-
-		-
-			message: "#^Function astra_sites_get_reset_post_data\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: inc/classes/functions.php
 
@@ -2335,32 +1550,7 @@ parameters:
 			path: inc/classes/functions.php
 
 		-
-			message: "#^Function astra_sites_has_import_started\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/classes/functions.php
-
-		-
-			message: "#^Function astra_sites_has_import_started\\(\\) should return array but returns false\\.$#"
-			count: 1
-			path: inc/classes/functions.php
-
-		-
-			message: "#^Function astra_sites_has_import_started\\(\\) should return array but returns true\\.$#"
-			count: 1
-			path: inc/classes/functions.php
-
-		-
 			message: "#^Function astra_sites_is_valid_image\\(\\) should return bool but returns int\\|false\\.$#"
-			count: 1
-			path: inc/classes/functions.php
-
-		-
-			message: "#^Function astra_sites_is_valid_url\\(\\) should return string but returns false\\.$#"
-			count: 3
-			path: inc/classes/functions.php
-
-		-
-			message: "#^Function astra_sites_is_valid_url\\(\\) should return string but returns true\\.$#"
 			count: 1
 			path: inc/classes/functions.php
 
@@ -2465,79 +1655,9 @@ parameters:
 			path: inc/importers/batch-processing/class-astra-sites-batch-processing-elementor.php
 
 		-
-			message: "#^Parameter \\#2 \\$options of function wp_json_encode expects int, true given\\.$#"
-			count: 1
-			path: inc/importers/batch-processing/class-astra-sites-batch-processing-elementor.php
-
-		-
 			message: "#^Result of && is always false\\.$#"
 			count: 2
 			path: inc/importers/batch-processing/class-astra-sites-batch-processing-elementor.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:import\\(\\)\\.$#"
-			count: 1
-			path: inc/importers/batch-processing/class-astra-sites-batch-processing-gutenberg.php
-
-		-
-			message: "#^Method Astra_Sites_Batch_Processing_Gutenberg\\:\\:allowed_tags_and_attributes\\(\\) has parameter \\$allowedposttags with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/batch-processing/class-astra-sites-batch-processing-gutenberg.php
-
-		-
-			message: "#^Method Astra_Sites_Batch_Processing_Gutenberg\\:\\:allowed_tags_and_attributes\\(\\) has parameter \\$context with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/batch-processing/class-astra-sites-batch-processing-gutenberg.php
-
-		-
-			message: "#^Method Astra_Sites_Batch_Processing_Gutenberg\\:\\:allowed_tags_and_attributes\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/batch-processing/class-astra-sites-batch-processing-gutenberg.php
-
-		-
-			message: "#^Method Astra_Sites_Batch_Processing_Gutenberg\\:\\:get_content\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/batch-processing/class-astra-sites-batch-processing-gutenberg.php
-
-		-
-			message: "#^Method Astra_Sites_Batch_Processing_Gutenberg\\:\\:get_content\\(\\) should return array but returns string\\.$#"
-			count: 2
-			path: inc/importers/batch-processing/class-astra-sites-batch-processing-gutenberg.php
-
-		-
-			message: "#^Parameter \\#1 \\$postarr of function wp_update_post expects array\\{ID\\?\\: int, post_author\\?\\: int, post_date\\?\\: string, post_date_gmt\\?\\: string, post_content\\?\\: string, post_content_filtered\\?\\: string, post_title\\?\\: string, post_excerpt\\?\\: string, \\.\\.\\.\\}, array\\{ID\\: int, post_content\\: array, post_excerpt\\: ''\\} given\\.$#"
-			count: 1
-			path: inc/importers/batch-processing/class-astra-sites-batch-processing-gutenberg.php
-
-		-
-			message: "#^Parameter \\#1 \\$search of function str_replace expects array\\|string, int\\|string given\\.$#"
-			count: 1
-			path: inc/importers/batch-processing/class-astra-sites-batch-processing-gutenberg.php
-
-		-
-			message: "#^Parameter \\#3 \\$subject of function str_replace expects array\\|string, int\\|string given\\.$#"
-			count: 1
-			path: inc/importers/batch-processing/class-astra-sites-batch-processing-gutenberg.php
-
-		-
-			message: "#^Result of && is always false\\.$#"
-			count: 1
-			path: inc/importers/batch-processing/class-astra-sites-batch-processing-gutenberg.php
-
-		-
-			message: "#^Static property Astra_Sites_Batch_Processing_Gutenberg\\:\\:\\$instance \\(object\\) in isset\\(\\) is not nullable\\.$#"
-			count: 1
-			path: inc/importers/batch-processing/class-astra-sites-batch-processing-gutenberg.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:get_api_domain\\(\\)\\.$#"
-			count: 8
-			path: inc/importers/batch-processing/class-astra-sites-batch-processing-importer.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:get_license_key\\(\\)\\.$#"
-			count: 2
-			path: inc/importers/batch-processing/class-astra-sites-batch-processing-importer.php
 
 		-
 			message: "#^Method Astra_Sites_Batch_Processing_Importer\\:\\:import_sites\\(\\) return type has no value type specified in iterable type array\\.$#"
@@ -2548,31 +1668,6 @@ parameters:
 			message: "#^Static property Astra_Sites_Batch_Processing_Importer\\:\\:\\$instance \\(object\\) in isset\\(\\) is not nullable\\.$#"
 			count: 1
 			path: inc/importers/batch-processing/class-astra-sites-batch-processing-importer.php
-
-		-
-			message: "#^Method Astra_Sites_Batch_Processing_Misc\\:\\:fix_nav_menus\\(\\) should return object but empty return statement found\\.$#"
-			count: 3
-			path: inc/importers/batch-processing/class-astra-sites-batch-processing-misc.php
-
-		-
-			message: "#^Method Astra_Sites_Batch_Processing_Misc\\:\\:fix_nav_menus\\(\\) should return object but return statement is missing\\.$#"
-			count: 1
-			path: inc/importers/batch-processing/class-astra-sites-batch-processing-misc.php
-
-		-
-			message: "#^Method Astra_Sites_Batch_Processing_Misc\\:\\:get_menu_post_ids\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/batch-processing/class-astra-sites-batch-processing-misc.php
-
-		-
-			message: "#^Method Astra_Sites_Batch_Processing_Misc\\:\\:get_menu_post_ids\\(\\) should return array but returns null\\.$#"
-			count: 1
-			path: inc/importers/batch-processing/class-astra-sites-batch-processing-misc.php
-
-		-
-			message: "#^Static property Astra_Sites_Batch_Processing_Misc\\:\\:\\$instance \\(object\\) in isset\\(\\) is not nullable\\.$#"
-			count: 1
-			path: inc/importers/batch-processing/class-astra-sites-batch-processing-misc.php
 
 		-
 			message: "#^Argument of an invalid type object supplied for foreach, only iterables are supported\\.$#"
@@ -2600,18 +1695,8 @@ parameters:
 			path: inc/importers/batch-processing/class-astra-sites-batch-processing.php
 
 		-
-			message: "#^Call to an undefined method object\\:\\:get_api_domain\\(\\)\\.$#"
-			count: 2
-			path: inc/importers/batch-processing/class-astra-sites-batch-processing.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:get_filesystem\\(\\)\\.$#"
-			count: 1
-			path: inc/importers/batch-processing/class-astra-sites-batch-processing.php
-
-		-
 			message: "#^Call to an undefined method object\\:\\:get_white_label_name\\(\\)\\.$#"
-			count: 2
+			count: 1
 			path: inc/importers/batch-processing/class-astra-sites-batch-processing.php
 
 		-
@@ -2646,22 +1731,17 @@ parameters:
 
 		-
 			message: "#^Call to an undefined method object\\:\\:push_to_queue\\(\\)\\.$#"
-			count: 11
+			count: 9
 			path: inc/importers/batch-processing/class-astra-sites-batch-processing.php
 
 		-
 			message: "#^Call to an undefined method object\\:\\:save\\(\\)\\.$#"
-			count: 3
+			count: 2
 			path: inc/importers/batch-processing/class-astra-sites-batch-processing.php
 
 		-
 			message: "#^Call to an undefined method object\\:\\:update_latest_checksums\\(\\)\\.$#"
 			count: 2
-			path: inc/importers/batch-processing/class-astra-sites-batch-processing.php
-
-		-
-			message: "#^Method Astra_Sites_Batch_Processing\\:\\:get_default_assets\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
 			path: inc/importers/batch-processing/class-astra-sites-batch-processing.php
 
 		-
@@ -2735,231 +1815,6 @@ parameters:
 			path: inc/importers/batch-processing/class-astra-sites-batch-processing.php
 
 		-
-			message: "#^Call to an undefined method object\\:\\:track_post\\(\\)\\.$#"
-			count: 1
-			path: inc/importers/batch-processing/helpers/class-astra-sites-image-importer.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: inc/importers/batch-processing/helpers/class-astra-sites-image-importer.php
-
-		-
-			message: "#^Method Astra_Sites_Image_Importer\\:\\:get_saved_image\\(\\) should return string but returns array\\<string, array\\<string, mixed\\>\\|true\\>\\.$#"
-			count: 1
-			path: inc/importers/batch-processing/helpers/class-astra-sites-image-importer.php
-
-		-
-			message: "#^Method Astra_Sites_Image_Importer\\:\\:get_saved_image\\(\\) should return string but returns array\\<string, string\\|false\\>\\.$#"
-			count: 1
-			path: inc/importers/batch-processing/helpers/class-astra-sites-image-importer.php
-
-		-
-			message: "#^Method Astra_Sites_Image_Importer\\:\\:get_saved_image\\(\\) should return string but returns array\\<string, string\\|true\\>\\.$#"
-			count: 1
-			path: inc/importers/batch-processing/helpers/class-astra-sites-image-importer.php
-
-		-
-			message: "#^Method Astra_Sites_Image_Importer\\:\\:import\\(\\) has parameter \\$attachment with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/batch-processing/helpers/class-astra-sites-image-importer.php
-
-		-
-			message: "#^Method Astra_Sites_Image_Importer\\:\\:import\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/batch-processing/helpers/class-astra-sites-image-importer.php
-
-		-
-			message: "#^Method Astra_Sites_Image_Importer\\:\\:process\\(\\) has parameter \\$attachments with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/batch-processing/helpers/class-astra-sites-image-importer.php
-
-		-
-			message: "#^Method Astra_Sites_Image_Importer\\:\\:process\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/batch-processing/helpers/class-astra-sites-image-importer.php
-
-		-
-			message: "#^Offset 'attachment' does not exist on string\\.$#"
-			count: 2
-			path: inc/importers/batch-processing/helpers/class-astra-sites-image-importer.php
-
-		-
-			message: "#^Offset 'status' does not exist on string\\.$#"
-			count: 1
-			path: inc/importers/batch-processing/helpers/class-astra-sites-image-importer.php
-
-		-
-			message: "#^Offset 'url' does not exist on string\\.$#"
-			count: 4
-			path: inc/importers/batch-processing/helpers/class-astra-sites-image-importer.php
-
-		-
-			message: "#^Parameter \\#1 \\$attachment of method Astra_Sites_Image_Importer\\:\\:get_saved_image\\(\\) expects string, array given\\.$#"
-			count: 1
-			path: inc/importers/batch-processing/helpers/class-astra-sites-image-importer.php
-
-		-
-			message: "#^Parameter \\#2 \\$args of function wp_safe_remote_get expects array\\{method\\?\\: string, timeout\\?\\: float, redirection\\?\\: int, httpversion\\?\\: string, user\\-agent\\?\\: string, reject_unsafe_urls\\?\\: bool, blocking\\?\\: bool, headers\\?\\: array\\|string, \\.\\.\\.\\}, array\\{timeout\\: '60', sslverify\\: false\\} given\\.$#"
-			count: 1
-			path: inc/importers/batch-processing/helpers/class-astra-sites-image-importer.php
-
-		-
-			message: "#^Property Astra_Sites_Image_Importer\\:\\:\\$already_imported_ids is never read, only written\\.$#"
-			count: 1
-			path: inc/importers/batch-processing/helpers/class-astra-sites-image-importer.php
-
-		-
-			message: "#^Property Astra_Sites_Image_Importer\\:\\:\\$already_imported_ids type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/batch-processing/helpers/class-astra-sites-image-importer.php
-
-		-
-			message: "#^Static property Astra_Sites_Image_Importer\\:\\:\\$instance \\(object\\) in isset\\(\\) is not nullable\\.$#"
-			count: 1
-			path: inc/importers/batch-processing/helpers/class-astra-sites-image-importer.php
-
-		-
-			message: "#^Method WP_Async_Request\\:\\:data\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/batch-processing/helpers/class-wp-async-request.php
-
-		-
-			message: "#^Method WP_Async_Request\\:\\:dispatch\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/batch-processing/helpers/class-wp-async-request.php
-
-		-
-			message: "#^Method WP_Async_Request\\:\\:get_post_args\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/batch-processing/helpers/class-wp-async-request.php
-
-		-
-			message: "#^Method WP_Async_Request\\:\\:get_query_args\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/batch-processing/helpers/class-wp-async-request.php
-
-		-
-			message: "#^Method WP_Async_Request\\:\\:handle\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/importers/batch-processing/helpers/class-wp-async-request.php
-
-		-
-			message: "#^Method WP_Async_Request\\:\\:maybe_handle\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/importers/batch-processing/helpers/class-wp-async-request.php
-
-		-
-			message: "#^Property WP_Async_Request\\:\\:\\$data type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/batch-processing/helpers/class-wp-async-request.php
-
-		-
-			message: "#^Cannot access offset 'instance' on object\\.$#"
-			count: 1
-			path: inc/importers/batch-processing/helpers/class-wp-background-process-astra-single.php
-
-		-
-			message: "#^Cannot access offset 'page_id' on object\\.$#"
-			count: 1
-			path: inc/importers/batch-processing/helpers/class-wp-background-process-astra-single.php
-
-		-
-			message: "#^Cannot call method import_single_post\\(\\) on class\\-string\\|object\\.$#"
-			count: 1
-			path: inc/importers/batch-processing/helpers/class-wp-background-process-astra-single.php
-
-		-
-			message: "#^Method WP_Background_Process_Astra_Single\\:\\:complete\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/importers/batch-processing/helpers/class-wp-background-process-astra-single.php
-
-		-
-			message: "#^Cannot access offset 'instance' on object\\.$#"
-			count: 1
-			path: inc/importers/batch-processing/helpers/class-wp-background-process-astra-site-importer.php
-
-		-
-			message: "#^Cannot access offset 'method' on object\\.$#"
-			count: 1
-			path: inc/importers/batch-processing/helpers/class-wp-background-process-astra-site-importer.php
-
-		-
-			message: "#^Cannot access offset 'page' on object\\.$#"
-			count: 2
-			path: inc/importers/batch-processing/helpers/class-wp-background-process-astra-site-importer.php
-
-		-
-			message: "#^Method WP_Background_Process_Astra_Site_Importer\\:\\:complete\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/importers/batch-processing/helpers/class-wp-background-process-astra-site-importer.php
-
-		-
-			message: "#^Method WP_Background_Process_Astra\\:\\:complete\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/importers/batch-processing/helpers/class-wp-background-process-astra.php
-
-		-
-			message: "#^Method WP_Background_Process\\:\\:cancel_process\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/importers/batch-processing/helpers/class-wp-background-process.php
-
-		-
-			message: "#^Method WP_Background_Process\\:\\:clear_scheduled_event\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/importers/batch-processing/helpers/class-wp-background-process.php
-
-		-
-			message: "#^Method WP_Background_Process\\:\\:complete\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/importers/batch-processing/helpers/class-wp-background-process.php
-
-		-
-			message: "#^Method WP_Background_Process\\:\\:handle\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/importers/batch-processing/helpers/class-wp-background-process.php
-
-		-
-			message: "#^Method WP_Background_Process\\:\\:handle_cron_healthcheck\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/importers/batch-processing/helpers/class-wp-background-process.php
-
-		-
-			message: "#^Method WP_Background_Process\\:\\:is_process_running\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/importers/batch-processing/helpers/class-wp-background-process.php
-
-		-
-			message: "#^Method WP_Background_Process\\:\\:lock_process\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/importers/batch-processing/helpers/class-wp-background-process.php
-
-		-
-			message: "#^Method WP_Background_Process\\:\\:maybe_handle\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/importers/batch-processing/helpers/class-wp-background-process.php
-
-		-
-			message: "#^Method WP_Background_Process\\:\\:schedule_event\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/importers/batch-processing/helpers/class-wp-background-process.php
-
-		-
-			message: "#^Method WP_Background_Process\\:\\:update\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/batch-processing/helpers/class-wp-background-process.php
-
-		-
-			message: "#^PHPDoc tag @extends has invalid value \\(WP_Async_Request\\)\\: Unexpected token \"\\\\n\\\\t \", expected '\\<' at offset 93$#"
-			count: 1
-			path: inc/importers/batch-processing/helpers/class-wp-background-process.php
-
-		-
-			message: "#^Strict comparison using \\=\\=\\= between \\-1 and non\\-falsy\\-string will always evaluate to false\\.$#"
-			count: 1
-			path: inc/importers/batch-processing/helpers/class-wp-background-process.php
-
-		-
 			message: "#^Method Astra_Customizer_Import\\:\\:import\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: inc/importers/class-astra-customizer-import.php
@@ -2990,21 +1845,6 @@ parameters:
 			path: inc/importers/class-astra-site-options-import.php
 
 		-
-			message: "#^Call to an undefined method object\\:\\:track_post\\(\\)\\.$#"
-			count: 1
-			path: inc/importers/class-astra-site-options-import.php
-
-		-
-			message: "#^Method Astra_Site_Options_Import\\:\\:import_options\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/importers/class-astra-site-options-import.php
-
-		-
-			message: "#^Method Astra_Site_Options_Import\\:\\:import_options\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/class-astra-site-options-import.php
-
-		-
 			message: "#^Method Astra_Site_Options_Import\\:\\:set_nav_menu_locations\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: inc/importers/class-astra-site-options-import.php
@@ -3021,11 +1861,6 @@ parameters:
 
 		-
 			message: "#^Method Astra_Site_Options_Import\\:\\:set_woocommerce_product_cat\\(\\) has parameter \\$cats with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/class-astra-site-options-import.php
-
-		-
-			message: "#^Method Astra_Site_Options_Import\\:\\:site_options\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: inc/importers/class-astra-site-options-import.php
 
@@ -3101,16 +1936,6 @@ parameters:
 
 		-
 			message: "#^Method Astra_Sites_Helper\\:\\:add_svg_image_support\\(\\) has parameter \\$response with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/class-astra-sites-helper.php
-
-		-
-			message: "#^Method Astra_Sites_Helper\\:\\:download_file\\(\\) has parameter \\$overrides with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/class-astra-sites-helper.php
-
-		-
-			message: "#^Method Astra_Sites_Helper\\:\\:download_file\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: inc/importers/class-astra-sites-helper.php
 
@@ -3213,1016 +2038,6 @@ parameters:
 			message: "#^Variable \\$widget_message_type might not be defined\\.$#"
 			count: 1
 			path: inc/importers/class-astra-widget-importer.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:get_hash_image\\(\\)\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-astra-wxr-importer.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:get_preliminary_information\\(\\)\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-astra-wxr-importer.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:get_theme_status\\(\\)\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-astra-wxr-importer.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:import\\(\\)\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-astra-wxr-importer.php
-
-		-
-			message: "#^Callback expects 1 parameter, \\$accepted_args is set to 2\\.$#"
-			count: 2
-			path: inc/importers/wxr-importer/class-astra-wxr-importer.php
-
-		-
-			message: "#^Cannot access property \\$comment_count on array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-astra-wxr-importer.php
-
-		-
-			message: "#^Cannot access property \\$media_count on array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-astra-wxr-importer.php
-
-		-
-			message: "#^Cannot access property \\$post_count on array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-astra-wxr-importer.php
-
-		-
-			message: "#^Cannot access property \\$term_count on array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-astra-wxr-importer.php
-
-		-
-			message: "#^Cannot access property \\$users on array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-astra-wxr-importer.php
-
-		-
-			message: "#^Filter callback return statement is missing\\.$#"
-			count: 2
-			path: inc/importers/wxr-importer/class-astra-wxr-importer.php
-
-		-
-			message: "#^Method Astra_WXR_Importer\\:\\:already_imported_post\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-astra-wxr-importer.php
-
-		-
-			message: "#^Method Astra_WXR_Importer\\:\\:already_imported_post\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-astra-wxr-importer.php
-
-		-
-			message: "#^Method Astra_WXR_Importer\\:\\:custom_upload_mimes\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-astra-wxr-importer.php
-
-		-
-			message: "#^Method Astra_WXR_Importer\\:\\:custom_upload_mimes\\(\\) has parameter \\$mimes with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-astra-wxr-importer.php
-
-		-
-			message: "#^Method Astra_WXR_Importer\\:\\:emit_sse_message\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-astra-wxr-importer.php
-
-		-
-			message: "#^Method Astra_WXR_Importer\\:\\:enable_wp_image_editor_gd\\(\\) has parameter \\$editors with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-astra-wxr-importer.php
-
-		-
-			message: "#^Method Astra_WXR_Importer\\:\\:enable_wp_image_editor_gd\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-astra-wxr-importer.php
-
-		-
-			message: "#^Method Astra_WXR_Importer\\:\\:fix_image_duplicate_issue\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-astra-wxr-importer.php
-
-		-
-			message: "#^Method Astra_WXR_Importer\\:\\:fix_image_duplicate_issue\\(\\) has parameter \\$comments with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-astra-wxr-importer.php
-
-		-
-			message: "#^Method Astra_WXR_Importer\\:\\:fix_image_duplicate_issue\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-astra-wxr-importer.php
-
-		-
-			message: "#^Method Astra_WXR_Importer\\:\\:fix_image_duplicate_issue\\(\\) has parameter \\$meta with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-astra-wxr-importer.php
-
-		-
-			message: "#^Method Astra_WXR_Importer\\:\\:fix_image_duplicate_issue\\(\\) has parameter \\$terms with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-astra-wxr-importer.php
-
-		-
-			message: "#^Method Astra_WXR_Importer\\:\\:get_data\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-astra-wxr-importer.php
-
-		-
-			message: "#^Method Astra_WXR_Importer\\:\\:get_data\\(\\) should return array but returns WP_Error\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-astra-wxr-importer.php
-
-		-
-			message: "#^Method Astra_WXR_Importer\\:\\:get_xml_data\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-astra-wxr-importer.php
-
-		-
-			message: "#^Method Astra_WXR_Importer\\:\\:imported_comment\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-astra-wxr-importer.php
-
-		-
-			message: "#^Method Astra_WXR_Importer\\:\\:imported_post\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-astra-wxr-importer.php
-
-		-
-			message: "#^Method Astra_WXR_Importer\\:\\:imported_post\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-astra-wxr-importer.php
-
-		-
-			message: "#^Method Astra_WXR_Importer\\:\\:imported_term\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-astra-wxr-importer.php
-
-		-
-			message: "#^Method Astra_WXR_Importer\\:\\:imported_user\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-astra-wxr-importer.php
-
-		-
-			message: "#^Method Astra_WXR_Importer\\:\\:pre_post_data\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-astra-wxr-importer.php
-
-		-
-			message: "#^Method Astra_WXR_Importer\\:\\:pre_post_data\\(\\) has parameter \\$postdata with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-astra-wxr-importer.php
-
-		-
-			message: "#^Method Astra_WXR_Importer\\:\\:pre_post_data\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-astra-wxr-importer.php
-
-		-
-			message: "#^Method Astra_WXR_Importer\\:\\:pre_process_post\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-astra-wxr-importer.php
-
-		-
-			message: "#^Method Astra_WXR_Importer\\:\\:pre_process_post\\(\\) has parameter \\$comments with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-astra-wxr-importer.php
-
-		-
-			message: "#^Method Astra_WXR_Importer\\:\\:pre_process_post\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-astra-wxr-importer.php
-
-		-
-			message: "#^Method Astra_WXR_Importer\\:\\:pre_process_post\\(\\) has parameter \\$meta with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-astra-wxr-importer.php
-
-		-
-			message: "#^Method Astra_WXR_Importer\\:\\:pre_process_post\\(\\) has parameter \\$terms with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-astra-wxr-importer.php
-
-		-
-			message: "#^Method Astra_WXR_Importer\\:\\:real_mime_types\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-astra-wxr-importer.php
-
-		-
-			message: "#^Method Astra_WXR_Importer\\:\\:real_mime_types\\(\\) has parameter \\$defaults with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-astra-wxr-importer.php
-
-		-
-			message: "#^Method Astra_WXR_Importer\\:\\:real_mime_types\\(\\) has parameter \\$mimes with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-astra-wxr-importer.php
-
-		-
-			message: "#^Method Astra_WXR_Importer\\:\\:real_mime_types_5_1_0\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-astra-wxr-importer.php
-
-		-
-			message: "#^Method Astra_WXR_Importer\\:\\:real_mime_types_5_1_0\\(\\) has parameter \\$defaults with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-astra-wxr-importer.php
-
-		-
-			message: "#^Method Astra_WXR_Importer\\:\\:real_mime_types_5_1_0\\(\\) has parameter \\$mimes with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-astra-wxr-importer.php
-
-		-
-			message: "#^Method Astra_WXR_Importer\\:\\:real_mimes\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-astra-wxr-importer.php
-
-		-
-			message: "#^Method Astra_WXR_Importer\\:\\:real_mimes\\(\\) has parameter \\$defaults with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-astra-wxr-importer.php
-
-		-
-			message: "#^Method Astra_WXR_Importer\\:\\:sse_import\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-astra-wxr-importer.php
-
-		-
-			message: "#^Method Astra_WXR_Importer\\:\\:track_post\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-astra-wxr-importer.php
-
-		-
-			message: "#^Static property Astra_WXR_Importer\\:\\:\\$instance \\(Astra_WXR_Importer\\) in isset\\(\\) is not nullable\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-astra-wxr-importer.php
-
-		-
-			message: "#^Method WP_Importer_Logger_ServerSentEvents\\:\\:log\\(\\) has parameter \\$context with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wp-importer-logger-serversentevents.php
-
-		-
-			message: "#^Offset 'message' on array\\{level\\: mixed, message\\: string\\} in isset\\(\\) always exists and is not nullable\\.$#"
-			count: 2
-			path: inc/importers/wxr-importer/class-wp-importer-logger-serversentevents.php
-
-		-
-			message: "#^Parameter \\#1 \\$message of static method WP_CLI\\:\\:line\\(\\) expects string, string\\|false given\\.$#"
-			count: 2
-			path: inc/importers/wxr-importer/class-wp-importer-logger-serversentevents.php
-
-		-
-			message: "#^Access to an undefined property WP_Importer_Logger\\:\\:\\$messages\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wp-importer-logger.php
-
-		-
-			message: "#^Method WP_Importer_Logger\\:\\:alert\\(\\) has parameter \\$context with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wp-importer-logger.php
-
-		-
-			message: "#^Method WP_Importer_Logger\\:\\:critical\\(\\) has parameter \\$context with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wp-importer-logger.php
-
-		-
-			message: "#^Method WP_Importer_Logger\\:\\:debug\\(\\) has parameter \\$context with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wp-importer-logger.php
-
-		-
-			message: "#^Method WP_Importer_Logger\\:\\:emergency\\(\\) has parameter \\$context with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wp-importer-logger.php
-
-		-
-			message: "#^Method WP_Importer_Logger\\:\\:error\\(\\) has parameter \\$context with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wp-importer-logger.php
-
-		-
-			message: "#^Method WP_Importer_Logger\\:\\:info\\(\\) has parameter \\$context with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wp-importer-logger.php
-
-		-
-			message: "#^Method WP_Importer_Logger\\:\\:log\\(\\) has parameter \\$context with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wp-importer-logger.php
-
-		-
-			message: "#^Method WP_Importer_Logger\\:\\:notice\\(\\) has parameter \\$context with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wp-importer-logger.php
-
-		-
-			message: "#^Method WP_Importer_Logger\\:\\:warning\\(\\) has parameter \\$context with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wp-importer-logger.php
-
-		-
-			message: "#^Result of method WP_Importer_Logger\\:\\:log\\(\\) \\(void\\) is used\\.$#"
-			count: 8
-			path: inc/importers/wxr-importer/class-wp-importer-logger.php
-
-		-
-			message: "#^Property WXR_Import_Info\\:\\:\\$comment_count \\(Comment\\) does not accept default value of type int\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-import-info.php
-
-		-
-			message: "#^Property WXR_Import_Info\\:\\:\\$comment_count has unknown class Comment as its type\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-import-info.php
-
-		-
-			message: "#^Property WXR_Import_Info\\:\\:\\$generator \\(Generator\\) does not accept default value of type string\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-import-info.php
-
-		-
-			message: "#^Property WXR_Import_Info\\:\\:\\$home has unknown class Home as its type\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-import-info.php
-
-		-
-			message: "#^Property WXR_Import_Info\\:\\:\\$media_count \\(Media\\) does not accept default value of type int\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-import-info.php
-
-		-
-			message: "#^Property WXR_Import_Info\\:\\:\\$media_count has unknown class Media as its type\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-import-info.php
-
-		-
-			message: "#^Property WXR_Import_Info\\:\\:\\$post_count \\(Post\\) does not accept default value of type int\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-import-info.php
-
-		-
-			message: "#^Property WXR_Import_Info\\:\\:\\$post_count has unknown class Post as its type\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-import-info.php
-
-		-
-			message: "#^Property WXR_Import_Info\\:\\:\\$siteurl has unknown class Site as its type\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-import-info.php
-
-		-
-			message: "#^Property WXR_Import_Info\\:\\:\\$term_count \\(Term\\) does not accept default value of type int\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-import-info.php
-
-		-
-			message: "#^Property WXR_Import_Info\\:\\:\\$term_count has unknown class Term as its type\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-import-info.php
-
-		-
-			message: "#^Property WXR_Import_Info\\:\\:\\$title has unknown class Title as its type\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-import-info.php
-
-		-
-			message: "#^Property WXR_Import_Info\\:\\:\\$users \\(Users\\) does not accept default value of type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-import-info.php
-
-		-
-			message: "#^Property WXR_Import_Info\\:\\:\\$users has unknown class Users as its type\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-import-info.php
-
-		-
-			message: "#^Property WXR_Import_Info\\:\\:\\$version has unknown class Version as its type\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-import-info.php
-
-		-
-			message: "#^@param int \\$comment_id does not accept actual type of parameter\\: int\\|false\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Access to an offset on an unknown class Users\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Access to an undefined property DOMNode\\:\\:\\$tagName\\.$#"
-			count: 3
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Access to an undefined property WXR_Importer\\:\\:\\$options\\.$#"
-			count: 11
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$childNodes\\.$#"
-			count: 2
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$textContent\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Argument of an invalid type string supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:getAttribute\\(\\)\\.$#"
-			count: 2
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:hasAttribute\\(\\)\\.$#"
-			count: 2
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Call to function is_wp_error\\(\\) with array will always evaluate to false\\.$#"
-			count: 6
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Call to function is_wp_error\\(\\) with bool will always evaluate to false\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Call to function is_wp_error\\(\\) with int\\<0, max\\> will always evaluate to false\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Cannot access property \\$post_content on WP_Post\\|null\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Cannot use \\+\\+ on Media\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Cannot use \\+\\+ on Post\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Cannot use \\+\\+ on Term\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Method WXR_Importer\\:\\:__construct\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Method WXR_Importer\\:\\:cmpr_strlen\\(\\) should return string but returns int\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Method WXR_Importer\\:\\:comment_exists\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Method WXR_Importer\\:\\:comment_exists\\(\\) should return bool\\|int but returns string\\|null\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Method WXR_Importer\\:\\:fetch_remote_file\\(\\) has parameter \\$post with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Method WXR_Importer\\:\\:fetch_remote_file\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Method WXR_Importer\\:\\:get_preliminary_information\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Method WXR_Importer\\:\\:import\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Method WXR_Importer\\:\\:import_end\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Method WXR_Importer\\:\\:import_start\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Method WXR_Importer\\:\\:log_error\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Method WXR_Importer\\:\\:mark_comment_exists\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Method WXR_Importer\\:\\:mark_comment_exists\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Method WXR_Importer\\:\\:mark_post_exists\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Method WXR_Importer\\:\\:mark_post_exists\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Method WXR_Importer\\:\\:mark_term_exists\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Method WXR_Importer\\:\\:mark_term_exists\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Method WXR_Importer\\:\\:parse_author_node\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Method WXR_Importer\\:\\:parse_authors\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Method WXR_Importer\\:\\:parse_category_node\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Method WXR_Importer\\:\\:parse_category_node\\(\\) should return array but returns null\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Method WXR_Importer\\:\\:parse_comment_node\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Method WXR_Importer\\:\\:parse_meta_node\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Method WXR_Importer\\:\\:parse_post_node\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Method WXR_Importer\\:\\:parse_term_node\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Method WXR_Importer\\:\\:parse_term_node\\(\\) should return array but returns null\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Method WXR_Importer\\:\\:post_exists\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Method WXR_Importer\\:\\:post_process\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Method WXR_Importer\\:\\:post_process_comments\\(\\) has parameter \\$todo with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Method WXR_Importer\\:\\:post_process_posts\\(\\) has parameter \\$todo with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Method WXR_Importer\\:\\:prefill_existing_comments\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Method WXR_Importer\\:\\:prefill_existing_posts\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Method WXR_Importer\\:\\:prefill_existing_terms\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Method WXR_Importer\\:\\:process_attachment\\(\\) has parameter \\$post with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Method WXR_Importer\\:\\:process_author\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Method WXR_Importer\\:\\:process_author\\(\\) has parameter \\$meta with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Method WXR_Importer\\:\\:process_author\\(\\) should return bool but return statement is missing\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Method WXR_Importer\\:\\:process_comments\\(\\) has parameter \\$comments with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Method WXR_Importer\\:\\:process_comments\\(\\) has parameter \\$post with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Method WXR_Importer\\:\\:process_comments\\(\\) should return int\\|WP_Error but returns false\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Method WXR_Importer\\:\\:process_menu_item_meta\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Method WXR_Importer\\:\\:process_menu_item_meta\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Method WXR_Importer\\:\\:process_menu_item_meta\\(\\) has parameter \\$meta with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Method WXR_Importer\\:\\:process_post\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Method WXR_Importer\\:\\:process_post\\(\\) has parameter \\$comments with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Method WXR_Importer\\:\\:process_post\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Method WXR_Importer\\:\\:process_post\\(\\) has parameter \\$meta with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Method WXR_Importer\\:\\:process_post\\(\\) has parameter \\$terms with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Method WXR_Importer\\:\\:process_post_meta\\(\\) has parameter \\$meta with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Method WXR_Importer\\:\\:process_post_meta\\(\\) has parameter \\$post with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Method WXR_Importer\\:\\:process_post_meta\\(\\) should return int\\|WP_Error but returns false\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Method WXR_Importer\\:\\:process_post_meta\\(\\) should return int\\|WP_Error but returns true\\.$#"
-			count: 2
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Method WXR_Importer\\:\\:process_term\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Method WXR_Importer\\:\\:process_term\\(\\) has parameter \\$meta with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Method WXR_Importer\\:\\:process_term\\(\\) should return bool but return statement is missing\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Method WXR_Importer\\:\\:remap_featured_images\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Method WXR_Importer\\:\\:replace_attachment_urls_in_content\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Method WXR_Importer\\:\\:set_logger\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Method WXR_Importer\\:\\:set_user_mapping\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Method WXR_Importer\\:\\:set_user_mapping\\(\\) has parameter \\$mapping with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Method WXR_Importer\\:\\:set_user_slug_overrides\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Method WXR_Importer\\:\\:sort_comments_by_id\\(\\) has parameter \\$a with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Method WXR_Importer\\:\\:sort_comments_by_id\\(\\) has parameter \\$b with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Method WXR_Importer\\:\\:term_exists\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Method WXR_Importer\\:\\:term_exists\\(\\) should return bool\\|int but returns int\\|string\\|null\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^One or more @param tags has an invalid name or invalid syntax\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^PHPDoc tag @var above a method has no effect\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Parameter \\#1 \\$comment_id of function add_comment_meta expects int, int\\|false given\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Parameter \\#1 \\$node of method WXR_Importer\\:\\:parse_author_node\\(\\) expects object, DOMNode\\|false given\\.$#"
-			count: 3
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Parameter \\#1 \\$node of method WXR_Importer\\:\\:parse_comment_node\\(\\) expects DOMElement, DOMNode given\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Parameter \\#1 \\$node of method WXR_Importer\\:\\:parse_meta_node\\(\\) expects DOMElement, DOMNode given\\.$#"
-			count: 2
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Parameter \\#1 \\$node of method WXR_Importer\\:\\:parse_post_node\\(\\) expects DOMElement, DOMNode\\|false given\\.$#"
-			count: 2
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Parameter \\#1 \\$node of method WXR_Importer\\:\\:parse_term_node\\(\\) expects object, DOMNode\\|false given\\.$#"
-			count: 3
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Parameter \\#1 \\$val \\(string\\) of method WXR_Importer\\:\\:bump_request_timeout\\(\\) should be compatible with parameter \\$val \\(int\\) of method WP_Importer\\:\\:bump_request_timeout\\(\\)$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Parameter \\#2 \\$callback of function uksort expects callable\\(int\\|string, int\\|string\\)\\: int, array\\{\\$this\\(WXR_Importer\\), 'cmpr_strlen'\\} given\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Parameter \\#2 \\$comment_id of method WXR_Importer\\:\\:mark_comment_exists\\(\\) expects int, int\\|false given\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Parameter \\#2 \\$meta of method WXR_Importer\\:\\:process_attachment\\(\\) expects string, array given\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Parameter \\#3 \\$taxonomy of function wp_set_post_terms expects string, int\\|string given\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Parameter \\#4 \\$post_exists of method WXR_Importer\\:\\:process_comments\\(\\) expects bool, int\\<min, \\-1\\>\\|int\\<1, max\\>\\|true given\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Property WXR_Import_Info\\:\\:\\$generator \\(Generator\\) does not accept string\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Property WXR_Import_Info\\:\\:\\$home \\(Home\\) does not accept string\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Property WXR_Import_Info\\:\\:\\$siteurl \\(Site\\) does not accept string\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Property WXR_Import_Info\\:\\:\\$title \\(Title\\) does not accept string\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Property WXR_Import_Info\\:\\:\\$version \\(Version\\) does not accept string\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Property WXR_Importer\\:\\:\\$categories type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Property WXR_Importer\\:\\:\\$exists type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Property WXR_Importer\\:\\:\\$featured_images type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Property WXR_Importer\\:\\:\\$logger \\(WP_Importer_Logger\\) does not accept object\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Property WXR_Importer\\:\\:\\$mapping type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Property WXR_Importer\\:\\:\\$menu_item_orphans type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Property WXR_Importer\\:\\:\\$missing_menu_items type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Property WXR_Importer\\:\\:\\$processed_menu_items type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Property WXR_Importer\\:\\:\\$processed_posts type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Property WXR_Importer\\:\\:\\$processed_terms type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Property WXR_Importer\\:\\:\\$requires_remapping type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Property WXR_Importer\\:\\:\\$tags type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Property WXR_Importer\\:\\:\\$url_remap type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Property WXR_Importer\\:\\:\\$user_slug_override type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Return type \\(string\\) of method WXR_Importer\\:\\:cmpr_strlen\\(\\) should be compatible with return type \\(int\\) of method WP_Importer\\:\\:cmpr_strlen\\(\\)$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Return type of call to function wp_slash contains unresolvable type\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Undefined variable\\: \\$comment_ID$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Undefined variable\\: \\$item$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^is_wp_error\\(array\\) will always evaluate to false\\.$#"
-			count: 6
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^is_wp_error\\(bool\\) will always evaluate to false\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^is_wp_error\\(int\\<0, max\\>\\) will always evaluate to false\\.$#"
-			count: 1
-			path: inc/importers/wxr-importer/class-wxr-importer.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:get_sync_complete_message\\(\\)\\.$#"
-			count: 1
-			path: inc/includes/templates.php
 
 		-
 			message: "#^Call to an undefined method object\\:\\:get_white_label_name\\(\\)\\.$#"

@@ -24,6 +24,12 @@ class ControlSync {
 				return;
 			}
 
+			if ( controlWrapper.dataset.isFrozen === 'true' ) {
+				controlWrapper.dataset.isFrozen = false;
+
+				return;
+			}
+
 			if ( currentStatus === 'error' && ! new ControlMeta( controlWrapper ).allowRetry() ) {
 				return;
 			}

@@ -54,14 +54,14 @@ final class BlockTypesController {
 		add_action( 'woocommerce_delete_product_transients', array( $this, 'delete_product_transients' ) );
 		add_filter(
 			'woocommerce_is_checkout',
-			function( $return ) {
-				return $return || $this->has_block_variation( 'woocommerce/classic-shortcode', 'shortcode', 'checkout' );
+			function ( $ret ) {
+				return $ret || $this->has_block_variation( 'woocommerce/classic-shortcode', 'shortcode', 'checkout' );
 			}
 		);
 		add_filter(
 			'woocommerce_is_cart',
-			function( $return ) {
-				return $return || $this->has_block_variation( 'woocommerce/classic-shortcode', 'shortcode', 'cart' );
+			function ( $ret ) {
+				return $ret || $this->has_block_variation( 'woocommerce/classic-shortcode', 'shortcode', 'cart' );
 			}
 		);
 	}
@@ -225,6 +225,7 @@ final class BlockTypesController {
 			'CatalogSorting',
 			'ClassicTemplate',
 			'ClassicShortcode',
+			'ComingSoon',
 			'CustomerAccount',
 			'FeaturedCategory',
 			'FeaturedProduct',
@@ -233,13 +234,17 @@ final class BlockTypesController {
 			'MiniCart',
 			'StoreNotices',
 			'PriceFilter',
-			'ProductAddToCart',
 			'ProductBestSellers',
 			'ProductButton',
 			'ProductCategories',
 			'ProductCategory',
 			'ProductCollection',
 			'ProductCollectionNoResults',
+			'ProductGallery',
+			'ProductGalleryLargeImage',
+			'ProductGalleryLargeImageNextPrevious',
+			'ProductGalleryPager',
+			'ProductGalleryThumbnails',
 			'ProductImage',
 			'ProductImageGallery',
 			'ProductNew',
@@ -281,6 +286,8 @@ final class BlockTypesController {
 			'OrderConfirmation\BillingWrapper',
 			'OrderConfirmation\ShippingWrapper',
 			'OrderConfirmation\AdditionalInformation',
+			'OrderConfirmation\AdditionalFieldsWrapper',
+			'OrderConfirmation\AdditionalFields',
 		);
 
 		$block_types = array_merge(
@@ -291,17 +298,12 @@ final class BlockTypesController {
 		);
 
 		if ( Package::feature()->is_experimental_build() ) {
-			$block_types[] = 'ProductGallery';
-			$block_types[] = 'ProductGalleryLargeImage';
-			$block_types[] = 'ProductGalleryLargeImageNextPrevious';
-			$block_types[] = 'ProductGalleryPager';
-			$block_types[] = 'ProductGalleryThumbnails';
-			$block_types[] = 'CollectionFilters';
-			$block_types[] = 'CollectionStockFilter';
-			$block_types[] = 'CollectionPriceFilter';
-			$block_types[] = 'CollectionAttributeFilter';
-			$block_types[] = 'CollectionRatingFilter';
-			$block_types[] = 'CollectionActiveFilters';
+			$block_types[] = 'ProductFilter';
+			$block_types[] = 'ProductFilterStockStatus';
+			$block_types[] = 'ProductFilterPrice';
+			$block_types[] = 'ProductFilterAttribute';
+			$block_types[] = 'ProductFilterRating';
+			$block_types[] = 'ProductFilterActive';
 		}
 
 		/**
@@ -342,11 +344,12 @@ final class BlockTypesController {
 					'OrderConfirmation\BillingWrapper',
 					'OrderConfirmation\ShippingWrapper',
 					'OrderConfirmation\AdditionalInformation',
+					'OrderConfirmation\AdditionalFieldsWrapper',
+					'OrderConfirmation\AdditionalFields',
 				)
 			);
 		}
 
 		return $block_types;
 	}
-
 }

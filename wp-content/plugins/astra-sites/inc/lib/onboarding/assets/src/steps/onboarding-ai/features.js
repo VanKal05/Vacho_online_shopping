@@ -6,13 +6,16 @@ import {
 	SquaresPlusIcon,
 	CheckIcon,
 	ChatBubbleLeftEllipsisIcon,
-	WrenchIcon
+	WrenchIcon,
 } from '@heroicons/react/24/outline';
 import { useDispatch, useSelect } from '@wordpress/data';
+import { __ } from '@wordpress/i18n';
 import apiFetch from '@wordpress/api-fetch';
 import { STORE_KEY } from './store';
 import { classNames } from './helpers';
 import NavigationButtons from './navigation-buttons';
+import { useStateValue } from '../../store/store';
+import { limitExceeded, setToSessionStorage } from './utils/helpers';
 
 const fetchStatus = {
 	fetching: 'fetching',
@@ -25,10 +28,11 @@ const ICON_SET = {
 	'squares-plus': SquaresPlusIcon,
 	funnel: FunnelIcon,
 	'play-circle': PlayCircleIcon,
-	'live-chat' : ChatBubbleLeftEllipsisIcon,
+	'live-chat': ChatBubbleLeftEllipsisIcon,
 };
 
 const Features = () => {
+	const [ , dispatch ] = useStateValue();
 	const {
 		setSiteFeatures,
 		storeSiteFeatures,
@@ -47,26 +51,33 @@ const Features = () => {
 			businessDetails,
 			businessContact,
 			selectedTemplate,
+			siteLanguage,
+			templateList,
 		},
+		loadingNextStep,
 	} = useSelect( ( select ) => {
-		const { getSiteFeatures, getAIStepData } = select( STORE_KEY );
+		const { getSiteFeatures, getAIStepData, getLoadingNextStep } =
+			select( STORE_KEY );
 
 		return {
 			siteFeatures: getSiteFeatures(),
 			stepsData: getAIStepData(),
+			loadingNextStep: getLoadingNextStep(),
 		};
 	}, [] );
 	const [ isFetchingStatus, setIsFetchingStatus ] = useState(
 		fetchStatus.fetching
 	);
 	const [ isInProgress, setIsInProgress ] = useState( false );
+	const selectedTemplateItem = templateList?.find(
+		( item ) => item?.uuid === selectedTemplate
+	);
 
 	const fetchSiteFeatures = async () => {
 		const response = await apiFetch( {
 			path: 'zipwp/v1/site-features',
 			method: 'GET',
 			headers: {
-				'content-type': 'application/json',
 				'X-WP-Nonce': astraSitesVars.rest_api_nonce,
 			},
 		} );
@@ -74,6 +85,28 @@ const Features = () => {
 		if ( response?.success ) {
 			// Store to state.
 			storeSiteFeatures( response.data.data );
+
+			// Chemark based on template features settings.
+			const featuresMapping = {
+				blog_enabled: 'blog',
+				donation_enabled: 'donations',
+				store_enabled: 'sales-funnels',
+			};
+
+			Object.entries( featuresMapping ).forEach(
+				( [ featureKey, featureId ] ) => {
+					if (
+						selectedTemplateItem?.features?.[ featureKey ] === 'yes'
+					) {
+						const featureIndex = siteFeatures.findIndex(
+							( item ) => item.id === featureId
+						);
+						if ( featureIndex !== -1 ) {
+							setSiteFeatures( featureId );
+						}
+					}
+				}
+			);
 
 			// Set status to fetched.
 			return setIsFetchingStatus( fetchStatus.fetched );
@@ -86,93 +119,93 @@ const Features = () => {
 		setSiteFeatures( featureId );
 	};
 
-	const limitExceeded = () => {
-		const zipPlans = astraSitesVars?.zip_plans;
-		const sitesRemaining = zipPlans?.plan_data?.remaining;
-		const aiSitesRemainingCount = sitesRemaining?.ai_sites_count;
-		const allSitesRemainingCount = sitesRemaining?.all_sites_count;
+	const handleGenerateContent =
+		( skip = false ) =>
+		async () => {
+			if ( isInProgress ) {
+				return;
+			}
 
-		if (
-			( typeof aiSitesRemainingCount === 'number' &&
-				aiSitesRemainingCount <= 0 ) ||
-			( typeof allSitesRemainingCount === 'number' &&
-				allSitesRemainingCount <= 0 )
-		) {
-			return true;
-		}
+			if ( limitExceeded() ) {
+				setLimitExceedModal( {
+					open: true,
+				} );
+				return;
+			}
+			setIsInProgress( true );
 
-		return false;
-	};
+			const formData = new window.FormData();
 
-	const handleGenerateContent = async () => {
-		if ( isInProgress ) {
-			return;
-		}
+			formData.append( 'action', 'ast-block-templates-ai-content' );
+			formData.append( 'security', astraSitesVars.ai_content_ajax_nonce );
+			formData.append( 'business_name', businessName );
+			formData.append( 'business_desc', businessDetails );
+			formData.append( 'business_category', businessType );
+			formData.append( 'images', JSON.stringify( selectedImages ) );
+			formData.append( 'image_keywords', JSON.stringify( keywords ) );
+			formData.append(
+				'business_address',
+				businessContact?.address || ''
+			);
+			formData.append( 'business_phone', businessContact?.phone || '' );
+			formData.append( 'business_email', businessContact?.email || '' );
+			formData.append(
+				'social_profiles',
+				JSON.stringify( businessContact?.socialMedia || [] )
+			);
 
-		if ( limitExceeded() ) {
-			setLimitExceedModal( {
-				open: true,
-			} );
-			return;
-		}
-		setIsInProgress( true );
-
-		const formData = new window.FormData();
-
-		formData.append( 'action', 'ast-block-templates-ai-content' );
-		formData.append( 'security', astraSitesVars.ai_content_ajax_nonce );
-		formData.append( 'business_name', businessName );
-		formData.append( 'business_desc', businessDetails );
-		formData.append( 'business_category', businessType.slug );
-		formData.append( 'images', JSON.stringify( selectedImages ) );
-		formData.append( 'image_keywords', JSON.stringify( keywords ) );
-		formData.append( 'business_address', businessContact?.address || '' );
-		formData.append( 'business_phone', businessContact?.phone || '' );
-		formData.append( 'business_email', businessContact?.email || '' );
-		formData.append(
-			'social_profiles',
-			JSON.stringify( businessContact?.socialMedia || [] )
-		);
-
-		const response = await apiFetch( {
-			path: 'zipwp/v1/site',
-			method: 'POST',
-			data: {
+			const createSitePayload = {
 				template: selectedTemplate,
 				business_email: businessContact?.email,
 				business_description: businessDetails,
 				business_name: businessName,
 				business_phone: businessContact?.phone,
 				business_address: businessContact?.address,
-				business_category: businessType.slug,
-				business_category_name: businessType.name,
+				business_category: businessType,
 				image_keyword: keywords,
 				social_profiles: businessContact?.socialMedia,
+				language: siteLanguage,
 				images: selectedImages,
-				site_features: siteFeatures
-					.filter( ( feature ) => feature.enabled )
-					.map( ( feature ) => feature.id ),
-			},
-		} );
+				site_features: skip
+					? []
+					: siteFeatures
+							.filter( ( feature ) => feature.enabled )
+							.map( ( feature ) => feature.id ),
+			};
+			setToSessionStorage( 'create-site-payload', createSitePayload );
 
-		if ( response.success ) {
-			// Close the onboarding screen on success.
-			setWebsiteInfoAIStep( response.data.data );
-			setNextAIStep();
-		} else {
-			// Handle error.
-			const message = response?.data?.data;
-			if (
-				typeof message === 'string' &&
-				message.includes( 'Usage limit' )
-			) {
-				setLimitExceedModal( {
-					open: true,
+			const response = await apiFetch( {
+				path: 'zipwp/v1/site',
+				method: 'POST',
+				data: createSitePayload,
+			} );
+
+			if ( response.success ) {
+				const websiteData = response.data.data.site;
+				// Close the onboarding screen on success.
+				setWebsiteInfoAIStep( websiteData );
+				dispatch( {
+					type: 'set',
+					templateId: websiteData.uuid,
+					importErrorMessages: {},
+					importErrorResponse: [],
+					importError: false,
 				} );
+				setNextAIStep();
+			} else {
+				// Handle error.
+				const message = response?.data?.data;
+				if (
+					typeof message === 'string' &&
+					message.includes( 'Usage limit' )
+				) {
+					setLimitExceedModal( {
+						open: true,
+					} );
+				}
+				setIsInProgress( false );
 			}
-			setIsInProgress( false );
-		}
-	};
+		};
 
 	useEffect( () => {
 		if ( isFetchingStatus === fetchStatus.fetching ) {
@@ -184,10 +217,13 @@ const Features = () => {
 		<div className="grid grid-cols-1 gap-8 auto-rows-auto px-10 pb-10 pt-12 max-w-[880px] w-full mx-auto">
 			<div className="space-y-4">
 				<h1 className="text-3xl font-bold text-zip-app-heading">
-					Select features
+					{ __( 'Select features', 'astra-sites' ) }
 				</h1>
 				<p className="m-0 p-0 text-base font-normal text-zip-body-text">
-					Select the features you want on this website
+					{ __(
+						'Select the features you want on this website',
+						'astra-sites'
+					) }
 				</p>
 			</div>
 
@@ -203,6 +239,7 @@ const Features = () => {
 									'relative py-4 pl-4 pr-5 rounded-md shadow-sm border border-solid bg-white border-transparent transition-colors duration-150 ease-in-out',
 									feature.enabled && 'border-accent-st'
 								) }
+								data-disabled={ loadingNextStep }
 							>
 								<div className="flex items-start justify-start gap-3">
 									<div className="p-0.5 shrink-0">
@@ -213,7 +250,7 @@ const Features = () => {
 											<WrenchIcon className="text-zip-body-text w-7 h-7" />
 										) }
 									</div>
-									<div className="space-y-1">
+									<div className="space-y-1 mr-5">
 										<p className="p-0 m-0 !text-base !font-semibold !text-zip-app-heading">
 											{ feature.title }
 										</p>
@@ -247,7 +284,9 @@ const Features = () => {
 					} ) }
 				{ /* Skeleton */ }
 				{ isFetchingStatus === fetchStatus.fetching &&
-					Array.from( { length: Object.keys(ICON_SET).length } ).map( ( _, index ) => (
+					Array.from( {
+						length: Object.keys( ICON_SET ).length,
+					} ).map( ( _, index ) => (
 						<div
 							key={ index }
 							className="relative py-4 pl-4 pr-5 rounded-md shadow-sm border border-solid bg-white border-transparent"
@@ -270,7 +309,10 @@ const Features = () => {
 			{ isFetchingStatus === fetchStatus.error && (
 				<div className="flex items-center justify-center w-full px-5 py-5">
 					<p className="text-secondary-text text-center px-10 py-5 border-2 border-dashed border-border-primary rounded-md">
-						Something went wrong. Please try again later.
+						{ __(
+							'Something went wrong. Please try again later.',
+							'astra-sites'
+						) }
 					</p>
 				</div>
 			) }
@@ -281,8 +323,10 @@ const Features = () => {
 			<NavigationButtons
 				continueButtonText="Start Building"
 				onClickPrevious={ setPreviousAIStep }
-				onClickContinue={ handleGenerateContent }
+				onClickContinue={ handleGenerateContent() }
+				onClickSkip={ handleGenerateContent( true ) }
 				loading={ isInProgress }
+				skipButtonText={ __( 'Skip & Start Building', 'astra-sites' ) }
 			/>
 		</div>
 	);

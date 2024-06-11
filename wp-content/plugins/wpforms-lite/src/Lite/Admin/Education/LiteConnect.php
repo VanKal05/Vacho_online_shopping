@@ -158,20 +158,21 @@ class LiteConnect implements Education\EducationInterface {
 
 		$min = wpforms_get_min_suffix();
 
-		// jQuery confirm.
+		// jQuery.Confirm Reloaded.
 		wp_enqueue_script(
 			'jquery-confirm',
 			WPFORMS_PLUGIN_URL . 'assets/lib/jquery.confirm/jquery-confirm.min.js',
 			[ 'jquery' ],
-			'3.3.4',
+			'1.0.0',
 			true
 		);
 
+		// jQuery.Confirm Reloaded.
 		wp_enqueue_style(
 			'jquery-confirm',
 			WPFORMS_PLUGIN_URL . 'assets/lib/jquery.confirm/jquery-confirm.min.css',
 			[],
-			'3.3.4'
+			'1.0.0'
 		);
 
 		// FontAwesome.

@@ -1,0 +1,23 @@
+*** Variation Swatches for WooCommerce ***
+
+2024-06-06 - version 2.1.0
+
+* Fixed - PHPCS Issues.
+* Updated - Add 3rd param to `get_swatch_data()` method.
+* Added - `wpml-config.xml` file added to support WPML.
+* Added - WooCommerce 8.9+ Compatibility.
+* Updated - Modify theme support feature. to `woo_variation_swatches`. Example: `add_theme_support( 'woo_variation_swatches', array( 'enable_stylesheet' => 'no', 'enable_tooltip' => 'no' ) );` for theme developer default setting control.
+
+2024-04-23 - version 2.0.31
+
+* Added - WordPress 6.5+ Compatibility.
+* Added - WooCommerce 8.8+ Compatibility.
+
+2023-01-15 - version 2.0.30
+
+* Added - WooCommerce 8.4+ Compatibility.
+
+2023-11-21 - version 2.0.29
+
+* Update - WordPress 6.4+ Compatibility.
+* Update - WooCommerce 8.3+ Compatibility.

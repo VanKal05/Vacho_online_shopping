@@ -251,7 +251,8 @@ $	 */
 			];
 
 			if ( ! empty( trim( $this->statement_descriptor ) ) ) {
-				$data['statement_descriptor'] = $this->statement_descriptor;
+				$data['statement_descriptor_suffix'] = $this->statement_descriptor;
+				$data['statement_descriptor']        = $this->statement_descriptor;
 			}
 
 			if ( $this->should_save_card( $order_id ) ) {
@@ -262,7 +263,7 @@ $	 */
 			Logger::info( sprintf( __( 'Begin processing payment with new payment method for order %1$1s for the amount of %2$2s', 'checkout-plugins-stripe-woo' ), $order_id, $order->get_total() ) );
 			$intent_data = $this->get_payment_intent( $order_id, $idempotency_key, apply_filters( 'cpsw_card_payment_intent_post_data', $data ) );
 			if ( $intent_data ) {
-				
+
 				$response_data = [
 					'result'         => 'success',
 					'redirect'       => $this->get_return_url( $order ),
@@ -402,6 +403,8 @@ $	 */
 
 			// translators: %s: payment fail message.
 			wc_add_notice( sprintf( __( 'Payment failed. %s', 'checkout-plugins-stripe-woo' ), Helper::get_localized_messages( $code, $message ) ), 'error' );
+			/* translators: %1$1s order id, %2$2s payment fail message.  */
+			Logger::error( sprintf( __( 'Payment failed for Order id - %1$1s. %2$2s', 'checkout-plugins-stripe-woo' ), $order_id, Helper::get_localized_messages( $code, $message ) ) );
 			$redirect_url = wc_get_checkout_url();
 		}
 		wp_safe_redirect( $redirect_url );

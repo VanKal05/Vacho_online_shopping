@@ -54,13 +54,15 @@ class WC_Helper {
 	 * Include supporting helper classes.
 	 */
 	protected static function includes() {
-		include_once dirname( __FILE__ ) . '/class-wc-helper-options.php';
-		include_once dirname( __FILE__ ) . '/class-wc-helper-api.php';
-		include_once dirname( __FILE__ ) . '/class-wc-helper-updater.php';
-		include_once dirname( __FILE__ ) . '/class-wc-helper-plugin-info.php';
-		include_once dirname( __FILE__ ) . '/class-wc-helper-compat.php';
-		include_once dirname( __FILE__ ) . '/class-wc-helper-admin.php';
-		include_once dirname( __FILE__ ) . '/class-wc-helper-subscriptions-api.php';
+		include_once __DIR__ . '/class-wc-helper-options.php';
+		include_once __DIR__ . '/class-wc-helper-api.php';
+		include_once __DIR__ . '/class-wc-woo-update-manager-plugin.php';
+		include_once __DIR__ . '/class-wc-helper-updater.php';
+		include_once __DIR__ . '/class-wc-plugin-api-updater.php';
+		include_once __DIR__ . '/class-wc-helper-compat.php';
+		include_once __DIR__ . '/class-wc-helper-admin.php';
+		include_once __DIR__ . '/class-wc-helper-subscriptions-api.php';
+		include_once __DIR__ . '/class-wc-helper-orders-api.php';
 	}
 
 	/**
@@ -168,7 +170,7 @@ class WC_Helper {
 			}
 
 			$subscription['download_primary'] = true;
-			$subscription['download_url']     = 'https://woo.com/my-account/downloads/';
+			$subscription['download_url']     = 'https://woocommerce.com/my-account/downloads/';
 			if ( ! $subscription['local']['installed'] && ! empty( $updates[ $subscription['product_id'] ] ) ) {
 				$subscription['download_url'] = $updates[ $subscription['product_id'] ]['package'];
 			}
@@ -224,7 +226,7 @@ class WC_Helper {
 					'message'      => sprintf( __( 'This subscription has expired. Please <strong>renew</strong> to receive updates and support.', 'woocommerce' ) ),
 					'button_label' => __( 'Renew', 'woocommerce' ),
 					'button_url'   => self::add_utm_params_to_url_for_subscription_link(
-						'https://woo.com/my-account/my-subscriptions/',
+						'https://woocommerce.com/my-account/my-subscriptions/',
 						'renew'
 					),
 					'status'       => 'expired',
@@ -239,7 +241,7 @@ class WC_Helper {
 					'message'      => __( 'Subscription is <strong>expiring</strong> soon.', 'woocommerce' ),
 					'button_label' => __( 'Enable auto-renew', 'woocommerce' ),
 					'button_url'   => self::add_utm_params_to_url_for_subscription_link(
-						'https://woo.com/my-account/my-subscriptions/',
+						'https://woocommerce.com/my-account/my-subscriptions/',
 						'auto-renew'
 					),
 					'status'       => 'expired',
@@ -253,7 +255,7 @@ class WC_Helper {
 					'message'      => sprintf( __( 'This subscription is expiring soon. Please <strong>renew</strong> to continue receiving updates and support.', 'woocommerce' ) ),
 					'button_label' => __( 'Renew', 'woocommerce' ),
 					'button_url'   => self::add_utm_params_to_url_for_subscription_link(
-						'https://woo.com/my-account/my-subscriptions/',
+						'https://woocommerce.com/my-account/my-subscriptions/',
 						'renew'
 					),
 					'status'       => 'expired',
@@ -315,7 +317,7 @@ class WC_Helper {
 			} else {
 				$action = array(
 					/* translators: 1: subscriptions docs 2: subscriptions docs */
-					'message'      => sprintf( __( 'To receive updates and support for this extension, you need to <strong>purchase</strong> a new subscription or consolidate your extensions to one connected account by <strong><a href="%1$s" title="Sharing Docs">sharing</a> or <a href="%2$s" title="Transferring Docs">transferring</a></strong> this extension to this connected account.', 'woocommerce' ), 'https://woo.com/document/managing-woocommerce-com-subscriptions/#section-10', 'https://woo.com/document/managing-woocommerce-com-subscriptions/#section-5' ),
+					'message'      => sprintf( __( 'To receive updates and support for this extension, you need to <strong>purchase</strong> a new subscription or consolidate your extensions to one connected account by <strong><a href="%1$s" title="Sharing Docs">sharing</a> or <a href="%2$s" title="Transferring Docs">transferring</a></strong> this extension to this connected account.', 'woocommerce' ), 'https://woocommerce.com/document/managing-woocommerce-com-subscriptions/#section-10', 'https://woocommerce.com/document/managing-woocommerce-com-subscriptions/#section-5' ),
 					'button_label' => __( 'Purchase', 'woocommerce' ),
 					'button_url'   => self::add_utm_params_to_url_for_subscription_link(
 						$data['_product_url'],
@@ -353,7 +355,7 @@ class WC_Helper {
 	/**
 	 * Add tracking parameters to buttons (Renew, Purchase, etc.) on subscriptions page
 	 *
-	 * @param string $url URL to product page or to https://woo.com/my-account/my-subscriptions/.
+	 * @param string $url URL to product page or to https://woocommerce.com/my-account/my-subscriptions/.
 	 * @param string $utm_content value of utm_content query parameter used for tracking
 	 *
 	 * @return string URL including utm parameters for tracking
@@ -407,7 +409,7 @@ class WC_Helper {
 		}
 
 		$filters = array_fill_keys( array_keys( self::get_filters() ), 0 );
-		if ( empty( $subscriptions ) ) {
+		if ( ! is_array( $subscriptions ) || empty( $subscriptions ) ) {
 			return array();
 		}
 
@@ -614,14 +616,14 @@ class WC_Helper {
 
 			case 'helper-connected':
 				$notices[] = array(
-					'message' => __( 'You have successfully connected your store to Woo.com', 'woocommerce' ),
+					'message' => __( 'You have successfully connected your store to WooCommerce.com', 'woocommerce' ),
 					'type'    => 'updated',
 				);
 				break;
 
 			case 'helper-disconnected':
 				$notices[] = array(
-					'message' => __( 'You have successfully disconnected your store from Woo.com', 'woocommerce' ),
+					'message' => __( 'You have successfully disconnected your store from WooCommerce.com', 'woocommerce' ),
 					'type'    => 'updated',
 				);
 				break;
@@ -699,40 +701,53 @@ class WC_Helper {
 				array(
 					'page'    => 'wc-addons',
 					'section' => 'helper',
-				),
-				isset( $_GET['redirect-to-wc-admin'] ),
-				sanitize_text_field( wp_unslash( $_GET['install'] ) )
+				)
 			)
 		);
-		// phpcs:enable WordPress.Security.NonceVerification.Recommended
 	}
 
 	/**
 	 * Get helper redirect URL.
 	 *
-	 * @param array  $args Query args.
-	 * @param bool   $redirect_to_wc_admin Whether to redirect to WC Admin.
-	 * @param string $install_product_key Optional Product key to install.
+	 * @param array $args Query args.
 	 * @return string
 	 */
-	private static function get_helper_redirect_url( $args = array(), $redirect_to_wc_admin = false, $install_product_key = '' ) {
+	private static function get_helper_redirect_url( $args = array() ) {
 		global $current_screen;
+
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended
+		$redirect_admin_url = isset( $_GET['redirect_admin_url'] )
+			? esc_url_raw(
+				urldecode(
+					// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+					wp_unslash( $_GET['redirect_admin_url'] )
+				)
+			)
+			: '';
+		$install_product_key = isset( $_GET['install'] ) ? sanitize_text_field( wp_unslash( $_GET['install'] ) ) : '';
+		// phpcs:enable WordPress.Security.NonceVerification.Recommended
+
 		if (
 			'woocommerce_page_wc-addons' === $current_screen->id &&
 			FeaturesUtil::feature_is_enabled( 'marketplace' ) &&
 			(
-				true === $redirect_to_wc_admin ||
+				false === empty( $redirect_admin_url ) ||
 				false === empty( $install_product_key )
 			)
 		) {
-			$new_url = add_query_arg(
-				array(
-					'page' => 'wc-admin',
-					'tab'  => 'my-subscriptions',
-					'path' => rawurlencode( '/extensions' ),
-				),
-				admin_url( 'admin.php' )
-			);
+			if ( strpos( $redirect_admin_url, admin_url( 'admin.php' ) ) === 0 ) {
+				$new_url = $redirect_admin_url;
+			} else {
+				$new_url = add_query_arg(
+					array(
+						'page' => 'wc-admin',
+						'tab'  => 'my-subscriptions',
+						'path' => rawurlencode( '/extensions' ),
+					),
+					admin_url( 'admin.php' )
+				);
+			}
+
 			if ( ! empty( $install_product_key ) ) {
 				$new_url = add_query_arg(
 					array(
@@ -765,10 +780,6 @@ class WC_Helper {
 			'wc-helper-return' => 1,
 			'wc-helper-nonce'  => wp_create_nonce( 'connect' ),
 		);
-
-		if ( isset( $_GET['redirect-to-wc-admin'] ) ) {
-			$redirect_url_args['redirect-to-wc-admin'] = 1;
-		}
 
 		if ( isset( $_GET['install'] ) ) {
 			$redirect_url_args['install'] = sanitize_text_field( wp_unslash( $_GET['install'] ) );
@@ -809,9 +820,20 @@ class WC_Helper {
 
 		$connect_url = add_query_arg(
 			array(
-				'home_url'     => rawurlencode( home_url() ),
-				'redirect_uri' => rawurlencode( $redirect_uri ),
-				'secret'       => rawurlencode( $secret ),
+				'home_url'           => rawurlencode( home_url() ),
+				'redirect_uri'       => rawurlencode( $redirect_uri ),
+				'secret'             => rawurlencode( $secret ),
+				'redirect_admin_url' => isset( $_GET['redirect_admin_url'] )
+					? rawurlencode(
+						esc_url_raw(
+							urldecode(
+								// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+								wp_unslash( $_GET['redirect_admin_url'] )
+							)
+						)
+					)
+					: '',
+				'wum-installed'      => WC_Woo_Update_Manager_Plugin::is_plugin_installed() ? '1' : '0',
 			),
 			WC_Helper_API::url( 'oauth/authorize' )
 		);
@@ -821,7 +843,7 @@ class WC_Helper {
 	}
 
 	/**
-	 * Return from Woo.com OAuth flow.
+	 * Return from WooCommerce.com OAuth flow.
 	 */
 	private static function _helper_auth_return() {
 		if ( empty( $_GET['wc-helper-nonce'] ) || ! wp_verify_nonce( wp_unslash( $_GET['wc-helper-nonce'] ), 'connect' ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
@@ -841,9 +863,7 @@ class WC_Helper {
 					array(
 						'page'    => 'wc-addons',
 						'section' => 'helper',
-					),
-					isset( $_GET['redirect-to-wc-admin'] ),
-					isset( $_GET['install'] ) ? sanitize_text_field( wp_unslash( $_GET['install'] ) ) : ''
+					)
 				)
 			);
 			die();
@@ -892,7 +912,7 @@ class WC_Helper {
 			WC_Tracker::send_tracking_data( true );
 		}
 
-		// If connecting through in-app purchase, redirects back to Woo.com
+		// If connecting through in-app purchase, redirects back to WooCommerce.com
 		// for product installation.
 		if ( ! empty( $_GET['wccom-install-url'] ) ) {
 			wp_redirect( wp_unslash( $_GET['wccom-install-url'] ) );
@@ -905,16 +925,14 @@ class WC_Helper {
 					'page'             => 'wc-addons',
 					'section'          => 'helper',
 					'wc-helper-status' => 'helper-connected',
-				),
-				isset( $_GET['redirect-to-wc-admin'] ),
-				isset( $_GET['install'] ) ? sanitize_text_field( wp_unslash( $_GET['install'] ) ) : ''
+				)
 			)
 		);
 		die();
 	}
 
 	/**
-	 * Disconnect from Woo.com, clear OAuth tokens.
+	 * Disconnect from WooCommerce.com, clear OAuth tokens.
 	 */
 	private static function _helper_auth_disconnect() {
 		if ( empty( $_GET['wc-helper-nonce'] ) || ! wp_verify_nonce( wp_unslash( $_GET['wc-helper-nonce'] ), 'disconnect' ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
@@ -932,9 +950,7 @@ class WC_Helper {
 				'page'             => 'wc-addons',
 				'section'          => 'helper',
 				'wc-helper-status' => 'helper-disconnected',
-			),
-			isset( $_GET['redirect-to-wc-admin'] ),
-			isset( $_GET['install'] ) ? sanitize_text_field( wp_unslash( $_GET['install'] ) ) : ''
+			)
 		);
 
 		self::disconnect();
@@ -960,9 +976,7 @@ class WC_Helper {
 				'section'          => 'helper',
 				'filter'           => self::get_current_filter(),
 				'wc-helper-status' => 'helper-refreshed',
-			),
-			isset( $_GET['redirect-to-wc-admin'] ),
-			isset( $_GET['install'] ) ? sanitize_text_field( wp_unslash( $_GET['install'] ) ) : ''
+			)
 		);
 
 		wp_safe_redirect( $redirect_uri );
@@ -1181,34 +1195,18 @@ class WC_Helper {
 	 * Get a subscriptions install URL.
 	 *
 	 * @param string $product_key Subscription product key.
+	 * @param string $product_slug Subscription product slug.
 	 * @return string
 	 */
-	public static function get_subscription_install_url( $product_key ) {
-		$install_url_response = WC_Helper_API::post(
-			'install-url',
+	public static function get_subscription_install_url( $product_key, $product_slug ) {
+		$install_url = add_query_arg(
 			array(
-				'authenticated' => true,
-				'body'          => wp_json_encode(
-					array(
-						'product_key' => $product_key,
-						'wc_version'  => WC()->version,
-					)
-				),
-			)
+				'product-key' => rawurlencode( $product_key ),
+			),
+			self::get_install_base_url() . "{$product_slug}/"
 		);
 
-		$code = wp_remote_retrieve_response_code( $install_url_response );
-		if ( 200 !== $code ) {
-			self::log( sprintf( 'Install URL API call returned a non-200 response code (%d)', $code ) );
-			return '';
-		}
-
-		$body = json_decode( wp_remote_retrieve_body( $install_url_response ), true );
-		if ( empty( $body['data']['url'] ) ) {
-			self::log( sprintf( 'Install URL API call returned an invalid body: %s', wp_remote_retrieve_body( $install_url_response ) ) );
-			return '';
-		}
-		return $body['data']['url'];
+		return WC_Helper_API::add_auth_parameters( $install_url );
 	}
 
 	/**
@@ -1449,7 +1447,7 @@ class WC_Helper {
 				if ( is_readable( $txt ) ) {
 					$txt = file_get_contents( $txt );
 					$txt = preg_split( '#\s#', $txt );
-					if ( count( $txt ) >= 2 ) {
+					if ( is_array( $txt ) && count( $txt ) >= 2 ) {
 						$header = sprintf( '%d:%s', $txt[0], $txt[1] );
 					}
 				}
@@ -1505,6 +1503,8 @@ class WC_Helper {
 			$source = 'inbox-notes';
 		elseif ( stripos( $request_uri, 'admin-ajax.php' ) ) :
 			$source = 'heartbeat-api';
+		elseif ( stripos( $request_uri, 'installer' ) ) :
+			$source = 'wccom-site-installer';
 		elseif ( defined( 'WP_CLI' ) && WP_CLI ) :
 			$source = 'wc-cli';
 		endif;
@@ -2244,6 +2244,22 @@ class WC_Helper {
 
 		self::_flush_subscriptions_cache();
 		self::_flush_updates_cache();
+	}
+
+	/**
+	 * Get base URL for plugin auto installer.
+	 *
+	 * @return string
+	 */
+	public static function get_install_base_url() {
+		/**
+		 * Filter the base URL used to install the Woo hosted plugins.
+		 *
+		 * @since 8.7.0
+		 */
+		$woo_com_base_url = apply_filters( 'woo_com_base_url', 'https://woocommerce.com/' );
+
+		return $woo_com_base_url . 'auto-install-init/';
 	}
 }
 

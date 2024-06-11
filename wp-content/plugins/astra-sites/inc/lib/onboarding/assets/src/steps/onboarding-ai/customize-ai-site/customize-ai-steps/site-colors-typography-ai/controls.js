@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
 import { __ } from '@wordpress/i18n';
+import { useEffect, useState } from '@wordpress/element';
 import { useStateValue } from '../../../../../store/store';
 import ColorPalettes from '../../../../../components/color-palettes/color-palettes';
 import {
@@ -8,7 +8,10 @@ import {
 	getColorScheme,
 } from '../../../../../utils/functions';
 import ICONS from '../../../../../../icons';
-import { DARK_PALETTES, LIGHT_PALETTES } from './colors';
+import {
+	DARK_PALETTES,
+	LIGHT_PALETTES,
+} from '../../../../customize-site/customize-steps/site-colors-typography/colors';
 import TypographyWrapper from './typography';
 
 const SiteColorsControls = () => {

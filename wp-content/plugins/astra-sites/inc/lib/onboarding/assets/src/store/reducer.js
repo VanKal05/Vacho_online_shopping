@@ -12,18 +12,23 @@ if ( astraSitesVars.default_page_builder ) {
 			: astraSitesVars.default_page_builder;
 }
 
+export const siteLogoDefault = {
+	id: '',
+	thumbnail: '',
+	url: '',
+	width: 120,
+};
+
 export const initialState = {
 	allSitesData: astraSitesVars.all_sites || {},
 	allCategories: astraSitesVars.allCategories || [],
 	allCategoriesAndTags: astraSitesVars.allCategoriesAndTags || [],
-	currentIndex: currentIndexKey,
+	aiActivePallette: null,
+	aiActiveTypography: null,
+	aiSiteLogo: siteLogoDefault,
+	currentIndex: 'ai-builder' === builderKey ? 0 : currentIndexKey,
 	currentCustomizeIndex: 0,
-	siteLogo: {
-		id: '',
-		thumbnail: '',
-		url: '',
-		width: 120,
-	},
+	siteLogo: siteLogoDefault,
 	activePaletteSlug: 'default',
 	activePalette: {},
 	typography: {},
@@ -104,6 +109,11 @@ export const initialState = {
 	// Search.
 	searchTerms: [],
 	searchTermsWithCount: [],
+	enabledFeatureIds: [],
+	dismissAINotice: astraSitesVars.dismiss_ai_notice,
+
+	// Sync Library.
+	bgSyncInProgress: !! astraSitesVars.bgSyncInProgress,
 };
 
 const reducer = ( state = initialState, { type, ...rest } ) => {
